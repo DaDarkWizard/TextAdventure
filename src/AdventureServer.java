@@ -189,5 +189,4 @@ public final class AdventureServer implements AdventureServerAPI {
 			throw new UnknownConnectionException ( connectionId, "Unknown Connection: " + connectionId );
 		}
 	}
-
 }
