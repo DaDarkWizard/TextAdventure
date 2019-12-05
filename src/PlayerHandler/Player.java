@@ -1,26 +1,34 @@
-package ClientHandler;
+package PlayerHandler;
 
-import ClientHandler.GamePieces.Room;
+import PlayerHandler.GamePieces.Holdable;
+import PlayerHandler.GamePieces.Room;
 
 import java.util.ArrayList;
 
-public class Client {
-    static ArrayList<Client> clients = new ArrayList<>();
+public class Player {
+    static ArrayList<Player> players = new ArrayList<>();
 
     private long connectionID;
     private Commands lastCommand;
-    private ClientStates state = ClientStates.initializing;
+    private PlayerStates state = PlayerStates.initializing;
     private boolean admin = false;
     private String username;
     private String password;
     private Room location;
+    private boolean online = true;
+    private ArrayList<Player> blockedPlayers = new ArrayList<>();
+    private ArrayList<Holdable> items = new ArrayList<>();
 
-    public static ArrayList<Client> getClients() {
-        return clients;
+    public static ArrayList<Player> getPlayers() {
+        return players;
     }
 
     public void setConnectionID(long connectionID) {
         this.connectionID = connectionID;
+    }
+
+    public ArrayList<Holdable> getInventory() {
+        return this.items;
     }
 
     public boolean isAdmin() {
@@ -47,16 +55,16 @@ public class Client {
         this.password = password;
     }
 
-    public Client(long connectionID) {
+    public Player(long connectionID) {
         this.connectionID = connectionID;
-        clients.add(this);
+        players.add(this);
     }
 
-    public void setState(ClientStates newState) {
+    public void setState(PlayerStates newState) {
         this.state = newState;
     }
 
-    public ClientStates getState() {
+    public PlayerStates getState() {
         return this.state;
     }
 
@@ -80,10 +88,34 @@ public class Client {
         this.location = location;
     }
 
-    public static Client findClient(long connectionID) {
-        for (Client client : clients) {
-            if (client.connectionID == connectionID) {
-                return client;
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
+
+    public void blockClient(Player player) {
+        if (!isBlocked(player)) {
+            blockedPlayers.add(player);
+        }
+    }
+
+    public void unblockClient(Player player) {
+        if (isBlocked(player)) {
+            blockedPlayers.remove(player);
+        }
+    }
+
+    public boolean isBlocked(Player player) {
+        return (blockedPlayers.indexOf(player) > -1);
+    }
+
+    public static Player findClient(long connectionID) {
+        for (Player player : players) {
+            if (player.connectionID == connectionID) {
+                return player;
             }
         }
         throw new ClientNotFoundException();

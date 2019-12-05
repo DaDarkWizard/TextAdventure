@@ -1,4 +1,4 @@
-package ClientHandler;
+package PlayerHandler;
 
 public enum Commands {
     north,
@@ -6,8 +6,10 @@ public enum Commands {
     east,
     west,
     skip,
-    PRESERVERMESSAGE,
-    POSTSERVERMESSAGE,
+    say,
+    look,
+    inventory,
+    SERVERMESSAGE,
     SHUTDOWN,
     IPADDRESS
 }

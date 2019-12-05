@@ -1,9 +1,11 @@
-import ClientHandler.Client;
-import ClientHandler.ClientStates;
-import ClientHandler.Commands;
-import ClientHandler.InputHandler;
+import PlayerHandler.Player;
+import PlayerHandler.PlayerStates;
+import PlayerHandler.Commands;
+import PlayerHandler.GamePieces.Room;
+import PlayerHandler.InputHandler;
 
-import java.util.Arrays;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 /*
  * This is an example of how to run the adventure server.
@@ -12,7 +14,9 @@ import java.util.Arrays;
 public class TechAdventure implements ConnectionListener {
     AdventureServer adventureServer = null;
     InputHandler inputHandler = new InputHandler();
-    public String[] serverCommands = {"SHUTDOWN", "IPADDRESS", "SERVERMESSAGE"};
+	private String[] serverCommands = {"SHUTDOWN", "IPADDRESS", "SERVERMESSAGE"};
+	private ArrayList<Room> rooms = new ArrayList<>();
+	private Room startRoom;
 
     public TechAdventure() {
         adventureServer = new AdventureServer();
@@ -20,6 +24,33 @@ public class TechAdventure implements ConnectionListener {
     }
 
     public void start(int port) {
+		Room startRoom = new Room("The Void",
+				"You are in an endless void.\n" +
+						"Looking around, you see nothing, just darkness." +
+						"It is darker than the blackest night of a starless sky.\n" +
+						"Maybe you should ask someone to program something for you to do.",
+				"You see darkness, darker than the blackest night.");
+		rooms.add(startRoom);
+		startRoom.setEast(startRoom);
+		startRoom.setWest(startRoom);
+		startRoom.setNorth(startRoom);
+		startRoom.setSouth(startRoom);
+		inputHandler.setMessageListener(e -> {
+			try {
+				adventureServer.sendMessage(e.getClient().getConnectionID(), e.getMessage());
+			} catch (UnknownConnectionException ex) {
+				ex.printStackTrace();
+			}
+		});
+
+		inputHandler.setServerCommandListener(e -> {
+			try {
+				handleServerCommands(e.getClient(), e.getCommand(), e.getArgs());
+			} catch (UnknownConnectionException ex) {
+				ex.printStackTrace();
+			}
+		});
+
         adventureServer.startServer(port);
     }
 
@@ -28,33 +59,24 @@ public class TechAdventure implements ConnectionListener {
         System.out.println("EVENT RECEIVED - YOU MUST PARSE THE DATA AND RESPOND APPROPRIATELY");
         System.out.println(String.format("connectionId=%d, data=%s", e.getConnectionID(), e.getData()));
         try {
+			Player player;
             switch (e.getCode()) {
                 case CONNECTION_ESTABLISHED:
                     // What do you do when the connection is established?
-                    new Client(e.getConnectionID());
+					player = new Player(e.getConnectionID());
+					player.setLocation(startRoom);
+					adventureServer.sendMessage(player.getConnectionID(), player.getLocation().getDescription(player));
                     break;
                 case TRANSMISSION_RECEIVED:
                     adventureServer.sendMessage(e.getConnectionID(), String.format(
                             "MESSAGE RECEIVED: connectionId=%d, data=%s", e.getConnectionID(), e.getData()));
-                    Client client = Client.findClient(e.getConnectionID());
+					player = Player.findClient(e.getConnectionID());
 
-                    if (client.getState() == ClientStates.normal) {
-
-                        //Handle server commands
-                        if (Arrays.binarySearch(serverCommands, e.getData()) > -1) {
-                            if (!client.isAdmin()) {
-                                adventureServer.sendMessage(client.getConnectionID(),
-                                        "You must be an admin to use this command.");
-                            } else {
-                                handleServerCommands(client, e.getData());
-                            }
-                            break;
-                        }
-
-                        adventureServer.sendMessage(e.getConnectionID(), inputHandler.handleInput(e.getData()));
-                    } else if (client.getState() == ClientStates.sendingServerMessage) {
-                        broadcastMessage(e.getData());
-                        break;
+					if (player.getState() == PlayerStates.normal) {
+						String message = inputHandler.handleInput(e.getData(), player);
+						if (!message.equals("")) {
+							adventureServer.sendMessage(e.getConnectionID(), message);
+						}
                     }
                     break;
                 case CONNECTION_TERMINATED:
@@ -68,24 +90,32 @@ public class TechAdventure implements ConnectionListener {
         }
     }
 
-    private void handleServerCommands(Client client, String message) throws UnknownConnectionException {
-        switch (message) {
-            case "SHUTDOWN":
-                client.setLastCommand(Commands.SHUTDOWN);
-                for (Client client1 : Client.getClients()) {
-                    adventureServer.sendMessage(client1.getConnectionID(), "SHUTTING DOWN...");
-                }
+	private void handleServerCommands(Player player, Commands command, String[] args) throws UnknownConnectionException {
+		switch (command) {
+			case SHUTDOWN:
+				player.setLastCommand(Commands.SHUTDOWN);
+				broadcastMessage("SHUTTING DOWN...");
                 adventureServer.stopServer();
                 break;
-            case "SERVERMESSAGE":
-                client.setLastCommand(Commands.PRESERVERMESSAGE);
+			case SERVERMESSAGE:
+				player.setLastCommand(Commands.SERVERMESSAGE);
+				String message = player.getUsername() + " SERVER MESSAGE: " + args[0];
+				broadcastMessage(message);
                 break;
+			case IPADDRESS:
+				try {
+					adventureServer.sendMessage(player.getConnectionID(),
+							"IP Address: " + adventureServer.getInetAddress() + "\n" +
+									"Port: " + adventureServer.getPort());
+				} catch (UnknownHostException e) {
+					e.printStackTrace();
+				}
         }
     }
 
     private void broadcastMessage(String message) throws UnknownConnectionException {
-        for (Client client : Client.getClients()) {
-            adventureServer.sendMessage(client.getConnectionID(), message);
+		for (Player player : Player.getPlayers()) {
+			adventureServer.sendMessage(player.getConnectionID(), message);
         }
     }
 
