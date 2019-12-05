@@ -1,13 +1,17 @@
 package PlayerHandler;
 
+import PlayerHandler.CombatHandler.CombatGroup;
+import PlayerHandler.CombatHandler.Combatant;
 import PlayerHandler.GamePieces.Holdable;
 import PlayerHandler.GamePieces.Room;
+import PlayerHandler.CombatHandler.Weapons.Weapon;
 
 import java.util.ArrayList;
 
-public class Player {
-    static ArrayList<Player> players = new ArrayList<>();
+public class Player implements Combatant {
+    private static ArrayList<Player> players = new ArrayList<>();
 
+    //General stuff
     private long connectionID;
     private Commands lastCommand;
     private PlayerStates state = PlayerStates.initializing;
@@ -18,13 +22,42 @@ public class Player {
     private boolean online = true;
     private ArrayList<Player> blockedPlayers = new ArrayList<>();
     private ArrayList<Holdable> items = new ArrayList<>();
+    private InfoListener infoEventListener;
+
+    //For combat
+    private ArrayList<Weapon> equipped = new ArrayList<>();
+    private int hitpoints;
+    private int maxHitpoints;
+    private int brawn, spiffness, smarts, moxy;
+    private Combatant target;
+    private CombatGroup combatGroup;
+    private ArrayList<String> words = new ArrayList<>();
+    private int pendingDamage;
+    private int pendingHeal;
+    private int pendingBlock;
+    private CombatGroup.rpsChoice rpsChoice;
+
+    public Player(long connectionID) {
+        this.connectionID = connectionID;
+        players.add(this);
+
+        this.hitpoints = 20;
+        this.maxHitpoints = 20;
+        this.brawn = 10;
+        this.spiffness = 10;
+        this.smarts = 10;
+        this.moxy = 10;
+    }
 
     public static ArrayList<Player> getPlayers() {
         return players;
     }
-
     public void setConnectionID(long connectionID) {
         this.connectionID = connectionID;
+    }
+
+    public ArrayList<Weapon> getEquipped() {
+        return this.equipped;
     }
 
     public ArrayList<Holdable> getInventory() {
@@ -53,11 +86,6 @@ public class Player {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Player(long connectionID) {
-        this.connectionID = connectionID;
-        players.add(this);
     }
 
     public void setState(PlayerStates newState) {
@@ -108,6 +136,17 @@ public class Player {
         }
     }
 
+    public void setInfoEventListener(InfoListener listener) {
+        this.infoEventListener = listener;
+    }
+
+    public void sendMessage(String message) {
+        InfoEvent event = new InfoEvent(this, message);
+        if (this.infoEventListener != null) {
+            this.infoEventListener.handle(event);
+        }
+    }
+
     public boolean isBlocked(Player player) {
         return (blockedPlayers.indexOf(player) > -1);
     }
@@ -121,6 +160,155 @@ public class Player {
         throw new ClientNotFoundException();
     }
 
-    static class ClientNotFoundException extends RuntimeException {
+    //Combatant stuff
+
+    @Override
+    public int modifyHitpoints(int amount) {
+        hitpoints += amount;
+        if (hitpoints <= 0) {
+            hitpoints = 0;
+        } else if (hitpoints >= maxHitpoints) {
+            hitpoints = maxHitpoints;
+        }
+
+        return hitpoints;
+    }
+
+    @Override
+    public int getHitPoints() {
+        return hitpoints;
+    }
+
+    @Override
+    public void setMaxHitpoints(int amount) {
+        this.maxHitpoints = amount;
+    }
+
+    @Override
+    public int getMaxHitpoints() {
+        return this.maxHitpoints;
+    }
+
+    @Override
+    public int getBrawn() {
+        return brawn;
+    }
+
+    @Override
+    public void setBrawn(int amount) {
+        this.brawn = amount;
+    }
+
+    @Override
+    public int getSpiffness() {
+        return spiffness;
+    }
+
+    @Override
+    public void setSpiffness(int amount) {
+        this.spiffness = amount;
+    }
+
+    @Override
+    public int getSmarts() {
+        return smarts;
+    }
+
+    @Override
+    public void setSmarts(int amount) {
+        this.smarts = amount;
+    }
+
+    @Override
+    public int getMoxy() {
+        return moxy;
+    }
+
+    @Override
+    public void setMoxy(int amount) {
+        this.moxy = amount;
+    }
+
+    @Override
+    public void setPendingBlock(int amount) {
+        pendingBlock = amount;
+    }
+
+    @Override
+    public int getPendingBlock() {
+        return pendingBlock;
+    }
+
+    @Override
+    public void setPendingDamage(int amount) {
+        pendingDamage = amount;
+    }
+
+    @Override
+    public int getPendingDamage() {
+        return pendingDamage;
+    }
+
+    @Override
+    public void setPendingHeal(int amount) {
+        pendingHeal = amount;
+    }
+
+    @Override
+    public int getPendingHeal() {
+        return pendingHeal;
+    }
+
+    @Override
+    public Combatant getTarget() {
+        return this.target;
+    }
+
+    @Override
+    public void setTarget(Combatant target) {
+        this.target = target;
+    }
+
+    @Override
+    public void setCombatGroup(CombatGroup combatGroup) {
+        this.combatGroup = combatGroup;
+    }
+
+    @Override
+    public CombatGroup getCombatGroup() {
+        return this.combatGroup;
+    }
+
+    @Override
+    public String getName() {
+        return this.username;
+    }
+
+    @Override
+    public ArrayList<String> getWords() {
+        return this.words;
+    }
+
+    @Override
+    public ArrayList<Weapon> getWeapons() {
+        return this.equipped;
+    }
+
+    @Override
+    public CombatGroup.rpsChoice getCombatDecision() {
+        return this.rpsChoice;
+    }
+
+    @Override
+    public void setCombatDecision(CombatGroup.rpsChoice decision) {
+        this.rpsChoice = decision;
+    }
+
+    @Override
+    public boolean isUnconscious() {
+        return this.getHitPoints() <= 0;
+    }
+
+    private static class ClientNotFoundException extends RuntimeException {
     }
 }

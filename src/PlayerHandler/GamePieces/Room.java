@@ -1,5 +1,6 @@
 package PlayerHandler.GamePieces;
 
+import PlayerHandler.CombatHandler.Combatant;
 import PlayerHandler.Commands;
 import PlayerHandler.Player;
 
@@ -132,6 +133,14 @@ public class Room {
 
     public ArrayList<Player> getPlayers() {
         return players;
+    }
+
+    public ArrayList<Combatant> getCombatants() {
+        ArrayList<Combatant> output = new ArrayList<>();
+        for (Player player : getPlayers()) {
+            output.add((Combatant) player);
+        }
+        return output;
     }
 
     public void setPlayers(ArrayList<Player> players) {

@@ -1,8 +1,11 @@
+import javax.jws.Oneway;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
+import java.util.EventListener;
+import java.util.EventObject;
 import java.util.HashMap;
 
 public final class AdventureServer implements AdventureServerAPI {
@@ -22,11 +25,11 @@ public final class AdventureServer implements AdventureServerAPI {
 		AdventureServer adventureServer = null;
 
 		public Connection ( AdventureServer adventureServer, Socket socket )
-				  throws IOException {
+				throws IOException {
 			this.adventureServer = adventureServer;
 			this.socket = socket;
 			input = new BufferedReader (
-					  new InputStreamReader ( socket.getInputStream ( ) ) );
+					new InputStreamReader ( socket.getInputStream ( ) ) );
 			output = new PrintWriter ( socket.getOutputStream ( ), true );
 		}
 	}
@@ -59,7 +62,7 @@ public final class AdventureServer implements AdventureServerAPI {
 				connection.adventureServer.listener.handle ( event );
 				String s = "";
 				while ( connection.adventureServer.isRunning && ( s = connection.input
-						                                                        .readLine ( ) ) != null ) {
+						.readLine ( ) ) != null ) {
 					event = new ConnectionEvent ( ConnectionEventCode.TRANSMISSION_RECEIVED, connection.connectionId, s );
 					connection.adventureServer.listener.handle ( event );
 				}
@@ -84,14 +87,15 @@ public final class AdventureServer implements AdventureServerAPI {
 	private boolean isRunning = false;
 	private HashMap< Long, Connection > connectionMap = new HashMap<> ( );
 	private ServerSocket serverSocket = null;
+	private FrameListener frameListener = null;
 
 	/*
 	 * Starts the server running
 	 */
-	public void startServer ( int port ) {
+	public void startServer (int port ) {
 		this.port = port;
 		if ( !isRunning ) {
-			try ( ServerSocket server = new ServerSocket ( port ) ) {
+			try (ServerSocket server = new ServerSocket ( port ) ) {
 				serverSocket = server;
 				System.out.println( "waiting on " + getInetAddress () + " at " + getPort () );
 				isRunning = true;
@@ -100,7 +104,7 @@ public final class AdventureServer implements AdventureServerAPI {
 					Connection connection = new Connection ( this, client );
 					connectionMap.put ( connection.connectionId, connection );
 					System.out
-							  .println ( "Connected to " + connection.connectionId + client.getInetAddress ( ) );
+							.println ( "Connected to " + connection.connectionId + client.getInetAddress ( ) );
 					new ClientThread ( connection );
 				}
 			} catch ( SocketException se ) {
@@ -109,6 +113,11 @@ public final class AdventureServer implements AdventureServerAPI {
 				e.printStackTrace ( );
 			}
 		}
+	}
+
+	private void runFrame() {
+		FrameEvent event = new FrameEvent("time");
+		frameListener.handle(event);
 	}
 
 	/*
@@ -140,20 +149,24 @@ public final class AdventureServer implements AdventureServerAPI {
 	/*
 	 * Set the transmission listener
 	 */
-	public void setOnTransmission ( ConnectionListener listener ) {
+	public void setOnTransmission (ConnectionListener listener ) {
 		this.listener = listener;
+	}
+
+	public void setFrameEventListener(FrameListener listener) {
+		this.frameListener = listener;
 	}
 
 	/*
 	 * return true if a connection exists
 	 */
-	public boolean isConnected( long connectionId ) {
+	public boolean isConnected(long connectionId ) {
 		return ( connectionMap.get ( connectionId ) != null) ? true : false;
 	}
 
 	// Close the connection
-	public void disconnect( long connectionId ) throws IOException,
-	                                                   UnknownConnectionException {
+	public void disconnect(long connectionId ) throws IOException,
+			UnknownConnectionException {
 		Connection connection = connectionMap.get ( connectionId );
 		if ( connection != null ) {
 			connection.socket.close ();
@@ -165,7 +178,7 @@ public final class AdventureServer implements AdventureServerAPI {
 
 	// Change the connection ID - to facilitate save/load
 	public void changeConnectionId( long connectionId, long newConnectionId ) throws
-	                                                                          UnknownConnectionException {
+			UnknownConnectionException {
 		Connection connection = connectionMap.get ( connectionId );
 		if ( connection != null ) {
 			connectionMap.remove ( connectionId );
@@ -180,7 +193,7 @@ public final class AdventureServer implements AdventureServerAPI {
 	 * Send text through the connection.
 	 */
 	public void sendMessage( long connectionId, String message ) throws
-	                                                             UnknownConnectionException {
+			UnknownConnectionException {
 		Connection connection = connectionMap.get ( connectionId );
 		if ( connection != null ) {
 			connection.output.println ( message );

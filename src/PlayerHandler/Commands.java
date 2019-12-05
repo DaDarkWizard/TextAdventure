@@ -9,6 +9,7 @@ public enum Commands {
     say,
     look,
     inventory,
+    attack,
     SERVERMESSAGE,
     SHUTDOWN,
     IPADDRESS

@@ -40,6 +40,10 @@ public class InputHandler {
             return Commands.SHUTDOWN;
         } else if (command.equals("SERVERMESSAGE")) {
             return Commands.SERVERMESSAGE;
+        } else if (command.equals("look")) {
+            return Commands.look;
+        } else if (command.equals("attack")) {
+            return Commands.attack;
         }
         return null;
     }
@@ -138,6 +142,7 @@ public class InputHandler {
                     }
                 }
                 break;
+            case attack:
             case IPADDRESS:
             case SHUTDOWN:
                 serverCommandEvent = new ServerCommandEvent(player, command, null);
