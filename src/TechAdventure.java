@@ -1,9 +1,8 @@
+import PlayerHandler.*;
 import PlayerHandler.CombatHandler.CombatGroup;
-import PlayerHandler.Player;
-import PlayerHandler.PlayerStates;
-import PlayerHandler.Commands;
 import PlayerHandler.GamePieces.Room;
-import PlayerHandler.InputHandler;
+import PlayerHandler.UI.Frame;
+import PlayerHandler.UI.StandardFrame;
 
 import javax.sql.ConnectionEventListener;
 import java.net.UnknownHostException;
@@ -16,8 +15,8 @@ import java.util.Scanner;
  * Your game class parses and responds to input by handling ConnectionEvents.
  */
 public class TechAdventure implements ConnectionListener {
-	AdventureServer adventureServer = null;
-	InputHandler inputHandler = new InputHandler();
+	private AdventureServer adventureServer;
+	private InputHandler inputHandler = new InputHandler();
 	private String[] serverCommands = {"SHUTDOWN", "IPADDRESS", "SERVERMESSAGE"};
 	private ArrayList<Room> rooms = new ArrayList<>();
 	private Room startRoom;
@@ -43,9 +42,9 @@ public class TechAdventure implements ConnectionListener {
 
 	public void start(int port) {
 		Room startRoom = new Room("The Void",
-				"You are in an endless void.\n" +
+				"You are in an endless void.\r\n" +
 						"Looking around, you see nothing, just darkness." +
-						"It is darker than the blackest night of a starless sky.\n" +
+						"It is darker than the blackest night of a starless sky.\r\n" +
 						"Maybe you should ask someone to program something for you to do.",
 				"You see darkness, darker than the blackest night.");
 		rooms.add(startRoom);
@@ -56,7 +55,9 @@ public class TechAdventure implements ConnectionListener {
 		this.startRoom = startRoom;
 		inputHandler.setMessageListener(e -> {
 			try {
-				adventureServer.sendMessage(e.getClient().getConnectionID(), e.getMessage());
+				Frame frame = e.getClient().getLastFrame();
+				frame.addLine(e.getMessage(), true);
+				adventureServer.sendMessage(e.getClient().getConnectionID(), frame.getOutput());
 			} catch (UnknownConnectionException ex) {
 				ex.printStackTrace();
 			}
@@ -84,15 +85,23 @@ public class TechAdventure implements ConnectionListener {
 				case CONNECTION_ESTABLISHED:
 					// What do you do when the connection is established?
 					player = new Player(e.getConnectionID());
-					player.setLocation(startRoom);
+					player.setLocation(new Tutorial().getStart());
 					player.setInfoEventListener(event -> {
 						try {
-							adventureServer.sendMessage(event.getSource().getConnectionID(), event.getMessage());
+							Frame output = player.getLastFrame();
+							if (output.isEmpty()) {
+								output = new StandardFrame();
+							}
+							output.addLine(event.getMessage(), true);
+							player.setLastFrame(output);
+							adventureServer.sendMessage(event.getSource().getConnectionID(), output.getOutput());
 						} catch (UnknownConnectionException ex) {
 							ex.printStackTrace();
 						}
 					});
-					adventureServer.sendMessage(player.getConnectionID(), player.getLocation().getDescription(player));
+					Frame output = player.getLocation().getDescription(player, new StandardFrame());
+					player.setLastFrame(output);
+					adventureServer.sendMessage(player.getConnectionID(), output.getOutput());
 					player.setState(PlayerStates.normal);
 					break;
 				case TRANSMISSION_RECEIVED:
@@ -101,9 +110,9 @@ public class TechAdventure implements ConnectionListener {
 					player = Player.findClient(e.getConnectionID());
 
 					if (player.getState() == PlayerStates.normal) {
-						String message = inputHandler.handleInput(e.getData(), player);
-						if (!message.equals("")) {
-							adventureServer.sendMessage(e.getConnectionID(), message);
+						Frame message = inputHandler.handleInput(e.getData(), player);
+						if (!message.isEmpty()) {
+							adventureServer.sendMessage(e.getConnectionID(), message.getOutput());
 						}
 					} else if (player.getState() == PlayerStates.combat) {
 						switch (player.getCombatGroup().getCombatState()) {
@@ -134,7 +143,7 @@ public class TechAdventure implements ConnectionListener {
 											handle(new ConnectionEvent(ConnectionEventCode.CONNECTION_ESTABLISHED,
 													e.getConnectionID(), "go " + scanner.nextLine()));
 										} else {
-											int direction = (int) Math.random() * 4;
+											int direction = (int) (Math.random() * 4.0);
 											switch (direction) {
 												case 0:
 													player.setLocation(player.getLocation().getEast());

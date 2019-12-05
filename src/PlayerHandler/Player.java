@@ -5,6 +5,7 @@ import PlayerHandler.CombatHandler.Combatant;
 import PlayerHandler.GamePieces.Holdable;
 import PlayerHandler.GamePieces.Room;
 import PlayerHandler.CombatHandler.Weapons.Weapon;
+import PlayerHandler.UI.Frame;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class Player implements Combatant {
     private ArrayList<Player> blockedPlayers = new ArrayList<>();
     private ArrayList<Holdable> items = new ArrayList<>();
     private InfoListener infoEventListener;
+    private Frame lastFrame;
 
     //For combat
     private ArrayList<Weapon> equipped = new ArrayList<>();
@@ -310,5 +312,13 @@ public class Player implements Combatant {
     }
 
     private static class ClientNotFoundException extends RuntimeException {
+    }
+
+    public Frame getLastFrame() {
+        return lastFrame;
+    }
+
+    public void setLastFrame(Frame frame) {
+        this.lastFrame = frame;
     }
 }

@@ -3,6 +3,7 @@ package PlayerHandler.GamePieces;
 import PlayerHandler.CombatHandler.Combatant;
 import PlayerHandler.Commands;
 import PlayerHandler.Player;
+import PlayerHandler.UI.Frame;
 
 import java.util.ArrayList;
 
@@ -62,13 +63,15 @@ public class Room {
         this.west = west;
     }
 
-    public String getDescription(Player player) {
+    public Frame getDescription(Player player, Frame frame) {
         StringBuilder output = new StringBuilder();
-        output.append(description);
+        frame.addParagraph(this.name);
+        System.out.println(frame.addParagraph(description));
 
         if (interactables.size() > 0) {
-            output.append("\n\n");
-            output.append("There is a " + interactables.get(0).getShortDescription());
+            frame.newLine();
+            output = new StringBuilder();
+            output.append("There is a ").append(interactables.get(0).getShortDescription());
             if (interactables.size() == 1) {
                 output.append(".");
             } else if (interactables.size() == 2) {
@@ -76,14 +79,16 @@ public class Room {
             } else {
                 for (int i = 1; i < interactables.size(); i++) {
                     if (i < interactables.size() - 1) {
-                        output.append(", a " + interactables.get(i).getShortDescription());
+                        output.append(", a ").append(interactables.get(i).getShortDescription());
                     } else {
-                        output.append(", and a " + interactables.get(i).getShortDescription() + ".");
+                        output.append(", and a ").append(interactables.get(i).getShortDescription()).append(".");
                     }
                 }
             }
+            frame.addLine(output.toString());
         }
-        output.append("\n\n");
+        frame.newLine();
+        output = new StringBuilder();
         if (players.size() < 2) {
             output.append("You are the only one in the room.");
         }
@@ -93,7 +98,8 @@ public class Room {
         if (players.size() > 2) {
             output.append(String.format("There are %d people in the room besides you.", players.size() - 1));
         }
-        return output.toString();
+        frame.addLine(output.toString());
+        return frame;
     }
 
     public Room getRoomFromCommand(Commands command) {
@@ -122,8 +128,9 @@ public class Room {
         this.name = name;
     }
 
-    public String getLookDescription() {
-        return lookDescription;
+    public Frame getLookDescription(Player player, Frame frame) {
+        frame.addParagraph(this.lookDescription);
+        return frame;
     }
 
 

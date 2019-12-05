@@ -2,6 +2,8 @@ package PlayerHandler;
 
 import PlayerHandler.GamePieces.Holdable;
 import PlayerHandler.GamePieces.Interactable;
+import PlayerHandler.UI.Frame;
+import PlayerHandler.UI.StandardFrame;
 import com.sun.jmx.snmp.SnmpUnknownAccContrModelException;
 
 import javax.xml.namespace.QName;
@@ -48,8 +50,8 @@ public class InputHandler {
         return null;
     }
 
-    public String handleInput(String input, Player player) {
-        String output = "";                          //The output to send to the player
+    public Frame handleInput(String input, Player player) {
+        Frame output = new StandardFrame();                          //The output to send to the player
         MessageEvent messageEvent;
         ServerCommandEvent serverCommandEvent;
 
@@ -59,7 +61,9 @@ public class InputHandler {
         Scanner scanner = new Scanner(input);
         Commands command = getCommand(scanner.next());
         if (command == null) {
-            return "That command isn't valid!";
+            output.clearFrame();
+            output.addLine("That command isn't valid!");
+            return output;
         }
         player.setLastCommand(command);
 
@@ -73,39 +77,44 @@ public class InputHandler {
                 break;
             case east:
                 if (player.getLocation().getEast() == null) {
-                    output = badMove;
+                    output.clearFrame();
+                    output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getEast());
-                    output = player.getLocation().getDescription(player);
+                    output = player.getLocation().getDescription(player, output);
                 }
                 break;
             case west:
                 if (player.getLocation().getWest() == null) {
-                    output = badMove;
+                    output.clearFrame();
+                    output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getWest());
-                    output = player.getLocation().getDescription(player);
+                    output = player.getLocation().getDescription(player, output);
                 }
                 break;
             case south:
                 if (player.getLocation().getSouth() == null) {
-                    output = badMove;
+                    output.clearFrame();
+                    output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getSouth());
-                    output = player.getLocation().getDescription(player);
+                    output = player.getLocation().getDescription(player, output);
                 }
                 break;
             case north:
                 if (player.getLocation().getNorth() == null) {
-                    output = badMove;
+                    output.clearFrame();
+                    output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getNorth());
-                    output = player.getLocation().getDescription(player);
+                    output = player.getLocation().getDescription(player, output);
                 }
                 break;
             case say:
                 String message = scanner.nextLine();
-                output = "You say, \"" + message + "\" to everyone in the room.";
+                output = player.getLastFrame();
+                output.addLine("You say, \"" + message + "\" to everyone in the room.");
                 message = player.getUsername() + ": " + message;
                 for (Player receiver : player.getLocation().getPlayers()) {
                     if (player != receiver && !receiver.isBlocked(player)) {
@@ -116,7 +125,7 @@ public class InputHandler {
                 break;
             case look:
                 if (!scanner.hasNext()) {
-                    output = player.getLocation().getDescription(player);
+                    output = player.getLocation().getDescription(player, output);
                 } else {
                     String normalized = removeFillerWords(scanner.nextLine());
                     scanner.close();
@@ -124,7 +133,7 @@ public class InputHandler {
                     Commands direction = getCommand(scanner.next());
                     if (direction != null) {
                         if (player.getLocation().getRoomFromCommand(direction) != null) {
-                            output = player.getLocation().getRoomFromCommand(direction).getLookDescription();
+                            output = player.getLocation().getRoomFromCommand(direction).getLookDescription(player, output);
                         }
                     } else {
                         findObject(player, command, normalized);
@@ -153,9 +162,10 @@ public class InputHandler {
                 this.handleServerCommand(serverCommandEvent);
                 break;
             default:
-                output = findObject(player, command, scanner.nextLine());
-                if (output == null || output.equals("")) {
-                    output = "You shouldn't be getting this.";
+                output.addLine(findObject(player, command, scanner.nextLine()));
+                if (output == null || output.isEmpty()) {
+                    output = new StandardFrame();
+                    output.addLine("You shouldn't be getting this.");
                 }
         }
         return output;
