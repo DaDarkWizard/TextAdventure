@@ -11,4 +11,6 @@ public interface Interactable {
     String interact(Player player, Commands command);
 
     boolean isValidName(String name);
+
+    void setInteractEventListener(InteractListener listener);
 }
