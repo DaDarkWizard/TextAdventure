@@ -133,6 +133,10 @@ public class Room {
         return frame;
     }
 
+    public Frame getLookDescription(Player player, Frame frame, String pretext) {
+        frame.addParagraph(pretext + this.lookDescription);
+        return frame;
+    }
 
     public void setLookDescription(String lookDescription) {
         this.lookDescription = lookDescription;

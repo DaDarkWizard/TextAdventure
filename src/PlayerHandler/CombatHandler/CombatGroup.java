@@ -3,19 +3,26 @@ package PlayerHandler.CombatHandler;
 import PlayerHandler.CombatHandler.Weapons.Weapon;
 import PlayerHandler.Player;
 import PlayerHandler.PlayerStates;
+import PlayerHandler.UI.StandardFrame;
 
 import java.util.ArrayList;
 
 public class CombatGroup {
+    private final long combatFightTime = 10000;
+    private final long combatReadyTime = 5000;
     private ArrayList<Combatant> combatants = new ArrayList<>();
     private int decisions = 0;
     private state combatState;
     private int countup = 0;
     private long combatStartCount;
+    public static ArrayList<CombatGroup> CombatGroups = new ArrayList<>();
+    private ArrayList<Player> players = new ArrayList<>();
+    private Combatant initiant;
 
     private long combatStartTime;
 
     public enum state {
+        firstround,
         initialize,
         startCombat,
         words,
@@ -29,40 +36,53 @@ public class CombatGroup {
         talk
     }
 
-    public CombatGroup(ArrayList<Combatant> combatants) {
+    public CombatGroup(ArrayList<Combatant> combatants, Combatant initiant) {
         this.combatants = combatants;
         for (Combatant combatant : this.combatants) {
             if (combatant instanceof Player) {
-                ((Player) combatant).setState(PlayerStates.combat);
+                players.add((Player) combatant);
             }
             combatant.setCombatGroup(this);
+            this.initiant = initiant;
+        }
+
+        for (Player player : players) {
+            player.setState(PlayerStates.combat);
+            player.setLastFrame(new StandardFrame());
         }
         this.combatStartTime = System.currentTimeMillis();
         this.combatStartCount = combatStartTime;
-        this.combatState = state.initialize;
+        this.combatState = state.firstround;
+        CombatGroups.add(this);
     }
 
     public void RunCombat() {
         switch (combatState) {
+            case firstround:
+                messageCombatants(initiant.getName() + " has initiated combat!");
+                messageCombatants("Get ready to fight!");
+                combatState = state.initialize;
+                break;
             case initialize:
                 countup = 0;
                 StringBuilder targetMessage = new StringBuilder();
                 targetMessage.append("Combat is about to start! Choose a target:\n");
                 for (int i = 0; i < combatants.size(); i++) {
-                    targetMessage.append("  ").append(i + 1).append(". ").append(combatants.get(i)).append("\n");
+                    targetMessage.append("  ").append(i + 1).append(". ").append(combatants.get(i).getName()).append("\n");
                 }
 
                 messageCombatants(targetMessage.toString());
-                messageCombatants("5");
+                messageCombatants(Long.toString(combatReadyTime / 1000));
+                combatState = state.startCombat;
                 countup++;
                 break;
             case startCombat:
                 String output = "";
-                output += 5 - countup;
-                if (countup < 5 && System.currentTimeMillis() - combatStartCount > countup * 1000) {
+                output += (combatReadyTime - countup) / 1000;
+                if (countup < combatReadyTime && System.currentTimeMillis() - combatStartCount > countup) {
                     messageCombatants(output);
-                    countup++;
-                } else if (System.currentTimeMillis() - combatStartCount > countup * 1000) {
+                    countup += 1000;
+                } else if (System.currentTimeMillis() - combatStartCount > countup) {
                     output = "START!!!";
                     messageCombatants(output);
                     combatState = state.words;
@@ -70,20 +90,27 @@ public class CombatGroup {
                 }
                 break;
             case words:
-                if (System.currentTimeMillis() - combatStartCount > 5000) {
+                if (System.currentTimeMillis() - combatStartCount > combatReadyTime) {
                     combatState = state.calculate;
                 }
                 break;
             case calculate:
+                for (Player player : players) {
+                    player.sendMessage("You used the words " + player.getWords().toString());
+                }
                 for (Combatant combatant : combatants) {
                     boolean fail = false;
                     for (String word : combatant.getWords()) {
                         AttackCommands command = parseAttackCommand(word);
                         if (command != null) {
                             if (!fail) {
-                                for (Weapon weapon : combatant.getWeapons()) {
-                                    if (weapon.getAttackCommand() == command) {
-                                        weapon.useWeapon(combatant);
+                                if (command == AttackCommands.hit) {
+
+                                } else {
+                                    for (Weapon weapon : combatant.getWeapons()) {
+                                        if (weapon.getAttackCommand() == command) {
+                                            weapon.useWeapon(combatant);
+                                        }
                                     }
                                 }
                             } else {
@@ -123,7 +150,7 @@ public class CombatGroup {
                 break;
             case rps:
                 if (System.currentTimeMillis() - combatStartCount > 5000) {
-                    if (combatants.size() < 2) {
+                    if (combatants.size() < 2 || players.size() < 1) {
                         messageCombatants("There are too few people for combat!");
                         for (int i = 0; i < combatants.size(); i++) {
                             removeCombatant(combatants.get(i));
@@ -143,6 +170,7 @@ public class CombatGroup {
                             i--;
                         }
                     } else {
+                        snagRoom();
                         messageCombatants("Looks like there's still some fighting spirit!");
                         combatState = state.initialize;
                     }
@@ -152,10 +180,8 @@ public class CombatGroup {
     }
 
     private void messageCombatants(String message) {
-        for (Combatant combatant : combatants) {
-            if (combatant instanceof Player) {
-                ((Player) combatant).sendMessage(message);
-            }
+        for (Player player : players) {
+            player.sendMessage(message);
         }
     }
 
@@ -183,8 +209,24 @@ public class CombatGroup {
         return null;
     }
 
+    private void snagRoom() {
+        for (Combatant combatant : players.get(0).getLocation().getCombatants()) {
+            if (combatants.indexOf(combatant) < 0) {
+                combatants.add(combatant);
+                if (combatant instanceof Player) {
+                    ((Player) combatant).setState(PlayerStates.combat);
+                    ((Player) combatant).setLastFrame(new StandardFrame());
+                    ((Player) combatant).sendMessage("You have been dragged into combat!");
+                }
+            }
+        }
+    }
     public void removeCombatant(Combatant combatant) {
         this.combatants.remove(combatant);
         combatant.setCombatGroup(null);
+        if (combatant instanceof Player) {
+            ((Player) combatant).setState(PlayerStates.normal);
+            players.remove(combatant);
+        }
     }
 }

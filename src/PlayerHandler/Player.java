@@ -116,6 +116,7 @@ public class Player implements Combatant {
 
     public void setLocation(Room location) {
         this.location = location;
+        this.location.getPlayers().add(this);
     }
 
     public boolean isOnline() {

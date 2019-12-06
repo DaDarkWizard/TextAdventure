@@ -20,24 +20,11 @@ public class TechAdventure implements ConnectionListener {
 	private String[] serverCommands = {"SHUTDOWN", "IPADDRESS", "SERVERMESSAGE"};
 	private ArrayList<Room> rooms = new ArrayList<>();
 	private Room startRoom;
-	private ArrayList<CombatGroup> combatGroups = new ArrayList<>();
+	private static boolean runFrames = true;
 
 	public TechAdventure() {
 		adventureServer = new AdventureServer();
 		adventureServer.setOnTransmission(this);
-		adventureServer.setFrameEventListener(e -> {
-			//Run app frames
-			for (int i = 0; i < combatGroups.size(); i++) {
-				if (combatGroups.get(i).getCombatants().size() <= 0) {
-					combatGroups.remove(combatGroups.get(i));
-					i--;
-				}
-			}
-
-			for (CombatGroup group : combatGroups) {
-				group.RunCombat();
-			}
-		});
 	}
 
 	public void start(int port) {
@@ -144,19 +131,24 @@ public class TechAdventure implements ConnectionListener {
 													e.getConnectionID(), "go " + scanner.nextLine()));
 										} else {
 											int direction = (int) (Math.random() * 4.0);
+											Room exitRoom = null;
 											switch (direction) {
 												case 0:
-													player.setLocation(player.getLocation().getEast());
+													exitRoom = player.getLocation().getEast();
 													break;
 												case 1:
-													player.setLocation(player.getLocation().getNorth());
+													exitRoom = player.getLocation().getNorth();
 													break;
 												case 2:
-													player.setLocation(player.getLocation().getSouth());
+													exitRoom = player.getLocation().getSouth();
 													break;
 												case 3:
-													player.setLocation(player.getLocation().getWest());
+													exitRoom = player.getLocation().getWest();
 													break;
+											}
+											if (exitRoom == null) {
+												player.sendMessage("In a panic you flee, but smack into a wall!");
+												player.sendMessage("Looks like you're stuck here for now..");
 											}
 										}
 
@@ -199,8 +191,6 @@ public class TechAdventure implements ConnectionListener {
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
 				}
-			case attack:
-				combatGroups.add(new CombatGroup(player.getLocation().getCombatants()));
 		}
 	}
 
@@ -210,9 +200,32 @@ public class TechAdventure implements ConnectionListener {
 		}
 	}
 
+	private static class RunFrame extends Thread {
+		int port;
+
+
+		public void start(int port) {
+			this.port = port;
+			start();
+		}
+
+		public void run() {
+			TechAdventure techAdventure = new TechAdventure();
+			techAdventure.start(port);
+		}
+	}
+
 	public static void main(String[] args) {
 		TechAdventure techAdventure = new TechAdventure();
-		techAdventure.start(2112);
+		RunFrame thread = new RunFrame();
+		thread.start(2112);
+		while (runFrames) {
+			//This runs the frames
+			for (CombatGroup group : CombatGroup.CombatGroups) {
+				group.RunCombat();
+
+			}
+		}
 	}
 
 }

@@ -1,5 +1,6 @@
 package PlayerHandler;
 
+import PlayerHandler.CombatHandler.CombatGroup;
 import PlayerHandler.GamePieces.Holdable;
 import PlayerHandler.GamePieces.Interactable;
 import PlayerHandler.UI.Frame;
@@ -126,6 +127,7 @@ public class InputHandler {
             case look:
                 if (!scanner.hasNext()) {
                     output = player.getLocation().getDescription(player, output);
+                    player.setLastFrame(output);
                 } else {
                     String normalized = removeFillerWords(scanner.nextLine());
                     scanner.close();
@@ -133,7 +135,9 @@ public class InputHandler {
                     Commands direction = getCommand(scanner.next());
                     if (direction != null) {
                         if (player.getLocation().getRoomFromCommand(direction) != null) {
-                            output = player.getLocation().getRoomFromCommand(direction).getLookDescription(player, output);
+                            output = player.getLastFrame();
+                            output = player.getLocation().getRoomFromCommand(direction)
+                                    .getLookDescription(player, output, "[look " + direction.toString() + "]: ");
                         }
                     } else {
                         findObject(player, command, normalized);
@@ -152,6 +156,8 @@ public class InputHandler {
                 }
                 break;
             case attack:
+                CombatGroup group = new CombatGroup(player.getLocation().getCombatants(), player);
+                break;
             case IPADDRESS:
             case SHUTDOWN:
                 serverCommandEvent = new ServerCommandEvent(player, command, null);
