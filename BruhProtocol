@@ -4,3 +4,28 @@ stats:
   Agility-spiffness
   Intelligence -Smarts
   Luck -Moxy
+  
+|DOge has initiated combat!     | Start in: 5 |          Inventory            |
+|                               |-------------|                               |
+|                               |    Stats    | 1. Box                        |
+|                               |             | 2. Tree                       |
+|                               |Max HP:  10  | 3. Fox                        |
+|Target : ope                   |    HP:   9  | 4. Ox                         |
+|                               | Brawn:  10  | 5. Rocks                      |
+|                               | Spiff:  10  | 6. Socks                      |
+|                               |Smarts:  10  | 7. Crocks                     |
+|                               |  Moxy:  10  | 8. Locks                      |
+|---------------------------------------------| 9. Talks                      |
+|Commands 1.  hit  2.       3.       4.       |10. Mocks                      |
+|  Used:  5.       6.       7.       8.       |                               |
+|---------------------------------------------|-------------------------------|
+|Combat > hit                                 |            Commands           |
+| log:  > block                               |                               |
+|       > potion                              | inventory (number)            |
+|       > slash                               | hit                           |
+|       > stab                                | block                         |
+|                                             | stab                          |
+|                                             | slash                         |
+|                                             | potion                        |
+|                                             | block                         |
+|=============================================|===============================|
