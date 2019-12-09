@@ -66,7 +66,7 @@ public class Room {
     public Frame getDescription(Player player, Frame frame) {
         StringBuilder output = new StringBuilder();
         frame.addParagraph(this.name);
-        System.out.println(frame.addParagraph(description));
+        frame.addParagraph(description);
 
         if (interactables.size() > 0) {
             frame.newLine();

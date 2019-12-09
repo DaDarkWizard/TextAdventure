@@ -60,6 +60,9 @@ public class InputHandler {
         input = input.toLowerCase();
 
         Scanner scanner = new Scanner(input);
+        if (!scanner.hasNext()) {
+            return player.getLastFrame();
+        }
         Commands command = getCommand(scanner.next());
         if (command == null) {
             output.clearFrame();

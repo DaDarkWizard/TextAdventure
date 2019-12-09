@@ -1,5 +1,6 @@
 package PlayerHandler;
 
+import PlayerHandler.CombatHandler.AttackCommands;
 import PlayerHandler.CombatHandler.CombatGroup;
 import PlayerHandler.CombatHandler.Combatant;
 import PlayerHandler.GamePieces.Holdable;
@@ -49,6 +50,16 @@ public class Player implements Combatant {
         this.spiffness = 10;
         this.smarts = 10;
         this.moxy = 10;
+    }
+
+    public ArrayList<AttackCommands> getPossibleAttackCommands() {
+        ArrayList<AttackCommands> commands = new ArrayList<>();
+        commands.add(AttackCommands.hit);
+        for (Weapon weapon : this.equipped) {
+            commands.add(weapon.getAttackCommand());
+        }
+
+        return commands;
     }
 
     public static ArrayList<Player> getPlayers() {

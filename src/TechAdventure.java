@@ -7,6 +7,7 @@ import PlayerHandler.UI.StandardFrame;
 import javax.sql.ConnectionEventListener;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -64,8 +65,8 @@ public class TechAdventure implements ConnectionListener {
 
 	@Override
 	public void handle(ConnectionEvent e) {
-		System.out.println("EVENT RECEIVED - YOU MUST PARSE THE DATA AND RESPOND APPROPRIATELY");
-		System.out.println(String.format("connectionId=%d, data=%s", e.getConnectionID(), e.getData()));
+		//System.out.println("EVENT RECEIVED - YOU MUST PARSE THE DATA AND RESPOND APPROPRIATELY");
+		//System.out.println(String.format("connectionId=%d, data=%s", e.getConnectionID(), e.getData()));
 		try {
 			Player player;
 			switch (e.getCode()) {
@@ -95,7 +96,7 @@ public class TechAdventure implements ConnectionListener {
 					adventureServer.sendMessage(e.getConnectionID(), String.format(
 							"MESSAGE RECEIVED: connectionId=%d, data=%s", e.getConnectionID(), e.getData()));
 					player = Player.findClient(e.getConnectionID());
-
+					System.out.println("Player State: " + player.getState());
 					if (player.getState() == PlayerStates.normal) {
 						Frame message = inputHandler.handleInput(e.getData(), player);
 						if (!message.isEmpty()) {
@@ -221,9 +222,13 @@ public class TechAdventure implements ConnectionListener {
 		thread.start(2112);
 		while (runFrames) {
 			//This runs the frames
-			for (CombatGroup group : CombatGroup.CombatGroups) {
-				group.RunCombat();
+			try {
+				for (CombatGroup group : CombatGroup.CombatGroups) {
+					group.RunCombat();
 
+				}
+			} catch (ConcurrentModificationException e) {
+				e.printStackTrace();
 			}
 		}
 	}

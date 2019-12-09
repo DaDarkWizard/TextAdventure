@@ -5,13 +5,21 @@ import java.util.StringTokenizer;
 
 public class StandardFrame extends Frame {
     private ArrayList<String> lines = new ArrayList<>();
-
+    public final int height = 28;
+    public final int width = 100;
     public StandardFrame() {
 
     }
 
+    public void trim() {
+        while (lines.size() > 30) {
+            lines.remove(0);
+        }
+    }
+
     @Override
     public String getOutput() {
+        trim();
         StringBuilder output = new StringBuilder();
         int count = 0;
         for (String line : lines) {
@@ -42,7 +50,6 @@ public class StandardFrame extends Frame {
             } else {
                 text = text.substring(text.indexOf("\n") + 1);
             }
-            System.out.println(text);
         }
         newLines.add(text);
         newLines.add("");

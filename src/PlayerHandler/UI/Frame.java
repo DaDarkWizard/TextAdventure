@@ -1,8 +1,6 @@
 package PlayerHandler.UI;
 
 public abstract class Frame {
-    public final int height = 28;
-    public final int width = 100;
 
     public abstract String getOutput();
 

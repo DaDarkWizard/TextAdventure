@@ -3,6 +3,7 @@ package PlayerHandler.CombatHandler;
 import PlayerHandler.CombatHandler.Weapons.Weapon;
 import PlayerHandler.Player;
 import PlayerHandler.PlayerStates;
+import PlayerHandler.UI.CombatFrame;
 import PlayerHandler.UI.StandardFrame;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class CombatGroup {
 
         for (Player player : players) {
             player.setState(PlayerStates.combat);
-            player.setLastFrame(new StandardFrame());
+            player.setLastFrame(new CombatFrame());
         }
         this.combatStartTime = System.currentTimeMillis();
         this.combatStartCount = combatStartTime;
@@ -104,15 +105,7 @@ public class CombatGroup {
                         AttackCommands command = parseAttackCommand(word);
                         if (command != null) {
                             if (!fail) {
-                                if (command == AttackCommands.hit) {
-
-                                } else {
-                                    for (Weapon weapon : combatant.getWeapons()) {
-                                        if (weapon.getAttackCommand() == command) {
-                                            weapon.useWeapon(combatant);
-                                        }
-                                    }
-                                }
+                                DamageHandler.calcAttack(combatant, command);
                             } else {
                                 fail = false;
                             }
