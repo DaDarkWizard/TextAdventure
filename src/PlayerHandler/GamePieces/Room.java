@@ -130,9 +130,14 @@ public class Room {
      */
     public String getDescription() {
         StringBuilder output = new StringBuilder();
+
+        //Get name
         output.append(this.name).append("\n\n");
+
+        //Get written description
         output.append(description);
 
+        //Add all interactables in the room
         if (interactables.size() > 0) {
             output.append("\n");
             output.append("There is a ").append(interactables.get(0).getShortDescription());
@@ -152,6 +157,8 @@ public class Room {
             output.append("\n");
         }
         output.append("\n");
+
+        //List all combatants in the room
         if (getCombatants().size() < 2) {
             output.append("You are the only one in the room.");
         }
@@ -161,7 +168,83 @@ public class Room {
         if (getCombatants().size() > 2) {
             output.append(String.format("There are %d people in the room besides you.", getCombatants().size() - 1));
         }
+
+        //List all exits of the room
+        int count = 0;
+        if (west != null) {
+            count++;
+        }
+        if (east != null) {
+            count++;
+        }
+        if (north != null) {
+            count++;
+        }
+        if (south != null) {
+            count++;
+        }
+
+        if (count > 1) {
+            output.append("\n\n");
+        }
+
+        if (count == 1) {
+            output.append("There is a room to the ");
+            if (east != null) {
+                output.append("east");
+            } else if (west != null) {
+                output.append("west");
+            } else if (north != null) {
+                output.append("north");
+            } else if (south != null) {
+                output.append("south");
+            }
+            output.append(".");
+        } else if (count > 1) {
+            output.append("There are rooms to the");
+            if (north != null) {
+                output.append(" east");
+                count--;
+                if (count == 1) {
+                    output.append(" and");
+                } else {
+                    output.append(",");
+                }
+            }
+
+            if (south != null) {
+                output.append(" south");
+                count--;
+                if (count == 1) {
+                    output.append(" and");
+                } else if (count == 0) {
+                    output.append(".");
+                } else {
+                    output.append(",");
+                }
+            }
+
+            if (east != null && count > 0) {
+                output.append(" east");
+                count--;
+                if (count == 1) {
+                    output.append(" and");
+                } else if (count == 0) {
+                    output.append(".");
+                } else {
+                    output.append(",");
+                }
+            }
+
+            if (west != null) {
+                output.append(" west.");
+            }
+        }
+
+        //Add spacing for looks
         output.append("\n\n");
+
+        //Return the completed description
         return output.toString();
     }
 

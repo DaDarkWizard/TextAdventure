@@ -3,16 +3,21 @@ import PlayerHandler.CombatHandler.CombatGroup;
 import PlayerHandler.CombatHandler.Combatant;
 import PlayerHandler.GamePieces.Room;
 import PlayerHandler.Persistence.CreateCharacter;
+import PlayerHandler.UI.CommandInputHandler;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
+
+import java.lang.reflect.Array;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
 public class TechAdventure implements ConnectionListener {
 	private AdventureServer adventureServer;
 	private InputHandler inputHandler = new InputHandler();
+	private CommandInputHandler commandInputHandler = new CommandInputHandler();
 	private ArrayList<Room> rooms = new ArrayList<>();
 	private Room startRoom;
 	private static boolean runFrames = true;
@@ -100,7 +105,24 @@ public class TechAdventure implements ConnectionListener {
 						adventureServer.sendMessage(e.getConnectionID(), String.format(
 								"MESSAGE RECEIVED: connectionId=%d, data=%s", e.getConnectionID(), e.getData()));
 						player = Player.findClient(e.getConnectionID());
+
 						System.out.println("Player State: " + player.getState());
+
+						Commands systemCommand = commandInputHandler.handleInput(e.getData());
+						if (systemCommand != null) {
+							Scanner scanner = new Scanner(e.getData());
+							ArrayList<String> args = new ArrayList<>();
+							while (scanner.hasNext()) {
+								args.add(scanner.next());
+							}
+                            String[] argsArray = new String[args.size()];
+                            for (int i = 0; i < args.size(); i++) {
+                                argsArray[i] = args.get(i);
+                            }
+                            handleServerCommands(player, systemCommand, argsArray);
+                            break;
+						}
+
 						if (player.getState() == PlayerStates.normal) {
 							Frame message = inputHandler.handleInput(e.getData(), player);
 							if (!message.isEmpty()) {
@@ -170,6 +192,11 @@ public class TechAdventure implements ConnectionListener {
 						break;
 					case CONNECTION_TERMINATED:
 						// Cleanup when the connection is terminated.
+						player = Player.findClient(e.getConnectionID());
+						if (player != null) {
+							player.getLocation().removePlayer(player);
+							System.out.println("Connection terminated");
+						}
 						break;
 					default:
 						// What is a reasonable default?
@@ -185,6 +212,7 @@ public class TechAdventure implements ConnectionListener {
 			case SHUTDOWN:
 				player.setLastCommand(Commands.SHUTDOWN);
 				broadcastMessage("SHUTTING DOWN...");
+                runFrames = false;
 				adventureServer.stopServer();
 				break;
 			case SERVERMESSAGE:
@@ -199,7 +227,17 @@ public class TechAdventure implements ConnectionListener {
 									"Port: " + adventureServer.getPort());
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
+					break;
 				}
+				break;
+			case EXIT:
+				player = Player.findClient(player.getConnectionID());
+				if (player != null) {
+					player.getLocation().removePlayer(player);
+					System.out.println("Connection terminated");
+					Player.players.remove(player);
+				}
+				break;
 		}
 
 	}
