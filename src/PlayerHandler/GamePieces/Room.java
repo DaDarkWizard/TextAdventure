@@ -189,6 +189,7 @@ public class Room {
         }
 
         if (count == 1) {
+            output.append("\n\n");
             output.append("There is a room to the ");
             if (east != null) {
                 output.append("east");
