@@ -212,8 +212,7 @@ public class InputHandler {
                 if (possibleMatchesInter.size() == 1) {
                     Item item = (Item) possibleMatchesInter.get(0);
                     String pickedUp = item.pickup(player);
-
-                    output.addLine("[" + command.toString() + "]: You picked it up.");
+                    output.addLine("[" + command.toString() + "]: " + pickedUp);
                 } else if (possibleMatchesInter.size() > 1) {
                     output.addLine("[" + command.toString() + "]: Be more specific!");
                 } else {
@@ -246,8 +245,8 @@ public class InputHandler {
 
                 if (possibleMatchesInter.size() == 1) {
                     Item item = (Item) possibleMatchesInter.get(0);
-                    item.drop(player);
-                    output.addLine("[" + command.toString() + "]: You picked it up.");
+                    String dropped = item.drop(player);
+                    output.addLine("[" + command.toString() + "]: " + dropped);
                 } else if (possibleMatchesInter.size() > 1) {
                     output.addLine("[" + command.toString() + "]: Be more specific!");
                 } else {
