@@ -61,11 +61,10 @@ public class Tutorial {
         dragonRoom.getInteractables().add(key);
 
         dragon = new NPC(new Dragon("Dragon"));
-        dragon.setRoom(dragonRoom);
+        dragonRoom.addNPC(dragon);
 
         grue = new NPC(new Grue("Grue"));
-        grue.setRoom(monsterRoom);
-
+        monsterRoom.addNPC(grue);
 
         start.setNorth(startNorth);
         start.setWest(moneyAndGlory);
