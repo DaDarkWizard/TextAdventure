@@ -51,15 +51,16 @@ public class Item implements Holdable {
     }
 
     @Override
-    public Holdable pickup(Player player) {
+    public String pickup(Player player) {
         this.room = null;
         player.getInventory().add(this);
-        return this;
+        return "You picked up " + this.shortDescription;
     }
 
     @Override
-    public void drop(Player player) {
+    public String drop(Player player) {
         this.room = player.getLocation();
         player.getInventory().remove(this);
+        return "You dropped " + this.shortDescription;
     }
 }
