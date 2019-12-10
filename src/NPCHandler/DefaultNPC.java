@@ -24,6 +24,7 @@ public class DefaultNPC implements NPCTemplate {
     private int count = 0;                                      //Times this template has been used
     private int maxHitpoints = 10;                              //Maximum hitpoints of this NPC
     protected NPCMeetSomeoneListener npcMeetSomeoneListener;      //The NPCMeetSomeoneListener of this NPC
+    protected NPCRunListener npcRunListener;                          //For when the NPC is run
 
     /**
      * Creates the default with the name given
@@ -157,6 +158,16 @@ public class DefaultNPC implements NPCTemplate {
     @Override
     public NPCMeetSomeoneListener getNPCMeetSomeoneListener() {
         return this.npcMeetSomeoneListener;
+    }
+
+    /**
+     * Gets this NPC Templates NPCRunEvent
+     *
+     * @return this NPC Templates NPCRunEvent
+     */
+    @Override
+    public NPCRunListener getNPCRunListener() {
+        return this.npcRunListener;
     }
 
     /**

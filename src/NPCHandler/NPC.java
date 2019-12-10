@@ -46,6 +46,7 @@ public class NPC implements Combatant {
 
     //For AI
     private NPCMeetSomeoneListener npcMeetSomeoneListener;
+    private NPCRunListener npcRunListener;
 
     /**
      * Creates an NPC from the values specified
@@ -65,7 +66,8 @@ public class NPC implements Combatant {
         int brawn, int spiffness, int smarts, int moxy,
         ArrayList<Weapon> weapons, ArrayList<String> combatWords,
         CombatGroup.rpsChoice combatChoice,
-        NPCMeetSomeoneListener npcMeetSomeoneListener) {
+        NPCMeetSomeoneListener npcMeetSomeoneListener,
+        NPCRunListener npcRunListener) {
 
         this.rpsChoice = combatChoice;
         this.weapons = weapons;
@@ -78,6 +80,7 @@ public class NPC implements Combatant {
         this.moxy = moxy;
         this.combatWords = combatWords;
         this.npcMeetSomeoneListener = npcMeetSomeoneListener;
+        this.npcRunListener = npcRunListener;
     }
 
     /**
@@ -101,7 +104,36 @@ public class NPC implements Combatant {
         this.moxy = template.getMoxy();
         this.combatWords = template.getCombatWords();
         this.npcMeetSomeoneListener = template.getNPCMeetSomeoneListener();
+        this.npcRunListener = template.getNPCRunListener();
         template.increment();
+    }
+
+    /**
+     * Runs a frame for the NPC
+     */
+    public void run() {
+        NPCRunEvent event = new NPCRunEvent(this);
+        if (npcRunListener != null) {
+            npcRunListener.handle(event);
+        }
+    }
+
+    /**
+     * Gets the NPCRunListener for this NPC
+     *
+     * @return the NPCRunListener
+     */
+    public NPCRunListener getNPCRunListener() {
+        return npcRunListener;
+    }
+
+    /**
+     * Sets the NPCRunListener for this NPC
+     *
+     * @param listener the NPCRunListener
+     */
+    public void getNPCRunListener(NPCRunListener listener) {
+        this.npcRunListener = listener;
     }
 
     /**

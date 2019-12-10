@@ -38,5 +38,7 @@ public interface NPCTemplate {
 
     NPCMeetSomeoneListener getNPCMeetSomeoneListener();
 
+    NPCRunListener getNPCRunListener();
+
     void increment();
 }
