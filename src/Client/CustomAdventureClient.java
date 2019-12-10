@@ -89,7 +89,19 @@ public class CustomAdventureClient extends Application {
 
         Button button = new Button("Reconnect");
         button.setOnAction(event -> {
+            input.add("exit");
             inputThread.interrupt();
+            try {
+                fromServer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            toServer.close();
+            try {
+                keyboardInput.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             inputThread = new InputThread();
             inputThread.start(this.getParameters().getRaw());
         });
