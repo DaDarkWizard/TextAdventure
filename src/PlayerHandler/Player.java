@@ -7,6 +7,7 @@ import GamePieces.Holdable;
 import GamePieces.Room;
 import CombatHandler.Weapons.Weapon;
 import PlayerHandler.UI.Frame;
+import PlayerHandler.UI.StandardFrame;
 import PlayerHandler.UI.UpdateListener;
 
 import java.util.ArrayList;
@@ -142,6 +143,9 @@ public class Player implements Combatant {
             this.location.removePlayer(this);
         }
         this.location = location;
+        StandardFrame frame = new StandardFrame();
+        frame.add(location.getDescription());
+        this.setLastFrame(frame);
         this.location.addPlayer(this);
     }
 

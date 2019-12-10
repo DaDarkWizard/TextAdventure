@@ -54,18 +54,17 @@ public class TechAdventure implements ConnectionListener {
 
 	@Override
 	public void handle(ConnectionEvent e) {
-		System.out.println("Trying to handle lock");
 		synchronized (TechAdventure.lock) {
-			System.out.println("Handled");
 			try {
 				Player player;
 				switch (e.getCode()) {
 					case CONNECTION_ESTABLISHED:
 						// What do you do when the connection is established?
 						player = new Player(e.getConnectionID());
-						player.setLocation(startRoom);
 						player.setInfoEventListener(event -> {
 							try {
+								System.out.println("MESAGR SENT");
+								System.out.println(event.getMessage());
 								Frame output = player.getLastFrame();
 								if (output == null || output.isEmpty()) {
 									output = new StandardFrame();
@@ -86,18 +85,19 @@ public class TechAdventure implements ConnectionListener {
 							}
 							try {
 								if (event.getSource() == null) {
-									System.out.println("YEET");
 								}
 								adventureServer.sendMessage(event.getSource().getConnectionID(), output.getOutput());
 							} catch (UnknownConnectionException ex) {
 								ex.printStackTrace();
 							}
 						});
+						player.setLocation(startRoom);
 						Frame output = new StandardFrame();
 						output.add(player.getLocation().getDescription());
 						player.setLastFrame(output);
 						adventureServer.sendMessage(player.getConnectionID(), output.getOutput());
 						player.setState(PlayerStates.normal);
+
 						break;
 					case TRANSMISSION_RECEIVED:
 						adventureServer.sendMessage(e.getConnectionID(), String.format(
@@ -123,7 +123,8 @@ public class TechAdventure implements ConnectionListener {
 
 						if (player.getState() == PlayerStates.normal) {
 							Frame message = inputHandler.handleInput(e.getData(), player);
-							if (!message.isEmpty()) {
+							if (message != null && !message.isEmpty()) {
+
 								adventureServer.sendMessage(e.getConnectionID(), message.getOutput());
 							}
 						} else if (player.getState() == PlayerStates.combat) {
@@ -134,7 +135,7 @@ public class TechAdventure implements ConnectionListener {
 					case CONNECTION_TERMINATED:
 						// Cleanup when the connection is terminated.
 						player = Player.findClient(e.getConnectionID());
-						if (player != null) {
+						if (player != null && player.getLocation() != null) {
 							player.getLocation().removePlayer(player);
 							System.out.println("Connection terminated");
 						}

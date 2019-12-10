@@ -156,7 +156,7 @@ public class DefaultNPC implements NPCTemplate {
      */
     @Override
     public NPCMeetSomeoneListener getNPCMeetSomeoneListener() {
-        return null;
+        return this.npcMeetSomeoneListener;
     }
 
     /**

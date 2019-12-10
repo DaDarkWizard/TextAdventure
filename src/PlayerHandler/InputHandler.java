@@ -132,9 +132,12 @@ public class InputHandler {
                     output.clearFrame();
                     output.addLine(badMove);
                 } else {
+
+                    //output = new StandardFrame();
+                    //output.add(player.getLocation().getDescription());
+
                     player.setLocation(player.getLocation().getNorth());
-                    output = new StandardFrame();
-                    output.add(player.getLocation().getDescription());
+                    return player.getLastFrame();
                 }
                 break;
             case say:

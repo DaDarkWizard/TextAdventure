@@ -320,8 +320,7 @@ public class Room {
      * @return ArrayList of all players
      */
     public ArrayList<Player> getPlayers() {
-        ArrayList<Player> output = new ArrayList<>(players);
-        return output;
+        return new ArrayList<>(players);
     }
 
 

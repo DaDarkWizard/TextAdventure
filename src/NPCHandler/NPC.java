@@ -126,9 +126,11 @@ public class NPC implements Combatant {
      */
     public void handleEnter() {
         NPCMeetSomeoneEvent event = new NPCMeetSomeoneEvent(this);
-        //if (npcMeetSomeoneListener != null) {
-        //    npcMeetSomeoneListener.handle(event);
-        //}
+        System.out.println("Handle Enter Called");
+        if (npcMeetSomeoneListener != null) {
+            System.out.println("Enter handled");
+            npcMeetSomeoneListener.handle(event);
+        }
     }
 
     /**
