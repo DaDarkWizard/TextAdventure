@@ -1,4 +1,4 @@
-package PlayerHandler.CombatHandler.Weapons;
+package CombatHandler.Weapons;
 
 /**
  * Exception for when an attempt is made to initiate combat but not enough people are in the room

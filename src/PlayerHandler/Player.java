@@ -1,11 +1,11 @@
 package PlayerHandler;
 
-import PlayerHandler.CombatHandler.AttackCommands;
-import PlayerHandler.CombatHandler.CombatGroup;
-import PlayerHandler.CombatHandler.Combatant;
+import CombatHandler.AttackCommands;
+import CombatHandler.CombatGroup;
+import CombatHandler.Combatant;
 import GamePieces.Holdable;
 import GamePieces.Room;
-import PlayerHandler.CombatHandler.Weapons.Weapon;
+import CombatHandler.Weapons.Weapon;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.UpdateListener;
 

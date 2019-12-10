@@ -1,8 +1,8 @@
 package NPCHandler;
 
 
-import PlayerHandler.CombatHandler.CombatGroup;
-import PlayerHandler.CombatHandler.Weapons.Weapon;
+import CombatHandler.CombatGroup;
+import CombatHandler.Weapons.Weapon;
 
 import java.util.ArrayList;
 

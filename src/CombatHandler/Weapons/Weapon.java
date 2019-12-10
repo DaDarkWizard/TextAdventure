@@ -1,7 +1,7 @@
-package PlayerHandler.CombatHandler.Weapons;
+package CombatHandler.Weapons;
 
-import PlayerHandler.CombatHandler.AttackCommands;
-import PlayerHandler.CombatHandler.Combatant;
+import CombatHandler.AttackCommands;
+import CombatHandler.Combatant;
 import GamePieces.Item;
 import PlayerHandler.Player;
 

@@ -1,6 +1,6 @@
-package PlayerHandler.CombatHandler;
+package CombatHandler;
 
-import PlayerHandler.CombatHandler.Weapons.Weapon;
+import CombatHandler.Weapons.Weapon;
 
 import java.util.ArrayList;
 

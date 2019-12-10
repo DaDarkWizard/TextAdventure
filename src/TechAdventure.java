@@ -1,5 +1,5 @@
 import PlayerHandler.*;
-import PlayerHandler.CombatHandler.CombatGroup;
+import CombatHandler.CombatGroup;
 import GamePieces.Room;
 import PlayerHandler.Persistence.CreateCharacter;
 import PlayerHandler.UI.CommandInputHandler;

@@ -1,6 +1,6 @@
-package PlayerHandler.CombatHandler.Weapons;
+package CombatHandler.Weapons;
 
-import PlayerHandler.CombatHandler.Combatant;
+import CombatHandler.Combatant;
 
 import java.util.EventObject;
 

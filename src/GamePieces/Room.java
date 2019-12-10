@@ -1,7 +1,7 @@
 package GamePieces;
 
 import NPCHandler.NPC;
-import PlayerHandler.CombatHandler.Combatant;
+import CombatHandler.Combatant;
 import PlayerHandler.Commands;
 import PlayerHandler.Player;
 

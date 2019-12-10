@@ -1,6 +1,6 @@
 package PlayerHandler.UI;
 
-import PlayerHandler.CombatHandler.AttackCommands;
+import CombatHandler.AttackCommands;
 import PlayerHandler.Player;
 
 import java.util.ArrayList;

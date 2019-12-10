@@ -1,4 +1,4 @@
-package PlayerHandler.CombatHandler.Weapons;
+package CombatHandler.Weapons;
 
 import java.util.EventListener;
 

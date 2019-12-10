@@ -1,4 +1,4 @@
-package PlayerHandler.CombatHandler;
+package CombatHandler;
 
 public enum AttackCommands {
     hit,

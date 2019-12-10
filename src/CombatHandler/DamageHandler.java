@@ -1,4 +1,4 @@
-package PlayerHandler.CombatHandler;
+package CombatHandler;
 
 public class DamageHandler {
     private static int rollDice(int sides) {
