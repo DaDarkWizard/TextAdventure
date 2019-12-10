@@ -1,6 +1,7 @@
 package PlayerHandler.Persistence;
 
 import PlayerHandler.Player;
+import PlayerHandler.PlayerStates;
 import PlayerHandler.UI.StandardFrame;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class CreateCharacter {
         frame.addLine("On this screen, you will create a character.");
         frame.addLine("First, enter a username you would like to use.");
         player.update();
+        player.setState(PlayerStates.characterCreation);
     }
 
     public void run() {

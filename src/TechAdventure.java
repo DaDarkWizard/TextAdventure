@@ -1,16 +1,13 @@
 import PlayerHandler.*;
 import PlayerHandler.CombatHandler.CombatGroup;
-import PlayerHandler.CombatHandler.Combatant;
 import PlayerHandler.GamePieces.Room;
 import PlayerHandler.Persistence.CreateCharacter;
 import PlayerHandler.UI.CommandInputHandler;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
 
-import java.lang.reflect.Array;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
@@ -18,6 +15,7 @@ public class TechAdventure implements ConnectionListener {
 	private AdventureServer adventureServer;
 	private InputHandler inputHandler = new InputHandler();
 	private CommandInputHandler commandInputHandler = new CommandInputHandler();
+	private CombatInputHandler combatInputHandler = new CombatInputHandler();
 	private ArrayList<Room> rooms = new ArrayList<>();
 	private Room startRoom;
 	private static boolean runFrames = true;
@@ -129,65 +127,8 @@ public class TechAdventure implements ConnectionListener {
 								adventureServer.sendMessage(e.getConnectionID(), message.getOutput());
 							}
 						} else if (player.getState() == PlayerStates.combat) {
-							switch (player.getCombatGroup().getCombatState()) {
-								case startCombat:
-									try {
-										int choice = Integer.parseInt(e.getData());
-										if (choice > 0 && choice < player.getCombatGroup().getCombatants().size()) {
-											player.setTarget(player.getCombatGroup().getCombatants().get(choice - 1));
-										}
+							Frame message = combatInputHandler.handleInput(e.getData(), player);
 
-									} catch (NumberFormatException ex) {
-										player.sendMessage("[" + e.getData() + "]: " + "must be an integer.");
-									}
-									break;
-								case words:
-									player.getWords().add(e.getData().toLowerCase());
-									player.update();
-									break;
-								case rps:
-									Scanner scanner = new Scanner(e.getData().toLowerCase());
-									switch (scanner.next()) {
-										case "fight":
-											player.setCombatDecision(CombatGroup.rpsChoice.fight);
-											break;
-										case "flee":
-											player.setState(PlayerStates.normal);
-											player.getCombatGroup().removeCombatant(player);
-											if (scanner.hasNext()) {
-												handle(new ConnectionEvent(ConnectionEventCode.CONNECTION_ESTABLISHED,
-														e.getConnectionID(), "go " + scanner.nextLine()));
-											} else {
-												int direction = (int) (Math.random() * 4.0);
-												Room exitRoom = null;
-												switch (direction) {
-													case 0:
-														exitRoom = player.getLocation().getEast();
-														break;
-													case 1:
-														exitRoom = player.getLocation().getNorth();
-														break;
-													case 2:
-														exitRoom = player.getLocation().getSouth();
-														break;
-													case 3:
-														exitRoom = player.getLocation().getWest();
-														break;
-												}
-												if (exitRoom == null) {
-													player.sendMessage("In a panic you flee, but smack into a wall!");
-													player.sendMessage("Looks like you're stuck here for now..");
-												} else {
-													player.setLocation(exitRoom);
-												}
-											}
-
-											break;
-										case "talk":
-											player.setCombatDecision(CombatGroup.rpsChoice.talk);
-											break;
-									}
-							}
 						}
 						break;
 					case CONNECTION_TERMINATED:
@@ -210,10 +151,12 @@ public class TechAdventure implements ConnectionListener {
 	private void handleServerCommands(Player player, Commands command, String[] args) throws UnknownConnectionException {
 		switch (command) {
 			case SHUTDOWN:
-				player.setLastCommand(Commands.SHUTDOWN);
-				broadcastMessage("SHUTTING DOWN...");
-                runFrames = false;
-				adventureServer.stopServer();
+				if (player.isAdmin()) {
+					player.setLastCommand(Commands.SHUTDOWN);
+					broadcastMessage("SHUTTING DOWN...");
+					runFrames = false;
+					adventureServer.stopServer();
+				}
 				break;
 			case SERVERMESSAGE:
 				player.setLastCommand(Commands.SERVERMESSAGE);
