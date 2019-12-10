@@ -13,5 +13,6 @@ public enum Commands {
     attack,
     SERVERMESSAGE,
     SHUTDOWN,
-    IPADDRESS
+    IPADDRESS,
+    EXIT
 }

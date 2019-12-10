@@ -12,7 +12,7 @@ import PlayerHandler.UI.UpdateListener;
 import java.util.ArrayList;
 
 public class Player implements Combatant {
-    private static ArrayList<Player> players = new ArrayList<>();
+    public static ArrayList<Player> players = new ArrayList<>();
 
     //General stuff
     private long connectionID;
@@ -183,7 +183,7 @@ public class Player implements Combatant {
                 return player;
             }
         }
-        throw new ClientNotFoundException();
+        return null;
     }
 
     //Combatant stuff

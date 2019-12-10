@@ -12,18 +12,18 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class InputHandler {
-    private String[] east = {"e", "east", "right"};
-    private String[] west = {"w", "west", "left"};
-    private String[] north = {"n", "north", "up"};
-    private String[] south = {"s", "south", "down"};
-    private String[] say = {"say", "shout", "yell", "orate"};
-    private String[] fillerWords = {"the", "at", "a", "an", "of", "for", "over"};
-    private String[] inventory = {"inventory", "items", "stuff"};
-    private String badMove = "You can't move that direction.";
+    private static String[] east = {"e", "east", "right"};
+    private static String[] west = {"w", "west", "left"};
+    private static String[] north = {"n", "north", "up"};
+    private static String[] south = {"s", "south", "down"};
+    private static String[] say = {"say", "shout", "yell", "orate"};
+    private static String[] fillerWords = {"the", "at", "a", "an", "of", "for", "over"};
+    private static String[] inventory = {"inventory", "items", "stuff"};
+    private static String badMove = "You can't move that direction.";
     private MessageListener messageListener;
     private ServerCommandListener serverCommandListener;
 
-    public Commands getCommand(String command) {
+    public static Commands getCommand(String command) {
         if (Arrays.binarySearch(east, command) > -1) {
             return Commands.east;
         } else if (Arrays.binarySearch(west, command) > -1) {
