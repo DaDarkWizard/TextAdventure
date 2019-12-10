@@ -7,57 +7,58 @@ import PlayerHandler.GamePieces.Room;
 import java.io.File;
 
 public class Tutorial {
-    private Room start;
-    private Room startWest;
-    private Room end;
+    private Room start, startWest, startNorth, startEast, startSouth, monsterRoom, dragonSlayer, dragonRoom, moneyAndGlory;
 
     public Tutorial() {
-        this.start = new Room("Tutorial Level",
+        start = new Room("Tutorial Level",
                 "Welcome to Generic Dungeon Crawler 2019!\n" +
+                        "You are in a square blue room with smooth walls it smells vaguely of adventure.\n" +
                         "This tutorial will help you get familiar with the controls.\n" +
                         "If you know what you're doing, type 'restore' to retrieve your data.\n\n" +
-                        "Let's start by learning the controls. GDC is not case sensitive\n" +
+                        "Let's start by learning the controls. GDC is not case sensitive.\n" +
                         "To move, simply type 'go (direction)' or just '(direction)'\n" +
                         "Try 'go north' now.",
                 "This should never be seen");
-        start.getCombatants().add(new NPC(new DefaultNPC("Joe")));
-        start.setNorth(new Room("Tutorial Level",
-                "Okay, now try 'go east'",
-                "A room to the north. You should go there!"));
 
-        start.getNorth().setEast(new Room("Tutorial Level",
-                "Nice job! Next is 'south'",
-                "A room to the east. Isn't it grand? Go there to continue."));
+        startWest = new Room("West Room",
+                "You are in a triangle orange room with hairy walls it smells vaguely of the ocean.",
+                "A room to the West. It looks like it's orange?");
+        startNorth = new Room("North Room",
+                "You are in a rectangle yellow room with bricked walls it smells vaguely of rotting fish.\n" +
+                        "Good, now try 'go east' now!",
+                "A room to the North. It looks like it's yellow?");
+        startEast = new Room("East Room",
+                "You are in a circle red room with sharp walls it smells vaguely of burnt toast.\n" +
+                        "Awesome! Now try 'go south'",
+                "A room to the East. It looks like it's red?");
+        startSouth = new Room("South Room",
+                "You are in a kite green room with sticky walls it smells vaguely of wet pain on a hot day.\n" +
+                        "Next! Now try 'go west'",
+                "A room to the South. It looks like it's green?");
+        monsterRoom = new Room("Monster Room",
+                "You are in a regular old square purple room with silky walls it smells vaguely of perfume of the ones you love.",
+                "A room to the West. It looks like it's purple? You can hear growling.");
+        dragonSlayer = new Room("Dragon Slayer Room",
+                "You are in a asteroid white room with icy walls it smells vaguely of sulfur.",
+                "A room to the South. It looks like its's white?");
+        dragonRoom = new Room("Dragon Room",
+                "You are in a pentagram black room with pointy walls it smells vaguely of rotting onions.",
+                "A room to the East. It looks like it's black? You can hear a roar.");
+        moneyAndGlory = new Room("Money and Glory Room",
+                "You are in a octagon gold room with shiny walls it smells vaguely of glory.",
+                "A room to the West. It looks like its gold?");
 
-        start.getNorth().getEast().setSouth(new Room("Tutorial Level",
-                "I think you've got the hang of this! Last one is 'go west'",
-                "A room farther 'south' then you've ever been."));
-
-        startWest = new Room("Tutorial Level",
-                "",
-                "A room to the West.");
-
-        start.getNorth().getEast().getSouth().setWest(startWest);
-
-        end = new Room("Tutorial Level",
-                "The final room",
-                "You can see the end.");
-        startWest.setSouth(end);
-        startWest.setNorth(end);
-        startWest.setEast(end);
-        startWest.setWest(end);
-
-        end.setNorth(end);
-        end.setSouth(end);
-        end.setWest(end);
-        end.setEast(end);
+        start.setNorth(startNorth);
+        start.setWest(moneyAndGlory);
+        startNorth.setEast(startEast);
+        startEast.setSouth(startSouth);
+        startSouth.setWest(startWest);
+        startWest.setWest(monsterRoom);
+        monsterRoom.setSouth(dragonSlayer);
+        dragonSlayer.setEast(dragonRoom);
     }
 
     public Room getStart() {
         return this.start;
-    }
-
-    public Room getEnd() {
-        return this.end;
     }
 }
