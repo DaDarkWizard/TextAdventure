@@ -24,6 +24,8 @@ import java.util.ArrayList;
  */
 public class NPC implements Combatant {
 
+    public static ArrayList<NPC> npcs = new ArrayList<>();
+
     //For stats
     private String name;
     private int maxHitpoints;
@@ -81,6 +83,8 @@ public class NPC implements Combatant {
         this.combatWords = combatWords;
         this.npcMeetSomeoneListener = npcMeetSomeoneListener;
         this.npcRunListener = npcRunListener;
+
+        npcs.add(this);
     }
 
     /**
@@ -106,6 +110,8 @@ public class NPC implements Combatant {
         this.npcMeetSomeoneListener = template.getNPCMeetSomeoneListener();
         this.npcRunListener = template.getNPCRunListener();
         template.increment();
+
+        npcs.add(this);
     }
 
     /**
