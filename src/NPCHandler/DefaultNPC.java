@@ -23,8 +23,8 @@ public class DefaultNPC implements NPCTemplate {
     private ArrayList<String> words = new ArrayList<>();        //String of words it uses in combat.
     private int count = 0;                                      //Times this template has been used
     private int maxHitpoints = 10;                              //Maximum hitpoints of this NPC
-    protected NPCMeetSomeoneListener npcMeetSomeoneListener;      //The NPCMeetSomeoneListener of this NPC
-    protected NPCRunListener npcRunListener;                          //For when the NPC is run
+    protected NPCMeetSomeoneListener npcMeetSomeoneListener;    //The NPCMeetSomeoneListener of this NPC
+    protected NPCRunListener npcRunListener;                    //For when the NPC is run
 
     /**
      * Creates the default with the name given
