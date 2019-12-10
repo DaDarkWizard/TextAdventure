@@ -39,6 +39,19 @@ public class NPC implements Combatant {
     private ArrayList<String> combatWords;
     private CombatGroup.rpsChoice rpsChoice;
 
+    /**
+     * Creates an NPC from the values specified
+     *
+     * @param name         Name of the NPC
+     * @param maxHitpoints the maximum hitpoints
+     * @param brawn        the brawn stat
+     * @param spiffness    the spiffness stat
+     * @param smarts       the smarts stat
+     * @param moxy         the moxy stat
+     * @param weapons      ArrayList of weapons the NPC has equipped
+     * @param combatWords  The combatWords the npc will use
+     * @param combatChoice The decision the npc will make in combat RPS
+     */
     NPC(String name, int maxHitpoints,
         int brawn, int spiffness, int smarts, int moxy,
         ArrayList<Weapon> weapons, ArrayList<String> combatWords,
@@ -54,6 +67,25 @@ public class NPC implements Combatant {
         this.smarts = smarts;
         this.moxy = moxy;
         this.combatWords = combatWords;
+    }
+
+    /**
+     * Creates an NPC from the specified template
+     *
+     * @param template template to use for NPC creation. Must implement the NPCTemplate interface
+     */
+    public NPC(NPCTemplate template) {
+        this.rpsChoice = template.getRPSChoice();
+        this.weapons = template.getWeapons();
+        this.name = template.getName();
+        this.maxHitpoints = template.getMaxHitpoints();
+        this.currentHitpoints = template.getMaxHitpoints();
+        this.brawn = template.getBrawn();
+        this.spiffness = template.getSpiffness();
+        this.smarts = template.getSmarts();
+        this.moxy = template.getMoxy();
+        this.combatWords = template.getCombatWords();
+        template.increment();
     }
 
     /**
