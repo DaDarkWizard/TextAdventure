@@ -2,6 +2,8 @@ package PlayerHandler;
 
 import GamePieces.Item;
 import GamePieces.Room;
+import NPCHandler.CrankyOldMan;
+import NPCHandler.NPC;
 
 import java.util.Arrays;
 
@@ -42,6 +44,8 @@ public class Tutorial {
         dragonSlayer = new Room("Dragon Slayer Room",
                 "You are in a asteroid white room with icy walls.\nIt smells vaguely of sulfur.",
                 "A room to the South. It looks like its's white?");
+        CrankyOldMan crankyOldMan = new CrankyOldMan();
+        dragonSlayer.addNPC(new NPC(crankyOldMan));
         dragonRoom = new Room("Dragon Room",
                 "You are in a pentagram black room with pointy walls.\nIt smells vaguely of rotting onions.",
                 "A room to the East. It looks like it's black? You can hear a roar.");

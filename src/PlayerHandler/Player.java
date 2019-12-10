@@ -142,7 +142,7 @@ public class Player implements Combatant {
             this.location.removePlayer(this);
         }
         this.location = location;
-        this.location.getPlayers().add(this);
+        this.location.addPlayer(this);
     }
 
     public boolean isOnline() {

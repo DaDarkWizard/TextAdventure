@@ -19,10 +19,11 @@ import java.util.ArrayList;
 public class DefaultNPC implements NPCTemplate {
 
     private String name;                                        //Name of the npc in this template
-    private ArrayList<Weapon> weapons = new ArrayList<>();      //Weapons it hold. Empty
+    private ArrayList<Weapon> weapons = new ArrayList<>();      //Weapons it holds. Empty
     private ArrayList<String> words = new ArrayList<>();        //String of words it uses in combat.
     private int count = 0;                                      //Times this template has been used
     private int maxHitpoints = 10;                              //Maximum hitpoints of this NPC
+    protected NPCMeetSomeoneListener npcMeetSomeoneListener;      //The NPCMeetSomeoneListener of this NPC
 
     /**
      * Creates the default with the name given
@@ -148,6 +149,11 @@ public class DefaultNPC implements NPCTemplate {
         return CombatGroup.rpsChoice.talk;
     }
 
+    /**
+     * Gets this NPCs NPCMeetSomeoneListener
+     *
+     * @return this NPCs NPCMeetSomeoneListener
+     */
     @Override
     public NPCMeetSomeoneListener getNPCMeetSomeoneListener() {
         return null;

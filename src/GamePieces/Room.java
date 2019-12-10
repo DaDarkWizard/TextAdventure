@@ -313,14 +313,17 @@ public class Room {
         this.lookDescription = lookDescription;
     }
 
+
     /**
      * Gets all players in the room
      *
      * @return ArrayList of all players
      */
     public ArrayList<Player> getPlayers() {
-        return players;
+        ArrayList<Player> output = new ArrayList<>(players);
+        return output;
     }
+
 
     /**
      * Gets all combatants in the room
@@ -355,5 +358,44 @@ public class Room {
                 i--;
             }
         }
+    }
+
+    /**
+     * Adds the specified player to the room
+     *
+     * @param player player to add
+     */
+    public void addPlayer(Player player) {
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i) == player) {
+                return;
+            }
+        }
+        players.add(player);
+        for (NPC npc : npcs) {
+            npc.handleEnter();
+        }
+    }
+
+    /**
+     * Adds the specified NPC to the room
+     *
+     * @param npc NPC to add
+     */
+    public void addNPC(NPC npc) {
+        if (!npcs.contains(npc)) {
+            npcs.add(npc);
+        }
+        npc.setRoom(this);
+    }
+
+    /**
+     * Removes the specified NPC from the room
+     *
+     * @param npc NPC to remove
+     */
+    public void removeNPC(NPC npc) {
+        npcs.remove(npc);
+        npc.setRoom(null);
     }
 }

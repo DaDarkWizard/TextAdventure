@@ -3,6 +3,7 @@ package NPCHandler;
 import CombatHandler.CombatGroup;
 import CombatHandler.Combatant;
 import CombatHandler.Weapons.Weapon;
+import GamePieces.Room;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class NPC implements Combatant {
     private int spiffness;
     private int smarts;
     private int moxy;
+    private Room room;
 
     //For combat
     private ArrayList<Weapon> weapons;
@@ -78,6 +80,10 @@ public class NPC implements Combatant {
     }
 
     /**
+     *
+     */
+
+    /**
      * Creates an NPC from the specified template
      *
      * @param template template to use for NPC creation. Must implement the NPCTemplate interface
@@ -95,6 +101,32 @@ public class NPC implements Combatant {
         this.combatWords = template.getCombatWords();
         this.npcMeetSomeoneListener = template.getNPCMeetSomeoneListener();
         template.increment();
+    }
+
+    /**
+     * Gets the room this npc is in
+     *
+     * @return this NPCs room
+     */
+    public Room getRoom() {
+        return this.room;
+    }
+
+    /**
+     * Sets the room this npc is in
+     *
+     * @param room The room this npc is now in
+     */
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    /**
+     * Prompts this NPC to handle someone entering the room
+     */
+    public void handleEnter() {
+        NPCMeetSomeoneEvent event = new NPCMeetSomeoneEvent(this);
+        npcMeetSomeoneListener.handle(event);
     }
 
     /**
