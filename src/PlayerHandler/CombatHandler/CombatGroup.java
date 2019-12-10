@@ -1,5 +1,6 @@
 package PlayerHandler.CombatHandler;
 
+import PlayerHandler.CombatHandler.Weapons.TooFewCombatantsException;
 import PlayerHandler.CombatHandler.Weapons.Weapon;
 import PlayerHandler.Player;
 import PlayerHandler.PlayerStates;
@@ -55,13 +56,13 @@ public class CombatGroup {
         this.initiant = initiant;           //Set initiant from input
 
         //Must have combatants in group
-        if (combatants == null || combatants.isEmpty()) {
-            throw new RuntimeException("Combat group needs combatants");
+        if (combatants == null) {
+            throw new IllegalArgumentException("Combat group needs combatants");
         }
 
         //Must have more than one combatant in a group
         if (combatants.size() < 2) {
-            throw new RuntimeException("Combat group needs more than one combatant.");
+            throw new TooFewCombatantsException("Combat group needs at least 2 combatants.");
         }
 
         //Get all combatants and handle them

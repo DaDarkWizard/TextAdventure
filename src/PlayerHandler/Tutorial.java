@@ -1,5 +1,7 @@
 package PlayerHandler;
 
+import NPCHandler.DefaultNPC;
+import NPCHandler.NPC;
 import PlayerHandler.GamePieces.Room;
 
 import java.io.File;
@@ -18,7 +20,7 @@ public class Tutorial {
                         "To move, simply type 'go (direction)' or just '(direction)'\n" +
                         "Try 'go north' now.",
                 "This should never be seen");
-
+        start.getCombatants().add(new NPC(new DefaultNPC("Joe")));
         start.setNorth(new Room("Tutorial Level",
                 "Okay, now try 'go east'",
                 "A room to the north. You should go there!"));

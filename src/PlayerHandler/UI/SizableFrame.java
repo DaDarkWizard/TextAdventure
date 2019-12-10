@@ -1,6 +1,8 @@
 package PlayerHandler.UI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.ToDoubleBiFunction;
 
 public class SizableFrame extends Frame {
     private ArrayList<String> lines = new ArrayList<>();
@@ -19,9 +21,11 @@ public class SizableFrame extends Frame {
         return this.lines.get(line);
     }
 
+
     @Override
     public String getOutput() {
         StringBuilder stringBuilder = new StringBuilder();
+        System.out.println(lines.size());
         for (int i = 0; i < lines.size(); i++) {
             stringBuilder.append(lines.get(i));
             if (i < lines.size() - 1) {
@@ -29,8 +33,16 @@ public class SizableFrame extends Frame {
             }
         }
 
+        if (lines.size() < height) {
+            for (int i = 0; i < height - lines.size(); i++) {
+                stringBuilder.append("\n");
+            }
+        }
+
+        //System.out.println(stringBuilder.toString());
         return stringBuilder.toString();
     }
+
 
     @Override
     public boolean addLine(String line) {
@@ -47,6 +59,14 @@ public class SizableFrame extends Frame {
         return add(text, false);
     }
 
+    /**
+     * Adds a string to the frame
+     * DO NOT TOUCH WORKS AS EXPECTED
+     *
+     * @param text  String to add to the frame
+     * @param force Whether or not to force if it doesn't fit
+     * @return Whether or not the string is added correctly
+     */
     @Override
     public boolean add(String text, boolean force) {
         String s = "";
@@ -57,29 +77,22 @@ public class SizableFrame extends Frame {
         ArrayList<String> newLines = new ArrayList<>();
         newLines.add(lines.get(lines.size() - 1));
 
-        while (text.length() > width || text.contains("\n")) {
-            if (text.contains("\n") && text.indexOf("\n") <= width) {
-                if (text.length() > 1) {
-                    newLines.set(newLines.size() - 1,
-                            newLines.get(newLines.size() - 1) +
-                                    text.substring(0, text.indexOf("\n") - 1));
-                    if (text.indexOf("\n") != text.length() - 1) {
-                        text = text.substring(text.indexOf("\n + 1"));
-                    }
-                } else {
-                    text = "";
-                }
+        //add all text to newLines
+        String[] textSplit = text.split("\n", -1);
+        for (int i = 0; i < textSplit.length; i++) {
+            String newLine = newLines.get(newLines.size() - 1) + textSplit[i];
+            while (newLine.length() > width) {
+                newLines.set(newLines.size() - 1, newLine.substring(0, 29));
+                newLine = newLine.substring(30);
                 newLines.add("");
-            } else {
-                newLines.set(newLines.size() - 1,
-                        newLines.get(newLines.size() - 1) +
-                                text.substring(0, width - 1));
-                text = text.substring(width);
+            }
+            newLines.set(newLines.size() - 1, newLine);
+            if (i < textSplit.length - 1) {
                 newLines.add("");
             }
         }
-        newLines.set(newLines.size() - 1, text);
 
+        //Handle adding newlines
         if (!force && newLines.size() + lines.size() - 1 > height) {
             return false;
         } else {

@@ -1,13 +1,11 @@
 package PlayerHandler;
 
 import PlayerHandler.CombatHandler.CombatGroup;
+import PlayerHandler.CombatHandler.Weapons.TooFewCombatantsException;
 import PlayerHandler.GamePieces.Holdable;
 import PlayerHandler.GamePieces.Interactable;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
-import com.sun.jmx.snmp.SnmpUnknownAccContrModelException;
-
-import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -65,8 +63,8 @@ public class InputHandler {
         }
         Commands command = getCommand(scanner.next());
         if (command == null) {
-            output.clearFrame();
-            output.addLine("That command isn't valid!");
+            output = player.getLastFrame();
+            output.addLine("[" + input + "]: That command isn't valid!");
             return output;
         }
         player.setLastCommand(command);
@@ -85,7 +83,8 @@ public class InputHandler {
                     output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getEast());
-                    output = player.getLocation().getDescription(player, output);
+                    output = new StandardFrame();
+                    output.add(player.getLocation().getDescription());
                 }
                 break;
             case west:
@@ -94,7 +93,8 @@ public class InputHandler {
                     output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getWest());
-                    output = player.getLocation().getDescription(player, output);
+                    output = new StandardFrame();
+                    output.add(player.getLocation().getDescription());
                 }
                 break;
             case south:
@@ -103,7 +103,8 @@ public class InputHandler {
                     output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getSouth());
-                    output = player.getLocation().getDescription(player, output);
+                    output = new StandardFrame();
+                    output.add(player.getLocation().getDescription());
                 }
                 break;
             case north:
@@ -112,7 +113,8 @@ public class InputHandler {
                     output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getNorth());
-                    output = player.getLocation().getDescription(player, output);
+                    output = new StandardFrame();
+                    output.add(player.getLocation().getDescription());
                 }
                 break;
             case say:
@@ -129,7 +131,8 @@ public class InputHandler {
                 break;
             case look:
                 if (!scanner.hasNext()) {
-                    output = player.getLocation().getDescription(player, output);
+                    output = new StandardFrame();
+                    output.add(player.getLocation().getDescription());
                     player.setLastFrame(output);
                 } else {
                     String normalized = removeFillerWords(scanner.nextLine());
@@ -139,8 +142,9 @@ public class InputHandler {
                     if (direction != null) {
                         if (player.getLocation().getRoomFromCommand(direction) != null) {
                             output = player.getLastFrame();
-                            output = player.getLocation().getRoomFromCommand(direction)
-                                    .getLookDescription(player, output, "[look " + direction.toString() + "]: ");
+                            output.newLine();
+                            output.add("[look " + direction.toString() + "]: ");
+                            output.add(player.getLocation().getRoomFromCommand(direction).getLookDescription());
                         }
                     } else {
                         findObject(player, command, normalized);
@@ -159,7 +163,12 @@ public class InputHandler {
                 }
                 break;
             case attack:
-                CombatGroup group = new CombatGroup(player.getLocation().getCombatants(), player);
+                try {
+                    new CombatGroup(player.getLocation().getCombatants(), player);
+                } catch (TooFewCombatantsException e) {
+                    output = player.getLastFrame();
+                    output.addLine("[attack]: " + e.getMessage(), true);
+                }
                 break;
             case IPADDRESS:
             case SHUTDOWN:

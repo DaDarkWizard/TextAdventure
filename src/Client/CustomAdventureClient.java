@@ -29,11 +29,12 @@ import java.util.Map;
 
 
 public class CustomAdventureClient extends Application {
+    public static final Object lockInput = 0;
+    public static final Object lockOutput = 0;
     public static BufferedReader fromServer;
     public static BufferedReader keyboardInput;
     public static TextArea textArea;
     public static PrintWriter toServer;
-    StandardFrame frame = new StandardFrame();
     public static ArrayList<String> input = new ArrayList<>();
     public static ArrayList<String> output = new ArrayList<>();
     public InputThread inputThread;
@@ -48,15 +49,17 @@ public class CustomAdventureClient extends Application {
         inputThread.start(this.getParameters().getRaw());
         textArea = new TextArea();
         textArea.setEditable(false);
-        textArea.setPrefRowCount(32);
+        textArea.setPrefRowCount(33);
         textArea.setPrefColumnCount(100);
         textArea.setStyle("-fx-font-family: 'monospace'");
         TextField textField = new TextField();
         textField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 if (!textField.getText().isEmpty()) {
-                    input.add(textField.getText());
-                    textField.setText("");
+                    synchronized (lockInput) {
+                        input.add(textField.getText());
+                        textField.setText("");
+                    }
                 }
             }
         });
@@ -70,11 +73,17 @@ public class CustomAdventureClient extends Application {
             public void handle(long now) {
                 if (textArea.getText().length() > 10000) {
                     textArea.deleteText(0, 5000);
+                    textArea.appendText("");
                 }
-                while (output.size() > 0) {
-                    textArea.appendText(output.remove(0));
+
+                if (output.size() > 0) {
+                    synchronized (lockOutput) {
+                        while (output.size() > 0) {
+                            textArea.appendText(output.remove(0));
+                        }
+                        textArea.appendText("");
+                    }
                 }
-                textArea.appendText("");
             }
         };
 
@@ -122,20 +131,26 @@ public class CustomAdventureClient extends Application {
                             toServer.println(s);
                         }
                         if (input.size() > 0) {
-                            s = input.get(0);
-                            input.remove(0);
-                            toServer.println(s);
+                            synchronized (lockInput) {
+                                while (input.size() > 0) {
+                                    s = input.get(0);
+                                    input.remove(0);
+                                    toServer.println(s);
+                                }
+                            }
                         }
                         if (fromServer.ready()) {
-                            while (fromServer.ready()) {
-                                s = fromServer.readLine();
-                                if (s == null) {
-                                    break;
-                                }
+                            synchronized (lockOutput) {
+                                while (fromServer.ready()) {
+                                    s = fromServer.readLine();
+                                    if (s == null) {
+                                        break;
+                                    }
 
-                                System.out.println(s);
-                                s += "\n";
-                                output.add(s);
+                                    System.out.println(s);
+                                    s += "\n";
+                                    output.add(s);
+                                }
                             }
                         }
 

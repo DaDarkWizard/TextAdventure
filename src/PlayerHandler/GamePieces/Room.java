@@ -1,76 +1,140 @@
 package PlayerHandler.GamePieces;
 
+import NPCHandler.NPC;
 import PlayerHandler.CombatHandler.Combatant;
 import PlayerHandler.Commands;
 import PlayerHandler.Player;
 import PlayerHandler.UI.Frame;
+import jdk.nashorn.internal.ir.SetSplitState;
 
 import java.util.ArrayList;
 
+/**
+ * This is the room class for the Text Adventure
+ * Provides a space for the Player to move and interact with
+ * <p>
+ * Date Last Modified: 12/9/2019
+ *
+ * @author Daniel Masker, Joe Teahen, Emma Smith, Ben Hodsdon
+ * <p>
+ * CS 1131, Fall 2019
+ * Lab Section 2
+ */
 public class Room {
-    private Room north, south, east, west;
-    private String description;
-    private String name;
-    private String lookDescription;
-    private ArrayList<Player> players = new ArrayList<>();
-    private ArrayList<Interactable> interactables = new ArrayList<>();
+    private Room north, south, east, west;                              //North, South, East, and West Roooms
+    private String description;                                         //Description of this Room
+    private String name;                                                //Name of this Room
+    private String lookDescription;                                     //'look' description of this Room
+    private ArrayList<Player> players = new ArrayList<>();              //All players in this Room
+    private ArrayList<Interactable> interactables = new ArrayList<>();  //All Interactable objects in this Room
+    private ArrayList<NPC> npcs = new ArrayList<>();                    //All NPCs in this Room
 
-    public Room(String name) {
-        this(name, null, null);
-    }
-
+    /**
+     * Create a room with the given name, description, and lookDescription
+     *
+     * @param name the name of the room to be displayed
+     * @param description the description of the room (From within)
+     * @param lookDescription the 'look' description of the room (From afar)
+     */
     public Room(String name, String description, String lookDescription) {
         this.name = name;
         this.description = description;
         this.lookDescription = lookDescription;
     }
 
+    /**
+     * Get all of the interactable objects in the room
+     *
+     * @return ArrayList of all Interactable objects
+     */
     public ArrayList<Interactable> getInteractables() {
         return this.interactables;
     }
 
-    ;
-
+    /**
+     * Get the room to the north of this one
+     *
+     * @return the Room to the north
+     */
     public Room getNorth() {
         return north;
     }
 
+    /**
+     * Set the room to the north of this one
+     *
+     * @param north the Room to the north
+     */
     public void setNorth(Room north) {
         this.north = north;
     }
 
+    /**
+     * Get the room south of this one
+     *
+     * @return
+     */
     public Room getSouth() {
         return south;
     }
 
+    /**
+     * Set the room south of this one
+     *
+     * @param south the Room to the south
+     */
     public void setSouth(Room south) {
         this.south = south;
     }
 
+    /**
+     * Get the room east of this one
+     *
+     * @return the Room to the east
+     */
     public Room getEast() {
         return east;
     }
 
+    /**
+     * Set the room east of this one
+     *
+     * @param east the Room to the east
+     */
     public void setEast(Room east) {
         this.east = east;
     }
 
+    /**
+     * Get the room west to this one
+     *
+     * @return the west Room
+     */
     public Room getWest() {
         return west;
     }
 
+    /**
+     * Set the room to the west of this one
+     *
+     * @param west room to the west
+     */
     public void setWest(Room west) {
         this.west = west;
     }
 
-    public Frame getDescription(Player player, Frame frame) {
+    /**
+     * Gets the description of the room for the player
+     *
+     * @return description of the room
+     */
+    public String getDescription() {
         StringBuilder output = new StringBuilder();
-        frame.addParagraph(this.name);
-        frame.addParagraph(description);
+        output.append(this.name).append("\n\n");
+        output.append(description);
 
         if (interactables.size() > 0) {
-            frame.newLine();
-            output = new StringBuilder();
+            output.append("\n");
             output.append("There is a ").append(interactables.get(0).getShortDescription());
             if (interactables.size() == 1) {
                 output.append(".");
@@ -85,23 +149,29 @@ public class Room {
                     }
                 }
             }
-            frame.addLine(output.toString());
+            output.append("\n");
         }
-        frame.newLine();
-        output = new StringBuilder();
-        if (players.size() < 2) {
+        output.append("\n");
+        if (getCombatants().size() < 2) {
             output.append("You are the only one in the room.");
         }
-        if (players.size() == 2) {
+        if (getCombatants().size() == 2) {
             output.append("There is one other person in the room.");
         }
-        if (players.size() > 2) {
-            output.append(String.format("There are %d people in the room besides you.", players.size() - 1));
+        if (getCombatants().size() > 2) {
+            output.append(String.format("There are %d people in the room besides you.", getCombatants().size() - 1));
         }
-        frame.addLine(output.toString());
-        return frame;
+        output.append("\n\n");
+        return output.toString();
     }
 
+    /**
+     * Finds the adjoining room in the given command direction
+     *
+     * @param command direction command to loo
+     *
+     * @return room in that direction, null otherwise
+     */
     public Room getRoomFromCommand(Commands command) {
         switch (command) {
             case north:
@@ -116,45 +186,92 @@ public class Room {
         return null;
     }
 
+    /**
+     * Set a new description for the room
+     *
+     * @param description the room's new description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Get the name of the room
+     *
+     * @return the room's name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set the name of the room
+     *
+     * @param name the room's new name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public Frame getLookDescription(Player player, Frame frame) {
-        frame.addParagraph(this.lookDescription);
-        return frame;
+    /**
+     * Get the 'look' description of the room
+     *
+     * @return the 'look' description
+     */
+    public String getLookDescription() {
+        return this.lookDescription;
     }
 
-    public Frame getLookDescription(Player player, Frame frame, String pretext) {
-        frame.addParagraph(pretext + this.lookDescription);
-        return frame;
-    }
-
+    /**
+     * Sets the 'look' description of the room (for peeking)
+     *
+     * @param lookDescription new description to set
+     */
     public void setLookDescription(String lookDescription) {
         this.lookDescription = lookDescription;
     }
 
+    /**
+     * Gets all players in the room
+     *
+     * @return ArrayList of all players
+     */
     public ArrayList<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * Gets all combatants in the room
+     *
+     * @return ArrayList of all combatants
+     */
     public ArrayList<Combatant> getCombatants() {
         ArrayList<Combatant> output = new ArrayList<>();
-        for (Player player : getPlayers()) {
-            output.add((Combatant) player);
-        }
+        output.addAll(players);
+        output.addAll(npcs);
         return output;
     }
 
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
+    /**
+     * Gets all NPCs in the room
+     *
+     * @return ArrayList of all NPCs
+     */
+    public ArrayList<NPC> getNpcs() {
+        return npcs;
+    }
+
+    /**
+     * Removes the specified player from the room
+     *
+     * @param player player to remove
+     */
+    public void removePlayer(Player player) {
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i) == player) {
+                players.remove(player);
+                i--;
+            }
+        }
     }
 }

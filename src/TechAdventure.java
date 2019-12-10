@@ -59,7 +59,9 @@ public class TechAdventure implements ConnectionListener {
 
 	@Override
 	public void handle(ConnectionEvent e) {
+		System.out.println("Trying to handle lock");
 		synchronized (TechAdventure.lock) {
+			System.out.println("Handled");
 			try {
 				Player player;
 				switch (e.getCode()) {
@@ -73,6 +75,7 @@ public class TechAdventure implements ConnectionListener {
 								if (output == null || output.isEmpty()) {
 									output = new StandardFrame();
 								}
+								output.newLine();
 								output.addLine(event.getMessage(), true);
 								player.setLastFrame(output);
 								adventureServer.sendMessage(event.getSource().getConnectionID(), output.getOutput());
@@ -95,7 +98,8 @@ public class TechAdventure implements ConnectionListener {
 								ex.printStackTrace();
 							}
 						});
-						Frame output = player.getLocation().getDescription(player, new StandardFrame());
+						Frame output = new StandardFrame();
+						output.add(player.getLocation().getDescription());
 						player.setLastFrame(output);
 						adventureServer.sendMessage(player.getConnectionID(), output.getOutput());
 						player.setState(PlayerStates.normal);
