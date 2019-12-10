@@ -50,12 +50,28 @@ public class Tutorial {
 
         start.setNorth(startNorth);
         start.setWest(moneyAndGlory);
+
+        moneyAndGlory.setEast(start);
+
         startNorth.setEast(startEast);
+        startNorth.setSouth(startSouth);
+
         startEast.setSouth(startSouth);
+        startEast.setWest(startNorth);
+
         startSouth.setWest(startWest);
+        startSouth.setNorth(startEast);
+
         startWest.setWest(monsterRoom);
+        startWest.setEast(startSouth);
+
         monsterRoom.setSouth(dragonSlayer);
+        monsterRoom.setEast(startWest);
+
         dragonSlayer.setEast(dragonRoom);
+        dragonSlayer.setNorth(monsterRoom);
+
+        dragonRoom.setWest(dragonSlayer);
     }
 
     public Room getStart() {
