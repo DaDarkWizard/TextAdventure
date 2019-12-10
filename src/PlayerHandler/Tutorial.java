@@ -51,6 +51,7 @@ public class Tutorial {
 
         key = new Item("Golden Key", "It is a golden intricate key with runic lettering.",
                 keyNames, dragonRoom);
+        dragonRoom.getInteractables().add(key);
 
         start.setNorth(startNorth);
         start.setWest(moneyAndGlory);
