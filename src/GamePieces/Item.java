@@ -58,5 +58,6 @@ public class Item implements Holdable {
     @Override
     public void drop(Player player) {
         this.room = player.getLocation();
+        player.getInventory().remove(this);
     }
 }

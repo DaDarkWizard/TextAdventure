@@ -11,6 +11,8 @@ public enum Commands {
     restore,
     inventory,
     attack,
+    pickup,
+    drop,
     SERVERMESSAGE,
     SHUTDOWN,
     IPADDRESS,

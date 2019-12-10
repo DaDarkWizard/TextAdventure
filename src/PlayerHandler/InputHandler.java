@@ -4,6 +4,7 @@ import CombatHandler.CombatGroup;
 import CombatHandler.Weapons.TooFewCombatantsException;
 import GamePieces.Holdable;
 import GamePieces.Interactable;
+import GamePieces.Item;
 import PlayerHandler.Persistence.CreateCharacter;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
@@ -17,8 +18,10 @@ public class InputHandler {
     private static String[] north = {"n", "north", "up"};
     private static String[] south = {"s", "south", "down"};
     private static String[] say = {"say", "shout", "yell", "orate"};
-    private static String[] fillerWords = {"the", "at", "a", "an", "of", "for", "over"};
+    private static String[] fillerWords = {"the", "at", "a", "an", "of", "for", "over", "up"};
     private static String[] inventory = {"inventory", "items", "stuff"};
+    private static String[] pickup = {"pickup", "grab", "get", "pick up"};
+    private static String[] drop = {"drop", "throw", "remove", "delete"};
     private static String badMove = "You can't move that direction.";
     private MessageListener messageListener;
     private ServerCommandListener serverCommandListener;
@@ -36,6 +39,10 @@ public class InputHandler {
             return Commands.say;
         } else if (Arrays.binarySearch(inventory, command) > -1) {
             return Commands.inventory;
+        } else if (Arrays.binarySearch(pickup, command) > -1) {
+            return Commands.pickup;
+        } else if (Arrays.binarySearch(drop, command) > -1) {
+            return Commands.drop;
         } else if (command.equals("go")) {
             return Commands.skip;
         } else if (command.equals("SHUTDOWN")) {
@@ -61,6 +68,11 @@ public class InputHandler {
         input = input.toLowerCase();
 
         Scanner scanner = new Scanner(input);
+        String name = null;
+        ArrayList<Interactable> possibleMatchesInter = null;
+        ArrayList<Holdable> possibleMatchesHod = null;
+
+
         if (!scanner.hasNext()) {
             return player.getLastFrame();
         }
@@ -169,6 +181,43 @@ public class InputHandler {
                         inventory.append("  ").append(holdable.getShortDescription()).append("\n");
                     }
                 }
+                break;
+            case pickup:
+                name = scanner.nextLine();
+                name = removeFillerWords(name);
+                possibleMatchesInter = new ArrayList<>();
+                for(Interactable i : player.getLocation().getInteractables()){
+                    if(i.isValidName(name) && (i instanceof Holdable)){
+                        possibleMatchesInter.add(i);
+                    } else {
+                        player.sendMessage("[" + command.toString() + "] You can't do that!");
+                    }
+                    if(possibleMatchesInter.size() > 0 && possibleMatchesInter.size() < 2){
+                        Item item = (Item) possibleMatchesInter.get(0);
+                        item.pickup(player);
+                    } else {
+                        player.sendMessage("[" + command.toString() + "] Be more specific!");
+                    }
+                }
+                break;
+            case drop:
+                name = scanner.nextLine();
+                name = removeFillerWords(name);
+                possibleMatchesInter = new ArrayList<>();
+                for(Holdable h : player.getInventory()){
+                    if(h.isValidName(name)){
+                        possibleMatchesHod.add(h);
+                    } else {
+                        player.sendMessage("[" + command.toString() + "] You can't do that!");
+                    }
+                    if(possibleMatchesHod.size() > 0 && possibleMatchesHod.size() < 2){
+                        Item item = (Item) possibleMatchesHod.get(0);
+                        item.drop(player);
+                    } else {
+                        player.sendMessage("[" + command.toString() + "] Be more specific!");
+                    }
+                }
+
                 break;
             case attack:
                 try {
