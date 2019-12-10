@@ -3,14 +3,15 @@ package CombatHandler.Weapons;
 import CombatHandler.AttackCommands;
 import CombatHandler.Combatant;
 import GamePieces.Item;
+import GamePieces.Room;
 import PlayerHandler.Player;
 
 public abstract class Weapon extends Item {
     private AttackCommands attackCommand;
     private WeaponUseListener weaponUseListener;
 
-    public Weapon(String shortDescription, String longDescription, AttackCommands attackCommand) {
-        super(shortDescription, longDescription);
+    public Weapon(String shortDescription, String longDescription, String[] validNames, Room room, AttackCommands attackCommand) {
+        super(shortDescription, longDescription, validNames, room);
     }
 
     public AttackCommands getAttackCommand() {

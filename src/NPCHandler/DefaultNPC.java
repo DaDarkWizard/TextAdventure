@@ -148,6 +148,11 @@ public class DefaultNPC implements NPCTemplate {
         return CombatGroup.rpsChoice.talk;
     }
 
+    @Override
+    public NPCMeetSomeoneListener getNPCMeetSomeoneListener() {
+        return null;
+    }
+
     /**
      * Increments the count for this template
      */
