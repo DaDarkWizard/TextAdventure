@@ -99,6 +99,7 @@ public class CustomAdventureClient extends Application {
 
         Scene root = new Scene(pane, 800, 600);
         primaryStage.setScene(root);
+        primaryStage.setOnCloseRequest(event -> System.exit(0));
         primaryStage.setTitle("Generic Dungeon Crawler 2019");
         primaryStage.show();
     }
