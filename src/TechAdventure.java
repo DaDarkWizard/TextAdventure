@@ -115,7 +115,12 @@ public class TechAdventure implements ConnectionListener {
 							while (scanner.hasNext()) {
 								args.add(scanner.next());
 							}
-							handleServerCommands(player, systemCommand, (String[]) args.toArray());
+                            String[] argsArray = new String[args.size()];
+                            for (int i = 0; i < args.size(); i++) {
+                                argsArray[i] = args.get(i);
+                            }
+                            handleServerCommands(player, systemCommand, argsArray);
+                            break;
 						}
 
 						if (player.getState() == PlayerStates.normal) {
@@ -207,6 +212,7 @@ public class TechAdventure implements ConnectionListener {
 			case SHUTDOWN:
 				player.setLastCommand(Commands.SHUTDOWN);
 				broadcastMessage("SHUTTING DOWN...");
+                runFrames = false;
 				adventureServer.stopServer();
 				break;
 			case SERVERMESSAGE:
