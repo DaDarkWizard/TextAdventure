@@ -50,6 +50,7 @@ public class Item implements Holdable {
         return (Arrays.binarySearch(validNames, name) > -1);
     }
 
+    //Todo convert pickup and drop to event handlers
     @Override
     public String pickup(Player player) {
         this.room = null;
