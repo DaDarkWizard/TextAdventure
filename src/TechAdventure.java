@@ -23,17 +23,8 @@ public class TechAdventure implements ConnectionListener {
 	}
 
 	public void start(int port) {
-		Room startRoom = new Room("The Void",
-				"You are in an endless void.\r\n" +
-						"Looking around, you see nothing, just darkness." +
-						"It is darker than the blackest night of a starless sky.\r\n" +
-						"Maybe you should ask someone to program something for you to do.",
-				"You see darkness, darker than the blackest night.");
+		Room startRoom = new Tutorial().getStart();
 		rooms.add(startRoom);
-		startRoom.setEast(startRoom);
-		startRoom.setWest(startRoom);
-		startRoom.setNorth(startRoom);
-		startRoom.setSouth(startRoom);
 		this.startRoom = startRoom;
 		inputHandler.setMessageListener(e -> {
 			try {
@@ -68,7 +59,7 @@ public class TechAdventure implements ConnectionListener {
 					case CONNECTION_ESTABLISHED:
 						// What do you do when the connection is established?
 						player = new Player(e.getConnectionID());
-						player.setLocation(new Tutorial().getStart());
+						player.setLocation(startRoom);
 						player.setInfoEventListener(event -> {
 							try {
 								Frame output = player.getLastFrame();
@@ -129,6 +120,7 @@ public class TechAdventure implements ConnectionListener {
 									break;
 								case words:
 									player.getWords().add(e.getData().toLowerCase());
+									player.update();
 									break;
 								case rps:
 									Scanner scanner = new Scanner(e.getData().toLowerCase());

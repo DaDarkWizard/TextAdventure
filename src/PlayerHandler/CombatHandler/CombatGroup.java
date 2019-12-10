@@ -91,15 +91,13 @@ public class CombatGroup {
         this.combatState = state.firstround;
         //Add to Combat Groups so the Combat thread can run it
         CombatGroups.add(this);
+        updatePlayer();
     }
 
     /**
      * Runs a frame of combat
      */
     public void RunCombat() {
-        for (Player player : players) {
-            player.update();
-        }
         switch (combatState) {
             case firstround:
                 messageCombatants(initiant.getName() + " has initiated combat!");
@@ -118,18 +116,20 @@ public class CombatGroup {
                 messageCombatants(Long.toString(combatReadyTime / 1000));
                 combatState = state.startCombat;
                 countup++;
+                updatePlayer();
                 break;
             case startCombat:
                 String output = "";
                 output += (combatReadyTime - countup) / 1000;
                 if (countup < combatReadyTime && System.currentTimeMillis() - combatStartCount > countup) {
-                    messageCombatants(output);
                     countup += 1000;
+                    updatePlayer();
                 } else if (System.currentTimeMillis() - combatStartCount > countup) {
                     output = "START!!!";
                     messageCombatants(output);
                     combatState = state.words;
                     combatStartCount = System.currentTimeMillis();
+                    updatePlayer();
                 }
                 break;
             case words:
@@ -256,6 +256,14 @@ public class CombatGroup {
             }
         }
     }
+
+    public void updatePlayer() {
+        for (Player player : players) {
+            player.update();
+        }
+    }
+
+
     public void removeCombatant(Combatant combatant) {
         this.combatants.remove(combatant);
         combatant.setCombatGroup(null);
