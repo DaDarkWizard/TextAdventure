@@ -10,8 +10,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sun.awt.FontDescriptor;
 
+import java.awt.font.TextAttribute;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,7 +23,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class CustomAdventureClient extends Application {
@@ -42,9 +48,9 @@ public class CustomAdventureClient extends Application {
         inputThread.start(this.getParameters().getRaw());
         textArea = new TextArea();
         textArea.setEditable(false);
-        textArea.setPrefRowCount(31);
+        textArea.setPrefRowCount(32);
         textArea.setPrefColumnCount(100);
-
+        textArea.setStyle("-fx-font-family: 'monospace'");
         TextField textField = new TextField();
         textField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {

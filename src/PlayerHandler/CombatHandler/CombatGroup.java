@@ -9,19 +9,23 @@ import PlayerHandler.UI.StandardFrame;
 import java.util.ArrayList;
 
 public class CombatGroup {
-    private final long combatFightTime = 10000;
-    private final long combatReadyTime = 5000;
-    private ArrayList<Combatant> combatants = new ArrayList<>();
+    private final long combatFightTime = 10000; //Length of time to fight (type words)
+    private final long combatReadyTime = 5000;  //Length of time to get ready (choose opponent)
+    private ArrayList<Combatant> combatants;    //All combatants in the group
     private int decisions = 0;
-    private state combatState;
-    private int countup = 0;
-    private long combatStartCount;
-    public static ArrayList<CombatGroup> CombatGroups = new ArrayList<>();
-    private ArrayList<Player> players = new ArrayList<>();
-    private Combatant initiant;
+    private state combatState;                  //State of the CombatGroup
+    private int countup = 0;                    //Count for countdown
+    private long combatStartCount;              //Stores when timer began
+    public static ArrayList<CombatGroup> CombatGroups = new ArrayList<>();  //Static arraylist to hold
+    //CombatGroups that exist
+    private ArrayList<Player> players = new ArrayList<>();                  //All players in the group
+    private Combatant initiant;                                             //Combatant that started the fight
 
-    private long combatStartTime;
+    private long combatStartTime;                                           //Stores when combat begam
 
+    /**
+     * Enum for different states of the combat state machine
+     */
     public enum state {
         firstround,
         initialize,
@@ -31,33 +35,70 @@ public class CombatGroup {
         rps
     }
 
+    /**
+     * Different choices for the "Rock Paper Scissors" at the end of combat
+     */
     public enum rpsChoice {
         fight,
         flee,
         talk
     }
 
+    /**
+     * Initialize the combat group
+     *
+     * @param combatants Combatants that will fight
+     * @param initiant   Person that started the fight
+     */
     public CombatGroup(ArrayList<Combatant> combatants, Combatant initiant) {
-        this.combatants = combatants;
+        this.combatants = combatants;       //Set all combatants from input
+        this.initiant = initiant;           //Set initiant from input
+
+        //Must have combatants in group
+        if (combatants == null || combatants.isEmpty()) {
+            throw new RuntimeException("Combat group needs combatants");
+        }
+
+        //Must have more than one combatant in a group
+        if (combatants.size() < 2) {
+            throw new RuntimeException("Combat group needs more than one combatant.");
+        }
+
+        //Get all combatants and handle them
         for (Combatant combatant : this.combatants) {
+            //Add them to the player array
             if (combatant instanceof Player) {
                 players.add((Player) combatant);
             }
+            //Set their combat group to this
             combatant.setCombatGroup(this);
-            this.initiant = initiant;
         }
 
+        //Handle player-specific things
         for (Player player : players) {
+            //Set state to combat
             player.setState(PlayerStates.combat);
-            player.setLastFrame(new CombatFrame());
+            //Give them a new combat frame
+            player.setLastFrame(new CombatFrame(player));
         }
+
+        //Record when combat began
         this.combatStartTime = System.currentTimeMillis();
+        //Seperate record for timers
         this.combatStartCount = combatStartTime;
+        //Set the state so it's ready to run
         this.combatState = state.firstround;
+        //Add to Combat Groups so the Combat thread can run it
         CombatGroups.add(this);
     }
 
+    /**
+     * Runs a frame of combat
+     */
     public void RunCombat() {
+        for (Player player : players) {
+            player.update();
+        }
         switch (combatState) {
             case firstround:
                 messageCombatants(initiant.getName() + " has initiated combat!");

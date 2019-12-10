@@ -9,17 +9,18 @@ public class CombatFrame extends Frame {
     private ArrayList<AttackCommands> attackCommands = new ArrayList<>();
     private int startTimer = 5;
     private Player player;
-    private ArrayList<String> console = new ArrayList<>();
+    private SizableFrame console = new SizableFrame(11, 31);
     private ArrayList<String> combatLog = new ArrayList<>();
     public final int height = 28;
     public final int width = 100;
 
+    public CombatFrame(Player player) {
+        this.player = player;
+    }
 
     public void updateStartTimer(int startTimer) {
         this.startTimer = startTimer;
     }
-
-    ;
 
     public void addAttackCommand(AttackCommands commands) {
         attackCommands.add(commands);
@@ -33,17 +34,17 @@ public class CombatFrame extends Frame {
             case 3:
                 return "";
             case 4:
-                return String.format("%6s:  %2d, ", "Max HP", player.getMaxHitpoints());
+                return String.format("%6s:  %2d", "Max HP", player.getMaxHitpoints());
             case 5:
-                return String.format("%6s:  $2d", "HP", player.getHitPoints());
+                return String.format("%6s:  %2d", "HP", player.getHitPoints());
             case 6:
-                return String.format("%6s:  $2d", "Brawn", player.getBrawn());
+                return String.format("%6s:  %2d", "Brawn", player.getBrawn());
             case 7:
-                return String.format("%6s:  $2d", "Spiff", player.getSpiffness());
+                return String.format("%6s:  %2d", "Spiff", player.getSpiffness());
             case 8:
-                return String.format("%6s:  $2d", "Smarts", player.getSmarts());
+                return String.format("%6s:  %2d", "Smarts", player.getSmarts());
             case 9:
-                return String.format("%6s:  $2d", "Moxy", player.getMoxy());
+                return String.format("%6s:  %2d", "Moxy", player.getMoxy());
         }
         return null;
     }
@@ -77,7 +78,7 @@ public class CombatFrame extends Frame {
     }
 
     private String getConsoleString(int line) {
-        return console.get(line);
+        return console.getLine(line);
     }
 
     private String getStartString() {
@@ -124,12 +125,12 @@ public class CombatFrame extends Frame {
         if (line < 0) {
             throw new IllegalArgumentException();
         } else if (line == 0) {
-            return String.format("|%31s| %11s |%31s|",
+            return String.format("|%-31s| %11s |%31s|",
                     getConsoleString(line), getStartString(), getInventoryString(line));
         } else if (line == 1) {
-            return String.format("|%31s|-------------|%31s", getConsoleString(line), getInventoryString(line));
+            return String.format("|%-31s|-------------|%31s", getConsoleString(line), getInventoryString(line));
         } else if (line < 10) {
-            return String.format("|%31s| %11s |%31s|", getConsoleString(line), getStatString(line), getInventoryString(line));
+            return String.format("|%-31s| %11s |%31s|", getConsoleString(line), getStatString(line), getInventoryString(line));
         } else if (line < 11) {
             StringBuilder dash = new StringBuilder();
             for (int i = 0; i < 45; i++) {
@@ -158,66 +159,67 @@ public class CombatFrame extends Frame {
                 if (i < 31) {
                     dash2.append("=");
                 }
-                return String.format("|%45s|%31s|", dash1.toString(), dash2.toString());
             }
+            return String.format("|%45s|%31s|", dash1.toString(), dash2.toString());
         } else {
             return "";
         }
-        return null;
     }
 
     @Override
     public String getOutput() {
         StringBuilder output = new StringBuilder();
-        for (int i = 0; i < 29; i++) {
+        for (int i = 0; i < height; i++) {
             output.append(findFormat(i));
+            if (i < height - 1) {
+                output.append("\n");
+            }
         }
         return output.toString();
     }
 
     private void addToConsole(String s) {
-        s = console.get(console.size() - 1) + s;
-
+        console.add(s, true);
     }
 
     @Override
     public boolean addLine(String line) {
-        return false;
+        return this.addLine(line, true);
     }
 
     @Override
     public boolean addLine(String line, boolean force) {
-        return false;
+        return console.addLine(line, force);
     }
 
     @Override
     public boolean add(String text) {
-        return false;
+        return console.add(text, true);
     }
 
     @Override
     public boolean add(String text, boolean force) {
-        return false;
+        return console.add(text, force);
     }
 
     @Override
     public boolean addParagraph(String text, boolean force) {
-        return false;
+        return console.addParagraph(text, force);
     }
 
     @Override
     public boolean addParagraph(String text) {
-        return false;
+        return this.addParagraph(text, true);
     }
 
     @Override
     public boolean newLine() {
-        return false;
+        return console.newLine();
     }
 
     @Override
     public void clearFrame() {
-
+        console.clearFrame();
     }
 
     @Override

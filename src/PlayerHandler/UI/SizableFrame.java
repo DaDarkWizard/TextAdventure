@@ -63,7 +63,9 @@ public class SizableFrame extends Frame {
                     newLines.set(newLines.size() - 1,
                             newLines.get(newLines.size() - 1) +
                                     text.substring(0, text.indexOf("\n") - 1));
-                    text = text.substring(text.indexOf("\n + 1"));
+                    if (text.indexOf("\n") != text.length() - 1) {
+                        text = text.substring(text.indexOf("\n + 1"));
+                    }
                 } else {
                     text = "";
                 }

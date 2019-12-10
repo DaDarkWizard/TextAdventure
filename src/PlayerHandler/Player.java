@@ -7,6 +7,7 @@ import PlayerHandler.GamePieces.Holdable;
 import PlayerHandler.GamePieces.Room;
 import PlayerHandler.CombatHandler.Weapons.Weapon;
 import PlayerHandler.UI.Frame;
+import PlayerHandler.UI.UpdateListener;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class Player implements Combatant {
     private ArrayList<Player> blockedPlayers = new ArrayList<>();
     private ArrayList<Holdable> items = new ArrayList<>();
     private InfoListener infoEventListener;
+    private UpdateListener updateEventListener;
     private Frame lastFrame;
 
     //For combat
@@ -60,6 +62,16 @@ public class Player implements Combatant {
         }
 
         return commands;
+    }
+
+    public void setUpdateEventListener(UpdateListener listener) {
+        this.updateEventListener = listener;
+    }
+
+    public void update() {
+        if (updateEventListener != null) {
+            updateEventListener.handle(new UpdateEvent(this));
+        }
     }
 
     public static ArrayList<Player> getPlayers() {
