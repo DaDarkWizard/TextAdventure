@@ -82,7 +82,7 @@ public class SizableFrame extends Frame {
         for (int i = 0; i < textSplit.length; i++) {
             String newLine = newLines.get(newLines.size() - 1) + textSplit[i];
             while (newLine.length() > width) {
-                newLines.set(newLines.size() - 1, newLine.substring(0, width - 1));
+                newLines.set(newLines.size() - 1, newLine.substring(0, width));
                 newLine = newLine.substring(width);
                 newLines.add("");
             }

@@ -5,6 +5,6 @@ import java.util.StringTokenizer;
 
 public class StandardFrame extends SizableFrame {
     public StandardFrame() {
-        super(30, 100);
+        super(30, 107);
     }
 }

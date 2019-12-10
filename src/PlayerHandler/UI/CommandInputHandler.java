@@ -12,7 +12,9 @@ public class CommandInputHandler {
 
     public Commands handleInput(String input) {
 
-
+        if (input.trim().equals("")) {
+            return null;
+        }
         Commands commands = InputHandler.getCommand(new Scanner(input).next());
         if (commands == null) {
             return null;
