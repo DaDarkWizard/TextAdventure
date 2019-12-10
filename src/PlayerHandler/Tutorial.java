@@ -8,7 +8,7 @@ import NPCHandler.NPC;
 import java.util.Arrays;
 
 public class Tutorial {
-    private Room start, startWest, startNorth, startEast, startSouth, monsterRoom, dragonSlayer, dragonRoom, moneyAndGlory;
+    private Room start, startWest, startNorth, startEast, startSouth, monsterRoom, dragonSlayer, dragonRoom, moneyAndGlory, end;
     private Item key;
     private String[] keyNames = new String[]{"Key", "key"};
 
@@ -85,5 +85,9 @@ public class Tutorial {
 
     public Room getStart() {
         return this.start;
+    }
+
+    public Room getEnd() {
+        return this.end;
     }
 }
