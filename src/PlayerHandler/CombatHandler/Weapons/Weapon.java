@@ -2,7 +2,7 @@ package PlayerHandler.CombatHandler.Weapons;
 
 import PlayerHandler.CombatHandler.AttackCommands;
 import PlayerHandler.CombatHandler.Combatant;
-import PlayerHandler.GamePieces.Item;
+import GamePieces.Item;
 import PlayerHandler.Player;
 
 public abstract class Weapon extends Item {

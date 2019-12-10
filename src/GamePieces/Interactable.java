@@ -1,4 +1,4 @@
-package PlayerHandler.GamePieces;
+package GamePieces;
 
 import PlayerHandler.Player;
 import PlayerHandler.Commands;

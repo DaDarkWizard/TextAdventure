@@ -1,7 +1,6 @@
-package PlayerHandler.GamePieces;
+package GamePieces;
 
 import PlayerHandler.Player;
-import PlayerHandler.Commands;
 
 public interface Holdable extends Interactable {
     Holdable pickup(Player player);

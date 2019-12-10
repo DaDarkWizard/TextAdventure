@@ -22,6 +22,7 @@ import java.util.ArrayList;
  */
 public class NPC implements Combatant {
 
+    //For stats
     private String name;
     private int maxHitpoints;
     private int currentHitpoints;
@@ -30,6 +31,7 @@ public class NPC implements Combatant {
     private int smarts;
     private int moxy;
 
+    //For combat
     private ArrayList<Weapon> weapons;
     private int pendingHeal = 0;
     private int pendingBlock = 0;

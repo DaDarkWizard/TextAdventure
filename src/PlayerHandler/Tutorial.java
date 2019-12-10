@@ -1,10 +1,6 @@
 package PlayerHandler;
 
-import NPCHandler.DefaultNPC;
-import NPCHandler.NPC;
-import PlayerHandler.GamePieces.Room;
-
-import java.io.File;
+import GamePieces.Room;
 
 public class Tutorial {
     private Room start, startWest, startNorth, startEast, startSouth, monsterRoom, dragonSlayer, dragonRoom, moneyAndGlory;

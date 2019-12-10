@@ -12,6 +12,7 @@ import java.util.EventObject;
  * CS 1131, Fall 2019
  * Lab Section 2
  */
+
 public class NPCMeetSomeoneEvent extends EventObject {
     NPC npc;    //The npc that had this happen
 

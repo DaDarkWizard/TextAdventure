@@ -1,11 +1,9 @@
-package PlayerHandler.GamePieces;
+package GamePieces;
 
 import NPCHandler.NPC;
 import PlayerHandler.CombatHandler.Combatant;
 import PlayerHandler.Commands;
 import PlayerHandler.Player;
-import PlayerHandler.UI.Frame;
-import jdk.nashorn.internal.ir.SetSplitState;
 
 import java.util.ArrayList;
 

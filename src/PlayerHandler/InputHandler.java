@@ -2,8 +2,8 @@ package PlayerHandler;
 
 import PlayerHandler.CombatHandler.CombatGroup;
 import PlayerHandler.CombatHandler.Weapons.TooFewCombatantsException;
-import PlayerHandler.GamePieces.Holdable;
-import PlayerHandler.GamePieces.Interactable;
+import GamePieces.Holdable;
+import GamePieces.Interactable;
 import PlayerHandler.Persistence.CreateCharacter;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
