@@ -41,6 +41,9 @@ public class NPC implements Combatant {
     private ArrayList<String> combatWords;
     private CombatGroup.rpsChoice rpsChoice;
 
+    //For AI
+    private NPCMeetSomeoneListener npcMeetSomeoneListener;
+
     /**
      * Creates an NPC from the values specified
      *
@@ -57,7 +60,8 @@ public class NPC implements Combatant {
     NPC(String name, int maxHitpoints,
         int brawn, int spiffness, int smarts, int moxy,
         ArrayList<Weapon> weapons, ArrayList<String> combatWords,
-        CombatGroup.rpsChoice combatChoice) {
+        CombatGroup.rpsChoice combatChoice,
+        NPCMeetSomeoneListener npcMeetSomeoneListener) {
 
         this.rpsChoice = combatChoice;
         this.weapons = weapons;
@@ -69,6 +73,7 @@ public class NPC implements Combatant {
         this.smarts = smarts;
         this.moxy = moxy;
         this.combatWords = combatWords;
+        this.npcMeetSomeoneListener = npcMeetSomeoneListener;
     }
 
     /**
@@ -87,6 +92,7 @@ public class NPC implements Combatant {
         this.smarts = template.getSmarts();
         this.moxy = template.getMoxy();
         this.combatWords = template.getCombatWords();
+        this.npcMeetSomeoneListener = template.getNPCMeetSomeoneListener();
         template.increment();
     }
 

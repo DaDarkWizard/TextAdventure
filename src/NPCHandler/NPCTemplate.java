@@ -36,5 +36,7 @@ public interface NPCTemplate {
 
     CombatGroup.rpsChoice getRPSChoice();
 
+    NPCMeetSomeoneListener getNPCMeetSomeoneListener();
+
     void increment();
 }
