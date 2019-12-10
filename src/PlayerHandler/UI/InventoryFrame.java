@@ -4,7 +4,7 @@ import PlayerHandler.Player;
 
 /**
  * Implements a frame for showing the player their inventory
- * <p>
+ *
  * Date Last Modified: 12/10/2019
  *
  * @author Daniel Masker
