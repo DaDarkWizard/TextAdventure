@@ -3,6 +3,8 @@ package PlayerHandler;
 import GamePieces.Item;
 import GamePieces.Room;
 import NPCHandler.CrankyOldMan;
+import NPCHandler.Dragon;
+import NPCHandler.Grue;
 import NPCHandler.NPC;
 
 import java.util.Arrays;
@@ -11,6 +13,7 @@ public class Tutorial {
     private Room start, startWest, startNorth, startEast, startSouth, monsterRoom, dragonSlayer, dragonRoom, moneyAndGlory, end;
     private Item key;
     private String[] keyNames = new String[]{"key"};
+    private NPC dragon, grue;
 
     public Tutorial() {
         start = new Room("Tutorial Level",
@@ -56,6 +59,13 @@ public class Tutorial {
         key = new Item("Golden Key", "It is a golden intricate key with runic lettering.",
                 keyNames, dragonRoom);
         dragonRoom.getInteractables().add(key);
+
+        dragon = new NPC(new Dragon("Dragon"));
+        dragon.setRoom(dragonRoom);
+
+        grue = new NPC(new Grue("Grue"));
+        grue.setRoom(monsterRoom);
+
 
         start.setNorth(startNorth);
         start.setWest(moneyAndGlory);
