@@ -56,6 +56,7 @@ public class NPC implements Combatant {
      * @param weapons      ArrayList of weapons the NPC has equipped
      * @param combatWords  The combatWords the npc will use
      * @param combatChoice The decision the npc will make in combat RPS
+     * @param npcMeetSomeoneListener The listener to handle this npc meeting someone
      */
     NPC(String name, int maxHitpoints,
         int brawn, int spiffness, int smarts, int moxy,
@@ -95,6 +96,25 @@ public class NPC implements Combatant {
         this.npcMeetSomeoneListener = template.getNPCMeetSomeoneListener();
         template.increment();
     }
+
+    /**
+     * Set this NPCs npcMeetSomeoneListener
+     *
+     * @param listener the new Listener to set
+     */
+    public void setNpcMeetSomeoneListener(NPCMeetSomeoneListener listener) {
+        this.npcMeetSomeoneListener = listener;
+    }
+
+    /**
+     * Gets this NPCs npcMeetSomeoneListener
+     *
+     * @return the NPCMeetSomeoneListener
+     */
+    public NPCMeetSomeoneListener getNpcMeetSomeoneListener() {
+        return this.npcMeetSomeoneListener;
+    }
+
 
     /**
      * Sets the creature's rps choice
