@@ -8,6 +8,7 @@ public enum Commands {
     skip,
     say,
     look,
+    restore,
     inventory,
     attack,
     SERVERMESSAGE,

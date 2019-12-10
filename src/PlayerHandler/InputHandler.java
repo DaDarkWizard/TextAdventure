@@ -4,6 +4,7 @@ import PlayerHandler.CombatHandler.CombatGroup;
 import PlayerHandler.CombatHandler.Weapons.TooFewCombatantsException;
 import PlayerHandler.GamePieces.Holdable;
 import PlayerHandler.GamePieces.Interactable;
+import PlayerHandler.Persistence.CreateCharacter;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
 import java.util.ArrayList;
@@ -45,6 +46,8 @@ public class InputHandler {
             return Commands.look;
         } else if (command.equals("attack")) {
             return Commands.attack;
+        } else if (command.equals("restore")) {
+            return Commands.restore;
         }
         return null;
     }
@@ -70,6 +73,11 @@ public class InputHandler {
         player.setLastCommand(command);
 
         switch (command) {
+            case restore:
+                player.setState(PlayerStates.characterCreation);
+                new CreateCharacter(player);
+                output = player.getLastFrame();
+                break;
             case skip:
                 StringBuilder refresh = new StringBuilder();
                 while (scanner.hasNext()) {

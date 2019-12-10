@@ -2,6 +2,7 @@ import PlayerHandler.*;
 import PlayerHandler.CombatHandler.CombatGroup;
 import PlayerHandler.CombatHandler.Combatant;
 import PlayerHandler.GamePieces.Room;
+import PlayerHandler.Persistence.CreateCharacter;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
 import java.net.UnknownHostException;
@@ -244,6 +245,9 @@ public class TechAdventure implements ConnectionListener {
 					for (CombatGroup group : CombatGroup.CombatGroups) {
 						group.RunCombat();
 
+					}
+					for (CreateCharacter createCharacter : CreateCharacter.characterCreations) {
+						createCharacter.run();
 					}
 				}
 			} catch (ConcurrentModificationException e) {
