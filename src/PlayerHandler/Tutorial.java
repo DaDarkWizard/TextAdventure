@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class Tutorial {
     private Room start, startWest, startNorth, startEast, startSouth, monsterRoom, dragonSlayer, dragonRoom, moneyAndGlory, end;
     private Item key;
-    private String[] keyNames = new String[]{"Key", "key"};
+    private String[] keyNames = new String[]{"key"};
 
     public Tutorial() {
         start = new Room("Tutorial Level",

@@ -85,7 +85,7 @@ public class InputHandler {
             return output;
         }
         player.setLastCommand(command);
-
+        String newInput;
         switch (command) {
             case restore:
                 player.setState(PlayerStates.characterCreation);
@@ -189,7 +189,7 @@ public class InputHandler {
                 break;
             case pickup:
                 output = player.getLastFrame();
-                String newInput = input;
+                newInput = input;
                 newInput = removeFillerWords(newInput);
                 scanner = new Scanner(newInput);
                 scanner.next();
@@ -199,6 +199,7 @@ public class InputHandler {
                 }
 
                 name = scanner.nextLine();
+                name = name.trim();
                 possibleMatchesInter = new ArrayList<>();
                 for(Interactable i : player.getLocation().getInteractables()){
                     if(i.isValidName(name) && (i instanceof Holdable)){
@@ -207,9 +208,11 @@ public class InputHandler {
                         player.sendMessage("[" + command.toString() + "]: You can't do that!");
                     }
                 }
+
                 if (possibleMatchesInter.size() == 1) {
                     Item item = (Item) possibleMatchesInter.get(0);
-                    item.pickup(player);
+                    String pickedUp = item.pickup(player);
+
                     output.addLine("[" + command.toString() + "]: You picked it up.");
                 } else if (possibleMatchesInter.size() > 1) {
                     output.addLine("[" + command.toString() + "]: Be more specific!");
@@ -218,23 +221,38 @@ public class InputHandler {
                 }
                 break;
             case drop:
+                output = player.getLastFrame();
+                newInput = input;
+                newInput = removeFillerWords(newInput);
+                scanner = new Scanner(newInput);
+                scanner.next();
+                if (!scanner.hasNext()) {
+                    output.addLine("[" + command.toString() + "]: You need to specify something to drop!");
+                    return output;
+                }
+
                 name = scanner.nextLine();
-                name = removeFillerWords(name);
+                name = name.trim();
                 possibleMatchesInter = new ArrayList<>();
-                for(Holdable h : player.getInventory()){
-                    if(h.isValidName(name)){
-                        possibleMatchesHod.add(h);
+                for (Holdable i : player.getInventory()) {
+                    System.out.println(name);
+                    System.out.println(i.isValidName(name));
+                    if (i.isValidName(name)) {
+                        possibleMatchesInter.add(i);
                     } else {
-                        player.sendMessage("[" + command.toString() + "] You can't do that!");
-                    }
-                    if(possibleMatchesHod.size() > 0 && possibleMatchesHod.size() < 2){
-                        Item item = (Item) possibleMatchesHod.get(0);
-                        item.drop(player);
-                    } else {
-                        player.sendMessage("[" + command.toString() + "] Be more specific!");
+                        player.sendMessage("[" + command.toString() + "]: You don't have one of those!");
                     }
                 }
 
+                if (possibleMatchesInter.size() == 1) {
+                    Item item = (Item) possibleMatchesInter.get(0);
+                    item.drop(player);
+                    output.addLine("[" + command.toString() + "]: You picked it up.");
+                } else if (possibleMatchesInter.size() > 1) {
+                    output.addLine("[" + command.toString() + "]: Be more specific!");
+                } else {
+                    output.addLine("[" + command.toString() + "]: That doesn't exist!");
+                }
                 break;
             case attack:
                 try {

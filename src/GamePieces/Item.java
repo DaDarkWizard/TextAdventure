@@ -3,6 +3,8 @@ package GamePieces;
 import PlayerHandler.Commands;
 import PlayerHandler.Player;
 
+import java.util.Arrays;
+
 public class Item implements Holdable {
     String shortDescription = "";
     String longDescription = "";
@@ -45,7 +47,7 @@ public class Item implements Holdable {
     @Override
     public boolean isValidName(String name) {
 
-        return false;
+        return (Arrays.binarySearch(validNames, name) > -1);
     }
 
     @Override

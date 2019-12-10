@@ -25,7 +25,6 @@ public class SizableFrame extends Frame {
     @Override
     public String getOutput() {
         StringBuilder stringBuilder = new StringBuilder();
-        System.out.println(lines.size());
         for (int i = 0; i < lines.size(); i++) {
             stringBuilder.append(lines.get(i));
             if (i < lines.size() - 1) {
@@ -39,7 +38,6 @@ public class SizableFrame extends Frame {
             }
         }
 
-        //System.out.println(stringBuilder.toString());
         return stringBuilder.toString();
     }
 
