@@ -203,7 +203,7 @@ public class Room {
         } else if (count > 1) {
             output.append("There are rooms to the");
             if (north != null) {
-                output.append(" east");
+                output.append(" north");
                 count--;
                 if (count == 1) {
                     output.append(" and");
