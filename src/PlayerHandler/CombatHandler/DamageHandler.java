@@ -17,6 +17,9 @@ public class DamageHandler {
      * @return true if command is successfully calculated, false otherwise
      */
     public static boolean calcAttack(Combatant combatant, AttackCommands command) {
+        if (combatant.getTarget() == null) {
+            return false;
+        }
         if (command == AttackCommands.hit) {
             int damage = hit(combatant, combatant.getTarget());
             combatant.getTarget().setPendingDamage(combatant.getTarget().getPendingDamage() + damage);

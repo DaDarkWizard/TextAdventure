@@ -115,7 +115,7 @@ public class TechAdventure implements ConnectionListener {
 										}
 
 									} catch (NumberFormatException ex) {
-										ex.printStackTrace();
+										player.sendMessage("[" + e.getData() + "]: " + "must be an integer.");
 									}
 									break;
 								case words:
