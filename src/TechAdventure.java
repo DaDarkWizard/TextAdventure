@@ -15,7 +15,7 @@ public class TechAdventure implements ConnectionListener {
 	private AdventureServer adventureServer;
 	private InputHandler inputHandler = new InputHandler();
 	private CommandInputHandler commandInputHandler = new CommandInputHandler();
-	private CombatInputHandler combatInputHandler = new CombatInputHandler();
+    private CombatInputHandler combatInputHandler = new CombatInputHandler(this);
 	private ArrayList<Room> rooms = new ArrayList<>();
 	private Room startRoom;
 	private static boolean runFrames = true;
