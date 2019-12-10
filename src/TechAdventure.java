@@ -63,8 +63,6 @@ public class TechAdventure implements ConnectionListener {
 						player = new Player(e.getConnectionID());
 						player.setInfoEventListener(event -> {
 							try {
-								System.out.println("MESAGR SENT");
-								System.out.println(event.getMessage());
 								Frame output = player.getLastFrame();
 								if (output == null || output.isEmpty()) {
 									output = new StandardFrame();

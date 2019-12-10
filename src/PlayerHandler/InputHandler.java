@@ -8,6 +8,8 @@ import GamePieces.Item;
 import PlayerHandler.Persistence.CreateCharacter;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
+
+import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -39,7 +41,7 @@ public class InputHandler {
             return Commands.say;
         } else if (Arrays.binarySearch(inventory, command) > -1) {
             return Commands.inventory;
-        } else if (Arrays.binarySearch(pickup, command) > -1) {
+        } else if (Arrays.binarySearch(pickup, command) > -1 || command.equals("pickup")) {
             return Commands.pickup;
         } else if (Arrays.binarySearch(drop, command) > -1) {
             return Commands.drop;
