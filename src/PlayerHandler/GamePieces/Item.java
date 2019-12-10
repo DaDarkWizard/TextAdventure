@@ -7,10 +7,14 @@ public class Item implements Holdable {
     String shortDescription = "";
     String longDescription = "";
     String[] validNames;
+    Room room = null;
     InteractListener interactListener;
 
-    public Item(String shortDescription, String longDescription) {
-
+    public Item(String shortDescription, String longDescription, String[] validNames, Room room) {
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
+        this.validNames = validNames;
+        this.room = room;
     }
 
 
@@ -42,5 +46,17 @@ public class Item implements Holdable {
     public boolean isValidName(String name) {
 
         return false;
+    }
+
+    @Override
+    public Holdable pickup(Player player) {
+        this.room = null;
+        player.getInventory().add(this);
+        return this;
+    }
+
+    @Override
+    public void drop(Player player) {
+        this.room = player.getLocation();
     }
 }
