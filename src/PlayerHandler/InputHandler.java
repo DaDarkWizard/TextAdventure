@@ -20,7 +20,7 @@ public class InputHandler {
     private static String[] say = {"say", "shout", "yell", "orate"};
     private static String[] fillerWords = {"the", "at", "a", "an", "of", "for", "over", "up"};
     private static String[] inventory = {"inventory", "items", "stuff"};
-    private static String[] pickup = {"pickup", "grab", "get", "pick up"};
+    private static String[] pickup = {"pickup", "grab", "get", "pick"};
     private static String[] drop = {"drop", "throw", "remove", "delete"};
     private static String badMove = "You can't move that direction.";
     private MessageListener messageListener;
@@ -186,21 +186,33 @@ public class InputHandler {
                 }
                 break;
             case pickup:
+                output = player.getLastFrame();
+                String newInput = input;
+                newInput = removeFillerWords(newInput);
+                scanner = new Scanner(newInput);
+                scanner.next();
+                if (!scanner.hasNext()) {
+                    output.addLine("[" + command.toString() + "]: You need to specify something to pick up!");
+                    return output;
+                }
+
                 name = scanner.nextLine();
-                name = removeFillerWords(name);
                 possibleMatchesInter = new ArrayList<>();
                 for(Interactable i : player.getLocation().getInteractables()){
                     if(i.isValidName(name) && (i instanceof Holdable)){
                         possibleMatchesInter.add(i);
                     } else {
-                        player.sendMessage("[" + command.toString() + "] You can't do that!");
+                        player.sendMessage("[" + command.toString() + "]: You can't do that!");
                     }
-                    if(possibleMatchesInter.size() > 0 && possibleMatchesInter.size() < 2){
-                        Item item = (Item) possibleMatchesInter.get(0);
-                        item.pickup(player);
-                    } else {
-                        player.sendMessage("[" + command.toString() + "] Be more specific!");
-                    }
+                }
+                if (possibleMatchesInter.size() == 1) {
+                    Item item = (Item) possibleMatchesInter.get(0);
+                    item.pickup(player);
+                    output.addLine("[" + command.toString() + "]: You picked it up.");
+                } else if (possibleMatchesInter.size() > 1) {
+                    output.addLine("[" + command.toString() + "]: Be more specific!");
+                } else {
+                    output.addLine("[" + command.toString() + "]: That doesn't exist!");
                 }
                 break;
             case drop:

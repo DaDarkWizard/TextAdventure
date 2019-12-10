@@ -4,6 +4,7 @@ import CombatHandler.CombatGroup;
 import CombatHandler.Combatant;
 import CombatHandler.Weapons.Weapon;
 import GamePieces.Room;
+import PlayerHandler.Player;
 
 import java.util.ArrayList;
 
@@ -101,6 +102,17 @@ public class NPC implements Combatant {
         this.combatWords = template.getCombatWords();
         this.npcMeetSomeoneListener = template.getNPCMeetSomeoneListener();
         template.increment();
+    }
+
+    /**
+     * Has the npc say something to the room
+     *
+     * @param message
+     */
+    public void say(String message) {
+        for (Player player : this.room.getPlayers()) {
+            player.sendMessage(this.name + ": " + message);
+        }
     }
 
     /**
