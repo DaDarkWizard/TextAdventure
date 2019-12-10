@@ -1,9 +1,14 @@
 package PlayerHandler;
 
+import GamePieces.Item;
 import GamePieces.Room;
+
+import java.util.Arrays;
 
 public class Tutorial {
     private Room start, startWest, startNorth, startEast, startSouth, monsterRoom, dragonSlayer, dragonRoom, moneyAndGlory;
+    private Item key;
+    private String[] keyNames = new String[]{"Key", "key"};
 
     public Tutorial() {
         start = new Room("Tutorial Level",
@@ -43,6 +48,9 @@ public class Tutorial {
         moneyAndGlory = new Room("Money and Glory Room",
                 "You are in a octagon gold room with shiny walls\nIt smells vaguely of glory.",
                 "A room to the West. It looks like its gold?");
+
+        key = new Item("Golden Key", "It is a golden intricate key with runic lettering.",
+                keyNames, dragonRoom);
 
         start.setNorth(startNorth);
         start.setWest(moneyAndGlory);
