@@ -7,18 +7,18 @@ import java.util.ArrayList;
 
 public class CombatFrame extends Frame {
     private ArrayList<AttackCommands> attackCommands = new ArrayList<>();
-    private int startTimer = 5;
     private Player player;
     private SizableFrame console = new SizableFrame(11, 31);
     private ArrayList<String> combatLog = new ArrayList<>();
     public final int height = 28;
     public final int width = 100;
+    String startTimer = "Start in: 5";
 
     public CombatFrame(Player player) {
         this.player = player;
     }
 
-    public void updateStartTimer(int startTimer) {
+    public void updateStartTimer(String startTimer) {
         this.startTimer = startTimer;
     }
 
@@ -82,11 +82,7 @@ public class CombatFrame extends Frame {
     }
 
     private String getStartString() {
-        if (startTimer > 0) {
-            return String.format("Start in:%2d", startTimer);
-        } else {
-            return "  START!!! ";
-        }
+        return startTimer;
     }
 
     private String getInventoryString(int line) {
@@ -125,7 +121,7 @@ public class CombatFrame extends Frame {
         if (line < 0) {
             throw new IllegalArgumentException();
         } else if (line == 0) {
-            return String.format("|%-31s| %11s |%31s|",
+            return String.format("|%-31s|%13.13s|%31s|",
                     getConsoleString(line), getStartString(), getInventoryString(line));
         } else if (line == 1) {
             return String.format("|%-31s|-------------|%31s", getConsoleString(line), getInventoryString(line));
@@ -225,5 +221,16 @@ public class CombatFrame extends Frame {
     @Override
     public boolean isEmpty() {
         return false;
+    }
+
+    public void addToCombatLog(String input) {
+        combatLog.add(input);
+        if (combatLog.size() > 9) {
+            combatLog.remove(0);
+        }
+    }
+
+    public void clearCombatLog() {
+        combatLog.clear();
     }
 }

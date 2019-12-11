@@ -44,6 +44,9 @@ public class CombatGroup {
         talk
     }
 
+    //Todo remove player from possible attack options
+    //Todo fix seconds
+    //Todo fix hit
     /**
      * Initialize the combat group
      *
@@ -104,6 +107,7 @@ public class CombatGroup {
                 combatState = state.initialize;
                 break;
             case initialize:
+                System.out.println("Starting combat");
                 countup = 0;
                 StringBuilder targetMessage = new StringBuilder();
                 targetMessage.append("Combat is about to start! Choose a target:\n");
@@ -115,6 +119,13 @@ public class CombatGroup {
                 messageCombatants(Long.toString(combatReadyTime / 1000));
                 combatState = state.startCombat;
                 countup++;
+                for (Player player : players) {
+                    if (!(player.getLastFrame() instanceof CombatFrame)) {
+                        player.setLastFrame(new CombatFrame(player));
+                    }
+                    CombatFrame frame = (CombatFrame) player.getLastFrame();
+                    frame.updateStartTimer(" Start in: 5 ");
+                }
                 updatePlayer();
                 break;
             case startCombat:
@@ -122,10 +133,22 @@ public class CombatGroup {
                 output += (combatReadyTime - countup) / 1000;
                 if (countup < combatReadyTime && System.currentTimeMillis() - combatStartCount > countup) {
                     countup += 1000;
+                    for (Player player : players) {
+                        if (!(player.getLastFrame() instanceof CombatFrame)) {
+                            player.setLastFrame(new CombatFrame(player));
+                        }
+                        CombatFrame frame = (CombatFrame) player.getLastFrame();
+                        frame.updateStartTimer(" Start in: " + (5000 - countup) / 1000 + " ");
+                    }
                     updatePlayer();
                 } else if (System.currentTimeMillis() - combatStartCount > countup) {
-                    output = "START!!!";
-                    messageCombatants(output);
+                    for (Player player : players) {
+                        if (!(player.getLastFrame() instanceof CombatFrame)) {
+                            player.setLastFrame(new CombatFrame(player));
+                        }
+                        CombatFrame frame = (CombatFrame) player.getLastFrame();
+                        frame.updateStartTimer("   Start!!!   ");
+                    }
                     combatState = state.words;
                     combatStartCount = System.currentTimeMillis();
                     updatePlayer();
@@ -180,6 +203,10 @@ public class CombatGroup {
                 }
                 combatStartCount = System.currentTimeMillis();
                 messageCombatants("Time for Flight, Flee, or Talk!");
+                //Remove attacks after combat
+                for (Player player : players) {
+                    player.getWords().clear();
+                }
                 combatState = state.rps;
                 break;
             case rps:

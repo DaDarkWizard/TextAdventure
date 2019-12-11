@@ -2,6 +2,7 @@ import CombatHandler.CombatGroup;
 import GamePieces.Room;
 import PlayerHandler.Player;
 import PlayerHandler.PlayerStates;
+import PlayerHandler.UI.CombatFrame;
 import PlayerHandler.UI.StandardFrame;
 
 import java.util.Scanner;
@@ -14,6 +15,9 @@ public class CombatInputHandler {
     }
 
     StandardFrame handleInput(String input, Player player) {
+        if (player.getLastFrame() instanceof CombatFrame) {
+            ((CombatFrame) player.getLastFrame()).addToCombatLog(input);
+        }
         switch (player.getCombatGroup().getCombatState()) {
             case startCombat:
                 try {
@@ -37,6 +41,7 @@ public class CombatInputHandler {
                         player.setCombatDecision(CombatGroup.rpsChoice.fight);
                         break;
                     case "flee":
+                        //Todo make flee go back to room you came from if possible, if not possible still in combat
                         player.setState(PlayerStates.normal);
                         player.getCombatGroup().removeCombatant(player);
                         if (scanner.hasNext()) {
