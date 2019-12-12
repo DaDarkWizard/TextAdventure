@@ -129,4 +129,8 @@ public class SizableFrame extends Frame {
     public boolean isEmpty() {
         return false;
     }
+
+    public int getCurrentSize() {
+        return lines.size();
+    }
 }
