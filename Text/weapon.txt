@@ -1,0 +1,32 @@
+32
+Hammer
+Club
+Mallet
+Greatsword
+Warhammer
+Sword
+Axe
+Mace
+Staff
+Wand
+Ring
+Amulet
+Charm
+Token
+Totem
+Dirk
+Dagger
+Spear
+Shortbow
+Longbow
+Crossbow
+Throwing Knives
+Hatchet
+Brass Knuckes
+Flute
+Lute
+Panpipe
+Lyre
+Banjo
+Cowbell
+Kazoo
