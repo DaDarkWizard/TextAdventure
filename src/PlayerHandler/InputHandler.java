@@ -46,7 +46,9 @@ public class InputHandler {
             return Commands.pickup;
         } else if (Arrays.binarySearch(drop, command) > -1) {
             return Commands.drop;
-        } else if (command.equals("go")) {
+        } else if (command.equals("stats")) {
+            return Commands.stats;
+        }else if (command.equals("go")) {
             return Commands.skip;
         } else if (command.equals("SHUTDOWN")) {
             return Commands.SHUTDOWN;
@@ -258,6 +260,15 @@ public class InputHandler {
                     output = player.getLastFrame();
                     output.addLine("[attack]: " + e.getMessage(), true);
                 }
+                break;
+            case stats:
+                output.addLine("Stats:");
+                output.addLine("Brawn: " + player.getBrawn());
+                output.addLine("Spiffness: " + player.getSpiffness());
+                output.addLine("Smerts: " + player.getSmarts());
+                output.addLine("Moxy: " + player.getMoxy());
+                output.addLine("Max Hit Points: " + player.getMaxHitpoints());
+                output.addLine("Current Hit Points " + player.getHitPoints());
                 break;
             case IPADDRESS:
             case SHUTDOWN:
