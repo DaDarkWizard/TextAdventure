@@ -1,0 +1,31 @@
+triangle
+kite
+parallelogram
+rectangle
+regular old square
+square
+pentagon
+hexagon
+heptagon
+octagon
+nonagon
+decagon
+circle
+heart
+regular polygon
+oval
+asteroid
+pentagram
+rhombus
+cross
+star
+arrow
+crescent
+semicircle
+tropezium
+ellipse
+diamond
+quatrefoil
+curvilinear triangle
+pic
+trapeze
