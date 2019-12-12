@@ -22,8 +22,11 @@ public class CombatInputHandler {
             case startCombat:
                 try {
                     int choice = Integer.parseInt(input);
-                    if (choice > 0 && choice < player.getCombatGroup().getCombatants().size()) {
-                        player.setTarget(player.getCombatGroup().getCombatants().get(choice - 1));
+                    if (choice > 0 && choice < player.getCombatGroup().getCombatants(player).size() + 1) {
+                        player.setTarget(player.getCombatGroup().getCombatants(player).get(choice - 1));
+                        player.sendMessage("You are attacking: " + player.getTarget().getName());
+                    } else {
+                        player.sendMessage("That is not a valid target!");
                     }
 
                 } catch (NumberFormatException ex) {

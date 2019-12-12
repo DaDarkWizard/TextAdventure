@@ -13,6 +13,7 @@ public enum Commands {
     attack,
     pickup,
     drop,
+    stats,
     SERVERMESSAGE,
     SHUTDOWN,
     IPADDRESS,
