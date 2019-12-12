@@ -4,7 +4,10 @@ import java.util.Scanner;
 
 public class RandomFileParser {
 
-    public RandomFileParser(String s) {
+    private final String RandomString;
+
+    public RandomFileParser(String RandomString) throws FileNotFoundException {
+        this.RandomString = RandomString;
     }
 
     public static String RandomString(String fileName) throws FileNotFoundException {
