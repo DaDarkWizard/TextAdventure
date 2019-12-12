@@ -356,6 +356,11 @@ public class NPC implements Combatant {
         } else if (currentHitpoints < 0) {
             currentHitpoints = 0;
         }
+        if (currentHitpoints < 1) {
+            this.getRoom().removeNPC(this);
+        }
+
+
         return currentHitpoints;
     }
 
