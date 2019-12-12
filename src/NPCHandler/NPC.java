@@ -49,6 +49,7 @@ public class NPC implements Combatant {
     //For AI
     private NPCMeetSomeoneListener npcMeetSomeoneListener;
     private NPCRunListener npcRunListener;
+    private NPCFindTargetListener npcFindTargetListener;
 
     /**
      * Creates an NPC from the values specified
@@ -69,7 +70,8 @@ public class NPC implements Combatant {
         ArrayList<Weapon> weapons, ArrayList<String> combatWords,
         CombatGroup.rpsChoice combatChoice,
         NPCMeetSomeoneListener npcMeetSomeoneListener,
-        NPCRunListener npcRunListener) {
+        NPCRunListener npcRunListener,
+        NPCFindTargetListener npcFindTargetListener) {
 
         this.rpsChoice = combatChoice;
         this.weapons = weapons;
@@ -83,6 +85,7 @@ public class NPC implements Combatant {
         this.combatWords = combatWords;
         this.npcMeetSomeoneListener = npcMeetSomeoneListener;
         this.npcRunListener = npcRunListener;
+        this.npcFindTargetListener = npcFindTargetListener;
 
         npcs.add(this);
     }
@@ -109,9 +112,18 @@ public class NPC implements Combatant {
         this.combatWords = template.getCombatWords();
         this.npcMeetSomeoneListener = template.getNPCMeetSomeoneListener();
         this.npcRunListener = template.getNPCRunListener();
+        this.npcFindTargetListener = template.getNPCFindTargetListener();
         template.increment();
 
         npcs.add(this);
+    }
+
+
+    public void findTarget() {
+        NPCFindTargetEvent event = new NPCFindTargetEvent(this);
+        if (this.npcFindTargetListener != null) {
+            this.npcFindTargetListener.handle(event);
+        }
     }
 
     /**

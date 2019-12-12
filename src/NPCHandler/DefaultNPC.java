@@ -25,6 +25,7 @@ public class DefaultNPC implements NPCTemplate {
     private int maxHitpoints = 10;                              //Maximum hitpoints of this NPC
     protected NPCMeetSomeoneListener npcMeetSomeoneListener;    //The NPCMeetSomeoneListener of this NPC
     protected NPCRunListener npcRunListener;                    //For when the NPC is run
+    protected NPCFindTargetListener npcFindTargetListener;      //For when the NPC has to choose a target
 
     /**
      * Creates the default with the name given
@@ -36,6 +37,9 @@ public class DefaultNPC implements NPCTemplate {
         for (int i = 0; i < 3; i++) {
             words.add("hit");
         }
+        this.npcFindTargetListener = event -> {
+            event.getSource().setTarget(event.getSource().getCombatGroup().getCombatants(event.getSource()).get(0));
+        };
     }
 
     /**
@@ -47,6 +51,16 @@ public class DefaultNPC implements NPCTemplate {
     public DefaultNPC(String name, int maxHitpoints) {
         this(name);
         this.maxHitpoints = maxHitpoints;
+    }
+
+    /**
+     * Gets this templates NPCFindTargetListener
+     *
+     * @return the NPCFindTargetListener
+     */
+    @Override
+    public NPCFindTargetListener getNPCFindTargetListener() {
+        return this.npcFindTargetListener;
     }
 
     /**

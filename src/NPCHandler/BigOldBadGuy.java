@@ -1,6 +1,7 @@
 package NPCHandler;
 
 import CombatHandler.CombatGroup;
+import CombatHandler.Combatant;
 import CombatHandler.Weapons.Weapon;
 
 import java.util.ArrayList;
@@ -10,10 +11,27 @@ public class BigOldBadGuy implements NPCTemplate{
     String name = "";
     protected NPCMeetSomeoneListener npcMeetSomeoneListener;
     protected NPCRunListener npcRunListener;
+    protected NPCFindTargetListener npcFindTargetListener;
     int count = 0;
 
-    BigOldBadGuy(String name){
+    public BigOldBadGuy(String name) {
         this.name = name;
+        this.npcFindTargetListener = event -> {
+            Combatant mostHealth = null;
+            for (Combatant combatant : event.getSource().getCombatGroup().getCombatants(event.getSource())) {
+                if (mostHealth == null) {
+                    mostHealth = combatant;
+                }
+                if (combatant.getHitPoints() > mostHealth.getHitPoints()) {
+                    mostHealth = combatant;
+                }
+            }
+        };
+    }
+
+    @Override
+    public NPCFindTargetListener getNPCFindTargetListener() {
+        return this.npcFindTargetListener;
     }
 
     @Override
