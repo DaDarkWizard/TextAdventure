@@ -4,9 +4,11 @@ import CombatHandler.Weapons.TooFewCombatantsException;
 import PlayerHandler.Player;
 import PlayerHandler.PlayerStates;
 import PlayerHandler.UI.CombatFrame;
+import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CombatGroup {
     private final long combatFightTime = 10000; //Length of time to fight (type words)
@@ -104,21 +106,24 @@ public class CombatGroup {
             case firstround:
                 messageCombatants(initiant.getName() + " has initiated combat!");
                 messageCombatants("Get ready to fight!");
+                for (Player player : players) {
+                    if (!(player.getLastFrame() instanceof CombatFrame)) {
+                        player.setLastFrame(new CombatFrame(player));
+                    }
+                    CombatFrame frame = (CombatFrame) player.getLastFrame();
+                }
                 combatState = state.initialize;
                 break;
             case initialize:
                 System.out.println("Starting combat");
                 countup = 0;
                 StringBuilder targetMessage = new StringBuilder();
-                targetMessage.append("Combat is about to start! Choose a target:\n");
-                for (int i = 0; i < combatants.size(); i++) {
-                    targetMessage.append("  ").append(i + 1).append(". ").append(combatants.get(i).getName()).append("\n");
-                }
-
+                targetMessage.append("Combat is about to start!\nChoose a target.\n");
+                combatStartCount = System.currentTimeMillis();
                 messageCombatants(targetMessage.toString());
                 messageCombatants(Long.toString(combatReadyTime / 1000));
                 combatState = state.startCombat;
-                countup++;
+
                 for (Player player : players) {
                     if (!(player.getLastFrame() instanceof CombatFrame)) {
                         player.setLastFrame(new CombatFrame(player));
@@ -225,6 +230,13 @@ public class CombatGroup {
                         }
                     }
                     if (!fighting) {
+
+
+                        for (Player player : players) {
+                            Frame frame = new StandardFrame();
+                            frame.add(player.getLocation().getDescription());
+                            player.setLastFrame(frame);
+                        }
                         messageCombatants("Everyone has disengaged from combat!");
                         for (int i = 0; i < combatants.size(); i++) {
                             removeCombatant(combatants.get(i));
@@ -252,6 +264,16 @@ public class CombatGroup {
 
     public ArrayList<Combatant> getCombatants() {
         return this.combatants;
+    }
+
+    public ArrayList<Combatant> getCombatants(Combatant combatant) {
+        ArrayList<Combatant> output = new ArrayList<>();
+        for (Combatant value : combatants) {
+            if (value != combatant) {
+                output.add(value);
+            }
+        }
+        return output;
     }
 
     private AttackCommands parseAttackCommand(String command) {

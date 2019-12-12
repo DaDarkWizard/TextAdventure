@@ -1,6 +1,7 @@
 package PlayerHandler.UI;
 
 import CombatHandler.AttackCommands;
+import CombatHandler.CombatGroup;
 import PlayerHandler.Player;
 
 import java.util.ArrayList;
@@ -62,19 +63,42 @@ public class CombatFrame extends Frame {
     }
 
     private String getCommandsPossibleString(int line) {
-        if (line < 13) {
-            return "            Commands";
-        } else if (line < 14) {
+        line -= 2;
+        if (player.getCombatGroup() == null) {
             return "";
-        } else if (line < 15) {
-            return " inventory (number)";
-        } else {
-            if (player.getPossibleAttackCommands().size() > line - 15) {
-                return " " + player.getPossibleAttackCommands().get(line - 15).toString();
-            } else {
-                return "";
-            }
         }
+        switch (player.getCombatGroup().getCombatState()) {
+            case firstround:
+            case words:
+                if (line < 13) {
+                    return "            Commands";
+                } else if (line < 14) {
+                    return "";
+                } else if (line < 15) {
+                    return " inventory (number)";
+                } else {
+                    if (player.getPossibleAttackCommands().size() > line - 15) {
+                        return " " + player.getPossibleAttackCommands().get(line - 15).toString();
+                    } else {
+                        return "";
+                    }
+            }
+            case rps:
+            case initialize:
+            case calculate:
+            case startCombat:
+                if (line < 13) {
+                    return "            Targets";
+                } else if (line < 14) {
+                    return "";
+                } else if (player.getCombatGroup().getCombatants(player).size() > line - 14) {
+                    return String.format("%2d. %-16.16s", line - 13,
+                            player.getCombatGroup().getCombatants(player).get(line - 14).getName());
+                } else {
+                    return "";
+                }
+        }
+        return "";
     }
 
     private String getConsoleString(int line) {
@@ -88,17 +112,19 @@ public class CombatFrame extends Frame {
     private String getInventoryString(int line) {
         if (line < 0) {
             throw new IllegalArgumentException();
-        } else if (line == 0) {
-            return "Inventory            ";
-        } else if (line == 1) {
-            return "";
-        } else {
-            if (player.getInventory().size() > line - 2) {
-                return String.format("%2d. %-27.27s", line - 1, player.getInventory().get(line - 2).getShortDescription());
+        }
+        if (player.getInventory().size() < 1) {
+            if (line < 2 || line > 3) {
+                return String.format("%-31.31s", new InventoryFrame(player).getLine(line));
             } else {
-                return "";
+                if (line == 2) {
+                    return String.format("%-31.31s", "Your inventory is empty!");
+                } else {
+                    return String.format("%-31.31s", "¯\\_(ツ)_/¯ Sowwy.");
+                }
             }
         }
+        return new InventoryFrame(player).getLine(line);
     }
 
     private String getCommandsUsedString(int line) {
@@ -144,9 +170,9 @@ public class CombatFrame extends Frame {
                     dash2.append("-");
                 }
             }
-            return String.format("|%45s|%31s|", dash1.toString(), dash2.toString());
+            return String.format("|%45.45s|%31.31s|", dash1.toString(), dash2.toString());
         } else if (line < 23) {
-            return String.format("|%45s|%-31s|", getCombatLogString(line), getCommandsPossibleString(line));
+            return String.format("|%45.45s|%-31.31s|", getCombatLogString(line), getCommandsPossibleString(line));
         } else if (line < 24) {
             StringBuilder dash1 = new StringBuilder();
             StringBuilder dash2 = new StringBuilder();

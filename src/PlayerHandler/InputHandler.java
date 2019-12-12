@@ -7,6 +7,7 @@ import GamePieces.Interactable;
 import GamePieces.Item;
 import PlayerHandler.Persistence.CreateCharacter;
 import PlayerHandler.UI.Frame;
+import PlayerHandler.UI.InventoryFrame;
 import PlayerHandler.UI.StandardFrame;
 
 import javax.sound.midi.Soundbank;
@@ -177,16 +178,13 @@ public class InputHandler {
                 }
                 break;
             case inventory:
-                StringBuilder inventory = new StringBuilder();
-                inventory.append("You have:\n");
-                if (player.getInventory().size() < 1) {
-                    inventory.append("  Absolutely Nothing");
-                } else {
-                    for (Holdable holdable : player.getInventory()) {
-                        inventory.append("  ").append(holdable.getShortDescription()).append("\n");
-                    }
+                System.out.println("Ran Inventory");
+                InventoryFrame inventoryFrame = new InventoryFrame(player);
+                output = player.getLastFrame();
+                for (int i = 0; i < inventoryFrame.getCurrentSize(); i++) {
+                    output.addLine(inventoryFrame.getLine(i), true);
                 }
-                break;
+                return output;
             case pickup:
                 output = player.getLastFrame();
                 newInput = input;

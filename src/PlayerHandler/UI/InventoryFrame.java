@@ -12,7 +12,7 @@ import PlayerHandler.Player;
  * CS 1131, Fall 2019
  * Lab Section 2
  */
-public class InventoryFrame extends StandardFrame {
+public class InventoryFrame extends SizableFrame {
 
     /**
      * Constructs the frame
@@ -20,11 +20,11 @@ public class InventoryFrame extends StandardFrame {
      * @param player the player whose inventory to show
      */
     public InventoryFrame(Player player) {
-        super();
-        this.addLine("Your Inventory: ");
+        super(player.getInventory().size() + 4, 107);
+        this.addLine("[Inventory]:", true);
         this.newLine();
         if (player.getInventory().size() < 1) {
-            this.addLine("Your inventory is empty! ¯\\_(ツ)_/¯ Sowwy.");
+            this.addLine("Your inventory is empty! ¯\\_(ツ)_/¯ Sowwy.", true);
         } else {
             for (int i = 0; i < player.getInventory().size(); i++) {
                 this.addLine(i + ". " + player.getInventory().get(i));
