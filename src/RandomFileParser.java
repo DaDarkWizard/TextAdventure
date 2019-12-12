@@ -2,9 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class RandomString {
+public class RandomFileParser {
 
-    public RandomString(String s) {
+    public RandomFileParser(String s) {
     }
 
     public static String RandomString(String fileName) throws FileNotFoundException {
