@@ -1,3 +1,4 @@
+32
 triangle
 kite
 parallelogram
