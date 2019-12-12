@@ -40,5 +40,7 @@ public interface NPCTemplate {
 
     NPCRunListener getNPCRunListener();
 
+    NPCFindTargetListener getNPCFindTargetListener();
+
     void increment();
 }

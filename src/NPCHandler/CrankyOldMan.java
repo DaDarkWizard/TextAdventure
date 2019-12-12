@@ -9,6 +9,9 @@ public class CrankyOldMan extends DefaultNPC {
         this.npcMeetSomeoneListener = event -> {
             event.npc.say("You're a goon.");
         };
+        this.npcFindTargetListener = event -> {
+            event.getSource().setTarget(event.getSource().getCombatGroup().getCombatants(event.getSource()).get(0));
+        };
     }
 
 

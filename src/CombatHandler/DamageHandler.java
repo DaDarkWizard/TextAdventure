@@ -1,5 +1,7 @@
 package CombatHandler;
 
+import NPCHandler.NPC;
+
 public class DamageHandler {
     private static int rollDice(int sides) {
         if (sides < 1) {
@@ -17,6 +19,9 @@ public class DamageHandler {
      * @return true if command is successfully calculated, false otherwise
      */
     public static boolean calcAttack(Combatant combatant, AttackCommands command) {
+        if (combatant instanceof NPC) {
+            ((NPC) combatant).findTarget();
+        }
         if (combatant.getTarget() == null) {
             return false;
         }

@@ -82,7 +82,7 @@ public class CombatFrame extends Frame {
                     } else {
                         return "";
                     }
-            }
+                }//Todo Fix frame
             case rps:
             case initialize:
             case calculate:
