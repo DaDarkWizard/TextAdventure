@@ -5,6 +5,7 @@ import PlayerHandler.UI.Frame;
 
 import java.util.Scanner;
 
+//Cool input handler
 public class CharacterModificationInputHandler {
     public Frame handleInput(String input, Player player) {
         switch (player.getState()) {
