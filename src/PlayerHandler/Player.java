@@ -352,4 +352,9 @@ public class Player implements Combatant {
     public void setLastFrame(Frame frame) {
         this.lastFrame = frame;
     }
+
+    //Todo Implement player removal correctly
+    public static void removePlayer(Player player) {
+        players.remove(player);
+    }
 }

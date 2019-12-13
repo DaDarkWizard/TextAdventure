@@ -1,10 +1,11 @@
 import PlayerHandler.*;
 import CombatHandler.CombatGroup;
 import GamePieces.Room;
-import PlayerHandler.Persistence.CreateCharacter;
+import PlayerHandler.Persistence.CharacterModificationInputHandler;
 import PlayerHandler.UI.CommandInputHandler;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
+import World.Spawn;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -16,8 +17,11 @@ public class TechAdventure implements ConnectionListener {
 	private InputHandler inputHandler = new InputHandler();
 	private CommandInputHandler commandInputHandler = new CommandInputHandler();
     private CombatInputHandler combatInputHandler = new CombatInputHandler(this);
+	private CharacterModificationInputHandler characterModificationInputHandler;
 	private ArrayList<Room> rooms = new ArrayList<>();
 	private Room startRoom;
+	public static Room spawn;
+
 	private static boolean runFrames = true;
 	public static final Object lock = 0;
 
@@ -28,6 +32,8 @@ public class TechAdventure implements ConnectionListener {
 
 	public void start(int port) {
 		Room startRoom = new Tutorial().getStart();
+		spawn = new Spawn();
+		characterModificationInputHandler = new CharacterModificationInputHandler(spawn);
 		rooms.add(startRoom);
 		this.startRoom = startRoom;
 		inputHandler.setMessageListener(e -> {
@@ -128,6 +134,10 @@ public class TechAdventure implements ConnectionListener {
 						} else if (player.getState() == PlayerStates.combat) {
 							Frame message = combatInputHandler.handleInput(e.getData(), player);
 
+						} else if (player.getState() == PlayerStates.characterRestoration ||
+								player.getState() == PlayerStates.characterCreation) {
+							Frame message = characterModificationInputHandler.handleInput(e.getData(), player);
+							adventureServer.sendMessage(e.getConnectionID(), message.getOutput());
 						}
 						break;
 					case CONNECTION_TERMINATED:
@@ -225,9 +235,6 @@ public class TechAdventure implements ConnectionListener {
 					for (CombatGroup group : CombatGroup.CombatGroups) {
 						group.RunCombat();
 
-					}
-					for (CreateCharacter createCharacter : CreateCharacter.characterCreations) {
-						createCharacter.run();
 					}
 				}
 			} catch (ConcurrentModificationException e) {

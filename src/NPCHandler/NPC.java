@@ -50,6 +50,7 @@ public class NPC implements Combatant {
     private NPCMeetSomeoneListener npcMeetSomeoneListener;
     private NPCRunListener npcRunListener;
     private NPCFindTargetListener npcFindTargetListener;
+    private ArrayList<Object> dataStorage;
 
     /**
      * Creates an NPC from the values specified
@@ -71,7 +72,8 @@ public class NPC implements Combatant {
         CombatGroup.rpsChoice combatChoice,
         NPCMeetSomeoneListener npcMeetSomeoneListener,
         NPCRunListener npcRunListener,
-        NPCFindTargetListener npcFindTargetListener) {
+        NPCFindTargetListener npcFindTargetListener,
+        ArrayList<Object> dataStorage) {
 
         this.rpsChoice = combatChoice;
         this.weapons = weapons;
@@ -86,6 +88,7 @@ public class NPC implements Combatant {
         this.npcMeetSomeoneListener = npcMeetSomeoneListener;
         this.npcRunListener = npcRunListener;
         this.npcFindTargetListener = npcFindTargetListener;
+        this.dataStorage = dataStorage;
 
         npcs.add(this);
     }
@@ -113,6 +116,7 @@ public class NPC implements Combatant {
         this.npcMeetSomeoneListener = template.getNPCMeetSomeoneListener();
         this.npcRunListener = template.getNPCRunListener();
         this.npcFindTargetListener = template.getNPCFindTargetListener();
+        this.dataStorage = template.getDataStorage();
         template.increment();
 
         npcs.add(this);
@@ -124,6 +128,10 @@ public class NPC implements Combatant {
         if (this.npcFindTargetListener != null) {
             this.npcFindTargetListener.handle(event);
         }
+    }
+
+    public ArrayList<Object> getDataStorage() {
+        return this.dataStorage;
     }
 
     /**

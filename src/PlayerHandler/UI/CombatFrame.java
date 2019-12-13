@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class CombatFrame extends Frame {
     private ArrayList<AttackCommands> attackCommands = new ArrayList<>();
     private Player player;
-    private SizableFrame console = new SizableFrame(11, 31);
+    private SizableFrame console = new SizableFrame(11, 51);
     private ArrayList<String> combatLog = new ArrayList<>();
     public final int height = 28;
     public final int width = 100;
@@ -54,11 +54,11 @@ public class CombatFrame extends Frame {
         if (line < 14) {
             throw new IllegalArgumentException();
         } else if (line < 15) {
-            return String.format("Combat %-38s", combatLog.size() > 0 ? "> " + combatLog.get(0) : "");
+            return String.format("Combat %-58s", combatLog.size() > 0 ? "> " + combatLog.get(0) : "");
         } else if (line < 16) {
-            return String.format(" log:  %-38s", combatLog.size() > 1 ? "> " + combatLog.get(0) : "");
+            return String.format(" log:  %-58s", combatLog.size() > 1 ? "> " + combatLog.get(0) : "");
         } else {
-            return String.format("       %-38s", combatLog.size() > line - 14 ? "> " + combatLog.get(line - 14) : "");
+            return String.format("       %-58s", combatLog.size() > line - 14 ? "> " + combatLog.get(line - 14) : "");
         }
     }
 
@@ -82,7 +82,7 @@ public class CombatFrame extends Frame {
                     } else {
                         return "";
                     }
-                }//Todo Fix frame
+                }
             case rps:
             case initialize:
             case calculate:
@@ -129,13 +129,13 @@ public class CombatFrame extends Frame {
 
     private String getCommandsUsedString(int line) {
         if (line < 12) {
-            return String.format("Commands 1.%-7.7s2.%-7.7s3.%-7.7s4.%-7.7s",
+            return String.format("Commands 1.%-12.12s2.%-12.12s3.%-12.12s4.%-12.12s",
                     player.getWords().size() > 0 ? player.getWords().get(0) : "",
                     player.getWords().size() > 1 ? player.getWords().get(1) : "",
                     player.getWords().size() > 2 ? player.getWords().get(2) : "",
                     player.getWords().size() > 3 ? player.getWords().get(3) : "");
         } else {
-            return String.format("  Used:  5.%-7.7s6.%-7.7s7.%-7.7s8.%-7.7s",
+            return String.format("  Used:  5.%-12.12s6.%-12.12s7.%-12.12s8.%-12.12s",
                     player.getWords().size() > 4 ? player.getWords().get(4) : "",
                     player.getWords().size() > 5 ? player.getWords().get(5) : "",
                     player.getWords().size() > 6 ? player.getWords().get(6) : "",
@@ -166,13 +166,13 @@ public class CombatFrame extends Frame {
             StringBuilder dash2 = new StringBuilder();
             for (int i = 0; i < 65; i++) {
                 dash1.append("-");
-                if (i < 31) {
+                if (i < 51) {
                     dash2.append("-");
                 }
             }
-            return String.format("|%65.45s|%31.31s|", dash1.toString(), dash2.toString());
+            return String.format("|%65.65s|%31.31s|", dash1.toString(), dash2.toString());
         } else if (line < 23) {
-            return String.format("|%65.45s|%-31.31s|", getCombatLogString(line), getCommandsPossibleString(line));
+            return String.format("|%65.65s|%-31.31s|", getCombatLogString(line), getCommandsPossibleString(line));
         } else if (line < 24) {
             StringBuilder dash1 = new StringBuilder();
             StringBuilder dash2 = new StringBuilder();
