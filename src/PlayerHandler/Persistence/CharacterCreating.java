@@ -23,7 +23,6 @@ public class CharacterCreating {
     private String username;
     private String password;
 
-    private Room spawn;
 
     boolean statsInitialized = false;
 
@@ -37,7 +36,7 @@ public class CharacterCreating {
         createCharacterEnd
     }
 
-    public void CreateCharacter(Player player, Room spawn) {
+    public void CreateCharacter(Player player) {
         if (!(player.getUsername() == null || player.getUsername().equals(""))) {
             throw new PlayerInitializedException();
         }
@@ -179,7 +178,10 @@ public class CharacterCreating {
 
         player.getLastFrame().addLine("Your character has been successfully created!", true);
         player.getLastFrame().addLine("Press Enter to continue.", true);
-        player.setLocation(this.spawn);
+    }
+
+    public static ArrayList<CharacterCreating> getCharacterCreators() {
+        return characterCreators;
     }
 
     public static CharacterCreating findCharacterCreatorByPlayer(Player player) {
