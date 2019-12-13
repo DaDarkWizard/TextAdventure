@@ -41,6 +41,8 @@ public class CharacterLoading {
         player.update();
         player.setState(PlayerStates.characterRestoration);
         this.state = RestoreCharacterState.getUsername;
+        this.player = player;
+        characterLoaders.add(this);
     }
 
     public void askUsername() {
@@ -66,7 +68,7 @@ public class CharacterLoading {
         try {
             Scanner scanner = new Scanner(file);
             if (scanner.next().equals(password)) {
-                player.getLastFrame().addLine("Password confirmed! Character loaded. Press enter to continue.", true);
+                player.getLastFrame().addLine("Password confirmed! Character loaded. Type look to continue.", true);
                 loadPlayer();
                 this.state = RestoreCharacterState.restoreDone;
             } else {

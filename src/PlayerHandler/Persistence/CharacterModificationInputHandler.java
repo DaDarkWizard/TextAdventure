@@ -2,6 +2,7 @@ package PlayerHandler.Persistence;
 
 import GamePieces.Room;
 import PlayerHandler.Player;
+import PlayerHandler.PlayerStates;
 import PlayerHandler.UI.Frame;
 
 import java.util.Scanner;
@@ -29,7 +30,12 @@ public class CharacterModificationInputHandler {
 
     private void handleCharacterRestoration(String input, Player player) {
         CharacterLoading characterLoading = CharacterLoading.findCharacterLoadingByPlayer(player);
-        if (characterLoading == null || characterLoading.getState() == null) {
+
+        if (characterLoading == null) {
+            System.out.println("Handlede");
+            return;
+        } else if (characterLoading.getState() == null) {
+            System.out.println("Handlede2");
             return;
         }
 
@@ -54,8 +60,13 @@ public class CharacterModificationInputHandler {
                 }
                 break;
             case restoreDone:
-                CharacterLoading.removeCharacterLoading(characterLoading);
-                player.setLocation(spawn);
+                if (input.trim().toLowerCase().equals("look")) {
+                    CharacterLoading.removeCharacterLoading(characterLoading);
+                    player.setLocation(spawn);
+                    player.setState(PlayerStates.normal);
+                } else {
+                    player.getLastFrame().addLine("That's not 'look' Try again!", true);
+                }
                 break;
         }
     }
@@ -65,8 +76,19 @@ public class CharacterModificationInputHandler {
         if (characterCreating == null || characterCreating.getState() == null) {
             return;
         }
+        boolean hasWhitespace;
         switch (characterCreating.getState()) {
+
             case getUsername:
+                hasWhitespace = false;
+                for (Character c : input.toCharArray()) {
+                    if (Character.isWhitespace(c)) {
+                        hasWhitespace = true;
+                    }
+                }
+                if (input.length() < 1 || hasWhitespace) {
+                    player.getLastFrame().addLine("No whitespace!", true);
+                }
                 characterCreating.addUsername(input);
                 break;
             case confirmUsername:
@@ -81,7 +103,7 @@ public class CharacterModificationInputHandler {
                 }
                 break;
             case getPassword:
-                boolean hasWhitespace = false;
+                hasWhitespace = false;
                 for (char c : input.toCharArray()) {
                     if (Character.isWhitespace(c)) {
                         hasWhitespace = true;
@@ -109,8 +131,13 @@ public class CharacterModificationInputHandler {
                 characterCreating.enterStats(inputs);
                 break;
             case createCharacterEnd:
-                CharacterCreating.getCharacterCreators().remove(characterCreating);
-                player.setLocation(spawn);
+                if (input.toLowerCase().trim().equals("look")) {
+                    CharacterCreating.getCharacterCreators().remove(characterCreating);
+                    player.setLocation(spawn);
+                    player.setState(PlayerStates.normal);
+                } else {
+                    player.getLastFrame().addLine("That's not 'look' Try again!", true);
+                }
                 break;
         }
     }

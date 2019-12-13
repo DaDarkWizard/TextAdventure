@@ -53,6 +53,8 @@ public class CharacterCreating {
         this.state = CreateCharacterState.getUsername;
         player.update();
         player.setState(PlayerStates.characterCreation);
+        this.player = player;
+        characterCreators.add(this);
     }
 
     public void addUsername(String username) {
@@ -78,8 +80,10 @@ public class CharacterCreating {
             this.state = CreateCharacterState.getPassword;
             player.getLastFrame().addLine("Username Confirmed!", true);
             player.getLastFrame().addLine("Your username is now: " + this.username + "\n", true);
+            File path = new File("Players/");
             File file = new File("Players/" + username + ".player");
             try {
+                path.mkdirs();
                 file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -157,6 +161,7 @@ public class CharacterCreating {
         newPlayer.setMoxy(stats[3]);
 
         newPlayer.setConnectionID(player.getConnectionID());
+        newPlayer.setLastFrame(player.getLastFrame());
         Player.removePlayer(player);
         newPlayer.setState(PlayerStates.characterCreation);
         this.player = this.newPlayer;
@@ -177,7 +182,7 @@ public class CharacterCreating {
         }
 
         player.getLastFrame().addLine("Your character has been successfully created!", true);
-        player.getLastFrame().addLine("Press Enter to continue.", true);
+        player.getLastFrame().addLine("Type look to continue.", true);
     }
 
     public static ArrayList<CharacterCreating> getCharacterCreators() {

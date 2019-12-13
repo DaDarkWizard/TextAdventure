@@ -17,7 +17,7 @@ public class TechAdventure implements ConnectionListener {
 	private InputHandler inputHandler = new InputHandler();
 	private CommandInputHandler commandInputHandler = new CommandInputHandler();
     private CombatInputHandler combatInputHandler = new CombatInputHandler(this);
-	private CharacterModificationInputHandler characterModificationInputHandler = new CharacterModificationInputHandler();
+	private CharacterModificationInputHandler characterModificationInputHandler;
 	private ArrayList<Room> rooms = new ArrayList<>();
 	private Room startRoom;
 	public static Room spawn;
@@ -33,6 +33,7 @@ public class TechAdventure implements ConnectionListener {
 	public void start(int port) {
 		Room startRoom = new Tutorial().getStart();
 		spawn = new Spawn();
+		characterModificationInputHandler = new CharacterModificationInputHandler(spawn);
 		rooms.add(startRoom);
 		this.startRoom = startRoom;
 		inputHandler.setMessageListener(e -> {
