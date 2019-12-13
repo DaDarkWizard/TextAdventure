@@ -1,3 +1,5 @@
+package Generator;
+
 import java.io.FileNotFoundException;
 
 public class WeaponGenerator {
