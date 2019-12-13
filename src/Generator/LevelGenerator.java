@@ -4,6 +4,7 @@ import GamePieces.Room;
 import PlayerHandler.Commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class LevelGenerator {
@@ -41,7 +42,7 @@ public class LevelGenerator {
             boolean deadEnd = false;
 
             while (roomCount < maxRooms && !deadEnd) {
-
+                System.out.println(roomCount);
                 //create a new room
                 Room newRoom = createRoom();
 
@@ -67,6 +68,9 @@ public class LevelGenerator {
                 if (direction == null) {
                     deadEnd = true;
                 } else {
+                    System.out.println(direction);
+                    printRooms(roomMatrix);
+                    System.out.println("X: " + x + " Y: " + y);
                     switch (direction) {
                         //set x,y = to the location
                         case north:
@@ -103,6 +107,21 @@ public class LevelGenerator {
         }
     }
 
+    public static void printRooms(Room[][] rooms) {
+        System.out.println("[");
+        for (int i = 0; i < rooms.length; i++) {
+            for (int j = 0; j < rooms[i].length; j++) {
+                if (rooms[i][j] != null) {
+                    System.out.print("1,");
+                } else {
+                    System.out.print("0,");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("]");
+    }
+
     /**
      * Helper function to randomly grab an open spot for the new room adjacent to the one whose coords are given
      *
@@ -126,7 +145,7 @@ public class LevelGenerator {
         if (roomMatrix[x][y].getEast() != null || x + 1 >= size) {
             directions.remove(Commands.east);
         }
-        if (roomMatrix[x][y].getWest() != null || x - 1 >= size) {
+        if (roomMatrix[x][y].getWest() != null || x - 1 < 0) {
             directions.remove(Commands.west);
         }
 

@@ -10,8 +10,8 @@ public abstract class Weapon extends Item {
     private AttackCommands attackCommand;
     private WeaponUseListener weaponUseListener;
 
-    public Weapon(String shortDescription, String longDescription, String[] validNames, Room room, AttackCommands attackCommand) {
-        super(shortDescription, longDescription, validNames, room);
+    public Weapon(String shortDescription, String longDescription, String[] validNames, AttackCommands attackCommand) {
+        super(shortDescription, longDescription, validNames, null);
     }
 
     public AttackCommands getAttackCommand() {

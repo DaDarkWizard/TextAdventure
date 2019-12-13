@@ -1,3 +1,4 @@
+import Generator.LevelGenerator;
 import PlayerHandler.*;
 import CombatHandler.CombatGroup;
 import GamePieces.Room;
@@ -16,12 +17,13 @@ public class TechAdventure implements ConnectionListener {
 	private AdventureServer adventureServer;
 	private InputHandler inputHandler = new InputHandler();
 	private CommandInputHandler commandInputHandler = new CommandInputHandler();
-    private CombatInputHandler combatInputHandler = new CombatInputHandler(this);
+	private CombatInputHandler combatInputHandler = new CombatInputHandler(this);
 	private CharacterModificationInputHandler characterModificationInputHandler;
 	private ArrayList<Room> rooms = new ArrayList<>();
 	private Room startRoom;
 	public static Room spawn;
-
+	private Room levelStart;
+	private Room levelEnd;
 	private static boolean runFrames = true;
 	public static final Object lock = 0;
 
@@ -54,7 +56,9 @@ public class TechAdventure implements ConnectionListener {
 			}
 		});
 
-
+		LevelGenerator generator = new LevelGenerator(10, 9);
+		levelEnd = generator.getEnd();
+		levelStart = generator.getStart();
 		adventureServer.startServer(port);
 	}
 
@@ -88,10 +92,8 @@ public class TechAdventure implements ConnectionListener {
 								return;
 							}
 							try {
-								if (event.getSource() == null) {
-								}
 								adventureServer.sendMessage(event.getSource().getConnectionID(), output.getOutput());
-							} catch (UnknownConnectionException ex) {
+							} catch (NullPointerException | UnknownConnectionException ex) {
 								ex.printStackTrace();
 							}
 						});
@@ -117,12 +119,12 @@ public class TechAdventure implements ConnectionListener {
 							while (scanner.hasNext()) {
 								args.add(scanner.next());
 							}
-                            String[] argsArray = new String[args.size()];
-                            for (int i = 0; i < args.size(); i++) {
-                                argsArray[i] = args.get(i);
-                            }
-                            handleServerCommands(player, systemCommand, argsArray);
-                            break;
+							String[] argsArray = new String[args.size()];
+							for (int i = 0; i < args.size(); i++) {
+								argsArray[i] = args.get(i);
+							}
+							handleServerCommands(player, systemCommand, argsArray);
+							break;
 						}
 
 						if (player.getState() == PlayerStates.normal) {
