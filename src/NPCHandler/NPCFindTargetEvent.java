@@ -3,7 +3,7 @@ package NPCHandler;
 import java.util.EventObject;
 
 public class NPCFindTargetEvent extends EventObject {
-    NPC source;
+    NPC npc;
 
     /**
      * Constructs a NPCFindTargetEvent
@@ -13,7 +13,7 @@ public class NPCFindTargetEvent extends EventObject {
      */
     public NPCFindTargetEvent(NPC source) {
         super(source);
-        this.source = source;
+        this.npc = source;
     }
 
     /**
@@ -23,6 +23,6 @@ public class NPCFindTargetEvent extends EventObject {
      */
     @Override
     public NPC getSource() {
-        return source;
+        return npc;
     }
 }

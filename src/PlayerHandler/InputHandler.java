@@ -5,7 +5,7 @@ import CombatHandler.Weapons.TooFewCombatantsException;
 import GamePieces.Holdable;
 import GamePieces.Interactable;
 import GamePieces.Item;
-import PlayerHandler.Persistence.CreateCharacter;
+import PlayerHandler.Persistence.CharacterLoading;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.InventoryFrame;
 import PlayerHandler.UI.StandardFrame;
@@ -91,8 +91,7 @@ public class InputHandler {
         String newInput;
         switch (command) {
             case restore:
-                player.setState(PlayerStates.characterCreation);
-                new CreateCharacter(player);
+                new CharacterLoading().RestoreCharacter(player);
                 output = player.getLastFrame();
                 break;
             case skip:

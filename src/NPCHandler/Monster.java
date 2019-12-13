@@ -3,7 +3,9 @@ package NPCHandler;
 import CombatHandler.CombatGroup;
 import CombatHandler.Combatant;
 import CombatHandler.Weapons.Weapon;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -27,6 +29,11 @@ public class Monster implements NPCTemplate {
                 }
             }
         };
+    }
+
+    @Override
+    public ArrayList<Object> getDataStorage() {
+        return null;
     }
 
     @Override

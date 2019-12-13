@@ -42,5 +42,7 @@ public interface NPCTemplate {
 
     NPCFindTargetListener getNPCFindTargetListener();
 
+    ArrayList<Object> getDataStorage();
+
     void increment();
 }

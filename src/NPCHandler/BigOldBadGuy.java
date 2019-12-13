@@ -4,6 +4,7 @@ import CombatHandler.CombatGroup;
 import CombatHandler.Combatant;
 import CombatHandler.Weapons.Weapon;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -27,6 +28,11 @@ public class BigOldBadGuy implements NPCTemplate{
                 }
             }
         };
+    }
+
+    @Override
+    public ArrayList<Object> getDataStorage() {
+        return null;
     }
 
     @Override
