@@ -13,7 +13,6 @@ import java.util.ArrayList;
  * <p>
  * It allows combat, but not much other than that
  * <p>
- * Todo implement events for player interaction
  * <p>
  * Date Last Modified: 12/9/2019
  *

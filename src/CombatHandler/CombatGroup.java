@@ -46,9 +46,6 @@ public class CombatGroup {
         talk
     }
 
-    //Todo remove player from possible attack options
-    //Todo fix seconds
-    //Todo fix hit
     /**
      * Initialize the combat group
      *

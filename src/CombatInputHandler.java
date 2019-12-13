@@ -44,37 +44,14 @@ public class CombatInputHandler {
                         player.setCombatDecision(CombatGroup.rpsChoice.fight);
                         break;
                     case "flee":
-                        //Todo make flee go back to room you came from if possible, if not possible still in combat
-                        player.setState(PlayerStates.normal);
-                        player.getCombatGroup().removeCombatant(player);
-                        if (scanner.hasNext()) {
-                            techAdventure.handle(new ConnectionEvent(ConnectionEventCode.CONNECTION_ESTABLISHED,
-                                    player.getConnectionID(), "go " + scanner.nextLine()));
+                        //make flee go back to room you came from if possible, if not possible still in combat
 
-
+                        if (player.getLastLocation() != null) {
+                            player.setState(PlayerStates.normal);
+                            player.getCombatGroup().removeCombatant(player);
+                            player.setLocation(player.getLastLocation());
                         } else {
-                            int direction = (int) (Math.random() * 4.0);
-                            Room exitRoom = null;
-                            switch (direction) {
-                                case 0:
-                                    exitRoom = player.getLocation().getEast();
-                                    break;
-                                case 1:
-                                    exitRoom = player.getLocation().getNorth();
-                                    break;
-                                case 2:
-                                    exitRoom = player.getLocation().getSouth();
-                                    break;
-                                case 3:
-                                    exitRoom = player.getLocation().getWest();
-                                    break;
-                            }
-                            if (exitRoom == null) {
-                                player.sendMessage("In a panic you flee, but smack into a wall!");
-                                player.sendMessage("Looks like you're stuck here for now..");
-                            } else {
-                                player.setLocation(exitRoom);
-                            }
+                            player.sendMessage("[flee]: You are unable to flee!");
                         }
 
                         break;

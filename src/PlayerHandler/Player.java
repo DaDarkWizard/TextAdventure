@@ -23,6 +23,7 @@ public class Player implements Combatant {
     private String username;
     private String password;
     private Room location;
+    private Room lastLocation;
     private boolean online = true;
     private ArrayList<Player> blockedPlayers = new ArrayList<>();
     private ArrayList<Holdable> items = new ArrayList<>();
@@ -142,11 +143,16 @@ public class Player implements Combatant {
         if (this.location != null) {
             this.location.removePlayer(this);
         }
+        this.lastLocation = location;
         this.location = location;
         StandardFrame frame = new StandardFrame();
         frame.add(location.getDescription());
         this.setLastFrame(frame);
         this.location.addPlayer(this);
+    }
+
+    public Room getLastLocation() {
+        return this.lastLocation;
     }
 
     public boolean isOnline() {
