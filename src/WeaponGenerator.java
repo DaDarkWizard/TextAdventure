@@ -1,6 +1,4 @@
-import CombatHandler.Weapons.Weapon;
 import java.io.FileNotFoundException;
-import java.util.Random;
 
 public class WeaponGenerator {
 
