@@ -6,9 +6,13 @@ import GamePieces.Holdable;
 import GamePieces.Interactable;
 import GamePieces.Item;
 import PlayerHandler.Persistence.CharacterLoading;
+import PlayerHandler.Persistence.CharacterSaving;
+import PlayerHandler.Persistence.PlayerUninitializedException;
+import PlayerHandler.Persistence.PlayerUnknownException;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.InventoryFrame;
 import PlayerHandler.UI.StandardFrame;
+import PlayerHandler.UI.StatsFrame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,6 +63,8 @@ public class InputHandler {
             return Commands.attack;
         } else if (command.equals("restore")) {
             return Commands.restore;
+        } else if (command.equals("save")) {
+            return Commands.save;
         }
         return null;
     }
@@ -93,6 +99,18 @@ public class InputHandler {
                 new CharacterLoading().RestoreCharacter(player);
                 output = player.getLastFrame();
                 break;
+            case save:
+                try {
+                    new CharacterSaving(player);
+                    output = player.getLastFrame();
+                    output.addLine("[save]: You have successfully saved!");
+                } catch (PlayerUninitializedException e) {
+                    output = player.getLastFrame();
+                    output.addLine("[save]: You haven't restored or created a character yet!", true);
+                } catch (PlayerUnknownException e) {
+                    output = player.getLastFrame();
+                    output.addLine("[save]: You are an anomaly. One of a kind. A bug in the program!");
+                }
             case skip:
                 StringBuilder refresh = new StringBuilder();
                 while (scanner.hasNext()) {
@@ -178,13 +196,19 @@ public class InputHandler {
                 }
                 break;
             case inventory:
-                System.out.println("Ran Inventory");
                 InventoryFrame inventoryFrame = new InventoryFrame(player);
                 output = player.getLastFrame();
                 for (int i = 0; i < inventoryFrame.getCurrentSize(); i++) {
                     output.addLine(inventoryFrame.getLine(i), true);
                 }
                 return output;
+            case stats:
+                StatsFrame statsFrame = new StatsFrame(player);
+                output = player.getLastFrame();
+                for (int i = 0; i < statsFrame.getCurrentSize(); i++) {
+                    output.addLine(statsFrame.getLine(i), true);
+                }
+                break;
             case pickup:
                 output = player.getLastFrame();
                 newInput = input;
@@ -258,15 +282,6 @@ public class InputHandler {
                     output = player.getLastFrame();
                     output.addLine("[attack]: " + e.getMessage(), true);
                 }
-                break;
-            case stats:
-                output.addLine("Stats:");
-                output.addLine("Brawn: " + player.getBrawn());
-                output.addLine("Spiffness: " + player.getSpiffness());
-                output.addLine("Smerts: " + player.getSmarts());
-                output.addLine("Moxy: " + player.getMoxy());
-                output.addLine("Max Hit Points: " + player.getMaxHitpoints());
-                output.addLine("Current Hit Points " + player.getHitPoints());
                 break;
             case IPADDRESS:
             case SHUTDOWN:

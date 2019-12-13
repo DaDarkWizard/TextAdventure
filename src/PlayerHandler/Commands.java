@@ -17,5 +17,6 @@ public enum Commands {
     SERVERMESSAGE,
     SHUTDOWN,
     IPADDRESS,
-    EXIT
+    EXIT,
+    save
 }

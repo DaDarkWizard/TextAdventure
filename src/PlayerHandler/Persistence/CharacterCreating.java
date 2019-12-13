@@ -114,7 +114,8 @@ public class CharacterCreating {
             createCharacterMessage();
         } else {
             player.getLastFrame().addLine("That password is incorrect.", true);
-            player.getLastFrame().addLine("Let's try again. Enter a password: \n");
+            player.getLastFrame().addLine("Let's try again. Enter a password: \n", true);
+            this.state = CreateCharacterState.getPassword;
         }
     }
 
