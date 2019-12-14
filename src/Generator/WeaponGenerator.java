@@ -44,12 +44,6 @@ public class WeaponGenerator {
         commandHashMap.put("Cowbell", AttackCommands.play);
         commandHashMap.put("Kazoo", AttackCommands.play);
 
-<<<<<<< Updated upstream
-    public WeaponGenerator(String Weapon) throws FileNotFoundException {
-        this.Weapon = Weapon;
-
-    }
-=======
         diceHashMap.put("Hammer", 6);
         diceHashMap.put("Club", 5);
         diceHashMap.put("Mallet", 4);
@@ -79,7 +73,6 @@ public class WeaponGenerator {
 
         diceHashMap.put("Throwing Knives", 12);
         diceHashMap.put("Hatchets", 10);
->>>>>>> Stashed changes
 
         diceHashMap.put("Flute", 6);
         diceHashMap.put("Lute", 7);
