@@ -12,6 +12,9 @@ import java.lang.reflect.Array;
 public class Weapon extends Item {
     private AttackCommands attackCommand;
     private WeaponUseListener weaponUseListener;
+    private int dice;
+    private int modifier;
+
 
     public Weapon(String name, int dice, AttackCommands command, String grade, int modifier,
                   String adjective, WeaponUseListener listener, String verb) {
@@ -19,6 +22,19 @@ public class Weapon extends Item {
         super(grade + " " + name + " " + adjective + " " + verb,
                 "",
                 new String[]{grade + " " + name + " " + adjective + " " + verb, name, grade + " " + name});
+
+        this.weaponUseListener = listener;
+        this.dice = dice;
+        this.modifier = modifier;
+        this.attackCommand = command;
+    }
+
+    public int getDice() {
+        return this.dice;
+    }
+
+    public int getModifier() {
+        return this.modifier;
     }
 
     public AttackCommands getAttackCommand() {
@@ -51,12 +67,11 @@ public class Weapon extends Item {
         }
     }
 
-    public String useWeapon(Combatant combatant) {
-        WeaponUseEvent event = new WeaponUseEvent(combatant);
+    public void useWeapon(Combatant combatant) {
+        WeaponUseEvent event = new WeaponUseEvent(combatant, this);
         if (weaponUseListener != null) {
-            return weaponUseListener.handle(event);
+            weaponUseListener.handle(event);
         }
-        return null;
     }
 
     //Todo generate this

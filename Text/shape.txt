@@ -1,32 +1,32 @@
 31
-triangle
-kite
-parallelogram
-rectangle
-regular old square
-square
-pentagon
-hexagon
-heptagon
-octagon
-nonagon
-decagon
-circle
-heart
-regular polygon
-oval
-asteroid
-pentagram
-rhombus
-cross
-star
-arrow
-crescent
-semicircle
-tropezium
-ellipse
-diamond
-quatrefoil
-curvilinear triangle
-pic
-trapeze
+Triangle
+Kite
+Parallelogram
+Rectangle
+Regular Old Square
+Square
+Pentagon
+Hexagon
+Heptagon
+Octagon
+Nonagon
+Decagon
+Circle
+Heart
+Regular Polygon
+Oval
+Asteroid
+Pentagram
+Rhombus
+Cross
+Star
+Arrow
+Crescent
+Semicircle
+Tropezium
+Ellipse
+Diamond
+Quatrefoil
+Curvilinear Triangle
+Pic
+Trapeze
