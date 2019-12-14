@@ -8,6 +8,7 @@ public class WeaponGenerator {
 
     public WeaponGenerator(String Weapon) throws FileNotFoundException {
         this.Weapon = Weapon;
+
     }
 
     public static String Weapon() throws FileNotFoundException {

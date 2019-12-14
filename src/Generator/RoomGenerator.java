@@ -1,6 +1,8 @@
 package Generator;
 
 import GamePieces.Room;
+import World.PlayerPortal;
+import com.sun.imageio.stream.StreamFinalizer;
 import sun.management.snmp.jvmmib.EnumJvmMemPoolCollectThreshdSupport;
 
 public class RoomGenerator {
@@ -10,6 +12,10 @@ public class RoomGenerator {
     }
 
     Room generateRoom() {
+        String shape = new RandomFileParser("Text/shape.txt");
+        String
+
+
         StringBuilder description = new StringBuilder();
         description.append("You are in a ");
         description.append(new RandomFileParser("Text/shape.txt")).append(" ");
@@ -24,14 +30,25 @@ public class RoomGenerator {
     }
 
     void makeEndRoom(Room room) {
+        room.setName("Boss Room");
+        clearRoom(room);
+
+    }
+
+    void makeStartRoom(Room room) {
         room.setName("Portal Room");
+        clearRoom(room);
+        room.addInteractable(new PlayerPortal());
+    }
+
+    private void clearRoom(Room room) {
         for (int i = 0; i < room.getNpcs().size(); i++) {
             room.removeNPC(room.getNpcs().get(i));
             i--;
         }
-    }
-
-    void makeStartRoom(Room room) {
-
+        for (int i = 0; i < room.getInteractables().size(); i++) {
+            room.removeInteractable(room.getInteractables().get(i));
+            i--;
+        }
     }
 }

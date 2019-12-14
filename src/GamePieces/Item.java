@@ -6,17 +6,15 @@ import PlayerHandler.Player;
 import java.util.Arrays;
 
 public class Item implements Holdable {
-    String shortDescription = "";
+    protected String shortDescription = "";
     String longDescription = "";
     String[] validNames;
-    Room room = null;
     InteractListener interactListener;
 
-    public Item(String shortDescription, String longDescription, String[] validNames, Room room) {
+    public Item(String shortDescription, String longDescription, String[] validNames) {
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
         this.validNames = validNames;
-        this.room = room;
     }
 
 
@@ -53,15 +51,15 @@ public class Item implements Holdable {
     //Todo convert pickup and drop to event handlers
     @Override
     public String pickup(Player player) {
-        this.room = null;
         player.getInventory().add(this);
+        player.getLocation().removeInteractable(this);
         return "You picked up " + this.shortDescription;
     }
 
     @Override
     public String drop(Player player) {
-        this.room = player.getLocation();
         player.getInventory().remove(this);
+        player.getLocation().addInteractable(this);
         return "You dropped " + this.shortDescription;
     }
 }

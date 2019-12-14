@@ -4,14 +4,21 @@ import CombatHandler.AttackCommands;
 import CombatHandler.Combatant;
 import GamePieces.Item;
 import GamePieces.Room;
+import PlayerHandler.Commands;
 import PlayerHandler.Player;
 
-public abstract class Weapon extends Item {
+import java.lang.reflect.Array;
+
+public class Weapon extends Item {
     private AttackCommands attackCommand;
     private WeaponUseListener weaponUseListener;
 
-    public Weapon(String shortDescription, String longDescription, String[] validNames, AttackCommands attackCommand) {
-        super(shortDescription, longDescription, validNames, null);
+    public Weapon(String name, int dice, AttackCommands command, String grade, int modifier,
+                  String adjective, WeaponUseListener listener, String verb) {
+
+        super(grade + " " + name + " " + adjective + " " + verb,
+                "",
+                new String[]{grade + " " + name + " " + adjective + " " + verb, name, grade + " " + name});
     }
 
     public AttackCommands getAttackCommand() {
@@ -49,6 +56,11 @@ public abstract class Weapon extends Item {
         if (weaponUseListener != null) {
             return weaponUseListener.handle(event);
         }
+        return null;
+    }
+
+    //Todo generate this
+    public String generateLongDescription() {
         return null;
     }
 

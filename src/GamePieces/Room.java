@@ -50,6 +50,26 @@ public class Room {
     }
 
     /**
+     * Remove an interactable from the room
+     *
+     * @param interactable the interactable to remove
+     */
+    public void removeInteractable(Interactable interactable) {
+        this.interactables.remove(interactable);
+    }
+
+    /**
+     * Adds an interactable to the room
+     *
+     * @param interactable the interactable to add
+     */
+    public void addInteractable(Interactable interactable) {
+        if (!interactables.contains(interactable)) {
+            this.interactables.add(interactable);
+        }
+    }
+
+    /**
      * Get the room to the north of this one
      *
      * @return the Room to the north

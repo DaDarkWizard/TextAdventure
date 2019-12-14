@@ -7,8 +7,9 @@ import PlayerHandler.Player;
 
 public class PlayerPortal implements Interactable {
 
-    String shortDescription;
-    String longDescription;
+    private String shortDescription;
+    private String longDescription;
+    private String useDescription;
 
     public PlayerPortal() {
         this.shortDescription = "A large rune circle in the center of the room";
@@ -17,6 +18,9 @@ public class PlayerPortal implements Interactable {
                 "While most of the formations are recognizable as often used words of power,\n" +
                 "someone has left a message using the runes as a phonetic alphabet:\n\n" +
                 "'DANYEL MAHSKER'  'EMAH SMIÞ'  'BYEN HOD'S SON' 'JO TIHYEN'\n";
+        this.useDescription = "You stand in the center of the circle, tracing the runes in your mind and speaking\n" +
+                "them under your breath. The ground feels as though it has disappeared from beneath your feet,\n" +
+                "and your gut wrenches as everything goes black.";
     }
 
 
@@ -35,13 +39,24 @@ public class PlayerPortal implements Interactable {
         if (command == Commands.look) {
             return longDescription;
         } else if (command == Commands.use)
-
-            return null;
+            player.setLocation(Spawn.spawn);
+        return this.useDescription;
     }
 
     @Override
     public boolean isValidName(String name) {
-        return false;
+        name = name.trim().toLowerCase();
+
+        switch (name) {
+            case "circle":
+            case "rune circle":
+            case "runes":
+            case "rune":
+            case "large rune circle":
+                return true;
+            default:
+                return false;
+        }
     }
 
     @Override

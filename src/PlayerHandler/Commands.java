@@ -18,5 +18,6 @@ public enum Commands {
     SHUTDOWN,
     IPADDRESS,
     EXIT,
-    save
+    save,
+    use
 }

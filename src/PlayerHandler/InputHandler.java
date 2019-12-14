@@ -191,7 +191,8 @@ public class InputHandler {
                             output.add(player.getLocation().getRoomFromCommand(direction).getLookDescription());
                         }
                     } else {
-                        findObject(player, command, normalized);
+                        output = player.getLastFrame();
+                        output.addLine("[look]: " + findObject(player, command, normalized));
                     }
                 }
                 break;
