@@ -57,7 +57,7 @@ public class Tutorial {
                 "A room to the West. It looks like its gold?");
 
         key = new Item("Golden Key", "It is a golden intricate key with runic lettering.",
-                keyNames, dragonRoom);
+                keyNames);
         dragonRoom.getInteractables().add(key);
 
         dragon = new NPC(new Dragon("Dragon"));

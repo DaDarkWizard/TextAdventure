@@ -27,6 +27,10 @@ public class Weapon extends Item {
         this.stat = stat;
     }
 
+    public Weapon(String name){
+        super(name, name, new String[]{"potion", name});
+    }
+
     public StatHandler.Stats getStat() {
         return this.stat;
     }

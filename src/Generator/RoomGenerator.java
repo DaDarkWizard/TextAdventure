@@ -1,6 +1,7 @@
 package Generator;
 
 import GamePieces.Room;
+import NPCHandler.NPC;
 import World.PlayerPortal;
 
 public class RoomGenerator {
@@ -10,11 +11,12 @@ public class RoomGenerator {
     }
 
     Room generateRoom() {
-        String shape = RandomFileParser.RandomString("Text/shape.txt"));
+        String shape = RandomFileParser.RandomString("Text/shape.txt");
         String color = RandomFileParser.RandomString("Text/color.txt");
 
 
         StringBuilder description = new StringBuilder();
+        String lookDescription = "It looks like it's " + color;
         description.append("You are in a ");
         description.append(new RandomFileParser("Text/shape.txt")).append(" ");
         description.append(new RandomFileParser("Text/color.txt")).append(" ");
@@ -23,14 +25,23 @@ public class RoomGenerator {
         description.append(" walls.\nIt smells vaguely of ");
         description.append(new RandomFileParser("Text/smell.txt")).append(".");
 
-        Room newRoom = new Room();
+        Room newRoom = new Room(shape + " " + color, description.toString(), lookDescription);
 
+        if(Math.random() < 0.3){
+            newRoom.addInteractable(new WeaponGenerator().weapon());
+        }
+        if(Math.random() < 0.5){
+            newRoom.addInteractable(new RandomPotion().potion());
+        }
+        return newRoom;
     }
 
     void makeEndRoom(Room room) {
         room.setName("Boss Room");
         clearRoom(room);
-
+        room.addNPC(new NPC(new RandomBoss().boss()));
+        room.addInteractable(new RandomPotion().potion());
+        room.addInteractable(new WeaponGenerator().weapon());
     }
 
     void makeStartRoom(Room room) {

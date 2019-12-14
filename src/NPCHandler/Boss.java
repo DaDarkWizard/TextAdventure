@@ -8,14 +8,14 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class BigOldBadGuy implements NPCTemplate{
+public class Boss implements NPCTemplate{
     String name = "";
     protected NPCMeetSomeoneListener npcMeetSomeoneListener;
     protected NPCRunListener npcRunListener;
     protected NPCFindTargetListener npcFindTargetListener;
     int count = 0;
 
-    public BigOldBadGuy(String name) {
+    public Boss(String name) {
         this.name = name;
         this.npcFindTargetListener = event -> {
             Combatant mostHealth = null;
