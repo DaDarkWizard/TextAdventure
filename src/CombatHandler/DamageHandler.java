@@ -4,7 +4,7 @@ import NPCHandler.NPC;
 import PlayerHandler.Player;
 
 public class DamageHandler {
-    private static int rollDice(int sides) {
+    public static int rollDice(int sides) {
         if (sides < 1) {
             throw new IllegalArgumentException();
         }
