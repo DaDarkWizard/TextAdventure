@@ -2,14 +2,17 @@ package Generator;
 
 import CombatHandler.AttackCommands;
 import CombatHandler.Weapons.Weapon;
+import CombatHandler.Weapons.WeaponUseEvent;
+import CombatHandler.Weapons.WeaponUseListener;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 public class WeaponGenerator {
-    public HashMap<String, AttackCommands> commandHashMap;
-    public HashMap<String, Integer> diceHashMap;
-    public HashMap<String, Integer> gradeHashMap;
+    private HashMap<String, AttackCommands> commandHashMap;
+    private HashMap<String, Integer> diceHashMap;
+    private HashMap<String, Integer> gradeHashMap;
+    private HashMap<String, WeaponUseListener> listenerHashMap;
 
     public WeaponGenerator(){
         commandHashMap.put("Hammer", AttackCommands.smash);
@@ -113,19 +116,60 @@ public class WeaponGenerator {
         gradeHashMap.put("Celestial", 3);
         gradeHashMap.put("Godly", 4);
         gradeHashMap.put("Legendary", 5);
+
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+        listenerHashMap.put("Wicked", e -> {
+
+        });
+
     }
 
-    public static CombatHandler.Weapons.Weapon weapon() throws FileNotFoundException {
+    public CombatHandler.Weapons.Weapon weapon(){
         Weapon returnedWeapon;
-        String grade = String.valueOf(new RandomFileParser("Text/grade.txt"));
-        String weapon = String.valueOf(new RandomFileParser("Text/weapon.txt"));
-        String adjective = String.valueOf(new RandomFileParser("Text/adjective.txt"));
-        String verb = String.valueOf(new RandomFileParser("Text/verb.txt"));
+        String grade = String.valueOf(RandomFileParser.RandomString("Text/grade.txt"));
+        String weapon = String.valueOf(RandomFileParser.RandomString("Text/weapon.txt"));
+        String adjective = String.valueOf(RandomFileParser.RandomString("Text/adjective.txt"));
+        String verb = String.valueOf(RandomFileParser.RandomString("Text/verb.txt"));
 
-        String item = grade + " " + weapon + " of " + adjective + " " + verb;
-
-        String[] validNames = new String[]{weapon, item};
-
+        //returnedWeapon = new Weapon(weapon, diceHashMap.get(weapon), commandHashMap.get(weapon), grade, gradeHashMap.get(grade), adjective, , verb);
 
         return null;
     }
