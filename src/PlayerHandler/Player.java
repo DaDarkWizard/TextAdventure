@@ -3,6 +3,7 @@ package PlayerHandler;
 import CombatHandler.AttackCommands;
 import CombatHandler.CombatGroup;
 import CombatHandler.Combatant;
+import CombatHandler.Weapons.StatHandler;
 import GamePieces.Holdable;
 import GamePieces.Room;
 import CombatHandler.Weapons.Weapon;
@@ -55,6 +56,7 @@ public class Player implements Combatant {
         this.smarts = 10;
         this.moxy = 10;
     }
+
 
     public ArrayList<AttackCommands> getPossibleAttackCommands() {
         ArrayList<AttackCommands> commands = new ArrayList<>();
@@ -341,6 +343,15 @@ public class Player implements Combatant {
     @Override
     public void setCombatDecision(CombatGroup.rpsChoice decision) {
         this.rpsChoice = decision;
+    }
+
+    @Override
+    public int getStatByReference(StatHandler.Stats stat) {
+        if (stat == StatHandler.Stats.moxy) {
+            return smarts;
+        } else {
+            return spiffness;
+        }
     }
 
     @Override

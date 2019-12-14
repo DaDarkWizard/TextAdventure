@@ -2,8 +2,6 @@ package Generator;
 
 import GamePieces.Room;
 import World.PlayerPortal;
-import com.sun.imageio.stream.StreamFinalizer;
-import sun.management.snmp.jvmmib.EnumJvmMemPoolCollectThreshdSupport;
 
 public class RoomGenerator {
 
@@ -12,8 +10,8 @@ public class RoomGenerator {
     }
 
     Room generateRoom() {
-        String shape = new RandomFileParser("Text/shape.txt");
-        String
+        String shape = RandomFileParser.RandomString("Text/shape.txt"));
+        String color = RandomFileParser.RandomString("Text/color.txt");
 
 
         StringBuilder description = new StringBuilder();
@@ -25,7 +23,7 @@ public class RoomGenerator {
         description.append(" walls.\nIt smells vaguely of ");
         description.append(new RandomFileParser("Text/smell.txt")).append(".");
 
-
+        Room newRoom = new Room();
 
     }
 

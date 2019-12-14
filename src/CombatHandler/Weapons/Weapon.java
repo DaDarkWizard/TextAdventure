@@ -12,6 +12,7 @@ public class Weapon extends Item {
     private int modifier;
     private StatHandler.Stats stat;
 
+    //Todo implement seductive
     public Weapon(String name, int dice, AttackCommands command, StatHandler.Stats stat, String grade, int modifier,
                   String adjective, WeaponUseListener listener, String verb) {
 
