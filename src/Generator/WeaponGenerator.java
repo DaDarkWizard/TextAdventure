@@ -1,7 +1,8 @@
 package Generator;
 
 import CombatHandler.AttackCommands;
-import CombatHandler.Weapons.Stats;
+import CombatHandler.DamageHandler;
+import CombatHandler.Weapons.StatHandler;
 import CombatHandler.Weapons.Weapon;
 import CombatHandler.Weapons.WeaponUseEvent;
 import CombatHandler.Weapons.WeaponUseListener;
@@ -14,16 +15,16 @@ public class WeaponGenerator {
     private HashMap<String, Integer> diceHashMap;
     private HashMap<String, Integer> gradeHashMap;
     private HashMap<String, WeaponUseListener> listenerHashMap;
-    private HashMap<AttackCommands, Stats> statsHashMap;
+    private HashMap<AttackCommands, StatHandler.Stats> statsHashMap;
 
     public WeaponGenerator(){
-        statsHashMap.put(AttackCommands.smash, Stats.brawn);
-        statsHashMap.put(AttackCommands.slash, Stats.brawn);
-        statsHashMap.put(AttackCommands.cast, Stats.smerts);
-        statsHashMap.put(AttackCommands.stab, Stats.spiffness);
-        statsHashMap.put(AttackCommands.shoot, Stats.spiffness);
-        statsHashMap.put(AttackCommands.chuck, Stats.spiffness);
-        statsHashMap.put(AttackCommands.play, Stats.moxy);
+        statsHashMap.put(AttackCommands.smash, StatHandler.Stats.brawn);
+        statsHashMap.put(AttackCommands.slash, StatHandler.Stats.brawn);
+        statsHashMap.put(AttackCommands.cast, StatHandler.Stats.smerts);
+        statsHashMap.put(AttackCommands.stab, StatHandler.Stats.spiffness);
+        statsHashMap.put(AttackCommands.shoot, StatHandler.Stats.spiffness);
+        statsHashMap.put(AttackCommands.chuck, StatHandler.Stats.spiffness);
+        statsHashMap.put(AttackCommands.play, StatHandler.Stats.moxy);
 
         commandHashMap.put("Hammer", AttackCommands.smash);
         commandHashMap.put("Club", AttackCommands.smash);
@@ -128,47 +129,198 @@ public class WeaponGenerator {
         gradeHashMap.put("Legendary", 5);
 
         listenerHashMap.put("Wicked", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
             int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            int damagePlayer = damage - e.getSource().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()));
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()));
+            damagePlayer /= 2;
+            damage *= 2;
 
+            if(damagePlayer < 0){
+                damagePlayer = 0;
+            }
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().setPendingDamage(e.getSource().getPendingDamage() + damagePlayer);
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
-        listenerHashMap.put("Wicked", e -> {
+        listenerHashMap.put("Roiling", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.Stats.moxy);
 
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
-        listenerHashMap.put("Wicked", e -> {
+        listenerHashMap.put("Suspicious", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat())) * 2;
 
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
-        listenerHashMap.put("Wicked", e -> {
-
+        listenerHashMap.put("Piercing", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()));
+            e.getSource().getTarget().modifyHitpoints(-damage);
         });
-        listenerHashMap.put("Wicked", e -> {
+        listenerHashMap.put("Blinding", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()))/2;
 
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
-        listenerHashMap.put("Wicked", e -> {
+        listenerHashMap.put("Shocking", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()));
+            damage += DamageHandler.rollDice(4);
 
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
-        listenerHashMap.put("Wicked", e -> {
+        listenerHashMap.put("Chilling", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()));
+            damage += DamageHandler.rollDice(4);
 
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
-        listenerHashMap.put("Wicked", e -> {
+        listenerHashMap.put("Toxic", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()));
+            damage += DamageHandler.rollDice(4);
 
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
-        listenerHashMap.put("Wicked", e -> {
+        listenerHashMap.put("Seductive", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()));
 
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
-        listenerHashMap.put("Wicked", e -> {
+        listenerHashMap.put("Venomous", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()));
+            damage += DamageHandler.rollDice(4);
 
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
-        listenerHashMap.put("Wicked", e -> {
+        listenerHashMap.put("Crushing", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()));
+            damage += DamageHandler.rollDice(6);
 
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
-        listenerHashMap.put("Wicked", e -> {
+        listenerHashMap.put("Dismissive", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            int statDam = e.getSource().getStatByReference(e.getWeapon().getStat());
+            statDam -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()));
+            statDam *= 2;
+            damage += statDam;
 
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
-        listenerHashMap.put("Wicked", e -> {
+        listenerHashMap.put("Flirtatious", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()));
+            damage += e.getSource().getStatByReference(StatHandler.Stats.moxy)/2;
 
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
-        listenerHashMap.put("Wicked", e -> {
+        listenerHashMap.put("Acidic", e -> {
+            if(e.getSource().getTarget() == null){
+                return;
+            }
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
+            damage += e.getSource().getStatByReference(e.getWeapon().getStat());
+            damage -= e.getSource().getTarget().getStatByReference(StatHandler.findDefensiveStat(e.getWeapon().getStat()));
+            damage += DamageHandler.rollDice(6);
 
+            if(damage < 0){
+                damage = 0;
+            }
+            e.getSource().getTarget().setPendingDamage(e.getSource().getTarget().getPendingDamage() + damage);
         });
 
     }
@@ -180,9 +332,9 @@ public class WeaponGenerator {
         String adjective = String.valueOf(RandomFileParser.RandomString("Text/adjective.txt"));
         String verb = String.valueOf(RandomFileParser.RandomString("Text/verb.txt"));
 
-        returnedWeapon = new Weapon(weapon, diceHashMap.get(weapon), commandHashMap.get(weapon), grade,
+        returnedWeapon = new Weapon(weapon, diceHashMap.get(weapon), commandHashMap.get(weapon), statsHashMap.get(commandHashMap.get(weapon)), grade,
                 gradeHashMap.get(grade), adjective, listenerHashMap.get(adjective), verb);
 
-        return null;
+        return returnedWeapon;
     }
 }
