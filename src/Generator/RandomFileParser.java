@@ -20,12 +20,13 @@ public class RandomFileParser {
             int fileLength = scan.nextInt();
             String[] array = new String[fileLength];
             double position = Math.random() * fileLength;
-
+            scan.nextLine();                                //Scanner is still on int line
             for (int i = 0; i < fileLength; i++) {
                 array[i] = scan.nextLine();
             }
-
-            return array[(int) position + 1];
+            System.out.println((int) position);
+            System.out.println(array[(int) position]);
+            return array[(int) position];
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

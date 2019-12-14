@@ -332,6 +332,11 @@ public class WeaponGenerator {
         String adjective = String.valueOf(RandomFileParser.RandomString("Text/adjective.txt"));
         String verb = String.valueOf(RandomFileParser.RandomString("Text/verb.txt"));
 
+        System.out.println(grade);
+        System.out.println(weapon);
+        System.out.println(adjective);
+        System.out.println(verb);
+
         returnedWeapon = new Weapon(weapon, diceHashMap.get(weapon), commandHashMap.get(weapon), statsHashMap.get(commandHashMap.get(weapon)), grade,
                 gradeHashMap.get(grade), adjective, listenerHashMap.get(adjective), verb);
 
