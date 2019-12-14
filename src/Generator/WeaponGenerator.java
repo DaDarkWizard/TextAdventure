@@ -1,6 +1,7 @@
 package Generator;
 
 import CombatHandler.AttackCommands;
+import CombatHandler.Weapons.Stats;
 import CombatHandler.Weapons.Weapon;
 import CombatHandler.Weapons.WeaponUseEvent;
 import CombatHandler.Weapons.WeaponUseListener;
@@ -13,8 +14,17 @@ public class WeaponGenerator {
     private HashMap<String, Integer> diceHashMap;
     private HashMap<String, Integer> gradeHashMap;
     private HashMap<String, WeaponUseListener> listenerHashMap;
+    private HashMap<AttackCommands, Stats> statsHashMap;
 
     public WeaponGenerator(){
+        statsHashMap.put(AttackCommands.smash, Stats.brawn);
+        statsHashMap.put(AttackCommands.slash, Stats.brawn);
+        statsHashMap.put(AttackCommands.cast, Stats.smerts);
+        statsHashMap.put(AttackCommands.stab, Stats.spiffness);
+        statsHashMap.put(AttackCommands.shoot, Stats.spiffness);
+        statsHashMap.put(AttackCommands.chuck, Stats.spiffness);
+        statsHashMap.put(AttackCommands.play, Stats.moxy);
+
         commandHashMap.put("Hammer", AttackCommands.smash);
         commandHashMap.put("Club", AttackCommands.smash);
         commandHashMap.put("Mallet", AttackCommands.smash);
@@ -118,6 +128,7 @@ public class WeaponGenerator {
         gradeHashMap.put("Legendary", 5);
 
         listenerHashMap.put("Wicked", e -> {
+            int damage = e.getWeapon().rollDice() + e.getWeapon().getModifier();
 
         });
         listenerHashMap.put("Wicked", e -> {
@@ -169,7 +180,8 @@ public class WeaponGenerator {
         String adjective = String.valueOf(RandomFileParser.RandomString("Text/adjective.txt"));
         String verb = String.valueOf(RandomFileParser.RandomString("Text/verb.txt"));
 
-        //returnedWeapon = new Weapon(weapon, diceHashMap.get(weapon), commandHashMap.get(weapon), grade, gradeHashMap.get(grade), adjective, , verb);
+        returnedWeapon = new Weapon(weapon, diceHashMap.get(weapon), commandHashMap.get(weapon), grade,
+                gradeHashMap.get(grade), adjective, listenerHashMap.get(adjective), verb);
 
         return null;
     }
