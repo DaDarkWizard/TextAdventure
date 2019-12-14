@@ -15,5 +15,7 @@ public class StatsFrame extends SizableFrame {
         this.addLine("Moxy: " + player.getMoxy(), true);
         this.addLine("Max Hit Points: " + player.getMaxHitpoints(), true);
         this.addLine("Current Hit Points " + player.getHitPoints(), true);
+        this.newLine();
+        this.addLine("Equipped Weapons: \n");
     }
 }
