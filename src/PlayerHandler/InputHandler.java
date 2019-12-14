@@ -125,7 +125,27 @@ public class InputHandler {
                 }
                 break;
             case dequip:
-
+                scanner = new Scanner(input);
+                scanner.next();
+                if (scanner.hasNext()) {
+                    String s = scanner.nextLine();
+                    Holdable item = checkInventory(player, s.trim());
+                    System.out.println(s.trim());
+                    output = player.getLastFrame();
+                    if (item != null) {
+                        if (player.getEquipped().contains(item)) {
+                            output.addLine("[dequip]: You dequip the " + item.getShortDescription());
+                            player.getEquipped().remove(item);
+                        } else {
+                            output.addLine("[dequip]: I can't find that item! Try to be more specific.");
+                        }
+                    } else {
+                        output.addLine("[dequip]: I can't find that item! Try to be more specific.");
+                    }
+                } else {
+                    output = player.getLastFrame();
+                    output.addLine("[dequip]: You need to specify a target!");
+                }
                 break;
             case restore:
                 new CharacterLoading().RestoreCharacter(player);

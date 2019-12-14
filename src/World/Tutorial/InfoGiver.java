@@ -18,34 +18,57 @@ public class InfoGiver extends UndyingNPC {
         this.dataStorage.add(lines);
         this.dataStorage.add(new boolean[2]);
         this.dataStorage.add(new boolean[lines.size()]);
+        this.npcRunListener = event -> {
 
+            long startTime = (long) event.getSource().getDataStorage().get(0);
+            //Can't fix this :(
+            ArrayList<String> storedLines = (ArrayList<String>) event.getSource().getDataStorage().get(1);
+            boolean[] linesSaid = (boolean[]) event.getSource().getDataStorage().get(3);
+            boolean[] stopStart = (boolean[]) event.getSource().getDataStorage().get(2);
+
+            if (event.getSource().getRoom().getPlayers().size() < 1) {
+                stopStart[0] = false;
+                event.getSource().getDataStorage().set(2, stopStart);
+                return;
+            }
+
+            if (!stopStart[0] && !stopStart[1]) {
+                stopStart[0] = true;
+                startTime = System.currentTimeMillis();
+                event.getSource().getDataStorage().set(0, startTime);
+                event.getSource().getDataStorage().set(2, stopStart);
+            }
+
+
+            long timeElapsed = System.currentTimeMillis() - startTime;
+            if (!stopStart[1]) {
+                for (int i = 0; i < storedLines.size(); i++) {
+
+                    long speakTime = 2000; //This is how long they'll wait before speaking
+                    speakTime += (i * 2000); //This is how often they will say a line in milliseconds
+                    if (timeElapsed > speakTime && !linesSaid[i]) {
+                        linesSaid[i] = true;
+                        event.getSource().getDataStorage().set(3, linesSaid);
+                        event.getSource().say(storedLines.get(i));
+                        if (i == storedLines.size() - 1) {
+                            stopStart[1] = true;
+                            event.getSource().getDataStorage().set(2, stopStart);
+                        }
+                    }
+
+                }
+            }
+        };
         addLines();
     }
 
     private void addLines() {
-        this.npcRunListener = event -> {
-            if (!((boolean[]) this.dataStorage.get(2))[0] && !((boolean[]) this.dataStorage.get(2))[1]) {
-                this.dataStorage.set(0, System.currentTimeMillis());
-                this.dataStorage.set(2, new boolean[]{true, false});
-            }
-
-            ArrayList<String> storedLines;
-            boolean[] linesSaid;
-            boolean[] stopStart;
-
-            if (!(dataStorage.get(1) instanceof ArrayList) || ((ArrayList) this.dataStorage.get(1)).size() < 1 ||
-                    !(((ArrayList) this.dataStorage.get(1)).get(0) instanceof ArrayList)) {
-                dataStorage.set(1, new ArrayList<String>());
-                //Can't fix this either. :(
-                storedLines = (ArrayList<String>) dataStorage.get(1);
-            } else {
-                //Can't fix this. :(
-                storedLines = (ArrayList<String>) dataStorage.get(1);
-            }
-
-
-            for (int i = 0; i < lines.size()
-        };
+        ArrayList<Object> newDataStorage = new ArrayList<>();
+        newDataStorage.add((long) 0);
+        newDataStorage.add(lines);
+        newDataStorage.add(new boolean[2]);
+        newDataStorage.add(new boolean[lines.size()]);
+        this.dataStorage = newDataStorage;
     }
 
     public void addLine(String line) {

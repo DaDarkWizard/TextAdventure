@@ -50,6 +50,7 @@ public class CombatInputHandler {
                             player.setState(PlayerStates.normal);
                             player.getCombatGroup().removeCombatant(player);
                             player.setLocation(player.getLastLocation());
+                            player.update();
                         } else {
                             player.sendMessage("[flee]: You are unable to flee!");
                         }

@@ -27,7 +27,9 @@ public class InventoryFrame extends SizableFrame {
             this.addLine("Your inventory is empty! ¯\\_(ツ)_/¯ Sowwy.", true);
         } else {
             for (int i = 0; i < player.getInventory().size(); i++) {
-                this.addLine((i + 1) + ". " + player.getInventory().get(i).getShortDescription());
+                this.addLine((i + 1) + ". " +
+                        (player.getEquipped().contains(player.getInventory().get(i)) ? "[E] " : "")
+                        + player.getInventory().get(i).getShortDescription());
             }
         }
     }

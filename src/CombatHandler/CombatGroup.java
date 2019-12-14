@@ -204,7 +204,7 @@ public class CombatGroup {
                     }
                 }
                 combatStartCount = System.currentTimeMillis();
-                messageCombatants("Time for Flight, Flee, or Talk!");
+                messageCombatants("Time for Fight, Flee, or Talk!");
                 //Remove attacks after combat
                 for (Player player : players) {
                     player.getWords().clear();

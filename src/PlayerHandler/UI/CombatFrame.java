@@ -147,20 +147,20 @@ public class CombatFrame extends Frame {
         if (line < 0) {
             throw new IllegalArgumentException();
         } else if (line == 0) {
-            return String.format("|%-51s|%13.13s|%31s|",
+            return String.format("|%-51s|%13.13s|%31.31s|",
                     getConsoleString(line), getStartString(), getInventoryString(line));
         } else if (line == 1) {
-            return String.format("|%-51s|-------------|%31s|", getConsoleString(line), getInventoryString(line));
+            return String.format("|%-51s|-------------|%31.31s|", getConsoleString(line), getInventoryString(line));
         } else if (line < 10) {
-            return String.format("|%-51s| %11s |%31s|", getConsoleString(line), getStatString(line), getInventoryString(line));
+            return String.format("|%-51s| %11s |%31.31s|", getConsoleString(line), getStatString(line), getInventoryString(line));
         } else if (line < 11) {
             StringBuilder dash = new StringBuilder();
             for (int i = 0; i < 65; i++) {
                 dash.append("-");
             }
-            return String.format("|%65s|%31s|", dash.toString(), getInventoryString(line));
+            return String.format("|%65s|%31.31s|", dash.toString(), getInventoryString(line));
         } else if (line < 13) {
-            return String.format("|%65s|%31s|", getCommandsUsedString(line), getInventoryString(line));
+            return String.format("|%65s|%31.31s|", getCommandsUsedString(line), getInventoryString(line));
         } else if (line < 14) {
             StringBuilder dash1 = new StringBuilder();
             StringBuilder dash2 = new StringBuilder();

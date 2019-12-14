@@ -1,5 +1,6 @@
 package PlayerHandler.UI;
 
+import CombatHandler.Weapons.Weapon;
 import PlayerHandler.Player;
 
 public class StatsFrame extends SizableFrame {
@@ -17,5 +18,12 @@ public class StatsFrame extends SizableFrame {
         this.addLine("Current Hit Points " + player.getHitPoints(), true);
         this.newLine();
         this.addLine("Equipped Weapons: \n");
+        if (player.getEquipped().size() < 1) {
+            this.addLine("You goon! Equip something!");
+        } else {
+            for (Weapon weapon : player.getEquipped()) {
+                this.addLine(weapon.getLongDescription());
+            }
+        }
     }
 }

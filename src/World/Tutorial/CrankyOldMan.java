@@ -46,13 +46,11 @@ public class CrankyOldMan extends DefaultNPC {
                 } else if (timeElapsed < 6000) {
                     if (!said[2]) {
                         event.getSource().say("You are weak! I'd kill you if I could, but laws 'n stuff.");
-                        System.out.println("yyet");
                         said[2] = true;
                         event.getSource().getDataStorage().set(1, said);
                     }
                 } else if (timeElapsed < 8000) {
                     if (!said[3]) {
-                        System.out.println("deet");
                         event.getSource().say("So instead I'll be helpful.");
                         said[3] = true;
                         event.getSource().getDataStorage().set(1, said);
@@ -60,7 +58,6 @@ public class CrankyOldMan extends DefaultNPC {
                 } else if (timeElapsed < 100000) {
                     if (!said[4]) {
                         event.getSource().say("It's dangerous to go alone. Take this!");
-                        System.out.println("Seet");
                         said[4] = true;
                         event.getSource().getDataStorage().set(1, said);
                         player.getInventory().add(new UselessMallet().makeWeapon());
