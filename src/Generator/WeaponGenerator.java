@@ -325,21 +325,22 @@ public class WeaponGenerator {
 
     }
 
-    public CombatHandler.Weapons.Weapon weapon(){
+    public CombatHandler.Weapons.Weapon weapon(String grade, String weapon, String adjective, String verb) {
         Weapon returnedWeapon;
-        String grade = String.valueOf(RandomFileParser.RandomString("Text/grade.txt"));
-        String weapon = String.valueOf(RandomFileParser.RandomString("Text/weapon.txt"));
-        String adjective = String.valueOf(RandomFileParser.RandomString("Text/adjective.txt"));
-        String verb = String.valueOf(RandomFileParser.RandomString("Text/verb.txt"));
-
-        System.out.println(grade);
-        System.out.println(weapon);
-        System.out.println(adjective);
-        System.out.println(verb);
 
         returnedWeapon = new Weapon(weapon, diceHashMap.get(weapon), commandHashMap.get(weapon), statsHashMap.get(commandHashMap.get(weapon)), grade,
                 gradeHashMap.get(grade), adjective, listenerHashMap.get(adjective), verb);
 
         return returnedWeapon;
     }
+
+    public CombatHandler.Weapons.Weapon weapon() {
+        String grade = String.valueOf(RandomFileParser.RandomString("Text/grade.txt"));
+        String weapon = String.valueOf(RandomFileParser.RandomString("Text/weapon.txt"));
+        String adjective = String.valueOf(RandomFileParser.RandomString("Text/adjective.txt"));
+        String verb = String.valueOf(RandomFileParser.RandomString("Text/verb.txt"));
+
+        return weapon(grade, weapon, adjective, verb);
+    }
+
 }

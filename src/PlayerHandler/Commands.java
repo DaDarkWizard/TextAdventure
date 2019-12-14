@@ -19,5 +19,7 @@ public enum Commands {
     IPADDRESS,
     EXIT,
     save,
-    use
+    use,
+    equip,
+    dequip
 }

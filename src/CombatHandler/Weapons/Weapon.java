@@ -16,9 +16,10 @@ public class Weapon extends Item {
     public Weapon(String name, int dice, AttackCommands command, StatHandler.Stats stat, String grade, int modifier,
                   String adjective, WeaponUseListener listener, String verb) {
 
-        super(grade + " " + name + " " + adjective + " " + verb,
+        super(grade + " " + name + " of " + adjective + " " + verb,
                 "",
-                new String[]{grade + " " + name + " " + adjective + " " + verb, name, grade + " " + name});
+                new String[]{(grade + " " + name + " of " + adjective + " " + verb).toLowerCase(),
+                        name.toLowerCase(), (grade + " " + name).toLowerCase()});
 
         this.weaponUseListener = listener;
         this.dice = dice;

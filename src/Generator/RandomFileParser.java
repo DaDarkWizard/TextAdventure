@@ -24,8 +24,6 @@ public class RandomFileParser {
             for (int i = 0; i < fileLength; i++) {
                 array[i] = scan.nextLine();
             }
-            System.out.println((int) position);
-            System.out.println(array[(int) position]);
             return array[(int) position];
         } catch (FileNotFoundException e) {
             e.printStackTrace();

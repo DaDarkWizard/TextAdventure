@@ -26,7 +26,7 @@ public class DefaultNPC implements NPCTemplate {
     protected NPCMeetSomeoneListener npcMeetSomeoneListener;    //The NPCMeetSomeoneListener of this NPC
     protected NPCRunListener npcRunListener;                    //For when the NPC is run
     protected NPCFindTargetListener npcFindTargetListener;      //For when the NPC has to choose a target
-    protected ArrayList<Object> dataStorage;                    //For the AI to store data
+    protected ArrayList<Object> dataStorage = new ArrayList<>();//For the AI to store data
 
     /**
      * Creates the default with the name given

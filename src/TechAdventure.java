@@ -1,4 +1,5 @@
 import Generator.LevelGenerator;
+import NPCHandler.NPC;
 import PlayerHandler.*;
 import CombatHandler.CombatGroup;
 import GamePieces.Room;
@@ -7,7 +8,7 @@ import PlayerHandler.UI.CommandInputHandler;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
 import World.Spawn;
-import World.Tutorial;
+import World.Tutorial.Tutorial;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ public class TechAdventure implements ConnectionListener {
 	private CombatInputHandler combatInputHandler = new CombatInputHandler(this);
 	private CharacterModificationInputHandler characterModificationInputHandler;
 	private ArrayList<Room> rooms = new ArrayList<>();
-	private Room startRoom;
 	public static Room spawn;
 	private Room levelStart;
 	private Room levelEnd;
@@ -34,16 +34,16 @@ public class TechAdventure implements ConnectionListener {
 	}
 
 	public void start(int port) {
-		Room startRoom = new Tutorial().getStart();
 		spawn = new Spawn();
 		characterModificationInputHandler = new CharacterModificationInputHandler(spawn);
-		rooms.add(startRoom);
-		this.startRoom = startRoom;
+		rooms.add(spawn);
 		inputHandler.setMessageListener(e -> {
 			try {
-				Frame frame = e.getClient().getLastFrame();
-				frame.addLine(e.getMessage(), true);
-				adventureServer.sendMessage(e.getClient().getConnectionID(), frame.getOutput());
+				synchronized (TechAdventure.lock) {
+					Frame frame = e.getClient().getLastFrame();
+					frame.addLine(e.getMessage(), true);
+					adventureServer.sendMessage(e.getClient().getConnectionID(), frame.getOutput());
+				}
 			} catch (UnknownConnectionException ex) {
 				ex.printStackTrace();
 			}
@@ -74,14 +74,16 @@ public class TechAdventure implements ConnectionListener {
 						player = new Player(e.getConnectionID());
 						player.setInfoEventListener(event -> {
 							try {
-								Frame output = player.getLastFrame();
-								if (output == null || output.isEmpty()) {
-									output = new StandardFrame();
+								synchronized (TechAdventure.lock) {
+									Frame output = player.getLastFrame();
+									if (output == null || output.isEmpty()) {
+										output = new StandardFrame();
+									}
+									output.newLine();
+									output.addLine(event.getMessage(), true);
+									player.setLastFrame(output);
+									adventureServer.sendMessage(event.getSource().getConnectionID(), output.getOutput());
 								}
-								output.newLine();
-								output.addLine(event.getMessage(), true);
-								player.setLastFrame(output);
-								adventureServer.sendMessage(event.getSource().getConnectionID(), output.getOutput());
 							} catch (UnknownConnectionException ex) {
 								ex.printStackTrace();
 							}
@@ -98,12 +100,13 @@ public class TechAdventure implements ConnectionListener {
 								ex.printStackTrace();
 							}
 						});
-						player.setLocation(startRoom);
+						player.setLocation(new Tutorial().getStart());
 						Frame output = new StandardFrame();
 						output.add(player.getLocation().getDescription());
 						player.setLastFrame(output);
 						adventureServer.sendMessage(player.getConnectionID(), output.getOutput());
-						player.setState(PlayerStates.normal);
+						player.setUsername("Noob");
+						player.setState(PlayerStates.tutorial);
 
 						break;
 					case TRANSMISSION_RECEIVED:
@@ -128,7 +131,8 @@ public class TechAdventure implements ConnectionListener {
 							break;
 						}
 
-						if (player.getState() == PlayerStates.normal) {
+						if (player.getState() == PlayerStates.normal ||
+								player.getState() == PlayerStates.tutorial) {
 							Frame message = inputHandler.handleInput(e.getData(), player);
 							if (message != null && !message.isEmpty()) {
 
@@ -238,6 +242,9 @@ public class TechAdventure implements ConnectionListener {
 					for (CombatGroup group : CombatGroup.CombatGroups) {
 						group.RunCombat();
 
+					}
+					for (NPC npc : NPC.npcs) {
+						npc.run();
 					}
 				}
 			} catch (ConcurrentModificationException e) {

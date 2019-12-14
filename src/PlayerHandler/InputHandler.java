@@ -1,7 +1,9 @@
 package PlayerHandler;
 
+import CombatHandler.AttackCommands;
 import CombatHandler.CombatGroup;
 import CombatHandler.Weapons.TooFewCombatantsException;
+import CombatHandler.Weapons.Weapon;
 import GamePieces.Holdable;
 import GamePieces.Interactable;
 import GamePieces.Item;
@@ -65,6 +67,10 @@ public class InputHandler {
             return Commands.restore;
         } else if (command.equals("save")) {
             return Commands.save;
+        } else if (command.equals("equip")) {
+            return Commands.equip;
+        } else if (command.equals("dequip")) {
+            return Commands.dequip;
         }
         return null;
     }
@@ -95,6 +101,32 @@ public class InputHandler {
         player.setLastCommand(command);
         String newInput;
         switch (command) {
+            case equip:
+                scanner = new Scanner(input);
+                scanner.next();
+                if (scanner.hasNext()) {
+                    String s = scanner.nextLine();
+                    Holdable item = checkInventory(player, s.trim());
+                    System.out.println(s.trim());
+                    output = player.getLastFrame();
+                    if (item != null) {
+                        if (verifyEquippable(player, item)) {
+                            player.getEquipped().add((Weapon) item);
+                            output.addLine("[equip]: You equip the " + item.getShortDescription());
+                        } else {
+                            output.addLine("[equip]: You already have something of that type equipped!");
+                        }
+                    } else {
+                        output.addLine("[equip]: I can't find that item! Try to be more specific.");
+                    }
+                } else {
+                    output = player.getLastFrame();
+                    output.addLine("[equip]: You need to specify a target!");
+                }
+                break;
+            case dequip:
+
+                break;
             case restore:
                 new CharacterLoading().RestoreCharacter(player);
                 output = player.getLastFrame();
@@ -124,8 +156,9 @@ public class InputHandler {
                     output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getEast());
-                    output = new StandardFrame();
-                    output.add(player.getLocation().getDescription());
+                    //output = new StandardFrame();
+                    //output.add(player.getLocation().getDescription());
+                    return player.getLastFrame();
                 }
                 break;
             case west:
@@ -134,8 +167,9 @@ public class InputHandler {
                     output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getWest());
-                    output = new StandardFrame();
-                    output.add(player.getLocation().getDescription());
+                    //output = new StandardFrame();
+                    //output.add(player.getLocation().getDescription());
+                    return player.getLastFrame();
                 }
                 break;
             case south:
@@ -144,8 +178,9 @@ public class InputHandler {
                     output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getSouth());
-                    output = new StandardFrame();
-                    output.add(player.getLocation().getDescription());
+                    //output = new StandardFrame();
+                    //output.add(player.getLocation().getDescription());
+                    return player.getLastFrame();
                 }
                 break;
             case north:
@@ -301,6 +336,33 @@ public class InputHandler {
                 }
         }
         return output;
+    }
+
+    private Holdable checkInventory(Player player, String name) {
+        Holdable check = null;
+        for (Holdable holdable : player.getInventory()) {
+            if (holdable.isValidName(name)) {
+                if (check == null) {
+                    check = holdable;
+                } else {
+                    return null;
+                }
+            }
+        }
+        return check;
+    }
+
+    private boolean verifyEquippable(Player player, Holdable holdable) {
+        if (!(holdable instanceof Weapon)) {
+            return false;
+        }
+        AttackCommands command = ((Weapon) holdable).getAttackCommand();
+        for (Weapon weapon : player.getEquipped()) {
+            if (weapon.getAttackCommand() == command) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public String findObject(Player player, Commands command, String name) {

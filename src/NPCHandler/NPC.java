@@ -175,7 +175,7 @@ public class NPC implements Combatant {
      *
      * @param listener the NPCRunListener
      */
-    public void getNPCRunListener(NPCRunListener listener) {
+    public void setNPCRunListener(NPCRunListener listener) {
         this.npcRunListener = listener;
     }
 

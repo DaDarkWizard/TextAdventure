@@ -34,7 +34,7 @@ public class LevelGenerator {
     }
 
     private void generateRooms() {
-        while (tries < 10 && roomCount < maxRooms) {
+        while (tries < 100 && roomCount < maxRooms) {
             setupGeneration();
 
             int y = size / 2;
@@ -42,7 +42,6 @@ public class LevelGenerator {
             boolean deadEnd = false;
 
             while (roomCount < maxRooms && !deadEnd) {
-                System.out.println(roomCount);
                 //create a new room
                 Room newRoom = createRoom();
 
@@ -68,9 +67,6 @@ public class LevelGenerator {
                 if (direction == null) {
                     deadEnd = true;
                 } else {
-                    System.out.println(direction);
-                    printRooms(roomMatrix);
-                    System.out.println("X: " + x + " Y: " + y);
                     switch (direction) {
                         //set x,y = to the location
                         case north:
