@@ -3,8 +3,6 @@ package CombatHandler.Weapons;
 import CombatHandler.AttackCommands;
 import CombatHandler.Combatant;
 import GamePieces.Item;
-import GamePieces.Room;
-import PlayerHandler.Commands;
 import PlayerHandler.Player;
 
 import java.lang.reflect.Array;
@@ -14,9 +12,9 @@ public class Weapon extends Item {
     private WeaponUseListener weaponUseListener;
     private int dice;
     private int modifier;
+    private Stats stat;
 
-
-    public Weapon(String name, int dice, AttackCommands command, String grade, int modifier,
+    public Weapon(String name, int dice, AttackCommands command, Stats stat, String grade, int modifier,
                   String adjective, WeaponUseListener listener, String verb) {
 
         super(grade + " " + name + " " + adjective + " " + verb,
@@ -27,6 +25,11 @@ public class Weapon extends Item {
         this.dice = dice;
         this.modifier = modifier;
         this.attackCommand = command;
+        this.stat = stat;
+    }
+
+    public Stats getStat() {
+        return this.stat;
     }
 
     public int getDice() {

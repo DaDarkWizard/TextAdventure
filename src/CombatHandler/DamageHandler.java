@@ -1,6 +1,7 @@
 package CombatHandler;
 
 import NPCHandler.NPC;
+import PlayerHandler.Player;
 
 public class DamageHandler {
     private static int rollDice(int sides) {
@@ -17,7 +18,7 @@ public class DamageHandler {
      * @param combatant the one using the attack command
      * @param command   the command being used
      * @return true if command is successfully calculated, false otherwise
-     */
+     *///TOdo finish linking weapon
     public static boolean calcAttack(Combatant combatant, AttackCommands command) {
         if (combatant instanceof NPC) {
             ((NPC) combatant).findTarget();
@@ -30,6 +31,7 @@ public class DamageHandler {
             combatant.getTarget().setPendingDamage(combatant.getTarget().getPendingDamage() + damage);
             return true;
         }
+        ((Player) combatant).getEquipped().get(0).useWeapon(combatant);
         return false;
     }
 
