@@ -33,6 +33,10 @@ public class Weapon extends Item {
         return this.dice;
     }
 
+    public int rollDice() {
+        return ((int) (Math.random() * dice) + 1);
+    }
+
     public int getModifier() {
         return this.modifier;
     }
