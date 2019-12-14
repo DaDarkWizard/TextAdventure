@@ -28,3 +28,5 @@ Angellic
 Demonic
 Ungodly
 Legendary
+Decent
+Good

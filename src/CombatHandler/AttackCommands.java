@@ -5,5 +5,11 @@ public enum AttackCommands {
     block,
     stab,
     slash,
-    potion
+    potion,
+    smash,
+    cast,
+    shoot,
+    chuck,
+    play,
+    punch
 }

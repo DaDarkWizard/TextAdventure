@@ -1,4 +1,4 @@
-32
+31
 Hammer
 Club
 Mallet
@@ -21,7 +21,7 @@ Shortbow
 Longbow
 Crossbow
 Throwing Knives
-Hatchet
+Hatchets
 Brass Knuckes
 Flute
 Lute
