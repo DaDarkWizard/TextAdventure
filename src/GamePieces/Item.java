@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class Item implements Holdable {
     protected String shortDescription = "";
-    String longDescription = "";
+    protected String longDescription = "";
     String[] validNames;
     InteractListener interactListener;
 
@@ -61,5 +61,10 @@ public class Item implements Holdable {
         player.getInventory().remove(this);
         player.getLocation().addInteractable(this);
         return "You dropped " + this.shortDescription;
+    }
+
+    @Override
+    public String getLongDescription() {
+        return this.longDescription;
     }
 }

@@ -391,6 +391,9 @@ public class Room {
             }
         }
         players.add(player);
+    }
+
+    public void updateNPCs() {
         for (NPC npc : npcs) {
             npc.handleEnter();
         }

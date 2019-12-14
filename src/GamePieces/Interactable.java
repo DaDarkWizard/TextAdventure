@@ -6,6 +6,8 @@ import PlayerHandler.Commands;
 public interface Interactable {
     String getShortDescription();
 
+    String getLongDescription();
+
     String examine(Player player);
 
     String interact(Player player, Commands command);

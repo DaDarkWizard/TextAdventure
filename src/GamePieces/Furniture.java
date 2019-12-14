@@ -3,11 +3,18 @@ package GamePieces;
 import PlayerHandler.Commands;
 import PlayerHandler.Player;
 
+import javax.lang.model.element.NestingKind;
+
 public class Furniture implements Interactable {
     private String shortDescription = "";
     private String longDescription = "";
 
     private InteractListener interactListener;
+
+    @Override
+    public String getLongDescription() {
+        return this.longDescription;
+    }
 
     @Override
     public String getShortDescription() {

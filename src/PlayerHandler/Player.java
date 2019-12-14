@@ -147,11 +147,12 @@ public class Player implements Combatant {
         }
         this.lastLocation = this.location;
         this.location = location;
+
         this.location.addPlayer(this);
         StandardFrame frame = new StandardFrame();
         frame.add(location.getDescription());
         this.setLastFrame(frame);
-
+        this.location.updateNPCs();
     }
 
     public Room getLastLocation() {

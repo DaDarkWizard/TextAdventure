@@ -25,7 +25,7 @@ public class MoneyAndGloryNPC extends DefaultNPC {
                 frame.addLine("You attempt to enter the room, but a powerful force pushes you back.\n" +
                         "'Only one with the Golden Key may enter!'");
                 player.setLastFrame(frame);
-                //player.update();
+                player.update();
             }
         };
         this.npcRunListener = event -> {

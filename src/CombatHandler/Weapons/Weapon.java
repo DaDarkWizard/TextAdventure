@@ -90,6 +90,11 @@ public class Weapon extends Item {
         return null;
     }
 
+    @Override
+    public String getLongDescription() {
+        return this.longDescription;
+    }
+
     public void setWeaponUseListener(WeaponUseListener listener) {
         this.weaponUseListener = listener;
     }

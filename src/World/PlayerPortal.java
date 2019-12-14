@@ -63,4 +63,9 @@ public class PlayerPortal implements Interactable {
     public void setInteractEventListener(InteractListener listener) {
 
     }
+
+    @Override
+    public String getLongDescription() {
+        return this.longDescription;
+    }
 }
