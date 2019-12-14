@@ -1,6 +1,7 @@
 package CombatHandler;
 
 import CombatHandler.Weapons.Weapon;
+import com.sun.org.glassfish.external.statistics.Stats;
 
 import java.util.ArrayList;
 
@@ -60,4 +61,6 @@ public interface Combatant {
     CombatGroup.rpsChoice getCombatDecision();
 
     void setCombatDecision(CombatGroup.rpsChoice decision);
+
+    int getStatByReference(Stats stat);
 }
