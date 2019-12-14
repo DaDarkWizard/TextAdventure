@@ -11,11 +11,11 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 public class WeaponGenerator {
-    private HashMap<String, AttackCommands> commandHashMap;
-    private HashMap<String, Integer> diceHashMap;
-    private HashMap<String, Integer> gradeHashMap;
-    private HashMap<String, WeaponUseListener> listenerHashMap;
-    private HashMap<AttackCommands, StatHandler.Stats> statsHashMap;
+    private HashMap<String, AttackCommands> commandHashMap = new HashMap<>();
+    private HashMap<String, Integer> diceHashMap = new HashMap<>();
+    private HashMap<String, Integer> gradeHashMap = new HashMap<>();
+    private HashMap<String, WeaponUseListener> listenerHashMap = new HashMap<>();
+    private HashMap<AttackCommands, StatHandler.Stats> statsHashMap = new HashMap<>();
 
     public WeaponGenerator(){
         statsHashMap.put(AttackCommands.smash, StatHandler.Stats.brawn);

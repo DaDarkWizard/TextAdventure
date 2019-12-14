@@ -2,6 +2,7 @@ package NPCHandler;
 
 import CombatHandler.CombatGroup;
 import CombatHandler.Combatant;
+import CombatHandler.Weapons.StatHandler;
 import CombatHandler.Weapons.Weapon;
 import GamePieces.Room;
 import PlayerHandler.Player;
@@ -127,6 +128,23 @@ public class NPC implements Combatant {
         if (this.npcFindTargetListener != null) {
             this.npcFindTargetListener.handle(event);
         }
+    }
+
+    public int getStatByReference(StatHandler.Stats stats) {
+        if (stats == null) {
+            return -1;
+        }
+        switch (stats) {
+            case smerts:
+                return this.smarts;
+            case moxy:
+                return this.moxy;
+            case spiffness:
+                return this.spiffness;
+            case brawn:
+                return this.brawn;
+        }
+        return -1;
     }
 
     public ArrayList<Object> getDataStorage() {

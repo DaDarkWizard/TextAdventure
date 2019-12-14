@@ -1,4 +1,4 @@
-package PlayerHandler;
+package World;
 
 import GamePieces.Item;
 import GamePieces.Room;

@@ -7,6 +7,7 @@ import PlayerHandler.UI.CommandInputHandler;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
 import World.Spawn;
+import World.Tutorial;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
