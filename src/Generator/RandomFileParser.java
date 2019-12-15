@@ -15,12 +15,11 @@ import java.util.Scanner;
  */
 public class RandomFileParser {
 
-    private final String RandomString;
-
-    public RandomFileParser(String RandomString) {
-        this.RandomString = RandomString;
-    }
-
+    /**
+     * Finds a random string from a text file
+     * @param fileName the file name
+     * @return the string from the text file
+     */
     public static String RandomString(String fileName) {
 
         try {

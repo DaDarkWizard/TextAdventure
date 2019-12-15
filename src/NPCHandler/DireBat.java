@@ -5,8 +5,20 @@ import CombatHandler.DamageHandler;
 import GamePieces.Room;
 
 import java.util.ArrayList;
-
+/**
+ * The class creates a NPC Template for a Dire Bat
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class DireBat extends DefaultNPC {
+    /**
+     * Constructor for the DireBat
+     * @param bounds the rooms it roams in
+     */
     public DireBat(ArrayList<Room> bounds) {
         super("Dire Bat");
         this.maxHitpoints = 30;
@@ -50,6 +62,12 @@ public class DireBat extends DefaultNPC {
         };
     }
 
+    /**
+     * Finds a random room
+     * @param npc the NPC looking
+     * @param bounds the rooms that they will not end
+     * @return The Room
+     */
     public static Room findRandomRoom(NPC npc, ArrayList<Room> bounds) {
         ArrayList<Room> possibilities = new ArrayList<>();
         possibilities.add(npc.getRoom());

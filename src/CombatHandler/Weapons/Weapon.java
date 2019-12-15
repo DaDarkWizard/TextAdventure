@@ -24,21 +24,21 @@ public class Weapon extends Item {
     /**
      * Assigns methods to establish the stats and characteristics of weapons
      *
-     * @param name
-     * @param dice
-     * @param command
-     * @param stat
-     * @param grade
-     * @param modifier
-     * @param adjective
-     * @param listener
-     * @param verb
+     * @param name name of weapon
+     * @param dice dice sides
+     * @param command command used by weapon
+     * @param stat stat used by weapon
+     * @param grade grade for weapon
+     * @param modifier modifier by grade
+     * @param adjective adjective
+     * @param listener listener for special affect
+     * @param verb flavor verb
      */
     public Weapon(String name, int dice, AttackCommands command, StatHandler.Stats stat, String grade, int modifier,
                   String adjective, WeaponUseListener listener, String verb) {
 
         super(grade + " " + name + " of " + adjective + " " + verb,
-                "",
+                new DescriptionMaker().getNameDescription(name),
                 new String[]{(grade + " " + name + " of " + adjective + " " + verb).toLowerCase(),
                         name.toLowerCase(), (grade + " " + name).toLowerCase()});
 
@@ -49,34 +49,58 @@ public class Weapon extends Item {
         this.stat = stat;
     }
 
+    /**
+     * constructor for potions
+     * @param name the name
+     */
     public Weapon(String name){
         super(name, name, new String[]{"potion", name});
-    }   // Assigns weapon name
+    }
 
+    /**
+     * returns the stat for the weapon
+     * @return the stat
+     */
     public StatHandler.Stats getStat() {
         return this.stat;
-    }                          // Assigns weapon stats
+    }
 
+    /**
+     * returns the sides of the dice
+     * @return the sides of the dice
+     */
     public int getDice() {
         return this.dice;
-    }                                        // Assigns damage modifiers
+    }
 
+    /**
+     * Rolls the dice of the weapon
+     * @return the damage for the dice
+     */
     public int rollDice() {
         return ((int) (Math.random() * dice) + 1);
-    }              // Modifies damage modifier
+    }
 
+    /**
+     * Gets the modifier
+     * @return the modifier
+     */
     public int getModifier() {
         return this.modifier;
-    }                                // Returns modded total
+    }
 
+    /**
+     * Gets the attack commands
+     * @return the attack commands
+     */
     public AttackCommands getAttackCommand() {
         return this.attackCommand;
-    }           // Assigns combat commands
+    }
 
     /**
      * Handles equip mechanics
-     * @param player
-     * @return
+     * @param player the player
+     * @return string for feedback
      */
     public String equip(Player player) {
         for (Weapon weapon : player.getEquipped()) {
@@ -90,8 +114,8 @@ public class Weapon extends Item {
 
     /**
      * Handles dequip mechanics
-     * @param player
-     * @return
+     * @param player the player
+     * @return string feedback
      */
     public String dequip(Player player) {
         boolean equipped = false;
@@ -120,17 +144,12 @@ public class Weapon extends Item {
         }
     }
 
-    //Todo generate this
-    public String generateLongDescription() {
-        return null;
-    }
-
+    /**
+     * Gets the long description
+     * @return the long description
+     */
     @Override
     public String getLongDescription() {
         return this.longDescription;
-    }
-
-    public void setWeaponUseListener(WeaponUseListener listener) {
-        this.weaponUseListener = listener;
     }
 }

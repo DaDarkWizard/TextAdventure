@@ -5,7 +5,7 @@ import NPCHandler.NPC;
 import PlayerHandler.Player;
 
 /** 
- * This class handles all things damge related
+ * This class handles all things damage related
  *
  * Date Last Modified: 12/14/2019
  * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen

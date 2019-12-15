@@ -12,12 +12,13 @@ import java.util.HashMap;
  * Lab Section 2
  */
 public class DescriptionMaker {
-    private HashMap<String, String> nameDescription = new HashMap<>();
-    private HashMap<String, String> gradeDescription = new HashMap<>();
-    private HashMap<String, String> adjectiveDescription = new HashMap<>();
-    private HashMap<String, String> verbDescription = new HashMap<>();
+    private HashMap<String, String> nameDescription = new HashMap<>(); //name hashmap
+    private HashMap<String, String> gradeDescription = new HashMap<>(); //grade hashmap
+    private HashMap<String, String> adjectiveDescription = new HashMap<>(); //adjective hashmap
+    private HashMap<String, String> verbDescription = new HashMap<>(); //verb hashmap
 
     public DescriptionMaker() {
+        //puts the relations between dice and weapon
         nameDescription.put("Hammer", "A carpenter's hammer. Does 1D6 damage.");
         nameDescription.put("Club", "A crude wooden club. Does 1D5 damage.");
         nameDescription.put("Mallet", "A rubber mallet. Does 1D4 damage.");
@@ -51,19 +52,12 @@ public class DescriptionMaker {
         nameDescription.put("Kazoo","An obnoxious kazoo. Does 1D10 damage.");
     }
 
+    /**
+     * Gets the name of the description
+     * @param name the name of the weapon
+     * @return
+     */
     public String getNameDescription(String name) {
         return this.nameDescription.getOrDefault(name, "Name Description.");
-    }
-
-    public String getGradeDescription(String grade) {
-        return this.gradeDescription.getOrDefault(grade, "Grade Description.");
-    }
-
-    public String getAdjectiveDescription(String adjective) {
-        return this.adjectiveDescription.getOrDefault(adjective, "Adjective Description.");
-    }
-
-    public String getVerbDescription(String verb) {
-        return this.verbDescription.getOrDefault(verb, "Verb Description.");
     }
 }

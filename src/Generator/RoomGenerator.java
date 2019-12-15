@@ -14,11 +14,10 @@ import World.PlayerPortal;
  * Lab Section 2
  */
 public class RoomGenerator {
-
-    RoomGenerator() {
-
-    }
-
+    /**
+     * Generates a random room
+     * @return the room
+     */
     Room generateRoom() {
         String shape = RandomFileParser.RandomString("Text/shape.txt");
         String color = RandomFileParser.RandomString("Text/color.txt");
@@ -27,12 +26,12 @@ public class RoomGenerator {
         StringBuilder description = new StringBuilder();
         String lookDescription = "It looks like it's " + color;
         description.append("You are in a ");
-        description.append(new RandomFileParser("Text/shape.txt")).append(" ");
-        description.append(new RandomFileParser("Text/color.txt")).append(" ");
+        description.append(RandomFileParser.RandomString("Text/shape.txt")).append(" ");
+        description.append(RandomFileParser.RandomString("Text/color.txt")).append(" ");
         description.append("room with ");
-        description.append(new RandomFileParser("Text/texture.txt"));
+        description.append(RandomFileParser.RandomString("Text/texture.txt"));
         description.append(" walls.\nIt smells vaguely of ");
-        description.append(new RandomFileParser("Text/smell.txt")).append(".");
+        description.append(RandomFileParser.RandomString("Text/smell.txt")).append(".");
 
         Room newRoom = new Room(shape + " " + color, description.toString(), lookDescription);
 
