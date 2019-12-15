@@ -166,6 +166,9 @@ public class CustomAdventureClient extends Application {
                                     s = input.get(0);
                                     input.remove(0);
                                     toServer.println(s);
+                                    if (s.toLowerCase().trim().equals("exit")) {
+                                        System.exit(0);
+                                    }
                                 }
                             }
                         }
