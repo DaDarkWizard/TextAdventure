@@ -44,5 +44,7 @@ public interface NPCTemplate {
 
     ArrayList<Object> getDataStorage();
 
+    NPCAttackListener getNPCAttackListener();
+
     void increment();
 }

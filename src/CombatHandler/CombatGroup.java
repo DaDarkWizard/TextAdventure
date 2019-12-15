@@ -118,7 +118,6 @@ public class CombatGroup {
                 targetMessage.append("Combat is about to start!\nChoose a target.\n");
                 combatStartCount = System.currentTimeMillis();
                 messageCombatants(targetMessage.toString());
-                messageCombatants(Long.toString(combatReadyTime / 1000));
                 combatState = state.startCombat;
 
                 for (Player player : players) {
@@ -162,9 +161,6 @@ public class CombatGroup {
                 }
                 break;
             case calculate:
-                for (Player player : players) {
-                    player.sendMessage("You used the words " + player.getWords().toString());
-                }
                 for (Combatant combatant : combatants) {
                     boolean fail = false;
                     for (String word : combatant.getWords()) {
@@ -215,6 +211,12 @@ public class CombatGroup {
                 if (System.currentTimeMillis() - combatStartCount > 5000) {
                     if (combatants.size() < 2 || players.size() < 1) {
                         messageCombatants("There are too few people for combat!");
+                        for (Player player : players) {
+                            Frame frame = new StandardFrame();
+                            frame.add(player.getLocation().getDescription());
+                            player.setLastFrame(frame);
+                            player.update();
+                        }
                         for (int i = 0; i < combatants.size(); i++) {
                             removeCombatant(combatants.get(i));
                             i--;
@@ -274,6 +276,13 @@ public class CombatGroup {
     }
 
     private AttackCommands parseAttackCommand(String command) {
+        try {
+            AttackCommands attackCommands = AttackCommands.valueOf(command);
+            return attackCommands;
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+        /*
         switch (command) {
             case "hit":
                 return AttackCommands.hit;
@@ -286,7 +295,7 @@ public class CombatGroup {
             case "potion":
                 return AttackCommands.potion;
         }
-        return null;
+        return null;*/
     }
 
     private void snagRoom() {

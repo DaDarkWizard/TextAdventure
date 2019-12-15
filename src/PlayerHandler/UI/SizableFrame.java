@@ -6,7 +6,7 @@ import java.util.function.ToDoubleBiFunction;
 
 public class SizableFrame extends Frame {
     private ArrayList<String> lines = new ArrayList<>();
-    private int height;
+    protected int height;
     private int width;
 
     public SizableFrame(int height, int width) {

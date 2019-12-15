@@ -11,5 +11,6 @@ public enum AttackCommands {
     shoot,
     chuck,
     play,
-    punch
+    punch,
+    supermegagiantawesomeslash
 }

@@ -50,6 +50,7 @@ public class NPC implements Combatant {
     private NPCMeetSomeoneListener npcMeetSomeoneListener;
     private NPCRunListener npcRunListener;
     private NPCFindTargetListener npcFindTargetListener;
+    private NPCAttackListener npcAttackListener;
     private ArrayList<Object> dataStorage;
 
     /**
@@ -73,7 +74,8 @@ public class NPC implements Combatant {
         NPCMeetSomeoneListener npcMeetSomeoneListener,
         NPCRunListener npcRunListener,
         NPCFindTargetListener npcFindTargetListener,
-        ArrayList<Object> dataStorage) {
+        ArrayList<Object> dataStorage,
+        NPCAttackListener npcAttackListener) {
 
         this.rpsChoice = combatChoice;
         this.weapons = weapons;
@@ -89,6 +91,7 @@ public class NPC implements Combatant {
         this.npcRunListener = npcRunListener;
         this.npcFindTargetListener = npcFindTargetListener;
         this.dataStorage = dataStorage;
+        this.npcAttackListener = npcAttackListener;
 
         npcs.add(this);
     }
@@ -117,11 +120,18 @@ public class NPC implements Combatant {
         this.npcRunListener = template.getNPCRunListener();
         this.npcFindTargetListener = template.getNPCFindTargetListener();
         this.dataStorage = template.getDataStorage();
+        this.npcAttackListener = template.getNPCAttackListener();
         template.increment();
 
         npcs.add(this);
     }
 
+    public void makeAttack() {
+        NPCAttackEvent event = new NPCAttackEvent(this);
+        if (this.npcAttackListener != null) {
+            this.npcAttackListener.handle(event);
+        }
+    }
 
     public void findTarget() {
         NPCFindTargetEvent event = new NPCFindTargetEvent(this);

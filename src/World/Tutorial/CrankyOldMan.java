@@ -35,27 +35,27 @@ public class CrankyOldMan extends DefaultNPC {
 
             if (!said[4]) {
 
-                if (timeElapsed < 2000) {
+                if (timeElapsed < 1000) {
 
-                } else if (timeElapsed < 4000) {
+                } else if (timeElapsed < 2000) {
                     if (!said[1]) {
                         event.getSource().say("You stand in my dungeon!");
                         said[1] = true;
                         event.getSource().getDataStorage().set(1, said);
                     }
-                } else if (timeElapsed < 6000) {
+                } else if (timeElapsed < 3000) {
                     if (!said[2]) {
                         event.getSource().say("You are weak! I'd kill you if I could, but laws 'n stuff.");
                         said[2] = true;
                         event.getSource().getDataStorage().set(1, said);
                     }
-                } else if (timeElapsed < 8000) {
+                } else if (timeElapsed < 4000) {
                     if (!said[3]) {
                         event.getSource().say("So instead I'll be helpful.");
                         said[3] = true;
                         event.getSource().getDataStorage().set(1, said);
                     }
-                } else if (timeElapsed < 100000) {
+                } else if (timeElapsed < 10000) {
                     if (!said[4]) {
                         event.getSource().say("It's dangerous to go alone. Take this!");
                         said[4] = true;

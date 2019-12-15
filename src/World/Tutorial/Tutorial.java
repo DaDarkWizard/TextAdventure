@@ -50,7 +50,7 @@ public class Tutorial {
 
         startWest.addNPC(new NPC(new WesternForce()));
 
-
+        dragonSlayer.addNPC(new NPC(new DragonSlayerGhost()));
     }
 
     private void addItems() {

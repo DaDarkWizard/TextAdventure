@@ -162,7 +162,7 @@ public class Room {
             if (interactables.size() == 1) {
                 output.append(".");
             } else if (interactables.size() == 2) {
-                output.append(" and a ");
+                output.append(" and a ").append(interactables.get(1).getShortDescription());
             } else {
                 for (int i = 1; i < interactables.size(); i++) {
                     if (i < interactables.size() - 1) {

@@ -1,5 +1,6 @@
 package World.Tutorial;
 
+import NPCHandler.NPCRunListener;
 import PlayerHandler.Player;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class InfoGiver extends UndyingNPC {
         this.dataStorage.add(lines);
         this.dataStorage.add(new boolean[2]);
         this.dataStorage.add(new boolean[lines.size()]);
+        this.dataStorage.add(null);
         this.npcRunListener = event -> {
 
             long startTime = (long) event.getSource().getDataStorage().get(0);
@@ -25,6 +27,13 @@ public class InfoGiver extends UndyingNPC {
             ArrayList<String> storedLines = (ArrayList<String>) event.getSource().getDataStorage().get(1);
             boolean[] linesSaid = (boolean[]) event.getSource().getDataStorage().get(3);
             boolean[] stopStart = (boolean[]) event.getSource().getDataStorage().get(2);
+
+            if (stopStart[1]) {
+                if (event.getSource().getDataStorage().size() > 4 &&
+                        event.getSource().getDataStorage().get(4) instanceof NPCRunListener) {
+                    event.getSource().setNPCRunListener((NPCRunListener) event.getSource().getDataStorage().get(4));
+                }
+            }
 
             if (event.getSource().getRoom().getPlayers().size() < 1) {
                 stopStart[0] = false;
@@ -68,6 +77,7 @@ public class InfoGiver extends UndyingNPC {
         newDataStorage.add(lines);
         newDataStorage.add(new boolean[2]);
         newDataStorage.add(new boolean[lines.size()]);
+        newDataStorage.add(this.dataStorage.get(4));
         this.dataStorage = newDataStorage;
     }
 

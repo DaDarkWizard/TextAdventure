@@ -28,7 +28,7 @@ public class InputHandler {
     private static String[] say = {"say", "shout", "yell", "orate"};
     private static String[] fillerWords = {"the", "at", "a", "an", "of", "for", "over", "up"};
     private static String[] inventory = {"inventory", "items", "stuff"};
-    private static String[] pickup = {"pickup", "grab", "get", "pick"};
+    private static String[] pickup = {"pickup", "grab", "get", "pick", "take"};
     private static String[] drop = {"drop", "throw", "remove", "delete"};
     private static String badMove = "You can't move that direction.";
     private MessageListener messageListener;

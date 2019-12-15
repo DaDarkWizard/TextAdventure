@@ -57,8 +57,11 @@ public class Player implements Combatant {
         this.moxy = 10;
     }
 
-    public int calculateMaxHitpoints(){
-        return (2 * moxy) + (2 * brawn) + 10;
+    public void calculateMaxHitpoints() {
+        int newMax = (2 * moxy) + (2 * brawn) + 10;
+        int diff = newMax - this.maxHitpoints;
+        this.maxHitpoints = newMax;
+        this.hitpoints += diff;
     }
 
     public ArrayList<AttackCommands> getPossibleAttackCommands() {

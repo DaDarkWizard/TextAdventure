@@ -27,6 +27,7 @@ public class DefaultNPC implements NPCTemplate {
     protected NPCRunListener npcRunListener;                    //For when the NPC is run
     protected NPCFindTargetListener npcFindTargetListener;      //For when the NPC has to choose a target
     protected ArrayList<Object> dataStorage = new ArrayList<>();//For the AI to store data
+    protected NPCAttackListener npcAttackListener;              //For when the NPC makes an attack
 
     /**
      * Creates the default with the name given
@@ -187,6 +188,16 @@ public class DefaultNPC implements NPCTemplate {
     @Override
     public NPCRunListener getNPCRunListener() {
         return this.npcRunListener;
+    }
+
+    /**
+     * Gets this template's NPCAttackListener
+     *
+     * @return the NPCAttackListener
+     */
+    @Override
+    public NPCAttackListener getNPCAttackListener() {
+        return this.npcAttackListener;
     }
 
     /**

@@ -1,5 +1,6 @@
 package CombatHandler;
 
+import CombatHandler.Weapons.Weapon;
 import NPCHandler.NPC;
 import PlayerHandler.Player;
 
@@ -31,7 +32,15 @@ public class DamageHandler {
             combatant.getTarget().setPendingDamage(combatant.getTarget().getPendingDamage() + damage);
             return true;
         }
-        ((Player) combatant).getEquipped().get(0).useWeapon(combatant);
+        if (combatant instanceof Player) {
+            Player player = (Player) combatant;
+            for (Weapon weapon : player.getEquipped()) {
+                if (weapon.getAttackCommand() == command) {
+                    weapon.useWeapon(player);
+                    System.out.println("used weapon: " + weapon.getShortDescription());
+                }
+            }
+        }
         return false;
     }
 
