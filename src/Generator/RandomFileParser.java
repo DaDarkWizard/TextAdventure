@@ -20,7 +20,7 @@ public class RandomFileParser {
             int fileLength = scan.nextInt();
             String[] array = new String[fileLength];
             double position = Math.random() * fileLength;
-            scan.nextLine();                                //Scanner is still on int line
+            scan.nextLine();
             for (int i = 0; i < fileLength; i++) {
                 array[i] = scan.nextLine();
             }
