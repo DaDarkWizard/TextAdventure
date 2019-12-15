@@ -19,7 +19,10 @@ public class Spawn extends Room {
      * Initializes Spawn
      */
     public Spawn() {
-        super("Spawn", "You are in spawn.", "You see the spawn.");
+        super("Spawn",
+                "You are in spawn. This is the end of the game so far\n" +
+                        "If you'd like to track our progress, follow us on our github:\n" +
+                        "https://github.com/DaDarkWizard/TextAdventure", "You see the spawn.");
         spawn = this;
     }
 }

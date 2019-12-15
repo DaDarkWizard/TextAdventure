@@ -27,6 +27,7 @@ public class Player implements Combatant {
     public static ArrayList<Player> players = new ArrayList<>(); //arraylist of players
 
     //General stuff
+    private boolean disconnected = false;
     private long connectionID; //connection ID
     private Commands lastCommand; //a player's last command
     private PlayerStates state = PlayerStates.initializing; //A player's state
@@ -71,6 +72,34 @@ public class Player implements Combatant {
         this.smarts = 10;
         this.moxy = 10;
         calculateMaxHitpoints();
+    }
+
+    /**
+     * Sets whether the player has disconnected or not
+     *
+     * @param disconnected whether disconnected
+     */
+    public void setDisconnected(boolean disconnected) {
+        this.disconnected = disconnected;
+    }
+
+    /**
+     * Tells whether the player has disconnected or not
+     *
+     * @return whether disconnected
+     */
+    public boolean isDisconnected() {
+        return this.disconnected;
+    }
+
+    /**
+     * Respawns the player on death
+     */
+    public void respawn() {
+        this.hitpoints = maxHitpoints;
+        this.setLocation(startRoom);
+        this.target = null;
+        this.combatGroup = null;
     }
 
     /**
@@ -375,11 +404,7 @@ public class Player implements Combatant {
     public int modifyHitpoints(int amount) {
         hitpoints += amount;
         if (hitpoints <= 0) {
-            hitpoints = maxHitpoints;
-            if (startRoom != null) {
-                this.setLocation(startRoom);
-            }
-            this.sendMessage("[Notice]: You have died!!! Better luck next time.");
+            hitpoints = 0;
         } else if (hitpoints >= maxHitpoints) {
             hitpoints = maxHitpoints;
         }

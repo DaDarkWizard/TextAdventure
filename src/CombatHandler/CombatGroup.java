@@ -213,7 +213,8 @@ public class CombatGroup {
                 for (int i = 0; i < combatants.size(); i++) {
                     if (combatants.get(i).getHitPoints() < 1) {
                         if (combatants.get(i) instanceof Player) {
-                            ((Player) combatants.get(i)).sendMessage("You have fallen unconscious.");
+                            ((Player) combatants.get(i)).respawn();
+                            ((Player) combatants.get(i)).sendMessage("You have died!");
                         }
                         removeCombatant(combatants.get(i));
                         i--;
@@ -348,8 +349,13 @@ public class CombatGroup {
     * sends a new frame to all the players
     */
     public void updatePlayer() {
-        for (Player player : players) {
-            player.update();
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).isDisconnected()) {
+                removeCombatant(players.get(i));
+                i--;
+            } else {
+                players.get(i).update();
+            }
         }
     }
         

@@ -245,6 +245,7 @@ public class TechAdventure implements ConnectionListener {
 				player = Player.findClient(player.getConnectionID());
 				if (player != null) {
 					player.getLocation().removePlayer(player);
+					player.setDisconnected(true);
 					Player.players.remove(player);
 				}
 				break;
