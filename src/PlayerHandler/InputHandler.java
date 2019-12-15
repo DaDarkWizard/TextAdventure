@@ -73,6 +73,8 @@ public class InputHandler {
             return Commands.equip;
         } else if (command.equals("dequip")) {
             return Commands.dequip;
+        } else if (command.equals("use")) {
+            return Commands.use;
         }
         return null;
     }

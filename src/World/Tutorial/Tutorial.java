@@ -4,10 +4,7 @@ import CombatHandler.Weapons.Weapon;
 import GamePieces.Item;
 import GamePieces.Room;
 import Generator.WeaponGenerator;
-import NPCHandler.Dragon;
-import NPCHandler.Grue;
-import NPCHandler.NPC;
-import NPCHandler.NPCTemplate;
+import NPCHandler.*;
 
 import java.util.ArrayList;
 
@@ -29,7 +26,8 @@ public class Tutorial {
         ArrayList<Room> batBounds = new ArrayList<>();
         batBounds.add(monsterRoom);
         batBounds.add(start);
-        dragon = new NPC(new Dragon(batBounds, startNorth, michael, michael2));
+        DireBat bat = new DireBat(batBounds);
+        dragon = new NPC(new Dragon(bat, startNorth, michael, michael2));
         dragonRoom.addNPC(dragon);
 
         grue = new NPC(new Grue("Grue"));
@@ -67,6 +65,7 @@ public class Tutorial {
         WeaponGenerator weaponGenerator = new WeaponGenerator();
         startWest.getInteractables().add(weaponGenerator.weapon());
         startWest.getInteractables().add(weaponGenerator.weapon());
+        moneyAndGlory.addInteractable(new Portal());
     }
 
     private void createRooms() {

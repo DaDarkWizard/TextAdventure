@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Furniture implements Interactable {
     private String shortDescription;
     private String longDescription;
-    private ArrayList<String> validNames = new ArrayList<>();
+    protected ArrayList<String> validNames = new ArrayList<>();
     private InteractListener interactListener;
 
     public Furniture(String shortDescription, String longDescription, InteractListener interactListener) {

@@ -20,7 +20,6 @@ public class Dragon extends Boss {
             NPCTemplate newBat = (NPCTemplate) e.getNPC().getDataStorage().get(0);
             NPC newNPC = new NPC((NPCTemplate) e.getNPC().getDataStorage().get(3));
             ((Room) e.getNPC().getDataStorage().get(1)).addNPC(new NPC(newBat));
-            System.out.println("Added NPC");
             ((NPC) e.getNPC().getDataStorage().get(2)).getRoom().addNPC(newNPC);
             ((NPC) e.getNPC().getDataStorage().get(2)).getRoom().removeNPC((NPC) e.getNPC().getDataStorage().get(2));
         };
