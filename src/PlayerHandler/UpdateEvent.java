@@ -12,19 +12,24 @@ import java.util.EventObject;
  * Lab Section 2
  */
 public class UpdateEvent extends EventObject {
+    private Player source;// player that triggered this event
+
     /**
-     * Constructs a prototypical Event.
+     * Constructs the Event.
      *
      * @param source The object on which the Event initially occurred.
      * @throws IllegalArgumentException if source is null.
      */
-    private Player source;
-
     public UpdateEvent(Player source) {
         super(source);
         this.source = source;
     }
 
+    /**
+     * Gets the source player
+     *
+     * @return the Player that needs the update
+     */
     @Override
     public Player getSource() {
         return source;
