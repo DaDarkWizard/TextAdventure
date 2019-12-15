@@ -11,6 +11,16 @@ import PlayerHandler.UI.StandardFrame;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The class handles all of combat 
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
+
 public class CombatGroup {
     private final long combatFightTime = 10000; //Length of time to fight (type words)
     private final long combatReadyTime = 5000;  //Length of time to get ready (choose opponent)
@@ -99,6 +109,7 @@ public class CombatGroup {
     /**
      * Runs a frame of combat
      */
+    
     public void RunCombat() {
         switch (combatState) {
             case firstround:
@@ -265,15 +276,30 @@ public class CombatGroup {
             player.sendMessage(message);
         }
     }
+    
+    /**
+    * Gets the Combat State 
+    * @return combat state
+    */
 
     public state getCombatState() {
         return this.combatState;
     }
 
+    /**
+    * Getting all combatants and NPC's 
+    * @return combatants 
+    */
+    
     public ArrayList<Combatant> getCombatants() {
         return this.combatants;
     }
 
+    /**
+    * removes the specified combatant 
+    * @return output
+    */
+    
     public ArrayList<Combatant> getCombatants(Combatant combatant) {
         ArrayList<Combatant> output = new ArrayList<>();
         for (Combatant value : combatants) {
@@ -284,6 +310,12 @@ public class CombatGroup {
         return output;
     }
 
+    /**
+    * Parses Attack Command to string
+    * @return attackCommands 
+    * @return null
+    */
+    
     private AttackCommands parseAttackCommand(String command) {
         try {
             AttackCommands attackCommands = AttackCommands.valueOf(command);
@@ -291,22 +323,10 @@ public class CombatGroup {
         } catch (IllegalArgumentException e) {
             return null;
         }
-        /*
-        switch (command) {
-            case "hit":
-                return AttackCommands.hit;
-            case "stab":
-                return AttackCommands.stab;
-            case "slash":
-                return AttackCommands.slash;
-            case "block":
-                return AttackCommands.block;
-            case "potion":
-                return AttackCommands.potion;
-        }
-        return null;*/
-    }
-
+        
+    /**
+    * Snags all the players in the room into combat
+    */
     private void snagRoom() {
         for (Combatant combatant : players.get(0).getLocation().getCombatants()) {
             if (combatants.indexOf(combatant) < 0) {
@@ -319,14 +339,19 @@ public class CombatGroup {
             }
         }
     }
-
+        
+    /**
+    * sends a new frame to all the players
+    */
     public void updatePlayer() {
         for (Player player : players) {
             player.update();
         }
     }
-
-
+        
+    /**
+    * Removes the players from combat
+    */
     public void removeCombatant(Combatant combatant) {
         this.combatants.remove(combatant);
         combatant.setCombatGroup(null);
