@@ -51,27 +51,27 @@ public class Weapon extends Item {
 
     public Weapon(String name){
         super(name, name, new String[]{"potion", name});
-    }
+    }   // Assigns weapon name
 
     public StatHandler.Stats getStat() {
         return this.stat;
-    }
+    }                          // Assigns weapon stats
 
     public int getDice() {
         return this.dice;
-    }
+    }                                        // Assigns damage modifiers
 
     public int rollDice() {
         return ((int) (Math.random() * dice) + 1);
-    }
+    }              // Modifies damage modifier
 
     public int getModifier() {
         return this.modifier;
-    }
+    }                                // Returns modded total
 
     public AttackCommands getAttackCommand() {
         return this.attackCommand;
-    }
+    }           // Assigns combat commands
 
     /**
      * Handles equip mechanics

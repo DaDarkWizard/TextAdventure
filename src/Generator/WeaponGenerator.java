@@ -10,6 +10,15 @@ import CombatHandler.Weapons.WeaponUseListener;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
+/**
+ * Randomly generates stats and descriptions for weapons
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class WeaponGenerator {
     private HashMap<String, AttackCommands> commandHashMap = new HashMap<>();
     private HashMap<String, Integer> diceHashMap = new HashMap<>();
@@ -17,6 +26,9 @@ public class WeaponGenerator {
     private HashMap<String, WeaponUseListener> listenerHashMap = new HashMap<>();
     private HashMap<AttackCommands, StatHandler.Stats> statsHashMap = new HashMap<>();
 
+    /**
+     * Establishes every weapon component to a hashmap to allow for randomized description and stat assignment
+     */
     public WeaponGenerator(){
         statsHashMap.put(AttackCommands.smash, StatHandler.Stats.brawn);
         statsHashMap.put(AttackCommands.slash, StatHandler.Stats.brawn);
@@ -128,6 +140,9 @@ public class WeaponGenerator {
         gradeHashMap.put("Godly", 4);
         gradeHashMap.put("Legendary", 5);
 
+        /**
+         * I don't care what Joe says, I'm not commenting every single one of these. They are listeners, they listen for adjectives. That's it
+         */
         listenerHashMap.put("Wicked", e -> {
             if(e.getSource().getTarget() == null){
                 return;
@@ -325,6 +340,14 @@ public class WeaponGenerator {
 
     }
 
+    /**
+     * Handles stat-specific weapon descriptors
+     * @param grade
+     * @param weapon
+     * @param adjective
+     * @param verb
+     * @return
+     */
     public CombatHandler.Weapons.Weapon weapon(String grade, String weapon, String adjective, String verb) {
         Weapon returnedWeapon;
 
@@ -334,6 +357,10 @@ public class WeaponGenerator {
         return returnedWeapon;
     }
 
+    /**
+     * Returns randomized description of a weapon
+     * @return
+     */
     public CombatHandler.Weapons.Weapon weapon() {
         String grade = String.valueOf(RandomFileParser.RandomString("Text/grade.txt"));
         String weapon = String.valueOf(RandomFileParser.RandomString("Text/weapon.txt"));

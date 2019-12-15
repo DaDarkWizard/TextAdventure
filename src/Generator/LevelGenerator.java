@@ -6,7 +6,15 @@ import PlayerHandler.Commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+/**
+ * Handles procedural dungeon generation
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class LevelGenerator {
     private Room start;
     private Room end;
@@ -18,6 +26,11 @@ public class LevelGenerator {
     private int size;
     private RoomGenerator roomGenerator;
 
+    /**
+     * Room generation constructor
+     * @param size
+     * @param count
+     */
     public LevelGenerator(int size, int count) {
         this.maxRooms = count;
         this.size = size;
@@ -33,6 +46,9 @@ public class LevelGenerator {
         return start;
     }
 
+    /**
+     * Sets and fills parameters of generic room creation
+     */
     private void generateRooms() {
         while (tries < 100 && roomCount < maxRooms) {
             setupGeneration();
@@ -103,6 +119,10 @@ public class LevelGenerator {
         }
     }
 
+    /**
+     * Prints dungeon schematics to screen
+     * @param rooms
+     */
     public static void printRooms(Room[][] rooms) {
         System.out.println("[");
         for (int i = 0; i < rooms.length; i++) {
