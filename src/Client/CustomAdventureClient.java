@@ -28,30 +28,48 @@ import java.util.List;
  * Lab Section 2
  */
 public class CustomAdventureClient extends Application {
-    public static final Object lockInput = 0;
-    public static final Object lockOutput = 0;
-    public static BufferedReader fromServer;
-    public static BufferedReader keyboardInput;
-    public static TextArea textArea;
-    public static PrintWriter toServer;
-    public static ArrayList<String> input = new ArrayList<>();
-    public static ArrayList<String> output = new ArrayList<>();
-    public InputThread inputThread;
 
+    public static final Object lockInput = 0;               //Lock object for multithreading
+    public static final Object lockOutput = 0;              //Lock object for multithreading
+    public static BufferedReader fromServer;                //Wrapper for getting stuff from the server
+    public static TextArea textArea;                        //Area for outputting text to viewer
+    public static PrintWriter toServer;                     //Wrapper for sending data to server
+    public static ArrayList<String> input = new ArrayList<>();      //Stores pending input
+    public static ArrayList<String> output = new ArrayList<>();     //Stores pending output
+    public InputThread inputThread;                                 //Thread for getting input
+
+    /**
+     * Main loop, just starts the Application
+     *
+     * @param args first is ip, second is port
+     */
     public static void main(String[] args) {
         CustomAdventureClient.launch(args);
     }
 
+    /**
+     * Starts the Application
+     *
+     * @param primaryStage Stage to show the viewer
+     * @throws Exception shouldn't be thrown, but could be
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         inputThread = new InputThread();
         inputThread.start(this.getParameters().getRaw());
         textArea = new TextArea();
         textArea.setEditable(false);
         textArea.setPrefRowCount(33);
         textArea.setPrefColumnCount(100);
+
+        //Make text standard width
         textArea.setStyle("-fx-font-family: 'monospace'");
-        TextField textField = new TextField();
+
+
+        TextField textField = new TextField();              //Area for the user to put input
+
+        //Setup entering text
         textField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 if (!textField.getText().isEmpty()) {
@@ -63,13 +81,14 @@ public class CustomAdventureClient extends Application {
             }
         });
 
-        VBox pane = new VBox();
+        VBox pane = new VBox();                             //Holds text output and input boxes
+
         pane.getChildren().add(textArea);
         pane.getChildren().add(textField);
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
-            public void handle(long now) {
+            public void handle(long now) {                  //Updates the display for the viewer
                 if (textArea.getText().length() > 10000) {
                     textArea.deleteText(0, 5000);
                     textArea.appendText("");
@@ -86,7 +105,7 @@ public class CustomAdventureClient extends Application {
             }
         };
 
-        Button button = new Button("Reconnect");
+        Button button = new Button("Reconnect");            //For reconnecting after losing connection
         button.setOnAction(event -> {
             input.add("exit");
             inputThread.interrupt();
@@ -96,11 +115,6 @@ public class CustomAdventureClient extends Application {
                 e.printStackTrace();
             }
             toServer.close();
-            try {
-                keyboardInput.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             inputThread = new InputThread();
             inputThread.start(this.getParameters().getRaw());
         });
@@ -116,14 +130,25 @@ public class CustomAdventureClient extends Application {
     }
 
 
-    private class InputThread extends Thread {
-        List<String> args;
+    /**
+     * Thread for handling server input and output
+     */
+    private static class InputThread extends Thread {
+        List<String> args;                      //Args for getting the thread
 
+        /**
+         * Initializes thread with args
+         *
+         * @param args
+         */
         public void start(List args) {
-            this.args = args;
+            this.args = args;   //Can't fix this :(
             super.start();
         }
 
+        /**
+         * Runs once, but this one contains a loop
+         */
         public void run() {
             if (args == null || args.size() != 2) {
                 System.out.println("Command line arguments: server_address port");
@@ -133,15 +158,8 @@ public class CustomAdventureClient extends Application {
                     System.out.println("Connected to AdventureServer host " + server.getInetAddress());
                     fromServer = new BufferedReader(new InputStreamReader(server.getInputStream()));
                     toServer = new PrintWriter(server.getOutputStream(), true);
-                    keyboardInput = new BufferedReader(new InputStreamReader(System.in));
                     String s = "";
-                    while (true) {
-                        if (keyboardInput.ready()) {
-                            if ((s = keyboardInput.readLine()) == null) {
-                                break;
-                            }
-                            toServer.println(s);
-                        }
+                    while (input != null) {
                         if (input.size() > 0) {
                             synchronized (lockInput) {
                                 while (input.size() > 0) {
@@ -165,15 +183,9 @@ public class CustomAdventureClient extends Application {
                                 }
                             }
                         }
-
-
-                        //if(textArea != null) {
-                        //    textArea.setText("HI");
-                        //}
                     }
                     fromServer.close();
                     toServer.close();
-                    keyboardInput.close();
 
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
