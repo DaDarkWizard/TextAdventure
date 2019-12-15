@@ -128,6 +128,7 @@ public class TechAdventure implements ConnectionListener {
 						});
 						//Start them at the tutorial
 						player.setLocation(new Tutorial().getStart());
+						player.setStartRoom(player.getLocation());
 
 						//Update their frame
 						Frame output = new StandardFrame();

@@ -76,6 +76,7 @@ public class CharacterModificationInputHandler {
                 if (input.trim().toLowerCase().equals("look")) {
                     CharacterLoading.removeCharacterLoading(characterLoading);
                     player.setLocation(spawn);
+                    player.setStartRoom(spawn);
                     player.setState(PlayerStates.normal);
                 } else {
                     player.getLastFrame().addLine("That's not 'look' Try again!", true);
@@ -153,6 +154,7 @@ public class CharacterModificationInputHandler {
                 if (input.toLowerCase().trim().equals("look")) {
                     CharacterCreating.getCharacterCreators().remove(characterCreating);
                     player.setLocation(spawn);
+                    player.setStartRoom(spawn);
                     player.setState(PlayerStates.normal);
                 } else {
                     player.getLastFrame().addLine("That's not 'look' Try again!", true);

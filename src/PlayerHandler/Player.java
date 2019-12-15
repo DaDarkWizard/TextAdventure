@@ -54,6 +54,7 @@ public class Player implements Combatant {
     private int pendingHeal; //pending heal for the player
     private int pendingBlock; //pending block for the player
     private CombatGroup.rpsChoice rpsChoice; //RPS choice
+    private Room startRoom;
 
     /**
      * Player Constructor
@@ -70,6 +71,24 @@ public class Player implements Combatant {
         this.smarts = 10;
         this.moxy = 10;
         calculateMaxHitpoints();
+    }
+
+    /**
+     * Gets the room the player goes to when they die
+     *
+     * @return the Room
+     */
+    public Room getStartRoom() {
+        return startRoom;
+    }
+
+    /**
+     * Sets the Room the player goes to when they die
+     *
+     * @param startRoom the new Room
+     */
+    public void setStartRoom(Room startRoom) {
+        this.startRoom = startRoom;
     }
 
     /**
@@ -356,7 +375,11 @@ public class Player implements Combatant {
     public int modifyHitpoints(int amount) {
         hitpoints += amount;
         if (hitpoints <= 0) {
-            hitpoints = 0;
+            hitpoints = maxHitpoints;
+            if (startRoom != null) {
+                this.setLocation(startRoom);
+            }
+            this.sendMessage("[Notice]: You have died!!! Better luck next time.");
         } else if (hitpoints >= maxHitpoints) {
             hitpoints = maxHitpoints;
         }
