@@ -6,14 +6,22 @@ import PlayerHandler.Player;
 
 import java.util.ArrayList;
 
+/**
+ * The class creates a combat frame
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class CombatFrame extends Frame {
-    private ArrayList<AttackCommands> attackCommands = new ArrayList<>();
-    private Player player;
-    private SizableFrame console = new SizableFrame(11, 51);
-    private ArrayList<String> combatLog = new ArrayList<>();
-    public final int height = 28;
-    public final int width = 100;
-    String startTimer = "Start in: 5";
+    private ArrayList<AttackCommands> attackCommands = new ArrayList<>(); //the attack commands a player can use
+    private Player player; //the player
+    private SizableFrame console = new SizableFrame(11, 51); //sizable frame for the combat frame
+    private ArrayList<String> combatLog = new ArrayList<>(); //the commands used by the player
+    public final int height = 30; //the height of the frame
+    String startTimer = "Start in: 5"; //start of the timer
 
     public CombatFrame(Player player) {
         this.player = player;
