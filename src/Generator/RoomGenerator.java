@@ -4,6 +4,15 @@ import GamePieces.Room;
 import NPCHandler.NPC;
 import World.PlayerPortal;
 
+/**
+ * Randomly describes rooms as they are initialized
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class RoomGenerator {
 
     RoomGenerator() {
@@ -36,6 +45,10 @@ public class RoomGenerator {
         return newRoom;
     }
 
+    /**
+     * Generated dead-end
+     * @param room
+     */
     void makeEndRoom(Room room) {
         room.setName("Boss Room");
         clearRoom(room);
@@ -44,12 +57,20 @@ public class RoomGenerator {
         room.addInteractable(new WeaponGenerator().weapon());
     }
 
+    /**
+     * Generates spawn room
+     * @param room
+     */
     void makeStartRoom(Room room) {
         room.setName("Portal Room");
         clearRoom(room);
         room.addInteractable(new PlayerPortal());
     }
 
+    /**
+     * Clears room of NPCs and interactables
+     * @param room
+     */
     private void clearRoom(Room room) {
         for (int i = 0; i < room.getNpcs().size(); i++) {
             room.removeNPC(room.getNpcs().get(i));
