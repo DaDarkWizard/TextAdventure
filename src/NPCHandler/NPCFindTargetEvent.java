@@ -1,7 +1,15 @@
 package NPCHandler;
 
 import java.util.EventObject;
-
+/**
+ * The class creates a NPCFindTargetEvent
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class NPCFindTargetEvent extends EventObject {
     NPC npc;
 
