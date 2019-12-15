@@ -10,6 +10,15 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class processes profile restoration
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class CharacterLoading {
     public static ArrayList<CharacterLoading> characterLoaders = new ArrayList<>();
 
@@ -29,6 +38,10 @@ public class CharacterLoading {
     }
 
 
+    /**
+     * Initializes character restoration
+     * @param player
+     */
     public void RestoreCharacter(Player player) {
         StandardFrame frame = new StandardFrame();
         player.setLastFrame(frame);
@@ -45,11 +58,18 @@ public class CharacterLoading {
         characterLoaders.add(this);
     }
 
+    /**
+     * Retrieves username from user
+     */
     public void askUsername() {
         player.getLastFrame().addLine("Please enter your username: ", true);
         this.state = RestoreCharacterState.getUsername;
     }
 
+    /**
+     * Verifies that a username is able to be processed
+     * @param username
+     */
     public void addUsername(String username) {
         File file = new File("Players/" + username + ".player");
         if (file.exists()) {
@@ -63,6 +83,10 @@ public class CharacterLoading {
         }
     }
 
+    /**
+     * Unlocks a valid user profile
+     * @param password
+     */
     public void addPassword(String password) {
         File file = new File("Players/" + username + ".player");
         try {
@@ -82,6 +106,9 @@ public class CharacterLoading {
         }
     }
 
+    /**
+     * Rebuilds a player profile from stored stats
+     */
     public void loadPlayer() {
         File file = new File("Players/" + username + ".player");
         Scanner scanner;
