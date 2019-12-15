@@ -74,6 +74,12 @@ public class PlayerPortal implements Interactable {
         return this.useDescription;
     }
 
+    /**
+     * Checks if a string can select this item
+     *
+     * @param name the string to check
+     * @return whether it matches
+     */
     @Override
     public boolean isValidName(String name) {
         name = name.trim().toLowerCase();
@@ -90,11 +96,21 @@ public class PlayerPortal implements Interactable {
         }
     }
 
+    /**
+     * Sets this objects interact event
+     *
+     * @param listener the listener to be set
+     */
     @Override
     public void setInteractEventListener(InteractListener listener) {
 
     }
 
+    /**
+     * Gets the long description for this object
+     *
+     * @return the long description
+     */
     @Override
     public String getLongDescription() {
         return this.longDescription;

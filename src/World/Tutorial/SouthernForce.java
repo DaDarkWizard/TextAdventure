@@ -1,11 +1,23 @@
 package World.Tutorial;
 
-import CombatHandler.Weapons.Weapon;
 import GamePieces.Holdable;
 import Generator.WeaponGenerator;
 import PlayerHandler.Player;
 
+/**
+ * A Tutorial NPC
+ * <p>
+ * Date Last Modified: 12/15/2019
+ *
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ * <p>
+ * CS1131, Fall 2019
+ * Lab Section 2
+ */
 public class SouthernForce extends InfoGiver {
+    /**
+     * Constructor
+     */
     public SouthernForce() {
         super("Great Southern Force");
         this.addLine("If you type 'dequip' then an item name, you can equip an item to use in combat.");

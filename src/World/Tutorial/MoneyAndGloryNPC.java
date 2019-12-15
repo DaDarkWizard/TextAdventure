@@ -6,9 +6,24 @@ import NPCHandler.NPC;
 import PlayerHandler.Player;
 import PlayerHandler.UI.StandardFrame;
 
+/**
+ * NPC to stop player from exiting without key
+ * <p>
+ * Date Last Modified: 12/14/2019
+ *
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ * <p>
+ * CS1131, Fall 2019
+ * Lab Section 2
+ */
 public class MoneyAndGloryNPC extends DefaultNPC {
+    /**
+     * Constructor to set up events
+     */
     public MoneyAndGloryNPC() {
         super("Powerful Mist", Integer.MAX_VALUE / 2);
+
+        //Blocks the player if they don't have the key
         this.npcMeetSomeoneListener = event -> {
             Player player = event.getSource().getRoom().getPlayers().get(0);
             boolean hasKey = false;
@@ -28,11 +43,13 @@ public class MoneyAndGloryNPC extends DefaultNPC {
                 player.update();
             }
         };
-        this.npcRunListener = event -> {
-
-        };
     }
 
+    /**
+     * Creates an NPC with this Template\
+     *
+     * @return a new NPC
+     */
     public NPC createNPC() {
         return new NPC(this);
     }

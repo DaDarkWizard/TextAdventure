@@ -5,10 +5,25 @@ import PlayerHandler.Player;
 
 import java.util.Arrays;
 
+/**
+ * Makes one of the Crankiest Men Alive
+ * <p>
+ * Date Last Modified: 12/14/2019
+ *
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ * <p>
+ * CS1131, Fall 2019
+ * Lab Section 2
+ */
 public class CrankyOldMan extends DefaultNPC {
 
+    /**
+     * Constructor for this goon
+     */
     public CrankyOldMan() {
         super("Cranky Old Man");
+
+        //Fill data storage
         this.dataStorage.add((long) 0);
         boolean[] dialog = new boolean[6];
         Arrays.fill(dialog, false);
@@ -16,6 +31,8 @@ public class CrankyOldMan extends DefaultNPC {
         this.npcFindTargetListener = event -> {
             event.getSource().setTarget(event.getSource().getCombatGroup().getCombatants(event.getSource()).get(0));
         };
+
+        //Dialogue made before InfoGiver
         this.npcRunListener = event -> {
             long startTime = (long) event.getSource().getDataStorage().get(0);
             long timeElapsed = System.currentTimeMillis() - startTime;
@@ -33,6 +50,7 @@ public class CrankyOldMan extends DefaultNPC {
 
             player = event.getSource().getRoom().getPlayers().get(0);
 
+            //This hurts to see now that we have the info giver
             if (!said[5]) {
 
                 if (timeElapsed < 1000) {
@@ -60,6 +78,7 @@ public class CrankyOldMan extends DefaultNPC {
                         event.getSource().say("It's dangerous to go alone. Take this!");
                         said[4] = true;
                         event.getSource().getDataStorage().set(1, said);
+                        //Give the player the most useless mallet
                         player.getInventory().add(new UselessMallet().makeWeapon());
                         player.sendMessage("[Notice]: You have received a Ramshackle Mallet!");
                     }

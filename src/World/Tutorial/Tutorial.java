@@ -1,6 +1,5 @@
 package World.Tutorial;
 
-import CombatHandler.Weapons.Weapon;
 import GamePieces.Item;
 import GamePieces.Room;
 import Generator.WeaponGenerator;
@@ -8,23 +7,47 @@ import NPCHandler.*;
 
 import java.util.ArrayList;
 
+/**
+ * Tutorial level to orient the player
+ * <p>
+ * Date Last Modified: 12/15/2019
+ *
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ * <p>
+ * CS1131, Fall 2019
+ * Lab Section 2
+ */
 public class Tutorial {
-    private Room start, startWest, startNorth, startEast, startSouth, monsterRoom, dragonSlayer, dragonRoom, moneyAndGlory, end;
-    private Item key;
 
-    private NPC dragon, grue, michael;
-    private NPC northEastForce, southForce, crankyOldMan, westForce, startNPC;
+    //Rooms in the level
+    private Room start, startWest, startNorth, startEast, startSouth, monsterRoom, dragonSlayer, dragonRoom, moneyAndGlory;
+
+    private NPC michael;
+    private NPC northEastForce;
+    private NPC southForce;
+    private NPC westForce;
+    private NPC startNPC;
+
+    //Template for after boss fight
     private NPCTemplate michael2;
 
+    /**
+     * Constructor for the tutorial level
+     */
     public Tutorial() {
+        //Make the rooms
         createRooms();
+        //Put items in the rooms
         addItems();
+        //Put most NPCs in the rooms
         addNPCs();
 
+        //This guy's cranky
         CrankyOldMan crankyOldMan = new CrankyOldMan();
-        this.crankyOldMan = new NPC(crankyOldMan);
-        startNorth.addNPC(this.crankyOldMan);
+        NPC crankyOldMan1 = new NPC(crankyOldMan);
+        startNorth.addNPC(crankyOldMan1);
 
+        //Set up the Dragon
         ArrayList<Room> batBounds = new ArrayList<>();
         batBounds.add(monsterRoom);
         batBounds.add(start);
@@ -33,22 +56,29 @@ public class Tutorial {
         deletable.add(southForce);
         deletable.add(northEastForce);
         deletable.add(westForce);
-        deletable.add(this.crankyOldMan);
+        deletable.add(crankyOldMan1);
         deletable.add(startNPC);
-        dragon = new NPC(new Dragon(bat, startNorth, michael, michael2, deletable));
+        //NPCs
+        NPC dragon = new NPC(new Dragon(bat, startNorth, michael, michael2, deletable));
         dragonRoom.addNPC(dragon);
 
-        grue = new NPC(new Grue("Grue"));
+        //Set up the Grue
+        NPC grue = new NPC(new Grue("Grue"));
         monsterRoom.addNPC(grue);
 
 
     }
 
+    /**
+     * Add the NPCs to their rooms
+     */
     private void addNPCs() {
+        //Key stopper
         moneyAndGlory.addNPC(new MoneyAndGloryNPC().createNPC());
         this.startNPC = new NPC(new StartNPC());
         start.addNPC(this.startNPC);
 
+        //Tutorial npcs
         InfoGiver northEastForce = new InfoGiver("Great Northeastern Force");
         northEastForce.addLine("If you type 'inventory' you can view your items.");
         northEastForce.addLine("Don't mind the Great Northern Force, he's in a bad mood.");
@@ -63,13 +93,18 @@ public class Tutorial {
         this.westForce = new NPC(new WesternForce());
         startWest.addNPC(westForce);
 
+        //Michael the Rubik's Cube Knight
         michael = new NPC(new DragonSlayerGhost());
         michael2 = new DragonSlayerGhost2();
         dragonSlayer.addNPC(michael);
     }
 
+    /**
+     * Add the items to their rooms
+     */
     private void addItems() {
-        key = new Key();
+        //Key to orient the player
+        Item key = new Key();
         dragonRoom.getInteractables().add(key);
         WeaponGenerator weaponGenerator = new WeaponGenerator();
         startWest.getInteractables().add(weaponGenerator.weapon());
@@ -77,6 +112,9 @@ public class Tutorial {
         moneyAndGlory.addInteractable(new Portal());
     }
 
+    /**
+     * Create and link the rooms
+     */
     private void createRooms() {
         start = new Room("Tutorial Level",
                 "You are in a square blue room with smooth walls.\nIt smells vaguely of adventure.\n" +
@@ -134,12 +172,12 @@ public class Tutorial {
         dragonRoom.setWest(dragonSlayer);
     }
 
-
+    /**
+     * Gets the start room for adding the player
+     *
+     * @return the start room
+     */
     public Room getStart() {
         return this.start;
-    }
-
-    public Room getEnd() {
-        return this.end;
     }
 }

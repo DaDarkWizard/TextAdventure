@@ -1,6 +1,20 @@
 package World.Tutorial;
 
+/**
+ * A tutorial NPC for the West Room
+ * <p>
+ * Date Last Modified: 12/14/2019
+ *
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ * <p>
+ * CS1131, Fall 2019
+ * Lab Section 2
+ */
 public class WesternForce extends InfoGiver {
+
+    /**
+     * Constructor
+     */
     public WesternForce() {
         super("Great Western Force");
         this.addLine("You are about to enter combat with what is known as a 'Grue'.");

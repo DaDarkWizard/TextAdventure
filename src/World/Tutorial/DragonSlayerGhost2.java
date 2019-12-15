@@ -2,7 +2,21 @@ package World.Tutorial;
 
 import NPCHandler.NPCRunListener;
 
+/**
+ * Second dialogue Dragon Slayer Ghost
+ * <p>
+ * Date Last Modified: 12/14/2019
+ *
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ * <p>
+ * CS1131, Fall 2019
+ * Lab Section 2
+ */
 public class DragonSlayerGhost2 extends InfoGiver {
+
+    /**
+     * Constructor to set up dialogue
+     */
     public DragonSlayerGhost2() {
         super("Sir Michael the Rubix's Cube Knight");
         this.addLine("My friend, you have won! But your trials aren't done.");
@@ -15,6 +29,7 @@ public class DragonSlayerGhost2 extends InfoGiver {
         this.addLine("said it would, 'gainst the bat would cause you to dine");
         this.addLine("in Valhalla if you tried to hold the line.");
         this.dataStorage.add(true);
+        //Custom dialogue
         this.dataStorage.set(4, (NPCRunListener) event -> {
             if ((boolean) event.getSource().getDataStorage().get(5)) {
                 event.getSource().getDataStorage().set(5, false);
