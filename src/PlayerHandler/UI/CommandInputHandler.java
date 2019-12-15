@@ -26,6 +26,7 @@ public class CommandInputHandler {
         if (input.trim().equals("")) {
             return null;
         }
+        input = input.toLowerCase().trim();
         Commands commands = InputHandler.getCommand(new Scanner(input).next());
         if (commands == null) {
             return null;

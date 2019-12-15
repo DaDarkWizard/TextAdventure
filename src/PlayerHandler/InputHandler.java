@@ -55,10 +55,12 @@ public class InputHandler {
             return Commands.stats;
         }else if (command.equals("go")) {
             return Commands.skip;
-        } else if (command.equals("SHUTDOWN")) {
+        } else if (command.equals("shutdown")) {
             return Commands.SHUTDOWN;
-        } else if (command.equals("SERVERMESSAGE")) {
+        } else if (command.equals("servermessage")) {
             return Commands.SERVERMESSAGE;
+        } else if (command.equals("exit")) {
+            return Commands.EXIT;
         } else if (command.equals("look")) {
             return Commands.look;
         } else if (command.equals("attack")) {
@@ -101,9 +103,6 @@ public class InputHandler {
         player.setLastCommand(command);
         String newInput;
         switch (command) {
-            case EXIT:
-
-                break;
             case use:
                 scanner = new Scanner(input);
                 scanner.next();
