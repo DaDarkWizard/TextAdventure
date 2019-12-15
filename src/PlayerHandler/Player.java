@@ -55,6 +55,7 @@ public class Player implements Combatant {
         this.spiffness = 10;
         this.smarts = 10;
         this.moxy = 10;
+        calculateMaxHitpoints();
     }
 
     public void calculateMaxHitpoints() {
