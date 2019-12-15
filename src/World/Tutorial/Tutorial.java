@@ -27,7 +27,8 @@ public class Tutorial {
         batBounds.add(monsterRoom);
         batBounds.add(start);
         DireBat bat = new DireBat(batBounds);
-        dragon = new NPC(new Dragon(bat, startNorth, michael, michael2));
+        ArrayList<NPC> deletable = new ArrayList<>();
+        dragon = new NPC(new Dragon(bat, startNorth, michael, michael2, deletable));
         dragonRoom.addNPC(dragon);
 
         grue = new NPC(new Grue("Grue"));
