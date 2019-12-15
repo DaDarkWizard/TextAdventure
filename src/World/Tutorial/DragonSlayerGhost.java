@@ -32,6 +32,7 @@ public class DragonSlayerGhost extends InfoGiver {
                 }
                 if (!hasSword) {
                     player.getInventory().add(new DragonSlayerLongsword());
+                    player.sendMessage("[Notice]: You have received the Dragon Slayer Longsword of Dragon Slaying");
                 }
             }
         });

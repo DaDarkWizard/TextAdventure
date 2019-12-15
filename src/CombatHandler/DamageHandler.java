@@ -38,7 +38,6 @@ public class DamageHandler {
             for (Weapon weapon : player.getEquipped()) {
                 if (weapon.getAttackCommand() == command) {
                     weapon.useWeapon(player);
-                    System.out.println("used weapon: " + weapon.getShortDescription());
                 }
             }
         }

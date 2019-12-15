@@ -28,6 +28,7 @@ public class DefaultNPC implements NPCTemplate {
     protected NPCFindTargetListener npcFindTargetListener;      //For when the NPC has to choose a target
     protected ArrayList<Object> dataStorage = new ArrayList<>();//For the AI to store data
     protected NPCAttackListener npcAttackListener;              //For when the NPC makes an attack
+    protected NPCDeathListener npcDeathListener;                //For when the NPC dies
 
     /**
      * Creates the default with the name given
@@ -55,6 +56,21 @@ public class DefaultNPC implements NPCTemplate {
         this.maxHitpoints = maxHitpoints;
     }
 
+    /**
+     * Gets this NPC Template's death listener
+     *
+     * @return the NPCDeathListener
+     */
+    @Override
+    public NPCDeathListener getNPCDeathListener() {
+        return this.npcDeathListener;
+    }
+
+    /**
+     * Gets this npc's data storage array for AI storage
+     *
+     * @return the dataStorage ArrayList
+     */
     public ArrayList<Object> getDataStorage() {
         return this.dataStorage;
     }

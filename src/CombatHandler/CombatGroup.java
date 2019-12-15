@@ -1,6 +1,7 @@
 package CombatHandler;
 
 import CombatHandler.Weapons.TooFewCombatantsException;
+import NPCHandler.NPC;
 import PlayerHandler.Player;
 import PlayerHandler.PlayerStates;
 import PlayerHandler.UI.CombatFrame;
@@ -161,19 +162,27 @@ public class CombatGroup {
                 }
                 break;
             case calculate:
-                for (Combatant combatant : combatants) {
+                for (Player player : players) {
                     boolean fail = false;
-                    for (String word : combatant.getWords()) {
+                    for (String word : player.getWords()) {
                         AttackCommands command = parseAttackCommand(word);
                         if (command != null) {
                             if (!fail) {
-                                DamageHandler.calcAttack(combatant, command);
+                                DamageHandler.calcAttack(player, command);
                             } else {
                                 fail = false;
                             }
                         } else {
                             fail = true;
                         }
+                    }
+                }
+
+                for (Combatant combatant : combatants) {
+                    if (combatant instanceof NPC) {
+                        System.out.println(combatant.getName());
+                        ((NPC) combatant).findTarget();
+                        ((NPC) combatant).makeAttack();
                     }
                 }
 

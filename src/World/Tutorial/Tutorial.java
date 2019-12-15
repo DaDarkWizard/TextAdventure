@@ -8,11 +8,13 @@ import NPCHandler.Dragon;
 import NPCHandler.Grue;
 import NPCHandler.NPC;
 
+import java.util.ArrayList;
+
 public class Tutorial {
     private Room start, startWest, startNorth, startEast, startSouth, monsterRoom, dragonSlayer, dragonRoom, moneyAndGlory, end;
     private Item key;
 
-    private NPC dragon, grue;
+    private NPC dragon, grue, michael, michael2;
 
     public Tutorial() {
         createRooms();
@@ -22,7 +24,10 @@ public class Tutorial {
         CrankyOldMan crankyOldMan = new CrankyOldMan();
         startNorth.addNPC(new NPC(crankyOldMan));
 
-        dragon = new NPC(new Dragon("Dragon"));
+        ArrayList<Room> batBounds = new ArrayList<>();
+        batBounds.add(monsterRoom);
+        batBounds.add(start);
+        dragon = new NPC(new Dragon(batBounds, startNorth, michael, michael2));
         dragonRoom.addNPC(dragon);
 
         grue = new NPC(new Grue("Grue"));
@@ -49,8 +54,9 @@ public class Tutorial {
         startSouth.addNPC(new NPC(southernForce));
 
         startWest.addNPC(new NPC(new WesternForce()));
-
-        dragonSlayer.addNPC(new NPC(new DragonSlayerGhost()));
+        michael = new NPC(new DragonSlayerGhost());
+        michael2 = new NPC(new DragonSlayerGhost2());
+        dragonSlayer.addNPC(michael);
     }
 
     private void addItems() {

@@ -16,6 +16,7 @@ public class Monster implements NPCTemplate {
     protected NPCRunListener npcRunListener;
     protected NPCFindTargetListener npcFindTargetListener;
     protected NPCAttackListener npcAttackListener;
+    protected NPCDeathListener npcDeathListener;
     int count = 0;
 
     Monster(String name){
@@ -30,6 +31,7 @@ public class Monster implements NPCTemplate {
                     mostHealth = combatant;
                 }
             }
+            event.getSource().setTarget(mostHealth);
         };
         this.npcAttackListener = event -> {
             if (event.getNPC().getTarget() == null) {
@@ -39,6 +41,11 @@ public class Monster implements NPCTemplate {
                     event.getNPC().getTarget().getPendingDamage() + DamageHandler.rollDice(4)
             );
         };
+    }
+
+    @Override
+    public NPCDeathListener getNPCDeathListener() {
+        return this.npcDeathListener;
     }
 
     @Override

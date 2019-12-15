@@ -51,6 +51,7 @@ public class NPC implements Combatant {
     private NPCRunListener npcRunListener;
     private NPCFindTargetListener npcFindTargetListener;
     private NPCAttackListener npcAttackListener;
+    private NPCDeathListener npcDeathListener;
     private ArrayList<Object> dataStorage;
 
     /**
@@ -75,7 +76,8 @@ public class NPC implements Combatant {
         NPCRunListener npcRunListener,
         NPCFindTargetListener npcFindTargetListener,
         ArrayList<Object> dataStorage,
-        NPCAttackListener npcAttackListener) {
+        NPCAttackListener npcAttackListener,
+        NPCDeathListener npcDeathListener) {
 
         this.rpsChoice = combatChoice;
         this.weapons = weapons;
@@ -92,6 +94,7 @@ public class NPC implements Combatant {
         this.npcFindTargetListener = npcFindTargetListener;
         this.dataStorage = dataStorage;
         this.npcAttackListener = npcAttackListener;
+        this.npcDeathListener = npcDeathListener;
 
         npcs.add(this);
     }
@@ -121,9 +124,17 @@ public class NPC implements Combatant {
         this.npcFindTargetListener = template.getNPCFindTargetListener();
         this.dataStorage = template.getDataStorage();
         this.npcAttackListener = template.getNPCAttackListener();
+        this.npcDeathListener = template.getNPCDeathListener();
         template.increment();
 
         npcs.add(this);
+    }
+
+    public void runDeath() {
+        NPCDeathEvent event = new NPCDeathEvent(this);
+        if (this.npcDeathListener != null) {
+            this.npcDeathListener.handle(event);
+        }
     }
 
     public void makeAttack() {
@@ -404,7 +415,11 @@ public class NPC implements Combatant {
             currentHitpoints = 0;
         }
         if (currentHitpoints < 1) {
-            this.getRoom().removeNPC(this);
+            runDeath();
+            if (this.getRoom() != null) {
+                this.getRoom().removeNPC(this);
+            }
+            npcs.remove(this);
         }
 
 

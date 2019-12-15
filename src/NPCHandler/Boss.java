@@ -15,6 +15,8 @@ public class Boss implements NPCTemplate{
     protected NPCRunListener npcRunListener;
     protected NPCFindTargetListener npcFindTargetListener;
     protected NPCAttackListener npcAttackListener;
+    protected NPCDeathListener npcDeathListener;
+    protected ArrayList<Object> dataStorage;
     int count = 0;
 
     public Boss(String name) {
@@ -42,8 +44,13 @@ public class Boss implements NPCTemplate{
     }
 
     @Override
+    public NPCDeathListener getNPCDeathListener() {
+        return this.npcDeathListener;
+    }
+
+    @Override
     public ArrayList<Object> getDataStorage() {
-        return null;
+        return this.dataStorage;
     }
 
     @Override

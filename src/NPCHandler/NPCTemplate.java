@@ -46,5 +46,7 @@ public interface NPCTemplate {
 
     NPCAttackListener getNPCAttackListener();
 
+    NPCDeathListener getNPCDeathListener();
+
     void increment();
 }
