@@ -15,10 +15,12 @@ import java.util.Scanner;
  * Lab Section 2
  */
 public class CommandInputHandler {
-    public CommandInputHandler() {
 
-    }
-
+    /**
+     * Handles Input from commands from the player
+     * @param input the command
+     * @return the command it typed if any
+     */
     public Commands handleInput(String input) {
 
         if (input.trim().equals("")) {
