@@ -97,6 +97,12 @@ public class InputHandler {
         return null;
     }
 
+    /**
+     * Handles Input
+     * @param input the input to handle
+     * @param player the player inputing
+     * @return the frame
+     */
     public Frame handleInput(String input, Player player) {
         Frame output = new StandardFrame();                          //The output to send to the player
         MessageEvent messageEvent;
@@ -428,6 +434,12 @@ public class InputHandler {
         return output;
     }
 
+    /**
+     * Checks inventory of a player
+     * @param player the player who's inventory it is
+     * @param name the name of the item
+     * @return the item
+     */
     private Holdable checkInventory(Player player, String name) {
         Holdable check = null;
         for (Holdable holdable : player.getInventory()) {
@@ -442,6 +454,12 @@ public class InputHandler {
         return check;
     }
 
+    /**
+     * Makes sure something is equiptable
+     * @param player the player trying
+     * @param holdable the thing to check
+     * @return if it can or not
+     */
     private boolean verifyEquippable(Player player, Holdable holdable) {
         if (!(holdable instanceof Weapon)) {
             return false;
@@ -455,6 +473,13 @@ public class InputHandler {
         return true;
     }
 
+    /**
+     * Finds objects description
+     * @param player the player
+     * @param command the command
+     * @param name the name
+     * @return the description
+     */
     public String findObjectDescription(Player player, Commands command, String name) {
         name = removeFillerWords(name);
         String output = "";
@@ -476,6 +501,11 @@ public class InputHandler {
         return output;
     }
 
+    /**
+     * Removes Filler words
+     * @param input the string to remove from
+     * @return filler words gone from the input
+     */
     public String removeFillerWords(String input) {
         ArrayList<String> words = new ArrayList<>();
         Scanner scanner = new Scanner(input);
@@ -495,14 +525,26 @@ public class InputHandler {
         return output.toString();
     }
 
+    /**
+     * Sets the MessageListener
+     * @param listener the listener to set
+     */
     public void setMessageListener(MessageListener listener) {
         messageListener = listener;
     }
 
+    /**
+     * Sets the ServerCommandListener
+     * @param listener the listener to set
+     */
     public void setServerCommandListener(ServerCommandListener listener) {
         serverCommandListener = listener;
     }
 
+    /**
+     * Passes an event to a different input handler if it somehow got through
+     * @param event the event to handle
+     */
     public void handleServerCommand(ServerCommandEvent event) {
         if (serverCommandListener == null) {
             return;
@@ -510,6 +552,10 @@ public class InputHandler {
         serverCommandListener.handle(event);
     }
 
+    /**
+     * Handles Message to players
+     * @param event the event to sends
+     */
     public void handleMessage(MessageEvent event) {
         if (messageListener == null) {
             return;

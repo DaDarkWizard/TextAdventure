@@ -13,29 +13,39 @@ import PlayerHandler.UI.UpdateListener;
 
 import java.util.ArrayList;
 
+/**
+ * This class makes a player
+ * <p>
+ * Date Last Modified: 12/14/2019
+ *
+ * @author Daniel Masker, Ben Hodsdon, Joe Teahen, Emma Smith
+ * <p>
+ * CS 1131, Fall 2019
+ * Lab Section 2
+ */
 public class Player implements Combatant {
-    public static ArrayList<Player> players = new ArrayList<>();
+    public static ArrayList<Player> players = new ArrayList<>(); //arraylist of players
 
     //General stuff
-    private long connectionID;
-    private Commands lastCommand;
-    private PlayerStates state = PlayerStates.initializing;
-    private boolean admin = false;
-    private String username;
-    private String password;
-    private Room location;
-    private Room lastLocation;
-    private boolean online = true;
-    private ArrayList<Player> blockedPlayers = new ArrayList<>();
-    private ArrayList<Holdable> items = new ArrayList<>();
-    private InfoListener infoEventListener;
-    private UpdateListener updateEventListener;
-    private Frame lastFrame;
+    private long connectionID; //connection ID
+    private Commands lastCommand; //a player's last command
+    private PlayerStates state = PlayerStates.initializing; //A player's state
+    private boolean admin = false; //admin class or not
+    private String username; //username
+    private String password; //passoword
+    private Room location; //location
+    private Room lastLocation; //last location
+    private boolean online = true; //if they are online or not
+    private ArrayList<Player> blockedPlayers = new ArrayList<>(); //blocked players
+    private ArrayList<Holdable> items = new ArrayList<>(); //items the player holds
+    private InfoListener infoEventListener; //infoEventListener
+    private UpdateListener updateEventListener; //updateEventListener
+    private Frame lastFrame; //last frame for the player
 
     //For combat
-    private ArrayList<Weapon> equipped = new ArrayList<>();
-    private int hitpoints;
-    private int maxHitpoints;
+    private ArrayList<Weapon> equipped = new ArrayList<>(); //what is equipped for the player
+    private int hitpoints; //a player's hit points
+    private int maxHitpoints; //maxHitp
     private int brawn, spiffness, smarts, moxy;
     private Combatant target;
     private CombatGroup combatGroup;

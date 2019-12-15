@@ -12,10 +12,14 @@ import NPCHandler.Boss;
  * Lab Section 2
  */
 public class RandomBoss {
-        public Boss boss(){
+    /**
+     * Constructs a random boss
+     * @return the boss
+     */
+    public Boss boss(){
             String name = RandomFileParser.RandomString("Text/bossName.txt");
             String monster = RandomFileParser.RandomString("Text/bossMonsterNames.txt");
             String color = RandomFileParser.RandomString("Text/color.txt");
             return new Boss(name + " the " + color + " " + monster);
-        }
+    }
 }

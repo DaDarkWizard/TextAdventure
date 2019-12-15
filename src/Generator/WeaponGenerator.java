@@ -4,10 +4,8 @@ import CombatHandler.AttackCommands;
 import CombatHandler.DamageHandler;
 import CombatHandler.Weapons.StatHandler;
 import CombatHandler.Weapons.Weapon;
-import CombatHandler.Weapons.WeaponUseEvent;
 import CombatHandler.Weapons.WeaponUseListener;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 /**
@@ -20,16 +18,17 @@ import java.util.HashMap;
  * Lab Section 2
  */
 public class WeaponGenerator {
-    private HashMap<String, AttackCommands> commandHashMap = new HashMap<>();
-    private HashMap<String, Integer> diceHashMap = new HashMap<>();
-    private HashMap<String, Integer> gradeHashMap = new HashMap<>();
-    private HashMap<String, WeaponUseListener> listenerHashMap = new HashMap<>();
-    private HashMap<AttackCommands, StatHandler.Stats> statsHashMap = new HashMap<>();
+    private HashMap<String, AttackCommands> commandHashMap = new HashMap<>(); //hash map for commands
+    private HashMap<String, Integer> diceHashMap = new HashMap<>(); //hash map for dice sides
+    private HashMap<String, Integer> gradeHashMap = new HashMap<>(); //hash map for grade value
+    private HashMap<String, WeaponUseListener> listenerHashMap = new HashMap<>(); //hash map for listeners
+    private HashMap<AttackCommands, StatHandler.Stats> statsHashMap = new HashMap<>(); //has map for stats
 
     /**
      * Establishes every weapon component to a hashmap to allow for randomized description and stat assignment
      */
     public WeaponGenerator(){
+        //sets up stats hash map
         statsHashMap.put(AttackCommands.smash, StatHandler.Stats.brawn);
         statsHashMap.put(AttackCommands.slash, StatHandler.Stats.brawn);
         statsHashMap.put(AttackCommands.cast, StatHandler.Stats.smerts);
@@ -38,6 +37,7 @@ public class WeaponGenerator {
         statsHashMap.put(AttackCommands.chuck, StatHandler.Stats.spiffness);
         statsHashMap.put(AttackCommands.play, StatHandler.Stats.moxy);
 
+        //sets up command hash map
         commandHashMap.put("Hammer", AttackCommands.smash);
         commandHashMap.put("Club", AttackCommands.smash);
         commandHashMap.put("Mallet", AttackCommands.smash);
@@ -70,6 +70,7 @@ public class WeaponGenerator {
         commandHashMap.put("Cowbell", AttackCommands.play);
         commandHashMap.put("Kazoo", AttackCommands.play);
 
+        //sets up dice hash map
         diceHashMap.put("Hammer", 6);
         diceHashMap.put("Club", 5);
         diceHashMap.put("Mallet", 4);
@@ -78,9 +79,7 @@ public class WeaponGenerator {
         diceHashMap.put("Sword", 8);
         diceHashMap.put("Axe", 7);
         diceHashMap.put("Mace", 9);
-
         diceHashMap.put("Brass Knuckes", 12);
-
         diceHashMap.put("Staff", 12);
         diceHashMap.put("Wand", 10);
         diceHashMap.put("Ring", 8);
@@ -88,18 +87,14 @@ public class WeaponGenerator {
         diceHashMap.put("Charm", 5);
         diceHashMap.put("Token", 4);
         diceHashMap.put("Totem", 6);
-
         diceHashMap.put("Dirk", 12);
         diceHashMap.put("Dagger", 10);
         diceHashMap.put("Spear", 9);
-
         diceHashMap.put("Shortbow", 9);
         diceHashMap.put("Longbow", 10);
         diceHashMap.put("Crossbow", 12);
-
         diceHashMap.put("Throwing Knives", 12);
         diceHashMap.put("Hatchets", 10);
-
         diceHashMap.put("Flute", 6);
         diceHashMap.put("Lute", 7);
         diceHashMap.put("Panpipe", 5);
@@ -108,6 +103,7 @@ public class WeaponGenerator {
         diceHashMap.put("Cowbell", 12);
         diceHashMap.put("Kazoo", 10);
 
+        //sets up grad hash map
         gradeHashMap.put("Ramshackle", -5);
         gradeHashMap.put("Patchwork", -4);
         gradeHashMap.put("Ungodly", -3);
@@ -141,7 +137,9 @@ public class WeaponGenerator {
         gradeHashMap.put("Legendary", 5);
 
         /**
-         * I don't care what Joe says, I'm not commenting every single one of these. They are listeners, they listen for adjectives. That's it
+         * Sets up listener for each adjective
+         *
+         * Each one handles all the weapons damage and does some extra affect
          */
         listenerHashMap.put("Wicked", e -> {
             if(e.getSource().getTarget() == null){

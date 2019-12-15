@@ -18,15 +18,19 @@ import java.util.Arrays;
  * Lab Section 2
  */
 public class Boss implements NPCTemplate{
-    String name = ""; //the name
-    protected NPCMeetSomeoneListener npcMeetSomeoneListener;
-    protected NPCRunListener npcRunListener;
-    protected NPCFindTargetListener npcFindTargetListener;
-    protected NPCAttackListener npcAttackListener;
-    protected NPCDeathListener npcDeathListener;
-    protected ArrayList<Object> dataStorage;
-    int count = 0;
+    String name = ""; //the name of the boss
+    protected NPCMeetSomeoneListener npcMeetSomeoneListener; //the npcMeetSomeoneListener
+    protected NPCRunListener npcRunListener; //the npcRunListener
+    protected NPCFindTargetListener npcFindTargetListener; //the npcFindTargetListener
+    protected NPCAttackListener npcAttackListener; //the npcAttackListener
+    protected NPCDeathListener npcDeathListener; //the npcDeathListener
+    protected ArrayList<Object> dataStorage; //the dataStorage
+    int count = 0; //the count of how many times this template is used
 
+    /**
+     * Constructor for Boss
+     * @param name the name of the boss
+     */
     public Boss(String name) {
         this.name = name;
         this.npcFindTargetListener = event -> {
@@ -51,81 +55,144 @@ public class Boss implements NPCTemplate{
         };
     }
 
+    /**
+     * Gets the NPCDeathListener
+     * @return NPCDeathListener
+     */
     @Override
     public NPCDeathListener getNPCDeathListener() {
         return this.npcDeathListener;
     }
 
+    /**
+     * Gets the data storage
+     * @return data storage
+     */
     @Override
     public ArrayList<Object> getDataStorage() {
         return this.dataStorage;
     }
 
+    /**
+     * Gets the NPCAttackListener
+     * @return NPCAttackListener
+     */
     @Override
     public NPCAttackListener getNPCAttackListener() {
         return this.npcAttackListener;
     }
 
+    /**
+     * Gets the NPCFindTargetListener
+     * @return NPCFindTargetListener
+     */
     @Override
     public NPCFindTargetListener getNPCFindTargetListener() {
         return this.npcFindTargetListener;
     }
 
+    /**
+     * Gets the Max hit points
+     * @return
+     */
     @Override
     public int getMaxHitpoints() {
         return 100;
     }
 
+    /**
+     * Gets the moxy of the boss
+     * @return moxy
+     */
     @Override
     public int getMoxy() {
         return 20;
     }
 
+    /**
+     * Gets the brawn of the boss
+     * @return brawn
+     */
     @Override
     public int getBrawn() {
         return 20;
     }
 
+    /**
+     * Gets the spiffness of the boss
+     * @return spiffness
+     */
     @Override
     public int getSpiffness() {
         return 20;
     }
 
+    /**
+     * Gets the smerts of the boss
+     * @return smerts
+     */
     @Override
     public int getSmarts() {
         return 20;
     }
 
+    /**
+     * Gets the name of the boss
+     * @return the name
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the weapons of the boss
+     * @return weapons
+     */
     @Override
     public ArrayList<Weapon> getWeapons() {
         return null;
     }
 
+    /**
+     * Gets the combat words of the boss
+     * @return combat words
+     */
     @Override
     public ArrayList<String> getCombatWords() {
         return new ArrayList<>(Arrays.asList("Hit"));
     }
 
+    /**
+     * Gest the RPS choice of the boss
+     * @return the RPS choice
+     */
     @Override
     public CombatGroup.rpsChoice getRPSChoice() {
         return CombatGroup.rpsChoice.fight;
     }
 
+    /**
+     * Gets the NPCMeetSomeoneListener
+     * @return NPCMeetSomeoneListener
+     */
     @Override
     public NPCMeetSomeoneListener getNPCMeetSomeoneListener() {
         return npcMeetSomeoneListener;
     }
 
+    /**
+     * Gets the NPCRunListener
+     * @return NPCRunListener
+     */
     @Override
     public NPCRunListener getNPCRunListener() {
         return npcRunListener;
     }
 
+    /**
+     * Increments the use of the template
+     */
     @Override
     public void increment() {
         count++;

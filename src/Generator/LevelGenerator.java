@@ -16,15 +16,15 @@ import java.util.Arrays;
  * Lab Section 2
  */
 public class LevelGenerator {
-    private Room start;
-    private Room end;
-    private ArrayList<Room> rooms = new ArrayList<>();
-    private int maxRooms;
-    private int roomCount = 0;
-    private int tries = 0;
-    private Room[][] roomMatrix;
-    private int size;
-    private RoomGenerator roomGenerator;
+    private Room start; //the start of the level
+    private Room end; //the end of the level
+    private ArrayList<Room> rooms = new ArrayList<>(); //the rooms
+    private int maxRooms; //max rooms
+    private int roomCount = 0; //the room count
+    private int tries = 0; //how many times the generator tries to make a room
+    private Room[][] roomMatrix; //room matrix
+    private int size; //size matrix
+    private RoomGenerator roomGenerator; //room generator for making room descriptions
 
     /**
      * Room generation constructor

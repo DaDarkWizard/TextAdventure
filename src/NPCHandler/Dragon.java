@@ -4,8 +4,24 @@ import CombatHandler.CombatGroup;
 import GamePieces.Room;
 
 import java.util.ArrayList;
-
+/**
+ * Generated a Dragon boss
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class Dragon extends Boss {
+    /**
+     * Constructor of the Dragon
+     * @param bat its bat minion
+     * @param batSpawn where the bat spawns
+     * @param deleteNPC NPC to delete
+     * @param addNPC NPC to add
+     * @param deletableNPCS NPCs to delete
+     */
     public Dragon(NPCTemplate bat, Room batSpawn, NPC deleteNPC, NPCTemplate addNPC, ArrayList<NPC> deletableNPCS) {
         super("Dragon");
         this.dataStorage = new ArrayList<>();

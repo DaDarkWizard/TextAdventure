@@ -19,6 +19,11 @@ public class StatHandler {
         smerts          // Intellect 
     }
 
+    /**
+     * Finds the stat used for defense against the attack of this stat type
+     * @param stats the stat used for the attack
+     * @return the corresponding stat
+     */
     public static Stats findDefensiveStat(Stats stats) {
         if (stats == Stats.moxy) {
             return Stats.smerts;
