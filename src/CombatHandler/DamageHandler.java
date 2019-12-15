@@ -4,6 +4,17 @@ import CombatHandler.Weapons.Weapon;
 import NPCHandler.NPC;
 import PlayerHandler.Player;
 
+/** 
+ * This class handles all things damge related
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
+
+
 public class DamageHandler {
     public static int rollDice(int sides) {
         if (sides < 1) {
@@ -19,7 +30,9 @@ public class DamageHandler {
      * @param combatant the one using the attack command
      * @param command   the command being used
      * @return true if command is successfully calculated, false otherwise
-     *///TOdo finish linking weapon
+     */
+    
+    //TOdo finish linking weapon
     public static boolean calcAttack(Combatant combatant, AttackCommands command) {
         if (combatant instanceof NPC) {
             ((NPC) combatant).findTarget();
