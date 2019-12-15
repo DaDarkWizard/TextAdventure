@@ -106,8 +106,9 @@ public class CharacterModificationInputHandler {
                 }
                 if (input.length() < 1 || hasWhitespace) {
                     player.getLastFrame().addLine("No whitespace!", true);
+                } else {
+                    characterCreating.addUsername(input);
                 }
-                characterCreating.addUsername(input);
                 break;
             case confirmUsername:
                 input = input.toLowerCase();

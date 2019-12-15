@@ -20,7 +20,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Handles the majority of player input, whenever they are in the normal state or the tutorial
+ * <p>
+ * Date Last Modified: 12/15/2019
+ *
+ * @author Daniel Masker, Ben Hodsdon, Joe Teahen, Emma Smith
+ * <p>
+ * CS 1131, Fall 2019
+ * Lab Section 2
+ */
 public class InputHandler {
+
+    //These arrays are for checking command input
     private static String[] east = {"e", "east", "right"};
     private static String[] west = {"w", "west", "left"};
     private static String[] north = {"n", "north", "up"};
@@ -30,8 +42,14 @@ public class InputHandler {
     private static String[] inventory = {"inventory", "items", "stuff"};
     private static String[] pickup = {"pickup", "grab", "get", "pick", "take"};
     private static String[] drop = {"drop", "throw", "remove", "delete"};
+
+    //Command in the case of moving a bad direction
     private static String badMove = "You can't move that direction.";
+
+    //For sending messages to players
     private MessageListener messageListener;
+
+    //
     private ServerCommandListener serverCommandListener;
 
     public static Commands getCommand(String command) {
@@ -123,16 +141,20 @@ public class InputHandler {
                         }
                     }
                     if (interactableFound != null && !multiple) {
-                        output.addLine("[use]: " + interactableFound.interact(player, Commands.use));
+                        output.addLine("[use]: " + interactableFound.interact(player, Commands.use), true);
                     } else if (interactableFound != null) {
-                        output.addLine("[use]: You need to be more specific!");
+                        output.addLine("[use]: You need to be more specific!", true);
                     } else {
-                        output.addLine("[use]: That item doesn't exist!");
+                        output.addLine("[use]: That item doesn't exist!", true);
                     }
                 } else {
-                    output.addLine("[use]: You need to specify an item!");
+                    output.addLine("[use]: You need to specify an item!", true);
                 }
-                break;
+                if (player.getState() == PlayerStates.normal) {
+                    return output;
+                } else {
+                    return player.getLastFrame();
+                }
             case equip:
                 scanner = new Scanner(input);
                 scanner.next();
@@ -144,18 +166,18 @@ public class InputHandler {
                     if (item != null) {
                         if (verifyEquippable(player, item)) {
                             player.getEquipped().add((Weapon) item);
-                            output.addLine("[equip]: You equip the " + item.getShortDescription());
+                            output.addLine("[equip]: You equip the " + item.getShortDescription(), true);
                         } else {
-                            output.addLine("[equip]: You already have something of that type equipped!");
+                            output.addLine("[equip]: You already have something of that type equipped!", true);
                         }
                     } else {
-                        output.addLine("[equip]: I can't find that item! Try to be more specific.");
+                        output.addLine("[equip]: I can't find that item! Try to be more specific.", true);
                     }
                 } else {
                     output = player.getLastFrame();
-                    output.addLine("[equip]: You need to specify a target!");
+                    output.addLine("[equip]: You need to specify a target!", true);
                 }
-                break;
+                return output;
             case dequip:
                 scanner = new Scanner(input);
                 scanner.next();
@@ -166,19 +188,19 @@ public class InputHandler {
                     output = player.getLastFrame();
                     if (item != null) {
                         if (player.getEquipped().contains(item)) {
-                            output.addLine("[dequip]: You dequip the " + item.getShortDescription());
+                            output.addLine("[dequip]: You dequip the " + item.getShortDescription(), true);
                             player.getEquipped().remove(item);
                         } else {
-                            output.addLine("[dequip]: I can't find that item! Try to be more specific.");
+                            output.addLine("[dequip]: I can't find that item! Try to be more specific.", true);
                         }
                     } else {
-                        output.addLine("[dequip]: I can't find that item! Try to be more specific.");
+                        output.addLine("[dequip]: I can't find that item! Try to be more specific.", true);
                     }
                 } else {
                     output = player.getLastFrame();
-                    output.addLine("[dequip]: You need to specify a target!");
+                    output.addLine("[dequip]: You need to specify a target!", true);
                 }
-                break;
+                return output;
             case restore:
                 new CharacterLoading().RestoreCharacter(player);
                 output = player.getLastFrame();
@@ -187,13 +209,13 @@ public class InputHandler {
                 try {
                     new CharacterSaving(player);
                     output = player.getLastFrame();
-                    output.addLine("[save]: You have successfully saved!");
+                    output.addLine("[save]: You have successfully saved!", true);
                 } catch (PlayerUninitializedException e) {
                     output = player.getLastFrame();
                     output.addLine("[save]: You haven't restored or created a character yet!", true);
                 } catch (PlayerUnknownException e) {
                     output = player.getLastFrame();
-                    output.addLine("[save]: You are an anomaly. One of a kind. A bug in the program!");
+                    output.addLine("[save]: You are an anomaly. One of a kind. A bug in the program!", true);
                 }
             case skip:
                 StringBuilder refresh = new StringBuilder();
@@ -208,8 +230,6 @@ public class InputHandler {
                     output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getEast());
-                    //output = new StandardFrame();
-                    //output.add(player.getLocation().getDescription());
                     return player.getLastFrame();
                 }
                 break;
@@ -219,8 +239,6 @@ public class InputHandler {
                     output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getWest());
-                    //output = new StandardFrame();
-                    //output.add(player.getLocation().getDescription());
                     return player.getLastFrame();
                 }
                 break;
@@ -230,8 +248,6 @@ public class InputHandler {
                     output.addLine(badMove);
                 } else {
                     player.setLocation(player.getLocation().getSouth());
-                    //output = new StandardFrame();
-                    //output.add(player.getLocation().getDescription());
                     return player.getLastFrame();
                 }
                 break;
@@ -240,18 +256,14 @@ public class InputHandler {
                     output.clearFrame();
                     output.addLine(badMove);
                 } else {
-
-                    //output = new StandardFrame();
-                    //output.add(player.getLocation().getDescription());
-
                     player.setLocation(player.getLocation().getNorth());
                     return player.getLastFrame();
                 }
                 break;
             case say:
-                String message = scanner.nextLine();
+                String message = scanner.nextLine().trim();
                 output = player.getLastFrame();
-                output.addLine("You say, \"" + message + "\" to everyone in the room.");
+                output.addLine("You say, \"" + message + "\" to everyone in the room.", true);
                 message = player.getUsername() + ": " + message;
                 for (Player receiver : player.getLocation().getPlayers()) {
                     if (player != receiver && !receiver.isBlocked(player)) {

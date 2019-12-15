@@ -10,6 +10,7 @@ public class Portal extends Furniture {
                         "I guess it has something to do with ripping a hole in the Space-Time Continuum.",
                 e -> {
                     new CharacterCreating().CreateCharacter(e.getPlayer());
+                    e.getPlayer().update();
                     return null;
                 });
         this.validNames.add("portal");

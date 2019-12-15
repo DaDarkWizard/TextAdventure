@@ -110,8 +110,6 @@ public class TechAdventure implements ConnectionListener {
 
 						break;
 					case TRANSMISSION_RECEIVED:
-						adventureServer.sendMessage(e.getConnectionID(), String.format(
-								"MESSAGE RECEIVED: connectionId=%d, data=%s", e.getConnectionID(), e.getData()));
 						player = Player.findClient(e.getConnectionID());
 
 						System.out.println("Player State: " + player.getState());

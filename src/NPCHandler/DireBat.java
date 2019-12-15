@@ -26,6 +26,11 @@ public class DireBat extends DefaultNPC {
                     event.getSource().getRoom().removeNPC(event.getSource());
                     newRoom.addNPC(event.getSource());
                     event.getSource().getDataStorage().set(0, System.currentTimeMillis());
+                    System.out.println("Bat moved: " + newRoom.getName());
+                }
+            } else {
+                if (event.getSource().getCombatGroup() == null && event.getSource().getRoom().getPlayers().size() > 0) {
+                    new CombatGroup(event.getSource().getRoom().getCombatants(), event.getSource());
                 }
             }
         };
