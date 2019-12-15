@@ -5,6 +5,15 @@ import CombatHandler.Combatant;
 import GamePieces.Item;
 import PlayerHandler.Player;
 
+/**
+ * Handles weapon methods and equip/dequip mechanics
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class Weapon extends Item {
     private AttackCommands attackCommand;
     private WeaponUseListener weaponUseListener;
@@ -12,7 +21,19 @@ public class Weapon extends Item {
     private int modifier;
     private StatHandler.Stats stat;
 
-    //Todo implement seductive
+    /**
+     * Assigns methods to establish the stats and characteristics of weapons
+     *
+     * @param name
+     * @param dice
+     * @param command
+     * @param stat
+     * @param grade
+     * @param modifier
+     * @param adjective
+     * @param listener
+     * @param verb
+     */
     public Weapon(String name, int dice, AttackCommands command, StatHandler.Stats stat, String grade, int modifier,
                   String adjective, WeaponUseListener listener, String verb) {
 
@@ -52,6 +73,11 @@ public class Weapon extends Item {
         return this.attackCommand;
     }
 
+    /**
+     * Handles equip mechanics
+     * @param player
+     * @return
+     */
     public String equip(Player player) {
         for (Weapon weapon : player.getEquipped()) {
             if (weapon.attackCommand == this.attackCommand) {
@@ -62,6 +88,11 @@ public class Weapon extends Item {
         return "You equip the " + this.getShortDescription() + ".";
     }
 
+    /**
+     * Handles dequip mechanics
+     * @param player
+     * @return
+     */
     public String dequip(Player player) {
         boolean equipped = false;
         for (Weapon weapon : player.getEquipped()) {
@@ -78,6 +109,10 @@ public class Weapon extends Item {
         }
     }
 
+    /**
+     * Allows players to use weapons if able
+     * @param combatant
+     */
     public void useWeapon(Combatant combatant) {
         WeaponUseEvent event = new WeaponUseEvent(combatant, this);
         if (weaponUseListener != null) {
