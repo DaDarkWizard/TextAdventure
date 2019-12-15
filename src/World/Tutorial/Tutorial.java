@@ -7,6 +7,7 @@ import Generator.WeaponGenerator;
 import NPCHandler.Dragon;
 import NPCHandler.Grue;
 import NPCHandler.NPC;
+import NPCHandler.NPCTemplate;
 
 import java.util.ArrayList;
 
@@ -14,7 +15,8 @@ public class Tutorial {
     private Room start, startWest, startNorth, startEast, startSouth, monsterRoom, dragonSlayer, dragonRoom, moneyAndGlory, end;
     private Item key;
 
-    private NPC dragon, grue, michael, michael2;
+    private NPC dragon, grue, michael;
+    private NPCTemplate michael2;
 
     public Tutorial() {
         createRooms();
@@ -55,7 +57,7 @@ public class Tutorial {
 
         startWest.addNPC(new NPC(new WesternForce()));
         michael = new NPC(new DragonSlayerGhost());
-        michael2 = new NPC(new DragonSlayerGhost2());
+        michael2 = new DragonSlayerGhost2();
         dragonSlayer.addNPC(michael);
     }
 

@@ -323,7 +323,7 @@ public class CombatGroup {
         } catch (IllegalArgumentException e) {
             return null;
         }
-        
+    }
     /**
     * Snags all the players in the room into combat
     */

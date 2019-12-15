@@ -244,7 +244,9 @@ public class TechAdventure implements ConnectionListener {
 
 					}
 					for (NPC npc : NPC.npcs) {
-						npc.run();
+						if (npc.getRoom() != null) {
+							npc.run();
+						}
 					}
 				}
 			} catch (ConcurrentModificationException e) {
