@@ -14,4 +14,12 @@ public class InteractEvent extends EventObject {
         this.sender = sender;
         this.command = command;
     }
+
+    public Player getPlayer() {
+        return this.sender;
+    }
+
+    public Commands getCommand() {
+        return this.command;
+    }
 }

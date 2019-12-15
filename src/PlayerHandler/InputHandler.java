@@ -101,6 +101,37 @@ public class InputHandler {
         player.setLastCommand(command);
         String newInput;
         switch (command) {
+            case EXIT:
+
+                break;
+            case use:
+                scanner = new Scanner(input);
+                scanner.next();
+                newInput = scanner.nextLine().toLowerCase().trim();
+                output = player.getLastFrame();
+                if (newInput.length() > 0) {
+                    Interactable interactableFound = null;
+                    boolean multiple = false;
+                    for (Interactable interactable : player.getLocation().getInteractables()) {
+                        if (interactable.isValidName(newInput)) {
+                            if (interactableFound == null) {
+                                interactableFound = interactable;
+                            } else {
+                                multiple = true;
+                            }
+                        }
+                    }
+                    if (interactableFound != null && !multiple) {
+                        output.addLine("[use]: " + interactableFound.interact(player, Commands.use));
+                    } else if (interactableFound != null) {
+                        output.addLine("[use]: You need to be more specific!");
+                    } else {
+                        output.addLine("[use]: That item doesn't exist!");
+                    }
+                } else {
+                    output.addLine("[use]: You need to specify an item!");
+                }
+                break;
             case equip:
                 scanner = new Scanner(input);
                 scanner.next();
@@ -234,7 +265,7 @@ public class InputHandler {
                     output.add(player.getLocation().getDescription());
                     player.setLastFrame(output);
                 } else {
-                    String normalized = removeFillerWords(scanner.nextLine());
+                    String normalized = scanner.nextLine().trim().toLowerCase();
                     scanner.close();
                     scanner = new Scanner(normalized);
                     Commands direction = getCommand(scanner.next());
@@ -247,7 +278,33 @@ public class InputHandler {
                         }
                     } else {
                         output = player.getLastFrame();
-                        output.addLine("[look]: " + findObject(player, command, normalized));
+                        Interactable interactableFound = null;
+                        boolean moreThanOne = false;
+                        for (Interactable interactable : player.getLocation().getInteractables()) {
+                            if (interactable.isValidName(normalized)) {
+                                if (interactableFound == null) {
+                                    interactableFound = interactable;
+                                } else {
+                                    moreThanOne = true;
+                                }
+                            }
+                        }
+                        for (Holdable holdable : player.getInventory()) {
+                            if (holdable.isValidName(normalized)) {
+                                if (interactableFound == null) {
+                                    interactableFound = holdable;
+                                } else {
+                                    moreThanOne = true;
+                                }
+                            }
+                        }
+                        if (interactableFound != null && !moreThanOne) {
+                            output.addLine("[look]: " + interactableFound.getLongDescription());
+                        } else if (interactableFound != null) {
+                            output.addLine("[look]: You need to be more specific!")
+                        } else {
+                            output.addLine("[look]: That item doesn't exist!")
+                        }
                     }
                 }
                 break;
@@ -349,7 +406,7 @@ public class InputHandler {
                 this.handleServerCommand(serverCommandEvent);
                 break;
             default:
-                output.addLine(findObject(player, command, scanner.nextLine()));
+                output.addLine(findObjectDescription(player, command, scanner.nextLine()));
                 if (output == null || output.isEmpty()) {
                     output = new StandardFrame();
                     output.addLine("You shouldn't be getting this.");
@@ -385,7 +442,7 @@ public class InputHandler {
         return true;
     }
 
-    public String findObject(Player player, Commands command, String name) {
+    public String findObjectDescription(Player player, Commands command, String name) {
         name = removeFillerWords(name);
         String output = "";
         search:

@@ -3,13 +3,20 @@ package GamePieces;
 import PlayerHandler.Commands;
 import PlayerHandler.Player;
 
-import javax.lang.model.element.NestingKind;
+import java.util.ArrayList;
 
 public class Furniture implements Interactable {
-    private String shortDescription = "";
-    private String longDescription = "";
-
+    private String shortDescription;
+    private String longDescription;
+    private ArrayList<String> validNames = new ArrayList<>();
     private InteractListener interactListener;
+
+    public Furniture(String shortDescription, String longDescription, InteractListener interactListener) {
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
+        this.interactListener = interactListener;
+        validNames.add(shortDescription.toLowerCase());
+    }
 
     @Override
     public String getLongDescription() {
@@ -37,7 +44,7 @@ public class Furniture implements Interactable {
 
     @Override
     public boolean isValidName(String name) {
-        return false;
+        return validNames.contains(name.trim().toLowerCase());
     }
 
     @Override
