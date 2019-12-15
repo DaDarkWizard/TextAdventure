@@ -50,7 +50,7 @@ public class CharacterCreating {
      * @param player
      */
     public void CreateCharacter(Player player) {
-        if (!(player.getUsername() == null || player.getUsername().equals(""))) {
+        if (!(player.getUsername() == null || player.getUsername().equals("") || player.getUsername().equals("Noob"))) {
             throw new PlayerInitializedException();
         }
 

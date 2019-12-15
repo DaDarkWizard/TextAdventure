@@ -13,6 +13,7 @@ public class Tutorial {
     private Item key;
 
     private NPC dragon, grue, michael;
+    private NPC northForce, northEastForce, southForce, crankyOldMan, westForce;
     private NPCTemplate michael2;
 
     public Tutorial() {
@@ -21,13 +22,19 @@ public class Tutorial {
         addNPCs();
 
         CrankyOldMan crankyOldMan = new CrankyOldMan();
-        startNorth.addNPC(new NPC(crankyOldMan));
+        this.crankyOldMan = new NPC(crankyOldMan);
+        startNorth.addNPC(this.crankyOldMan);
 
         ArrayList<Room> batBounds = new ArrayList<>();
         batBounds.add(monsterRoom);
         batBounds.add(start);
         DireBat bat = new DireBat(batBounds);
         ArrayList<NPC> deletable = new ArrayList<>();
+        deletable.add(northForce);
+        deletable.add(southForce);
+        deletable.add(northEastForce);
+        deletable.add(northForce);
+        deletable.add(this.crankyOldMan);
         dragon = new NPC(new Dragon(bat, startNorth, michael, michael2, deletable));
         dragonRoom.addNPC(dragon);
 
@@ -40,21 +47,25 @@ public class Tutorial {
     private void addNPCs() {
         moneyAndGlory.addNPC(new MoneyAndGloryNPC().createNPC());
         start.addNPC(new NPC(new StartNPC()));
-
         InfoGiver northForce = new InfoGiver("Great Northern Force");
         northForce.addLine("Head to the east, you fool.");
-        startNorth.addNPC(new NPC(northForce));
+        this.northForce = new NPC(northForce);
+        startNorth.addNPC(this.northForce);
 
         InfoGiver northEastForce = new InfoGiver("Great Northeastern Force");
         northEastForce.addLine("If you type 'inventory' you can view your items.");
         northEastForce.addLine("Don't mind the Great Northern Force, he's in a bad mood.");
         northEastForce.addLine("Head on south to continue.");
-        startEast.addNPC(new NPC(northEastForce));
+        this.northEastForce = new NPC(northEastForce);
+        startEast.addNPC(this.northEastForce);
 
         InfoGiver southernForce = new SouthernForce();
-        startSouth.addNPC(new NPC(southernForce));
+        this.southForce = new NPC(southernForce);
+        startSouth.addNPC(this.southForce);
 
-        startWest.addNPC(new NPC(new WesternForce()));
+        this.westForce = new NPC(new WesternForce());
+        startWest.addNPC(westForce);
+
         michael = new NPC(new DragonSlayerGhost());
         michael2 = new DragonSlayerGhost2();
         dragonSlayer.addNPC(michael);
