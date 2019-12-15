@@ -270,6 +270,10 @@ public class CombatGroup {
                 break;
         }
     }
+    
+    /**
+    *  Allows for messages between players 
+    */
 
     private void messageCombatants(String message) {
         for (Player player : players) {
