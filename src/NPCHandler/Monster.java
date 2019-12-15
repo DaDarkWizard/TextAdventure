@@ -2,6 +2,7 @@ package NPCHandler;
 
 import CombatHandler.CombatGroup;
 import CombatHandler.Combatant;
+import CombatHandler.DamageHandler;
 import CombatHandler.Weapons.Weapon;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
@@ -14,6 +15,7 @@ public class Monster implements NPCTemplate {
     protected NPCMeetSomeoneListener npcMeetSomeoneListener;
     protected NPCRunListener npcRunListener;
     protected NPCFindTargetListener npcFindTargetListener;
+    protected NPCAttackListener npcAttackListener;
     int count = 0;
 
     Monster(String name){
@@ -28,6 +30,14 @@ public class Monster implements NPCTemplate {
                     mostHealth = combatant;
                 }
             }
+        };
+        this.npcAttackListener = event -> {
+            if (event.getNPC().getTarget() == null) {
+                return;
+            }
+            event.getNPC().getTarget().setPendingDamage(
+                    event.getNPC().getTarget().getPendingDamage() + DamageHandler.rollDice(4)
+            );
         };
     }
 
@@ -94,6 +104,11 @@ public class Monster implements NPCTemplate {
     @Override
     public NPCRunListener getNPCRunListener() {
         return npcRunListener;
+    }
+
+    @Override
+    public NPCAttackListener getNPCAttackListener() {
+        return this.npcAttackListener;
     }
 
     @Override

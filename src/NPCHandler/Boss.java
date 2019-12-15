@@ -2,6 +2,7 @@ package NPCHandler;
 
 import CombatHandler.CombatGroup;
 import CombatHandler.Combatant;
+import CombatHandler.DamageHandler;
 import CombatHandler.Weapons.Weapon;
 
 import java.lang.reflect.Array;
@@ -13,6 +14,7 @@ public class Boss implements NPCTemplate{
     protected NPCMeetSomeoneListener npcMeetSomeoneListener;
     protected NPCRunListener npcRunListener;
     protected NPCFindTargetListener npcFindTargetListener;
+    protected NPCAttackListener npcAttackListener;
     int count = 0;
 
     public Boss(String name) {
@@ -28,11 +30,25 @@ public class Boss implements NPCTemplate{
                 }
             }
         };
+        this.npcAttackListener = event -> {
+            if (event.getNPC().getTarget() == null) {
+                return;
+            }
+
+            event.getNPC().getTarget().setPendingDamage(
+                    event.getNPC().getPendingDamage() + DamageHandler.rollDice(10)
+            );
+        };
     }
 
     @Override
     public ArrayList<Object> getDataStorage() {
         return null;
+    }
+
+    @Override
+    public NPCAttackListener getNPCAttackListener() {
+        return this.npcAttackListener;
     }
 
     @Override

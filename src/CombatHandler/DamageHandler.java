@@ -23,6 +23,7 @@ public class DamageHandler {
     public static boolean calcAttack(Combatant combatant, AttackCommands command) {
         if (combatant instanceof NPC) {
             ((NPC) combatant).findTarget();
+            ((NPC) combatant).makeAttack();
         }
         if (combatant.getTarget() == null) {
             return false;
