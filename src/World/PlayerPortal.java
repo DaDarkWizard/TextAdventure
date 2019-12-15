@@ -5,12 +5,25 @@ import GamePieces.Interactable;
 import PlayerHandler.Commands;
 import PlayerHandler.Player;
 
+/**
+ * Portal the player uses to go back to spawn
+ * <p>
+ * Date Last Modified: 12/13/2019
+ *
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ * <p>
+ * CS1131, Fall 2019
+ * Lab Section 2
+ */
 public class PlayerPortal implements Interactable {
 
-    private String shortDescription;
-    private String longDescription;
-    private String useDescription;
+    private String shortDescription;    //Description displayed in room
+    private String longDescription;     //Description displayed on look
+    private String useDescription;      //Description given when used
 
+    /**
+     * Initialized the portal
+     */
     public PlayerPortal() {
         this.shortDescription = "A large rune circle in the center of the room";
         this.longDescription = "A circle made of runes, often used as an instant form of travel across unknown distances.\n" +
@@ -24,16 +37,34 @@ public class PlayerPortal implements Interactable {
     }
 
 
+    /**
+     * Gets the short description
+     *
+     * @return the short Description
+     */
     @Override
     public String getShortDescription() {
         return shortDescription;
     }
 
+    /**
+     * Gets the description when examined by the player
+     *
+     * @param player the player examining
+     * @return just the longDescription
+     */
     @Override
     public String examine(Player player) {
-        return null;
+        return this.longDescription;
     }
 
+    /**
+     * Handles interaction with the object
+     *
+     * @param player  player interacting
+     * @param command command used to interact
+     * @return description of what happened
+     */
     @Override
     public String interact(Player player, Commands command) {
         if (command == Commands.look) {

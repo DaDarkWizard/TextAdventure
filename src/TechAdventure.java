@@ -30,7 +30,7 @@ public class TechAdventure implements ConnectionListener {
 	private AdventureServer adventureServer;                            //The server
 	private InputHandler inputHandler = new InputHandler();                //Input handler for normal input
 	private CommandInputHandler commandInputHandler = new CommandInputHandler();        //Input handler to check input commands
-	private CombatInputHandler combatInputHandler = new CombatInputHandler(this);        //Handles combat input
+	private CombatInputHandler combatInputHandler = new CombatInputHandler();        //Handles combat input
 	private CharacterModificationInputHandler characterModificationInputHandler;    //Handles character creation/restoration input
 	private ArrayList<Room> rooms = new ArrayList<>();        //For when we need to check the rooms
 	private static Room spawn;                                //The spawn to hold all initialized players

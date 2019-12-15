@@ -1,24 +1,36 @@
 import CombatHandler.CombatGroup;
-import GamePieces.Room;
 import PlayerHandler.Player;
 import PlayerHandler.PlayerStates;
 import PlayerHandler.UI.CombatFrame;
-import PlayerHandler.UI.StandardFrame;
 
 import java.util.Scanner;
 
+/**
+ * Handles input for Combat
+ * <p>
+ * Date Last Modified: 12/15/2019
+ *
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ * <p>
+ * CS1131, Fall 2019
+ * Lab Section 2
+ */
 public class CombatInputHandler {
-    private TechAdventure techAdventure;
 
-    public CombatInputHandler(TechAdventure techAdventure) {
-        this.techAdventure = techAdventure;
-    }
-
-    StandardFrame handleInput(String input, Player player) {
+    /**
+     * Handles raw player input
+     *
+     * @param input  the player input
+     * @param player the player inputting
+     */
+    void handleInput(String input, Player player) {
+        //Adds the input to the screen's log if it already exists
         if (player.getLastFrame() instanceof CombatFrame) {
             ((CombatFrame) player.getLastFrame()).addToCombatLog(input);
         }
+        //Where in combat is the player?
         switch (player.getCombatGroup().getCombatState()) {
+            //The player is choosing a target
             case startCombat:
                 try {
                     int choice = Integer.parseInt(input);
@@ -33,10 +45,12 @@ public class CombatInputHandler {
                     player.sendMessage("[" + input + "]: " + "must be an integer.");
                 }
                 break;
+            //Adds input as an attack
             case words:
                 player.getWords().add(input.toLowerCase());
                 player.update();
                 break;
+            //Player is choosing whether to fight, flee, or keep attacking
             case rps:
                 Scanner scanner = new Scanner(input.toLowerCase());
                 switch (scanner.next()) {
@@ -61,6 +75,5 @@ public class CombatInputHandler {
                         break;
                 }
         }
-        return null;
     }
 }
