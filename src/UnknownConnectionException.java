@@ -10,7 +10,7 @@
  * Lab Section 2
  */
 public class UnknownConnectionException extends Exception {
-    private long connectionId = 0L;
+    private long connectionId = 0L; //The connection ID in question
 
     // Constructor
     public UnknownConnectionException(long connectionId, String message) {
