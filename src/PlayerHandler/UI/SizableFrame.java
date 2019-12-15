@@ -1,19 +1,37 @@
 package PlayerHandler.UI;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.ToDoubleBiFunction;
-
+/**
+ * The class creates a sizable frame
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class SizableFrame extends Frame {
-    private ArrayList<String> lines = new ArrayList<>();
-    protected int height;
-    private int width;
+    private ArrayList<String> lines = new ArrayList<>(); //arrayList of lines
+    protected int height; //the height of the frame
+    private int width; //the width of the frame
 
+    /**
+     * SizableFrame constructor
+     *
+     * @param height the height
+     * @param width  the width
+     */
     public SizableFrame(int height, int width) {
         this.height = height;
         this.width = width;
     }
 
+    /**
+     * Gets the line
+     *
+     * @param line the line's index
+     * @return the line
+     */
     public String getLine(int line) {
         if (line > lines.size() - 1) {
             return "";
@@ -22,6 +40,11 @@ public class SizableFrame extends Frame {
     }
 
 
+    /**
+     * Gets the frame as a string
+     *
+     * @return the frame as a string
+     */
     @Override
     public String getOutput() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -42,16 +65,35 @@ public class SizableFrame extends Frame {
     }
 
 
+    /**
+     * Adds a line to the frame
+     *
+     * @param line the line necessary
+     * @return if it adds or not
+     */
     @Override
     public boolean addLine(String line) {
         return addLine(line, false);
     }
 
+    /**
+     * Adds a line to the frame
+     *
+     * @param line  the line necessary
+     * @param force if it deletes a line at the top so it can fit at the bottom or not
+     * @return if it adds or not
+     */
     @Override
     public boolean addLine(String line, boolean force) {
         return add(line + "\n", force);
     }
 
+    /**
+     * Adds text to the frame
+     *
+     * @param text the text necessary
+     * @return if it adds or not
+     */
     @Override
     public boolean add(String text) {
         return add(text, false);
@@ -104,32 +146,65 @@ public class SizableFrame extends Frame {
         }
     }
 
+    /**
+     * Adds a paragraph to the frame
+     *
+     * @param text  the paragraph necessary
+     * @param force if it deletes a line at the top so it can fit at the bottom or not
+     * @return if it adds or not
+     */
     @Override
     public boolean addParagraph(String text, boolean force) {
         text = "\n" + text + "\n";
         return add(text, force);
     }
 
+    /**
+     * Adds a paragraph to the frame
+     *
+     * @param text the paragraph necessary
+     * @return if it adds or not
+     */
     @Override
     public boolean addParagraph(String text) {
         return addParagraph(text, false);
     }
 
+    /**
+     * Adds a line to the frame
+     *
+     * @return if it adds or not
+     */
     @Override
     public boolean newLine() {
         return add("\n", true);
     }
 
+    /**
+     * Clears the frame
+     */
     @Override
     public void clearFrame() {
-
+        ArrayList<String> list = new ArrayList<>();
+        list.add("");
+        lines = list;
     }
 
+    /**
+     * if it is empty
+     *
+     * @return false
+     */
     @Override
     public boolean isEmpty() {
         return false;
     }
 
+    /**
+     * Gets the size of the lines arrayList
+     *
+     * @return the size of the lines arrayList
+     */
     public int getCurrentSize() {
         return lines.size();
     }

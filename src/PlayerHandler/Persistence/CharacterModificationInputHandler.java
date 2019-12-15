@@ -7,7 +7,15 @@ import PlayerHandler.UI.Frame;
 
 import java.util.Scanner;
 
-//Cool input handler
+/**
+ * Handles profile input
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class CharacterModificationInputHandler {
 
     private Room spawn;
@@ -28,6 +36,11 @@ public class CharacterModificationInputHandler {
         return player.getLastFrame();
     }
 
+    /**
+     * Processes character restoration
+     * @param input
+     * @param player
+     */
     private void handleCharacterRestoration(String input, Player player) {
         CharacterLoading characterLoading = CharacterLoading.findCharacterLoadingByPlayer(player);
 
@@ -71,6 +84,11 @@ public class CharacterModificationInputHandler {
         }
     }
 
+    /**
+     * Ensures that profile input is legal and valid
+     * @param input
+     * @param player
+     */
     private void handleCharacterCreation(String input, Player player) {
         CharacterCreating characterCreating = CharacterCreating.findCharacterCreatorByPlayer(player);
         if (characterCreating == null || characterCreating.getState() == null) {

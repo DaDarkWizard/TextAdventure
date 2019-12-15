@@ -12,6 +12,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+/**
+ * This class initializes character creation
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class CharacterCreating {
     private static ArrayList<CharacterCreating> characterCreators = new ArrayList<>();
 
@@ -36,6 +45,10 @@ public class CharacterCreating {
         createCharacterEnd
     }
 
+    /**
+     * Initializes the character creation panel
+     * @param player
+     */
     public void CreateCharacter(Player player) {
         if (!(player.getUsername() == null || player.getUsername().equals(""))) {
             throw new PlayerInitializedException();
@@ -57,6 +70,10 @@ public class CharacterCreating {
         characterCreators.add(this);
     }
 
+    /**
+     * Adds a username to persistent memory
+     * @param username
+     */
     public void addUsername(String username) {
         if (!(new File("Players/" + username + ".player").exists())) {
             this.username = username;
@@ -69,6 +86,10 @@ public class CharacterCreating {
         }
     }
 
+    /**
+     * Confirms that a username isn't already in use
+     * @param confirm
+     */
     public void confirmUsername(boolean confirm) {
         if (new File("Players/" + username + ".player").exists()) {
             player.getLastFrame().addLine("Ope! You were too slow.", true);
@@ -96,6 +117,10 @@ public class CharacterCreating {
         }
     }
 
+    /**
+     * Adds a password to a user profile
+     * @param password
+     */
     public void addPassword(String password) {
         this.password = password;
         player.getLastFrame().addLine("Password entered!", true);
@@ -103,6 +128,10 @@ public class CharacterCreating {
         this.state = CreateCharacterState.confirmPassword;
     }
 
+    /**
+     * Confirms that a password is valid
+     * @param password
+     */
     public void confirmPassword(String password) {
         if (password.equals(this.password)) {
             player.getLastFrame().addLine("Password confirmed!", true);
@@ -119,6 +148,9 @@ public class CharacterCreating {
         }
     }
 
+    /**
+     * Initializes and compiles character stat creation
+     */
     public void createCharacterMessage() {
         player.getLastFrame().addLine("Please enter the stats you would like.", true);
         player.getLastFrame().addLine("You choose values for Brawn, Spiffness, Smarts, and Moxy.", true);

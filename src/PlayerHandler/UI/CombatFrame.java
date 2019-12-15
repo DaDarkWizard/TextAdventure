@@ -1,33 +1,48 @@
 package PlayerHandler.UI;
 
 import CombatHandler.AttackCommands;
-import CombatHandler.CombatGroup;
 import PlayerHandler.Player;
 
 import java.util.ArrayList;
 
+/**
+ * The class creates a combat frame
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class CombatFrame extends Frame {
-    private ArrayList<AttackCommands> attackCommands = new ArrayList<>();
-    private Player player;
-    private SizableFrame console = new SizableFrame(11, 51);
-    private ArrayList<String> combatLog = new ArrayList<>();
-    public final int height = 28;
-    public final int width = 100;
-    String startTimer = "Start in: 5";
+    private ArrayList<AttackCommands> attackCommands = new ArrayList<>(); //the attack commands a player can use
+    private Player player; //the player
+    private SizableFrame console = new SizableFrame(11, 51); //sizable frame for the combat frame
+    private ArrayList<String> combatLog = new ArrayList<>(); //the commands used by the player
+    public final int height = 30; //the height of the frame
+    String startTimer = "Start in: 5"; //start of the timer
 
+    /**
+     * The CombatFrame constructor
+     * @param player
+     */
     public CombatFrame(Player player) {
         this.player = player;
     }
 
+    /**
+     * Changes the startTimer String
+     * @param startTimer
+     */
     public void updateStartTimer(String startTimer) {
         this.startTimer = startTimer;
     }
 
-    public void addAttackCommand(AttackCommands commands) {
-        attackCommands.add(commands);
-    }
-
-
+    /**
+     * Gets different lines of the stats of the player for combat
+     * @param line the line of the stats
+     * @return a string for the info
+     */
     private String getStatString(int line) {
         switch (line) {
             case 2:
@@ -50,6 +65,11 @@ public class CombatFrame extends Frame {
         return null;
     }
 
+    /**
+     * Gets the combat long string necessary
+     * @param line the line getting from
+     * @return the string for the combat long
+     */
     private String getCombatLogString(int line) {
         if (line < 14) {
             throw new IllegalArgumentException();
@@ -62,6 +82,11 @@ public class CombatFrame extends Frame {
         }
     }
 
+    /**
+     * Gets the combat commands possible and returns them as a string
+     * @param line the line getting from
+     * @return the string version of the commands possible
+     */
     private String getCommandsPossibleString(int line) {
         line -= 2;
         if (player.getCombatGroup() == null) {
@@ -101,14 +126,28 @@ public class CombatFrame extends Frame {
         return "";
     }
 
+    /**
+     * Gets the string for the console
+     * @param line the line necessary
+     * @return the string version of that line
+     */
     private String getConsoleString(int line) {
         return console.getLine(line);
     }
 
+    /**
+     * Gets the startTimer string
+     * @return the startTimer String
+     */
     private String getStartString() {
         return startTimer;
     }
 
+    /**
+     * Gets the inventory as a string
+     * @param line the line necessary
+     * @return the inventory line
+     */
     private String getInventoryString(int line) {
         if (line < 0) {
             throw new IllegalArgumentException();
@@ -127,6 +166,11 @@ public class CombatFrame extends Frame {
         return new InventoryFrame(player).getLine(line);
     }
 
+    /**
+     * Gets the commands used by the player as a string
+     * @param line the line necessary
+     * @return the string version of the commands
+     */
     private String getCommandsUsedString(int line) {
         if (line < 12) {
             return String.format("Commands 1.%-12.12s2.%-12.12s3.%-12.12s4.%-12.12s",
@@ -143,6 +187,11 @@ public class CombatFrame extends Frame {
         }
     }
 
+    /**
+     * Grabbing all the windows to making one big combat frame
+     * @param line the line necessary
+     * @return the string version of that line of the combat frame
+     */
     private String findFormat(int line) {
         if (line < 0) {
             throw new IllegalArgumentException();
@@ -188,6 +237,10 @@ public class CombatFrame extends Frame {
         }
     }
 
+    /**
+     * Gets the output of the combat frame
+     * @return the combat frame as a string
+     */
     @Override
     public String getOutput() {
         StringBuilder output = new StringBuilder();
@@ -200,63 +253,103 @@ public class CombatFrame extends Frame {
         return output.toString();
     }
 
-    private void addToConsole(String s) {
-        console.add(s, true);
-    }
-
+    /**
+     * Adds a line to combat frame
+     * @param line the line necessary
+     * @return if it adds
+     */
     @Override
     public boolean addLine(String line) {
         return this.addLine(line, true);
     }
 
+    /**
+     * Adds a line to the combat frame
+     * @param line the line necessary
+     * @param force if it deletes a line at the top so it can fit at the bottom or not
+     * @return if it adds
+     */
     @Override
     public boolean addLine(String line, boolean force) {
         return console.addLine(line, force);
     }
 
+    /**
+     * Adds a string to the console
+     * @param text the string to add
+     * @return if it adds or not
+     */
     @Override
     public boolean add(String text) {
         return console.add(text, true);
     }
 
+    /**
+     * Adds a string to the console
+     * @param text the string to add
+     * @param force if it deletes a line at the top so it can fit at the bottom or not
+     * @return if it adds or not
+     */
     @Override
     public boolean add(String text, boolean force) {
         return console.add(text, force);
     }
 
+    /**
+     * Adds a paragraph to the console
+     * @param text the string to add
+     * @param force if it deletes a line at the top so it can fit at the bottom or not
+     * @return if it adds or not
+     */
     @Override
     public boolean addParagraph(String text, boolean force) {
         return console.addParagraph(text, force);
     }
 
+    /**
+     * Adds a paragraph to the console
+     * @param text the string to add
+     * @return if it adds or not
+     */
     @Override
     public boolean addParagraph(String text) {
         return this.addParagraph(text, true);
     }
 
+    /**
+     * Adds a new line to the frame
+     * @return if it adds or not
+     */
     @Override
     public boolean newLine() {
         return console.newLine();
     }
 
+    /**
+     * Clears the frame
+     */
     @Override
     public void clearFrame() {
         console.clearFrame();
     }
 
+    /**
+     * Checks to see if the frame is empty
+     * @return false
+     */
     @Override
     public boolean isEmpty() {
         return false;
     }
 
+    /**
+     * Adds to the combat log
+     * @param input the command to add to log
+     */
     public void addToCombatLog(String input) {
         combatLog.add(input);
         if (combatLog.size() > 9) {
             combatLog.remove(0);
         }
-    }
-
-    public void clearCombatLog() {
-        combatLog.clear();
     }
 }

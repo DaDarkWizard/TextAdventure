@@ -2,9 +2,21 @@ package PlayerHandler.UI;
 
 import CombatHandler.Weapons.Weapon;
 import PlayerHandler.Player;
-
+/**
+ * The class creates a stats frame
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class StatsFrame extends SizableFrame {
 
+    /**
+     * Stats frame constructor
+     * @param player the player
+     */
     public StatsFrame(Player player) {
 
         super(11, 107);
