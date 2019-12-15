@@ -13,7 +13,7 @@ public class Tutorial {
     private Item key;
 
     private NPC dragon, grue, michael;
-    private NPC northForce, northEastForce, southForce, crankyOldMan, westForce;
+    private NPC northEastForce, southForce, crankyOldMan, westForce, startNPC;
     private NPCTemplate michael2;
 
     public Tutorial() {
@@ -30,11 +30,11 @@ public class Tutorial {
         batBounds.add(start);
         DireBat bat = new DireBat(batBounds);
         ArrayList<NPC> deletable = new ArrayList<>();
-        deletable.add(northForce);
         deletable.add(southForce);
         deletable.add(northEastForce);
-        deletable.add(northForce);
+        deletable.add(westForce);
         deletable.add(this.crankyOldMan);
+        deletable.add(startNPC);
         dragon = new NPC(new Dragon(bat, startNorth, michael, michael2, deletable));
         dragonRoom.addNPC(dragon);
 
@@ -46,11 +46,8 @@ public class Tutorial {
 
     private void addNPCs() {
         moneyAndGlory.addNPC(new MoneyAndGloryNPC().createNPC());
-        start.addNPC(new NPC(new StartNPC()));
-        InfoGiver northForce = new InfoGiver("Great Northern Force");
-        northForce.addLine("Head to the east, you fool.");
-        this.northForce = new NPC(northForce);
-        startNorth.addNPC(this.northForce);
+        this.startNPC = new NPC(new StartNPC());
+        start.addNPC(this.startNPC);
 
         InfoGiver northEastForce = new InfoGiver("Great Northeastern Force");
         northEastForce.addLine("If you type 'inventory' you can view your items.");

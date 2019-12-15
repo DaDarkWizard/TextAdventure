@@ -10,7 +10,7 @@ public class CrankyOldMan extends DefaultNPC {
     public CrankyOldMan() {
         super("Cranky Old Man");
         this.dataStorage.add((long) 0);
-        boolean[] dialog = new boolean[5];
+        boolean[] dialog = new boolean[6];
         Arrays.fill(dialog, false);
         this.dataStorage.add(dialog);
         this.npcFindTargetListener = event -> {
@@ -33,7 +33,7 @@ public class CrankyOldMan extends DefaultNPC {
 
             player = event.getSource().getRoom().getPlayers().get(0);
 
-            if (!said[4]) {
+            if (!said[5]) {
 
                 if (timeElapsed < 1000) {
 
@@ -55,13 +55,19 @@ public class CrankyOldMan extends DefaultNPC {
                         said[3] = true;
                         event.getSource().getDataStorage().set(1, said);
                     }
-                } else if (timeElapsed < 10000) {
+                } else if (timeElapsed < 5000) {
                     if (!said[4]) {
                         event.getSource().say("It's dangerous to go alone. Take this!");
                         said[4] = true;
                         event.getSource().getDataStorage().set(1, said);
                         player.getInventory().add(new UselessMallet().makeWeapon());
                         player.sendMessage("[Notice]: You have received a Ramshackle Mallet!");
+                    }
+                } else if (timeElapsed < 6000) {
+                    if (!said[5]) {
+                        event.getSource().say("Now head east, fool!");
+                        said[5] = true;
+                        event.getSource().getDataStorage().set(1, said);
                     }
                 }
             }
