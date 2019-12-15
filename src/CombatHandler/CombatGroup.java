@@ -203,8 +203,9 @@ public class CombatGroup {
                     if (damage < 0) {
                         damage = 0;
                     }
+                    System.out.println("Before heal: " + damage);
                     damage -= combatant.getPendingHeal();
-
+                    System.out.println("After heal: " + damage);
                     combatant.modifyHitpoints(damage * -1);
                     if (combatant.getHitPoints() < 1) {
                         messageCombatants(combatant.getName() + " is defeated!");

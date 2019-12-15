@@ -81,8 +81,13 @@ public class Item implements Holdable {
      */
     @Override
     public boolean isValidName(String name) {
-
-        return (Arrays.binarySearch(validNames, name) > -1);
+        //Binary search wasn't up to it
+        for (int i = 0; i < validNames.length; i++) {
+            if (validNames[i].equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

@@ -54,7 +54,26 @@ public class Weapon extends Item {
      * @param name the name
      */
     public Weapon(String name){
-        super(name, name, new String[]{"potion", name});
+        super(name, name + " of greater healing", new String[]{"potion", name.trim().toLowerCase()});
+        this.attackCommand = AttackCommands.potion;
+        this.setInteractEventListener(e -> {
+            int healing = (int) (Math.random() * 40);
+            int hurt = e.getPlayer().getMaxHitpoints() - e.getPlayer().getHitPoints();
+            if (healing > hurt) {
+                healing = hurt;
+            }
+
+            e.getPlayer().modifyHitpoints(healing);
+
+            return "The potion healed you for " + healing + " health!";
+        });
+        this.weaponUseListener = e -> {
+            e.getSource().setPendingHeal(e.getSource().getPendingHeal() + (int) (Math.random() * 40));
+            if (e.getSource() instanceof Player) {
+                ((Player) e.getSource()).getEquipped().remove(e.getWeapon());
+                ((Player) e.getSource()).getInventory().remove(e.getWeapon());
+            }
+        };
     }
 
     /**

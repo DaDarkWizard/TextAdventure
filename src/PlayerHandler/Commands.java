@@ -30,5 +30,6 @@ public enum Commands {
     save,
     use,
     equip,
-    dequip
+    dequip,
+    cheatcodesareboss42
 }

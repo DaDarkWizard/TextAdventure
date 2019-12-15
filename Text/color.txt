@@ -1,149 +1,149 @@
 148
-air force blue
-alice blue
-alizarin Crimson
-almond
-amaranth
-amber
-american rose
-amethyst
-android green
-anti-flash white
-antique brass
-antique white
-apple green
-apricot
-aqua
-aquamarine
-army green
-arylide yellow
-ash grey
-asparagus
-atomic tangerine
-auburn
-aureolin
-web
-baby blue
-baby pink
-banana yellow
-battleship grey
-beaver
-beige
-black
-blizzard
-blond
-blue
-blue green
-blue purple
-blue violet
-blush
-bondi blue
-brass
-brick red
-lavender
-bubble gum
-bubbles
-burgundy
-burnt orange
-candy apple red
-cardinal
-carrot orange
-ben orange
-capri
-champagne
-charcoal
-cherry
-chestnut
-chocolate
-cornflower
-cyan
-dark blue
-jungle green
-dark grey
-denim
-eggshell
-eggplant
-electric blue
-emerald
-fern
-fire engine red
-fuchsia
-gold
-ginger
-green
-pea green
-hooker green
-hunter green
-hot pink
-indigo
-ivory
-jade
-jasper
-kelly green
-khaki
-lemon yellow
-lime green
-lilac
-macaroni and cheese
-magenta
-maroon
-mint green
-mustard yellow
-navy blue
-olive
-orange
-pink
-peach
-pear
-pearl
-periwinkle
-plum
-pistachio
-raspberry
-rose
-ruby
-saffron
-safety orange
-salmon
-sand
-sapphire
-screamin green
-school bus yellow
-sea blue
-seashell white
-shamrock
-sienna
-silver
-sky blue
-smokey topaz
-snow
-spiro disco ball
-spring green
-steel blue
-sunset orange
-straw
-tan
-taupe
-tea green
-teal green
-teal
-tiffany blue
-tiger eye
-tomato
-titanium
-titanium yellow
-tractor red
-turquoise blue
-UFO green
-vanilla
-vegas gold
-violet
-warm black
-wheat
-white
-wild strawberry
-wine
-yellow orange
-yellow green
-yale blue
-very blue
+Air Force Blue
+Alice Blue
+Alizarin Crimson
+Almond
+Amaranth
+Amber
+American Rose
+Amethyst
+Android Green
+Anti-Flash White
+Antique Brass
+Antique White
+Apple Breen
+Apricot
+Aqua
+Aquamarine
+Army Green
+Arylide Yellow
+Ash Grey
+Asparagus
+Atomic Tangerine
+Auburn
+Aureolin
+Web
+Baby Blue
+Baby Pink
+Banana Yellow
+Battleship Grey
+Beaver
+Beige
+Black
+Blizzard
+Blond
+Blue
+Blue Green
+Blue Purple
+Blue Violet
+Blush
+Bondi Blue
+Brass
+Brick Red
+Lavender
+Bubble Gum
+Bubbles
+Burgundy
+Burnt Orange
+Candy Apple Red
+Cardinal
+Carrot Orange
+Ben Orange
+Capri
+Champagne
+Charcoal
+Cherry
+Chestnut
+Chocolate
+Cornflower
+Cyan
+Dark Blue
+Jungle Green
+Dark Grey
+Denim
+Eggshell
+Eggplant
+Electric Blue
+Emerald
+Fern
+Fire Engine Red
+Fuchsia
+Gold
+Ginger
+Green
+Pea Green
+Hooker Green
+Hunter Green
+Hot Pink
+Indigo
+Ivory
+Jade
+Jasper
+Kelly Green
+Khaki
+Lemon Yellow
+Lime Green
+Lilac
+Macaroni and Cheese
+Magenta
+Maroon
+Mint Green
+Mustard Yellow
+Navy Blue
+Olive
+Orange
+Pink
+Peach
+Pear
+Pearl
+Periwinkle
+Plum
+Pistachio
+Raspberry
+Rose
+Ruby
+Saffron
+Safety Orange
+Salmon
+Sand
+Sapphire
+Screamin Green
+School Bus Yellow
+Sea Blue
+Seashell White
+Shamrock
+Sienna
+Silver
+Sky Blue
+Smokey Topaz
+Snow
+Spiro Disco Ball
+Spring Green
+Steel Blue
+Sunset Orange
+Straw
+Tan
+Taupe
+Tea Green
+Teal Green
+Teal
+Tiffany Blue
+Tiger Eye
+Tomato
+Titanium
+Titanium Yellow
+Tractor Red
+Turquoise Blue
+UFO Green
+Vanilla
+Vegas Gold
+Violet
+Warm Black
+Wheat
+White
+Wild Strawberry
+Wine
+Yellow Orange
+Yellow Green
+Yale Blue
+Very Blue

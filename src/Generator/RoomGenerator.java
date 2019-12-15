@@ -26,8 +26,8 @@ public class RoomGenerator {
         StringBuilder description = new StringBuilder();
         String lookDescription = "It looks like it's " + color;
         description.append("You are in a ");
-        description.append(RandomFileParser.RandomString("Text/shape.txt")).append(" ");
-        description.append(RandomFileParser.RandomString("Text/color.txt")).append(" ");
+        description.append(shape).append(" ");
+        description.append(color).append(" ");
         description.append("room with ");
         description.append(RandomFileParser.RandomString("Text/texture.txt"));
         description.append(" walls.\nIt smells vaguely of ");

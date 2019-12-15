@@ -4,7 +4,7 @@ import PlayerHandler.*;
 import CombatHandler.CombatGroup;
 import GamePieces.Room;
 import PlayerHandler.Persistence.CharacterModificationInputHandler;
-import PlayerHandler.UI.CommandInputHandler;
+import PlayerHandler.CommandInputHandler;
 import PlayerHandler.UI.Frame;
 import PlayerHandler.UI.StandardFrame;
 import World.Spawn;
@@ -14,6 +14,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 /**
  * Main class to run the server
@@ -153,6 +154,7 @@ public class TechAdventure implements ConnectionListener {
 							//Parse input nicely for command
 							Scanner scanner = new Scanner(e.getData());
 							ArrayList<String> args = new ArrayList<>();
+							scanner.next();
 							while (scanner.hasNext()) {
 								args.add(scanner.next());
 							}
@@ -214,6 +216,25 @@ public class TechAdventure implements ConnectionListener {
 	 */
 	private void handleServerCommands(Player player, Commands command, String[] args) throws UnknownConnectionException {
 		switch (command) {
+			case cheatcodesareboss42:
+				LevelGenerator levelGenerator;
+
+				if (args.length < 2) {
+					levelGenerator = new LevelGenerator(11, 9);
+				} else {
+					System.out.println(args[0]);
+					System.out.println(args[1]);
+					levelGenerator = new LevelGenerator(Integer.parseInt(args[0].trim()), Integer.parseInt(args[1].trim()));
+				}
+
+				levelGenerator.printMap();
+				for (Player player1 : Player.players) {
+					if (player1.getState() == PlayerStates.normal) {
+						player1.setLocation(levelGenerator.getStart());
+						player1.update();
+					}
+				}
+				break;
 			case SHUTDOWN:
 				//Can't let just anyone use this one...
 				if (player.isAdmin()) {

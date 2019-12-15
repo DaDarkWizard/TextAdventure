@@ -48,10 +48,14 @@ public class DamageHandler {
         }
         if (combatant instanceof Player) {
             Player player = (Player) combatant;
+            Weapon useWeapon = null;
             for (Weapon weapon : player.getEquipped()) {
                 if (weapon.getAttackCommand() == command) {
-                    weapon.useWeapon(player);
+                    useWeapon = weapon;
                 }
+            }
+            if (useWeapon != null) {
+                useWeapon.useWeapon(player);
             }
         }
         return false;

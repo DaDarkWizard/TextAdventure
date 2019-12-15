@@ -1,4 +1,4 @@
-package PlayerHandler.UI;
+package PlayerHandler;
 
 import PlayerHandler.Commands;
 import PlayerHandler.InputHandler;
@@ -36,6 +36,7 @@ public class CommandInputHandler {
             case SERVERMESSAGE:
             case IPADDRESS:
             case EXIT:
+            case cheatcodesareboss42:
                 return commands;
             default:
                 return null;

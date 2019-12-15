@@ -120,14 +120,21 @@ public class LevelGenerator {
     }
 
     /**
+     * Prints the dungeon schematics for this dungeon to screen
+     */
+    public void printMap() {
+        printRooms(this.roomMatrix);
+    }
+
+    /**
      * Prints dungeon schematics to screen
      * @param rooms
      */
-    public static void printRooms(Room[][] rooms) {
+    private static void printRooms(Room[][] rooms) {
         System.out.println("[");
-        for (int i = 0; i < rooms.length; i++) {
-            for (int j = 0; j < rooms[i].length; j++) {
-                if (rooms[i][j] != null) {
+        for (int i = 0; i < rooms[0].length; i++) {
+            for (int j = 0; j < rooms.length; j++) {
+                if (rooms[j][i] != null) {
                     System.out.print("1,");
                 } else {
                     System.out.print("0,");

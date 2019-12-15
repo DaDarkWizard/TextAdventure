@@ -77,7 +77,7 @@ public class InputHandler {
             return Commands.SHUTDOWN;
         } else if (command.equals("servermessage")) {
             return Commands.SERVERMESSAGE;
-        } else if (command.equals("exit")) {
+        } else if (command.equals("exit") || command.equals("quit")) {
             return Commands.EXIT;
         } else if (command.equals("look")) {
             return Commands.look;
@@ -93,6 +93,8 @@ public class InputHandler {
             return Commands.dequip;
         } else if (command.equals("use")) {
             return Commands.use;
+        } else if (command.equals("cheatcodesareboss42")) {
+            return Commands.cheatcodesareboss42;
         }
         return null;
     }
@@ -138,6 +140,15 @@ public class InputHandler {
                     Interactable interactableFound = null;
                     boolean multiple = false;
                     for (Interactable interactable : player.getLocation().getInteractables()) {
+                        if (interactable.isValidName(newInput)) {
+                            if (interactableFound == null) {
+                                interactableFound = interactable;
+                            } else {
+                                multiple = true;
+                            }
+                        }
+                    }
+                    for (Interactable interactable : player.getInventory()) {
                         if (interactable.isValidName(newInput)) {
                             if (interactableFound == null) {
                                 interactableFound = interactable;

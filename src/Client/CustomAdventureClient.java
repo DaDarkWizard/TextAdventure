@@ -105,6 +105,9 @@ public class CustomAdventureClient extends Application {
             }
         };
 
+        //This is for developmental purposes. I'm leaving it in because
+        // I plan to continue development until I'm satisfied
+        /*
         Button button = new Button("Reconnect");            //For reconnecting after losing connection
         button.setOnAction(event -> {
             input.add("exit");
@@ -118,9 +121,12 @@ public class CustomAdventureClient extends Application {
             inputThread = new InputThread();
             inputThread.start(this.getParameters().getRaw());
         });
-        timer.start();
 
         pane.getChildren().add(button);
+        */
+
+        timer.start();
+
 
         Scene root = new Scene(pane, 800, 600);
         primaryStage.setScene(root);

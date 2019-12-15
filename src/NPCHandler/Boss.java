@@ -33,6 +33,9 @@ public class Boss implements NPCTemplate{
      */
     public Boss(String name) {
         this.name = name;
+        this.npcMeetSomeoneListener = event -> {
+            new CombatGroup(event.getSource().getRoom().getCombatants(), event.getSource());
+        };
         this.npcFindTargetListener = event -> {
             Combatant mostHealth = null;
             for (Combatant combatant : event.getSource().getCombatGroup().getCombatants(event.getSource())) {
@@ -43,10 +46,12 @@ public class Boss implements NPCTemplate{
                     mostHealth = combatant;
                 }
             }
+            event.getSource().setTarget(mostHealth);
         };
         this.npcAttackListener = event -> {
             if (event.getNPC().getTarget() == null) {
                 return;
+
             }
 
             event.getNPC().getTarget().setPendingDamage(
