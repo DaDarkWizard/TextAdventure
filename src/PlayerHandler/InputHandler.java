@@ -301,9 +301,9 @@ public class InputHandler {
                         if (interactableFound != null && !moreThanOne) {
                             output.addLine("[look]: " + interactableFound.getLongDescription());
                         } else if (interactableFound != null) {
-                            output.addLine("[look]: You need to be more specific!")
+                            output.addLine("[look]: You need to be more specific!");
                         } else {
-                            output.addLine("[look]: That item doesn't exist!")
+                            output.addLine("[look]: That item doesn't exist!");
                         }
                     }
                 }
