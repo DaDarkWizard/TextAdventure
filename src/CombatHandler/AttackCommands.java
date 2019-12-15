@@ -10,6 +10,10 @@ package CombatHandler;
  * Lab Section 2
  */
 
+   /** 
+   * Enum to handle attack commands 
+   */
+
 public enum AttackCommands {
     hit,
     block,
