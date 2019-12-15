@@ -5,12 +5,20 @@ import CombatHandler.Combatant;
 import CombatHandler.DamageHandler;
 import CombatHandler.Weapons.Weapon;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The class creates a NPC Template for a Boss
+ *
+ * Date Last Modified: 12/14/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ *
+ * CS1131, fall 2019
+ * Lab Section 2
+ */
 public class Boss implements NPCTemplate{
-    String name = "";
+    String name = ""; //the name
     protected NPCMeetSomeoneListener npcMeetSomeoneListener;
     protected NPCRunListener npcRunListener;
     protected NPCFindTargetListener npcFindTargetListener;
