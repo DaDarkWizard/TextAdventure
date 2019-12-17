@@ -131,7 +131,7 @@ public class Player implements Combatant {
     }
 
     /**
-     * Gets teh possible attack commands for a player
+     * Gets the possible attack commands for a player
      * @return the ArrayList of commands a player can use
      */
     public ArrayList<AttackCommands> getPossibleAttackCommands() {
@@ -165,6 +165,7 @@ public class Player implements Combatant {
      * Gets an Array list of players
      * @return Array list of the player
      */
+    // Todo update method to return a copy of the ArrayList
     public static ArrayList<Player> getPlayers() {
         return players;
     }
@@ -181,6 +182,7 @@ public class Player implements Combatant {
      * Gets the Equipped weapons of a player
      * @return the Equipped Weapons of the player
      */
+    // Todo update method to return a copy of the ArrayList
     public ArrayList<Weapon> getEquipped() {
         return this.equipped;
     }
@@ -189,6 +191,7 @@ public class Player implements Combatant {
      * Gets the Inventory of a player
      * @return the inventory
      */
+    // Todo update method to return a copy of the ArrayList
     public ArrayList<Holdable> getInventory() {
         return this.items;
     }
@@ -614,6 +617,7 @@ public class Player implements Combatant {
      * Gets the words used by the player in combat
      * @return the words
      */
+    // Todo have method return a copy of the ArrayList
     @Override
     public ArrayList<String> getWords() {
         return this.words;
@@ -623,6 +627,7 @@ public class Player implements Combatant {
      * Gets the weapons of a player
      * @return weapons
      */
+    //Todo have method return a copy of the ArrayList
     @Override
     public ArrayList<Weapon> getWeapons() {
         return this.equipped;

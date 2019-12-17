@@ -71,6 +71,7 @@ public class DefaultNPC implements NPCTemplate {
      *
      * @return the dataStorage ArrayList
      */
+    //Todo update and make a copy of the ArrayList object
     public ArrayList<Object> getDataStorage() {
         return this.dataStorage;
     }
@@ -161,6 +162,7 @@ public class DefaultNPC implements NPCTemplate {
      *
      * @return an empty ArrayList
      */
+    //Todo update and return a copy of the ArrayList
     @Override
     public ArrayList<Weapon> getWeapons() {
         return weapons;
@@ -171,6 +173,7 @@ public class DefaultNPC implements NPCTemplate {
      *
      * @return ArrayList with hit, hit, hit
      */
+    //Todo update and return a copy of the ArrayList
     @Override
     public ArrayList<String> getCombatWords() {
         return words;

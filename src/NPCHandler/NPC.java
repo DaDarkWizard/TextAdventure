@@ -68,6 +68,7 @@ public class NPC implements Combatant {
      * @param combatChoice The decision the npc will make in combat RPS
      * @param npcMeetSomeoneListener The listener to handle this npc meeting someone
      */
+    //Todo update this constructor to make copies of the ArrayList objects
     NPC(String name, int maxHitpoints,
         int brawn, int spiffness, int smarts, int moxy,
         ArrayList<Weapon> weapons, ArrayList<String> combatWords,
@@ -108,6 +109,7 @@ public class NPC implements Combatant {
      *
      * @param template template to use for NPC creation. Must implement the NPCTemplate interface
      */
+    //Todo review this constructor and make deep copies
     public NPC(NPCTemplate template) {
         this.rpsChoice = template.getRPSChoice();
         this.weapons = template.getWeapons();
@@ -168,6 +170,7 @@ public class NPC implements Combatant {
         return -1;
     }
 
+    //Todo make this method return a copy of the ArrayList
     public ArrayList<Object> getDataStorage() {
         return this.dataStorage;
     }
@@ -325,6 +328,7 @@ public class NPC implements Combatant {
      *
      * @return array list of the attack words
      */
+    //Todo have method return a copy of the ArrayList
     @Override
     public ArrayList<String> getWords() {
         return this.combatWords;
@@ -395,6 +399,7 @@ public class NPC implements Combatant {
      *
      * @return Weapon array list
      */
+    //Todo update method to return a copy of the ArrayList
     @Override
     public ArrayList<Weapon> getWeapons() {
         return weapons;
