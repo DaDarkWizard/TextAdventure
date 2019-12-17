@@ -8,8 +8,9 @@ import PlayerHandler.Player;
 /**
  * Handles weapon methods and equip/dequip mechanics
  *
- * Date Last Modified: 12/14/2019
- * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
+ * Date Original Last Modified: 12/14/2019
+ * Added setters for weapon descriptions: 12/16/2019
+ * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen, Michael Clinesmith
  *
  * CS1131, fall 2019
  * Lab Section 2
@@ -170,5 +171,25 @@ public class Weapon extends Item {
     @Override
     public String getLongDescription() {
         return this.longDescription;
+    }
+
+    /**
+     * Setter allowing changes to the shortDescription
+     * @param shortDescription String: the new short description
+     */
+    @Override
+    public void setShortDescription( String shortDescription )
+    {
+        this.shortDescription = shortDescription;
+    }
+
+    /**
+     * Setter allowing changes to the longDescription
+     * @param longDescription String: the new long description
+     */
+    @Override
+    public void setLongDescription( String longDescription )
+    {
+        this.longDescription = longDescription;
     }
 }

@@ -45,6 +45,7 @@ public class Room {
      *
      * @return ArrayList of all Interactable objects
      */
+    //Todo make this method do a deep copy of the ArrayList
     public ArrayList<Interactable> getInteractables() {
         return this.interactables;
     }
@@ -339,6 +340,7 @@ public class Room {
      *
      * @return ArrayList of all players
      */
+    //Todo make this a deep copy
     public ArrayList<Player> getPlayers() {
         return new ArrayList<>(players);
     }
@@ -349,6 +351,7 @@ public class Room {
      *
      * @return ArrayList of all combatants
      */
+    //Todo check if this is a deep copy
     public ArrayList<Combatant> getCombatants() {
         ArrayList<Combatant> output = new ArrayList<>();
         output.addAll(players);
@@ -361,6 +364,7 @@ public class Room {
      *
      * @return ArrayList of all NPCs
      */
+    //Todo make this a deep copy
     public ArrayList<NPC> getNpcs() {
         return npcs;
     }

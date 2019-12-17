@@ -64,6 +64,7 @@ public class CombatGroup {
      * @param initiant   Person that started the fight
      */
     public CombatGroup(ArrayList<Combatant> combatants, Combatant initiant) {
+        //Todo Make this conversion a deep copy
         this.combatants = combatants;       //Set all combatants from input
         this.initiant = initiant;           //Set initiant from input
 
@@ -296,7 +297,7 @@ public class CombatGroup {
     * Getting all combatants and NPC's 
     * @return combatants 
     */
-    
+    //Todo make this method do a deep copy of the ArrayList
     public ArrayList<Combatant> getCombatants() {
         return this.combatants;
     }
@@ -305,10 +306,11 @@ public class CombatGroup {
     * removes the specified combatant 
     * @return output
     */
-    
+    //Todo check if this method makes a deep copy
     public ArrayList<Combatant> getCombatants(Combatant combatant) {
         ArrayList<Combatant> output = new ArrayList<>();
         for (Combatant value : combatants) {
+            //Todo check this, this may be checking if they are the same memory reference, not having the same data
             if (value != combatant) {
                 output.add(value);
             }
