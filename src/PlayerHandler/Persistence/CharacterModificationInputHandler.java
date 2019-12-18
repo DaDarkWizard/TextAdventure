@@ -5,12 +5,14 @@ import PlayerHandler.Player;
 import PlayerHandler.PlayerStates;
 import PlayerHandler.UI.Frame;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
  * Handles profile input
  *
- * Date Last Modified: 12/14/2019
+ * Date Original Last Modified: 12/14/2019
+ * Edited to catch insufficient number of character creation stats error 12/18/2019 - Michael Clinesmith
  * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
  *
  * CS1131, fall 2019
@@ -145,8 +147,18 @@ public class CharacterModificationInputHandler {
             case createCharacterGetStats:
                 Scanner scanner = new Scanner(input);
                 int[] inputs = new int[4];
-                for (int i = 0; i < 4; i++) {
-                    inputs[i] = scanner.nextInt();
+
+                for (int i = 0; i < 4; i++)
+                {
+                    if (scanner.hasNextInt())
+                    {
+                        inputs[i] = scanner.nextInt();  // catch error if not enough input
+                    }
+                    else
+                    {
+                        inputs[0]=0;                    // send 0 as first element is not enough input
+                        inputs[i]=0;
+                    }
                 }
                 characterCreating.enterStats(inputs);
                 break;

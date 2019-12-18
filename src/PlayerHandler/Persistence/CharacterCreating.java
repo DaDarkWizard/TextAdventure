@@ -15,7 +15,8 @@ import java.util.ArrayList;
 /**
  * This class initializes character creation
  *
- * Date Last Modified: 12/14/2019
+ * Date Original Last Modified: 12/14/2019
+ * Updated character state errorchecking 12/18/2019 - Michael Clinesmith
  * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
  *
  * CS1131, fall 2019
@@ -164,6 +165,15 @@ public class CharacterCreating {
     public void enterStats(int[] stats) {
         int sum = 0;
         boolean moreThanFour = true;
+
+        if (stats[0]==0)        // flag if user did not add enough elements (or entered 0 in first stat
+        {
+            player.getLastFrame().addLine( "You need to add exactly 4 stats!", true );
+            player.getLastFrame().addLine( "Please try to listen more carefully.", true );
+            this.state = CreateCharacterState.createCharacterBegin;
+            createCharacterMessage();
+            return;
+        }
 
         for (int i = 0; i < 4; i++) {
             sum += stats[i];
