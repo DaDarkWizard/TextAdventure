@@ -73,6 +73,7 @@ public class Boss implements NPCTemplate{
      * Gets the data storage
      * @return data storage
      */
+    //Todo update this method to return a copy of the ArrayList
     @Override
     public ArrayList<Object> getDataStorage() {
         return this.dataStorage;
@@ -154,6 +155,7 @@ public class Boss implements NPCTemplate{
      * Gets the weapons of the boss
      * @return weapons
      */
+    //Todo review and return an ArrayList if it should
     @Override
     public ArrayList<Weapon> getWeapons() {
         return null;

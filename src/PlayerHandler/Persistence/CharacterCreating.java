@@ -217,7 +217,7 @@ public class CharacterCreating {
         player.getLastFrame().addLine("Your character has been successfully created!", true);
         player.getLastFrame().addLine("Type look to continue.", true);
     }
-
+    //Todo review method to check on if the method needs to send a copy
     public static ArrayList<CharacterCreating> getCharacterCreators() {
         return characterCreators;
     }

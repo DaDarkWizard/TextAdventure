@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+//todo Handle case with multiple of exact same item - equip, pickup, drop, (dequip?)
 /**
  * Handles the majority of player input, whenever they are in the normal state or the tutorial
  * <p>
@@ -172,6 +173,7 @@ public class InputHandler {
                 } else {
                     return player.getLastFrame();
                 }
+
             case equip:
                 scanner = new Scanner(input);
                 scanner.next();
@@ -369,9 +371,11 @@ public class InputHandler {
                 for(Interactable i : player.getLocation().getInteractables()){
                     if(i.isValidName(name) && (i instanceof Holdable)){
                         possibleMatchesInter.add(i);
-                    } else {
-                        player.sendMessage("[" + command.toString() + "]: You can't do that!");
                     }
+                    //Todo delete comments if pickup bug fixed
+                    //else {
+                    //    player.sendMessage("[" + command.toString() + "]: You can't do that!");
+                    //}
                 }
 
                 if (possibleMatchesInter.size() == 1) {
@@ -403,9 +407,11 @@ public class InputHandler {
                     System.out.println(i.isValidName(name));
                     if (i.isValidName(name)) {
                         possibleMatchesInter.add(i);
-                    } else {
-                        player.sendMessage("[" + command.toString() + "]: You don't have one of those!");
                     }
+                    // Todo delete comments if drop item bug fixed
+                    // else {
+                    //    player.sendMessage("[" + command.toString() + "]: You don't have one of those!");
+                    //}
                 }
 
                 if (possibleMatchesInter.size() == 1) {

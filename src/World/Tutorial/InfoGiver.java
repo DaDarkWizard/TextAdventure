@@ -40,7 +40,7 @@ public class InfoGiver extends UndyingNPC {
 
             //When this guy started babbling
             long startTime = (long) event.getSource().getDataStorage().get(0);
-            //Can't fix this :( The lines to say
+            //Todo review this: Can't fix this :( The lines to say
             ArrayList<String> storedLines = (ArrayList<String>) event.getSource().getDataStorage().get(1);
             //Which lines have been said
             boolean[] linesSaid = (boolean[]) event.getSource().getDataStorage().get(3);

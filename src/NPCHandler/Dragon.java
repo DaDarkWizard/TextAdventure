@@ -42,7 +42,7 @@ public class Dragon extends Boss {
 
 
             ArrayList<NPC> deletable = null;
-            //Can't fix this :(
+            //Todo Can't fix this :(
             deletable = (ArrayList<NPC>) e.getNPC().getDataStorage().get(4);
             if (deletable != null) {
                 for (NPC npc : deletable) {
