@@ -98,10 +98,12 @@ public class CombatGroup {
 
         //Record when combat began
         this.combatStartTime = System.currentTimeMillis();
+        System.out.println( "Battle time start:" + this.combatStartTime );
         //Seperate record for timers
         this.combatStartCount = combatStartTime;
         //Set the state so it's ready to run
         this.combatState = state.firstround;
+        System.out.println("Battle firstround set.");
         //Add to Combat Groups so the Combat thread can run it
         CombatGroups.add(this);
         updatePlayer();
@@ -199,15 +201,20 @@ public class CombatGroup {
                 }
 
                 for (Combatant combatant : combatants) {
+                    System.out.println( "Initial Hit Points: " + combatant.getHitPoints() );
                     int damage = combatant.getPendingDamage();
+                    System.out.println("Initial damage: " + damage);
                     damage -= combatant.getPendingBlock();
                     if (damage < 0) {
                         damage = 0;
                     }
-                    System.out.println("Before heal: " + damage);
+                    System.out.println("Damage after block: " + damage);
                     damage -= combatant.getPendingHeal();
-                    System.out.println("After heal: " + damage);
+                    System.out.println("Damage after possible heal: " + damage);
                     combatant.modifyHitpoints(damage * -1);
+                    System.out.println( "Final Hit Points: " + combatant.getHitPoints() );
+                    combatant.setPendingDamage( 0 );        // reset pending damage to 0
+                    combatant.setPendingHeal( 0 );          // reset pending heal to 0
                     if (combatant.getHitPoints() < 1) {
                         messageCombatants(combatant.getName() + " is defeated!");
                     }
@@ -295,10 +302,10 @@ public class CombatGroup {
     }
 
     /**
-     * Getting all combatants and NPC's
-     *
-     * @return combatants
-     */
+    * Getting all combatants and NPC's 
+
+    * @return combatants
+    */
     //Todo make this method do a deep copy of the ArrayList
     public ArrayList<Combatant> getCombatants() {
         return this.combatants;
@@ -324,7 +331,7 @@ public class CombatGroup {
     /**
      * Parses Attack Command to string
      *
-     * @return null
+     * @return attackCommands or null if an exception
      */
 
     private AttackCommands parseAttackCommand(String command) {
