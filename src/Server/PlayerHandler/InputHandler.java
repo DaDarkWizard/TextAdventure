@@ -25,7 +25,8 @@ import java.util.Scanner;
 /**
  * Handles the majority of player input, whenever they are in the normal state or the tutorial
  * <p>
- * Date Last Modified: 12/15/2019
+ * Date Original Last Modified: 12/15/2019
+ * Modified to dequip when dropping 12/19/2019 - Michael Clinesmith
  *
  * @author Daniel Masker, Ben Hodsdon, Joe Teahen, Emma Smith
  * <p>
@@ -411,6 +412,11 @@ public class InputHandler {
                 if (possibleMatchesInter.size() == 1) {
                     Item item = (Item) possibleMatchesInter.get(0);
                     String dropped = item.drop(player);
+                    if (item.isEquipped( player ))
+                    {
+                        output.addLine("[" + command.toString() +"]: You dequip the " + item.getShortDescription(), true);
+                        player.getEquipped().remove(item);
+                    }
                     output.addLine("[" + command.toString() + "]: " + dropped);
                 } else if (possibleMatchesInter.size() > 1) {
                     output.addLine("[" + command.toString() + "]: Be more specific!");

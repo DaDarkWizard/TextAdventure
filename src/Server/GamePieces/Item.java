@@ -9,6 +9,7 @@ import Server.PlayerHandler.Player;
  * <p>
  * Date Original Last Modified: 12/14/2019
  * Added setters for item descriptions: 12/16/2019
+ * Added isEquipped method: 12/19/2019
  *
  * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen, Michael Clinesmith
  * <p>
@@ -151,5 +152,18 @@ public class Item implements Holdable {
      */
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
+    }
+
+    /**
+     * Method to verify that a piece of equipment is equipped
+     *
+     * An ordinary item is not equippable, but this method may be overwritten for equippable classes
+     *
+     * @param player Player the player to check if they have the weapon equipped
+     * @return boolean: false
+     */
+    public boolean isEquipped(Player player)
+    {
+        return false;
     }
 }
