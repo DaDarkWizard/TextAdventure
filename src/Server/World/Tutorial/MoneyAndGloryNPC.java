@@ -34,11 +34,18 @@ public class MoneyAndGloryNPC extends DefaultNPC {
             }
 
             if (!hasKey) {
-                player.setLocation(player.getLastLocation());
+                //Todo temporary disable of blocking from entering portal room for testing purposes
+                // player.setLocation(player.getLastLocation());
+
                 StandardFrame frame = new StandardFrame();
                 frame.add(player.getLocation().getDescription(), true);
+                /*
                 frame.addLine("You attempt to enter the room, but a powerful force pushes you back.\n" +
                         "'Only one with the Golden Key may enter!'");
+
+                 */
+                frame.addLine("Airy, you have permission to enter the room!\n" +
+                        "Heh, heh, heh.");
                 player.setLastFrame(frame);
                 player.update();
             }

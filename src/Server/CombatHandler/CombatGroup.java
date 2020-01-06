@@ -45,7 +45,8 @@ public class CombatGroup {
         startCombat,
         words,
         calculate,
-        rps
+        rps,
+        ended
     }
 
     /**
@@ -65,7 +66,7 @@ public class CombatGroup {
      */
     public CombatGroup(ArrayList<Combatant> combatants, Combatant initiant) {
         //Todo Make this conversion a deep copy
-        this.combatants = combatants;       //Set all combatants from input
+        this.combatants = new ArrayList<>( combatants );       //Set all combatants from input
         this.initiant = initiant;           //Set initiant from input
 
         //Must have combatants in group
@@ -78,11 +79,15 @@ public class CombatGroup {
             throw new TooFewCombatantsException("Combat group needs at least 2 combatants.");
         }
 
+        Player.displayPlayers( Player.players.get( 0 ) );       // display list of players
+
         //Get all combatants and handle them
         for (Combatant combatant : this.combatants) {
             //Add them to the player array
             if (combatant instanceof Player) {
                 players.add((Player) combatant);
+                System.out.println( "Player " + combatant.getName() + " is added to battle!");
+
             }
             //Set their combat group to this
             combatant.setCombatGroup(this);
@@ -92,6 +97,7 @@ public class CombatGroup {
         for (Player player : players) {
             //Set state to combat
             player.setState(PlayerStates.combat);
+            System.out.println( "Player " + player.getName() + " is set to combat!");
             //Give them a new combat frame
             player.setLastFrame(new CombatFrame(player));
         }
@@ -99,7 +105,7 @@ public class CombatGroup {
         //Record when combat began
         this.combatStartTime = System.currentTimeMillis();
         System.out.println( "Battle time start:" + this.combatStartTime );
-        //Seperate record for timers
+        //Separate record for timers
         this.combatStartCount = combatStartTime;
         //Set the state so it's ready to run
         this.combatState = state.firstround;
@@ -143,6 +149,8 @@ public class CombatGroup {
                     frame.updateStartTimer(" Start in: 5 ");
                 }
                 updatePlayer();
+
+
                 break;
             case startCombat:
                 String output = "";
@@ -201,6 +209,7 @@ public class CombatGroup {
                 }
 
                 for (Combatant combatant : combatants) {
+                    System.out.println( "Name: " + combatant.getName() );
                     System.out.println( "Initial Hit Points: " + combatant.getHitPoints() );
                     int damage = combatant.getPendingDamage();
                     System.out.println("Initial damage: " + damage);
@@ -252,6 +261,7 @@ public class CombatGroup {
                             i--;
                         }
                     }
+                    displayCombatants();                // display the Combatant list to the console
                     boolean fighting = false;
                     for (Combatant combatant : combatants) {
                         if (combatant.getCombatDecision() == rpsChoice.fight) {
@@ -271,6 +281,7 @@ public class CombatGroup {
                             removeCombatant(combatants.get(i));
                             i--;
                         }
+                        combatState = state.ended;
                     } else {
                         snagRoom();
                         messageCombatants("Looks like there's still some fighting spirit!");
@@ -278,6 +289,9 @@ public class CombatGroup {
                     }
                 }
                 break;
+            case ended:
+                System.out.println( "The battle is over!" );
+                CombatGroups.remove( this );
         }
     }
 
@@ -308,7 +322,7 @@ public class CombatGroup {
     */
     //Todo make this method do a deep copy of the ArrayList
     public ArrayList<Combatant> getCombatants() {
-        return this.combatants;
+        return new ArrayList<>( this.combatants);
     }
 
     /**
@@ -317,11 +331,12 @@ public class CombatGroup {
      * @return output
      */
     //Todo check if this method makes a deep copy
+    //Todo Why is this not named "removeCombatant"?
     public ArrayList<Combatant> getCombatants(Combatant combatant) {
         ArrayList<Combatant> output = new ArrayList<>();
         for (Combatant value : combatants) {
             //Todo check this, this may be checking if they are the same memory reference, not having the same data
-            if (value != combatant) {
+            if (value != combatant) {          // adds all combatants but the one as a parameter to the ArrayList output
                 output.add(value);
             }
         }
@@ -384,4 +399,20 @@ public class CombatGroup {
             players.remove(combatant);
         }
     }
+
+    /**
+     * Method to display the active combatant list to the console
+     *
+     */
+    public void displayCombatants() {
+        String output = "Displaying Active Combatants:\n";
+        for( Combatant combat : combatants)
+        {
+            output += combat.getName() + "\n";
+        }
+        System.out.println( output );
+    }
+
+
+
 }

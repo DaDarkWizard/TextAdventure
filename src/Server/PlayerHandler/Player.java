@@ -16,7 +16,8 @@ import java.util.ArrayList;
 /**
  * This class makes a player
  * <p>
- * Date Last Modified: 12/14/2019
+ * Date Original Last Modified: 12/14/2019
+ * Added multiple methods to interact with items: 12/20/2019 - Michael Clinesmith
  *
  * @author Daniel Masker, Ben Hodsdon, Joe Teahen, Emma Smith
  * <p>
@@ -171,7 +172,7 @@ public class Player implements Combatant {
      */
     // Todo update method to return a copy of the ArrayList
     public static ArrayList<Player> getPlayers() {
-        return players;
+        return new ArrayList<Player> (players);
     }
 
     /**
@@ -191,6 +192,7 @@ public class Player implements Combatant {
     // Todo update method to return a copy of the ArrayList
     public ArrayList<Weapon> getEquipped() {
         return this.equipped;
+        //   return new ArrayList<Weapon>(this.equipped);
     }
 
     /**
@@ -201,6 +203,7 @@ public class Player implements Combatant {
     // Todo update method to return a copy of the ArrayList
     public ArrayList<Holdable> getInventory() {
         return this.items;
+     //   return new ArrayList<Holdable>( this.items);
     }
 
     /**
@@ -331,7 +334,7 @@ public class Player implements Combatant {
     }
 
     /**
-     * Gets the last location of teh player
+     * Gets the last location of the player
      *
      * @return the last location of the player
      */
@@ -674,6 +677,7 @@ public class Player implements Combatant {
     @Override
     public ArrayList<String> getWords() {
         return this.words;
+        // return new ArrayList<String>( this.words );
     }
 
     /**
@@ -685,6 +689,7 @@ public class Player implements Combatant {
     @Override
     public ArrayList<Weapon> getWeapons() {
         return this.equipped;
+        //  return new ArrayList<Weapon>( this.equipped );
     }
 
     /**
@@ -757,9 +762,169 @@ public class Player implements Combatant {
     /**
      * Removes a player from players
      *
-     * @param player
+     * @param player Player: The player to remove
      */
     public static void removePlayer(Player player) {
         players.remove(player);
+    }
+
+    /**
+     *  Adds a player to the active player list "players"
+     * @param player Player: The player to add
+     */
+    public static void addPlayer(Player player) {
+        if (!isPlayer( player ))
+        {
+            players.add(player);
+        }
+    }
+
+    /**
+     * Checks to see if the player is an active player on the list
+     * @param player Player: The player to check
+     * @return boolean: true if the player is on the list, false if not
+     */
+    public static boolean isPlayer(Player player) {
+        boolean isPlay = false;
+        for( Player play : players)
+        {
+            if (play.getName().equals( player.getName() ))
+            {
+                isPlay = true;
+            }
+        }
+        return isPlay;
+    }
+
+    /**
+     * Method to display the active player list to the console
+     * ToDo can later be implemented to send to the player's screen when requested
+     *
+     * @param player Player: when implemented, the player to display the information on the screen.
+     */
+    public static void displayPlayers(Player player) {
+        String output = "Displaying Active Players:\n";
+        for( Player play : players)
+        {
+            output += play.getName() + "\n";
+        }
+        // player.getLastFrame().addLine("Your character has been successfully created!", true);
+        System.out.println( output );
+    }
+
+    /**
+     * Method to add an item to the inventory
+     *
+     * @param item Holdable: The item to add to the inventory
+     * @return boolean: true if the item is added, false if it is not
+     */
+    public boolean addItem(Holdable item)
+    {
+        items.add(item);
+        return true;                    // always add an item
+    }
+
+    /**
+     * Method to drop an item from the player's inventory and adds it to the room
+     * @param item Holdable: a Holdable object to remove from the players inventory and add to the room
+     * @return boolean: true if the item is dropped, false if it is not
+     */
+    public boolean dropItem(Holdable item)
+    {
+        boolean isDropped = false;
+        if (isHeld( item ))
+        {
+            if (addItemToRoom( item ))          // attempts to add an item to room
+            {
+                items.remove( item );
+                isDropped = true;
+            }
+        }
+        return isDropped;
+    }
+    /**
+     * Method to remove an item from the player's inventory
+     * @param item Holdable: a Holdable object to remove from the players inventory
+     * @return boolean: true if the item is removed, false if it is not
+     */
+    public boolean removeItem(Holdable item)
+    {
+        boolean isRemoved = false;
+        if (isHeld( item ))
+        {
+            items.remove( item );
+            isRemoved = true;
+        }
+        return isRemoved;
+    }
+
+    /**
+     * Method to equip an item in the player's inventory
+     * @param item Holdable: a Holdable object to attempt to equip
+     * @return boolean: true if the item was equipped, false if it was not
+     */
+    public boolean equipItem(Holdable item)
+    {
+        boolean ableToEquip = false;
+        if (item instanceof Weapon)                     // only Weapons can be equipped
+        {
+            Weapon weapon = (Weapon) item;              // cast to a Weapon
+            if (!weapon.isEquipped( this ))
+            {
+                equipped.add(weapon);
+                ableToEquip = true;
+            }
+        }
+        return ableToEquip;
+    }
+
+    /**
+     * Method to dequip an item in the player's inventory
+     * @param item Holdable: a Holdable object to dequip
+     * @return boolean: true if the item was dequipped, false if it was not
+     */
+    public boolean dequipItem(Holdable item)
+    {
+        boolean ableToDequip = false;
+        if (item instanceof Weapon)                     // only Weapons can be equipped
+        {
+            Weapon weapon = (Weapon) item;              // cast to a Weapon
+            if (weapon.isEquipped( this ))
+            {
+                equipped.remove(weapon);
+
+                ableToDequip = true;
+            }
+        }
+        return ableToDequip;
+    }
+
+    /**
+     * Method to determine if an item is in the player's inventory
+     * @param item Holdable: a Holdable object to check if it is in the inventory
+     * @return boolean: true if the item was in the inventory, false if it was not
+     */
+    public boolean isHeld(Holdable item)
+    {
+        boolean isHeld = false;
+        for (Holdable holdable : items)
+        {
+            if (holdable.getLongDescription().equals( item.getLongDescription() ))
+            {
+                isHeld = true;
+            }
+        }
+        return isHeld;
+    }
+
+    /**
+     * Method to add an item to the room the player is in
+     * @param item  Holdable: A Holdable object to add to the room
+     * @return boolean: true if the item is added to the room, false if not
+     */
+    public boolean addItemToRoom(Holdable item)
+    {
+        location.addInteractable( item );           // always add object to the room
+        return true;
     }
 }

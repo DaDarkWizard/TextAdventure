@@ -166,6 +166,13 @@ public class CharacterCreating {
         this.state = CreateCharacterState.createCharacterGetStats;
     }
 
+    /**
+     * Method that error checks the parameter stats, sets the stats to a character being created, then finishes
+     * the character creation process and writes the data to a file
+     *
+     * @param stats int array: An array that should contain 4 elements corresponding to the stats of the
+     *              character to be created
+     */
     public void enterStats(int[] stats) {
         int sum = 0;
         boolean moreThanFour = true;
@@ -209,11 +216,21 @@ public class CharacterCreating {
 
         newPlayer.setConnectionID(player.getConnectionID());
         newPlayer.setLastFrame(player.getLastFrame());
+
+        // error checking code
+        System.out.println( "Current player: " + player.getName()  );
+        player.displayPlayers( player );
+        System.out.println( "Deleting player " + player.getName()  );
+
         Player.removePlayer(player);
         newPlayer.setState(PlayerStates.characterCreation);
         this.player = this.newPlayer;
-        this.newPlayer = null;
+        // this.newPlayer = null;
         this.state = CreateCharacterState.createCharacterEnd;
+
+        // error checking code
+        player.displayPlayers( player );
+        System.out.println( "Current player: " + player.getName()  );
 
         try {
             File file = new File("Players/" + username + ".player");
@@ -233,10 +250,22 @@ public class CharacterCreating {
     }
 
     //Todo review method to check on if the method needs to send a copy
+
+    /**
+     * This method returns the static array of CharacterCreating elements (characters in the process of being created)
+     *
+     * @return ArrayList<CharacterCreating>: An ArrayList of CharacterCreating elements
+     */
     public static ArrayList<CharacterCreating> getCharacterCreators() {
-        return characterCreators;
+        return new ArrayList<CharacterCreating>( characterCreators);
     }
 
+    /**
+     * This method returns the CharacterCreating object associated with the player
+     *
+     * @param player Player: The player associated with a CharacterCreating object
+     * @return CharacterCreating: the first CharacterCreating object associated with the player, or null if none exists
+     */
     public static CharacterCreating findCharacterCreatorByPlayer(Player player) {
         for (CharacterCreating characterCreating : characterCreators) {
             if (characterCreating.getPlayer().equals(player)) {
@@ -246,10 +275,20 @@ public class CharacterCreating {
         return null;
     }
 
+    /**
+     * This method returns the Player associated with the CharacterCreating object
+     *
+     * @return Player: The player associated with this object
+     */
     public Player getPlayer() {
         return this.player;
     }
 
+    /**
+     * This method returns the current state of the CharacterCreating object
+     *
+     * @return CreateCharacterState: The current object's state
+     */
     public CreateCharacterState getState() {
         return this.state;
     }

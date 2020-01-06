@@ -12,7 +12,8 @@ import java.util.Scanner;
 /**
  * This class processes profile restoration
  * <p>
- * Date Last Modified: 12/14/2019
+ * Date Original Last Modified: 12/14/2019
+ * Added method comments: 12/20/2019 - Michael Clinesmith
  *
  * @author Daniel Masker, Ben Hodsdon, Emma Smith, Joseph Teahen
  * <p>
@@ -36,7 +37,6 @@ public class CharacterLoading {
         newCharacterQuestion,
         restoreDone
     }
-
 
     /**
      * Initializes character restoration
@@ -139,10 +139,21 @@ public class CharacterLoading {
         }
     }
 
+    /**
+     * Method called to remove the CharacterLoading object when the character is finished loading
+     *
+     * @param loading CharacterLoading: An object used to load a player
+     */
     public static void removeCharacterLoading(CharacterLoading loading) {
         characterLoaders.remove(loading);
     }
 
+    /**
+     * Method called to find the CharacterLoading object associated with the player
+     *
+     * @param player Player: the player used to find the associated CharacterLoading
+     * @return CharacterLoading: The associated CharacterLoading with the player
+     */
     public static CharacterLoading findCharacterLoadingByPlayer(Player player) {
         for (CharacterLoading characterLoader : characterLoaders) {
             if (characterLoader.getPlayer().equals(player)) {
@@ -152,10 +163,18 @@ public class CharacterLoading {
         return null;
     }
 
+    /**
+     * Method called to find the state of the CharacterLoading object
+     * @return ReturnCharacterState: The state of the object
+     */
     public CharacterLoading.RestoreCharacterState getState() {
         return this.state;
     }
 
+    /**
+     * Method called to get the player of the CharacterLoading object
+     * @return Player: the player of the object
+     */
     public Player getPlayer() {
         return this.player;
     }
