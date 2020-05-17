@@ -3,7 +3,7 @@ package Shared.world;
 import Shared.util.Vector;
 
 @SuppressWarnings("unused")
-//
+
 public class Tile {
     protected Vector location;
     protected String id;
