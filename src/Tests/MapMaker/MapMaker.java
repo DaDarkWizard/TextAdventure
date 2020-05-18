@@ -11,10 +11,14 @@ public class MapMaker extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Chooser fileChooser = new Chooser();
+        Map map = new Map();
+        Chooser fileChooser = new Chooser(map.getNode());
         BorderPane main = new BorderPane();
         main.setCenter(fileChooser);
         main.setRight(new TileOptions());
+
+
+
         Scene scene = new Scene(main, 500, 500);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Map Maker");

@@ -9,7 +9,7 @@ import sun.rmi.runtime.NewThreadAction;
 public class TileOptions extends GridPane {
     boolean left = false;
     int used = 0;
-    TileChoice selected;
+    public static TileChoice selected;
 
 
     public TileOptions() {
@@ -25,7 +25,7 @@ public class TileOptions extends GridPane {
             boolean found = false;
             for (Node tileChoice : this.getChildren()) {
                 if(inRowAndColumn(tileChoice, row, column)) {
-                    this.selected = (TileChoice) tileChoice;
+                    selected = (TileChoice) tileChoice;
                     ((TileChoice) tileChoice).select();
                     found = true;
                 } else {
@@ -33,9 +33,9 @@ public class TileOptions extends GridPane {
                 }
             }
             if (!found) {
-                this.selected = null;
+                selected = null;
             }
-            System.out.println(this.selected == null ? "null" : this.selected.getItemId());
+            System.out.println(selected == null ? "null" : selected.getItemId());
         });
     }
 

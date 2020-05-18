@@ -1,10 +1,7 @@
 package Server;
 
 
-import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
-import java.util.Scanner;
 
 /**
  * Main class to run the server

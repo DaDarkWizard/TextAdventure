@@ -18,9 +18,7 @@ public class TileChoice extends StackPane {
         super();
         this.id = id;
         while(id.contains(".")) {
-            System.out.println(id);
             String[] parts = id.split("\\.");
-            System.out.println(Arrays.toString(parts));
             location += "/" + parts[0];
             id = parts[1];
         }
