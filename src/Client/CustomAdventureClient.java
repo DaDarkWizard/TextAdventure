@@ -3,12 +3,12 @@ package Client;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -58,72 +58,24 @@ public class CustomAdventureClient extends Application {
 
         inputThread = new InputThread();
         inputThread.start(this.getParameters().getRaw());
-        textArea = new TextArea();
-        textArea.setEditable(false);
-        textArea.setPrefRowCount(33);
-        textArea.setPrefColumnCount(100);
 
         //Make text standard width
         textArea.setStyle("-fx-font-family: 'monospace'");
 
 
-        TextField textField = new TextField();              //Area for the user to put input
-
-        //Setup entering text
-        textField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                if (!textField.getText().isEmpty()) {
-                    synchronized (lockInput) {
-                        input.add(textField.getText());
-                        textField.setText("");
-                    }
-                }
-            }
-        });
-
         VBox pane = new VBox();                             //Holds text output and input boxes
 
         pane.getChildren().add(textArea);
-        pane.getChildren().add(textField);
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
-            public void handle(long now) {                  //Updates the display for the viewer
-                if (textArea.getText().length() > 10000) {
-                    textArea.deleteText(0, 5000);
-                    textArea.appendText("");
-                }
+            public void handle(long now) {
 
-                if (output.size() > 0) {
-                    synchronized (lockOutput) {
-                        while (output.size() > 0) {
-                            textArea.appendText(output.remove(0));
-                        }
-                        textArea.appendText("");
-                    }
-                }
+
             }
         };
 
-        //This is for developmental purposes. I'm leaving it in because
-        // I plan to continue development until I'm satisfied
-        /*
-        Button button = new Button("Reconnect");            //For reconnecting after losing connection
-        button.setOnAction(event -> {
-            input.add("exit");
-            inputThread.interrupt();
-            try {
-                fromServer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            toServer.close();
-            inputThread = new InputThread();
-            inputThread.start(this.getParameters().getRaw());
-        });
 
-        pane.getChildren().add(button);
-        */
 
         timer.start();
 
@@ -161,7 +113,7 @@ public class CustomAdventureClient extends Application {
             } else {
                 try (Socket server = new Socket(args.get(0),
                         Integer.valueOf(args.get(1)))) {
-                    System.out.println("Connected to AdventureServer host " + server.getInetAddress());
+                    System.out.println("Connected to Server.AdventureServer host " + server.getInetAddress());
                     fromServer = new BufferedReader(new InputStreamReader(server.getInputStream()));
                     toServer = new PrintWriter(server.getOutputStream(), true);
                     String s = "";

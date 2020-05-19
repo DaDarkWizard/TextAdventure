@@ -1,6 +1,7 @@
 README.txt
 
 Hello, first off to play this game you will need to use our custom adventure client. (Client.CustomAdventureClient)
+Project structure is also important as it references the text files from WorkingDirectory/Text/files
 We do some cool frame menus and such so its window is needed to be standardized and controlled.
 
 Secondly, we made a tutorial level for the rest of a game that at the moment is unfinished, we have character creation,
