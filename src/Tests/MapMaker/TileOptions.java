@@ -19,6 +19,7 @@ public class TileOptions extends GridPane {
         addTile(new TileChoice("test.grass"));
         addTile(new TileChoice("test.null"));
         addTile(new TileChoice("test.brick"));
+        addTile(new TileChoice("test.wood"));
         this.setOnMouseClicked(event -> {
             int row = (int) event.getY() / 64;
             int column = (int) event.getX() / 64;
@@ -35,7 +36,6 @@ public class TileOptions extends GridPane {
             if (!found) {
                 selected = null;
             }
-            System.out.println(selected == null ? "null" : selected.getItemId());
         });
     }
 
