@@ -23,8 +23,7 @@ public class TacGenerator {
 
         System.out.println((int) 'A');
     }
-
-
+    
     public static byte[][] biomes = new byte[10][10];
 
     public static void makeData() {

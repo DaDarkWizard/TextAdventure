@@ -1,17 +1,19 @@
 package Tests.MapMaker;
 
+
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 
 public class Map {
     public GridPane grid = new GridPane();
     public ScrollPane scroll = new ScrollPane();
-    private EventHandler<MouseEvent> gridClick;
     private EventHandler<MouseEvent> dragBegin;
     private EventHandler<MouseEvent> dragEnd;
     private double dragBeginX;
@@ -22,11 +24,6 @@ public class Map {
 
     public Map() {
         scroll.setContent(grid);
-        gridClick = event -> {
-            if (TileOptions.selected != null) {
-                addTile(new TileChoice(TileOptions.selected.getItemId()), (int) event.getX() / 64, (int) event.getY() / 64);
-            }
-        };
 
         dragEnd = event -> {
             if (TileOptions.selected != null) {
