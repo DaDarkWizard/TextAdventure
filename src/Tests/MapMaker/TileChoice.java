@@ -11,8 +11,13 @@ import java.util.regex.Pattern;
 public class TileChoice extends StackPane {
     private String id;
     private String location = "File:src/Shared/textures";
-    private static ImageView selector = new ImageView(new Image("File:src/Shared/textures/test/select.png"));
+    private static ImageView selector = new ImageView(new Image("File:src/Shared/textures/test/select.png",
+            64,
+            64,
+            true,
+            true));
     private ImageView tile = new ImageView();
+    private boolean selected = false;
 
     public TileChoice(String id) {
         super();
@@ -25,7 +30,11 @@ public class TileChoice extends StackPane {
 
         location += "/" + id + ".png";
 
-        tile.setImage(new Image(location));
+        tile.setImage(new Image(location,
+                64,
+                64,
+                true,
+                true));
         tile.setFitWidth(64);
         tile.setFitHeight(64);
         this.getChildren().add(tile);
@@ -40,12 +49,16 @@ public class TileChoice extends StackPane {
     }
 
     public void select() {
-        selector.setFitHeight(64);
-        selector.setFitWidth(64);
-        this.getChildren().add(selector);
+        if (!this.selected) {
+            selector.setFitHeight(64);
+            selector.setFitWidth(64);
+            this.getChildren().add(selector);
+            this.selected = true;
+        }
     }
 
     public void deselect() {
         this.getChildren().remove(selector);
+        this.selected = false;
     }
 }
