@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class BodyPart
 {
+    protected final int PADDING = 2;
 
     protected String name, description;
     protected BodyPartGenerator.BodyPartType type;
@@ -20,7 +21,7 @@ public class BodyPart
     protected ArrayList<String> skills;
     protected ArrayList<String> injuries;
 
-    protected double length, width, depth;
+    protected double length, weight;
 
     protected Body thisBody;
     protected BodyPart aboveBodyPart;
@@ -43,8 +44,7 @@ public class BodyPart
         injuries = new ArrayList<String>();
 
         length = 0.0;
-        width = 0.0;
-        depth = 0.0;
+        weight = 0.0;
 
         thisBody = null;
         aboveBodyPart = null;
@@ -79,8 +79,7 @@ public class BodyPart
         injuries = new ArrayList<String>( oldPart.getInjuries() );
 
         length = oldPart.getLength();
-        width = oldPart.getWidth();
-        depth = oldPart.getDepth();
+        weight = oldPart.getWeight();
 
         thisBody = oldPart.getThisBody();  //todo should keep this shallow copy?
         aboveBodyPart = oldPart.getAboveBodyPart(); //todo should keep this shallow copy?
@@ -165,14 +164,9 @@ public class BodyPart
         this.length = length;
     }
 
-    public void setWidth( double width )
+    public void setWidth( double weight )
     {
-        this.width = width;
-    }
-
-    public void setDepth( double depth )
-    {
-        this.depth = depth;
+        this.weight = weight;
     }
 
     public void setThisBody( Body thisBody )
@@ -260,14 +254,9 @@ public class BodyPart
         return length;
     }
 
-    public double getWidth()
+    public double getWeight()
     {
-        return width;
-    }
-
-    public double getDepth()
-    {
-        return depth;
+        return weight;
     }
 
     public Body getThisBody()
@@ -357,7 +346,8 @@ public class BodyPart
             || type == BodyPartGenerator.BodyPartType.MUZZLE
             || type == BodyPartGenerator.BodyPartType.TAIL
             || type == BodyPartGenerator.BodyPartType.EAR
-            || type == BodyPartGenerator.BodyPartType.NOSE)
+            || type == BodyPartGenerator.BodyPartType.NOSE
+            || type == BodyPartGenerator.BodyPartType.NECK)
         {
             isBodyColor = true;
         }
@@ -423,6 +413,72 @@ public class BodyPart
     {
         features.clear();
     }
+
+    public BodyPart create(String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    {
+        BodyPart thisPart = new BodyPart();
+
+        thisPart.setName( name );
+        thisPart.setType( BodyPartGenerator.BodyPartType.NAIL );
+        thisPart.setColor( color );
+        thisPart.setAnimalType( animalType );
+        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+
+        return thisPart;
+    }
+
+
+    /**
+     * Method that converts a basic description of the object (and its attachments) to a string
+     * @return String: A String that lists some basic descriptions of the object along with padded descriptions
+     *                  of its attached objects
+     */
+    @Override
+    public String toString()
+    {
+        String str = "A " + length + "in " + color + texture + animalType + name;
+        for (int i=0; i<attachedBodyParts.size(); i++)
+        {
+            str += addPadding(attachedBodyParts.get( i ).toString());
+        }
+        return str;
+    }
+
+
+    /**
+     * Method that adds padding to the front of string (like indenting)
+     * @param str String: The string to add padding to the beginning of each line
+     * @return String: The str string padded (indented)
+     */
+    public String addPadding(String str)
+    {
+        String newStr = "";
+        String pad = strPadding();
+
+        String[] strArray = str.split("\n");
+        for (int i=0; i<strArray.length; i++)
+        {
+            str += pad + strArray[i];
+        }
+
+        return str;
+    }
+
+    /**
+     * Method that creates the padding given the PADDING constant
+     * @return String: A string composed of PADDING spaces
+     */
+    public String strPadding()
+    {
+        String str = "";
+        for (int i = 0; i<PADDING; i++)
+        {
+            str += " ";
+        }
+        return str;
+    }
+
+
 
 }
 
