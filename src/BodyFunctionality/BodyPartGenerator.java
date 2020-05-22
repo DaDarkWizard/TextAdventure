@@ -8,7 +8,7 @@ public class BodyPartGenerator
 {
 
     enum BodyPartType{ NA, FINGER, HAND, ARM, WING, HEAD, MUZZLE, NAIL, HORN, TAIL, TONGUE, EYE, EAR, NOSE, MOUTH,
-                        STOMACH, HEART, MIND, SPECIAL}
+                        NECK, STOMACH, HEART, MIND, SPECIAL}
 
     enum Texture{ NA, SKIN, SCALED, LEATHER, HAIRY, NAIL, BONE, SPIKY, ROUGH, SPECIAL }
 
@@ -18,10 +18,15 @@ public class BodyPartGenerator
 
     enum Gender{NA, MALE, FEMALE, OTHER}
 
-    static BodyPart createNail(String name, AnimalType animalType)
-    {
-        BodyPart nail = new BodyPart();
 
+    enum HandType{NA, HAND, FRONTCLAW, FRONTPAW, OTHER}
+
+    enum FootType{NA, FOOT, BACKCLAW, BACKPAW, GRASPINGFOOT, NONE, OTHER}
+
+    static BodyNail createNail(String name, AnimalType animalType)
+    {
+        BodyNail nail = new BodyNail();
+        nail.create(name, "", animalType, Color.WHITE);
         nail.setName( name );
         nail.setType( BodyPartType.NAIL );
         nail.setColor( Color.WHITE);
@@ -118,7 +123,16 @@ public class BodyPartGenerator
         else
         {
             arm.setDescription( "A " + animalType.toString() + " " + name );
-            arm.attachedBodyParts.add( createArm( name, side, "lower" , animalType, color ) );
+
+            if (animalType==AnimalType.HUMAN)
+            {
+                arm.attachedBodyParts.add( createHand( name, side, animalType, color ) );
+
+            }
+            else
+            {
+                arm.attachedBodyParts.add( createClaw( name, side, animalType, color ) );
+            }
         }
 
         attachBodyParts(arm.attachedBodyParts, arm);
@@ -131,7 +145,7 @@ public class BodyPartGenerator
     {
         BodyPart neck = new BodyPart();
         neck.setName( "Neck" );
-        neck.setType( BodyPartType.FINGER );
+        neck.setType( BodyPartType.NECK );
         neck.setColor( color );
         neck.setTexture(getAnimalTexture(animalType));
         neck.setAnimalType( animalType );
@@ -154,7 +168,7 @@ public class BodyPartGenerator
     {
         BodyPart head = new BodyPart();
         head.setName( "Head" );
-        head.setType( BodyPartType.FINGER );
+        head.setType( BodyPartType.HEAD );
         head.setColor( color );
         head.setTexture(getAnimalTexture(animalType));
         head.setAnimalType( animalType );
@@ -174,7 +188,7 @@ public class BodyPartGenerator
     {
         BodyPart head = new BodyPart();
         head.setName( "Head" );
-        head.setType( BodyPartType.FINGER );
+        head.setType( BodyPartType.HEAD );
         head.setColor( color );
         head.setTexture(getAnimalTexture(animalType));
         head.setAnimalType( animalType );
@@ -316,46 +330,24 @@ public class BodyPartGenerator
         return texture;
     }
 
-    static String handType(AnimalType animalType)
+    static HandType handType(AnimalType animalType)
     {
-        String handType = "front claw";
+        HandType handType = HandType.FRONTCLAW;
 
         switch (animalType) {
             case HUMAN:
             case UPRIGHTDRAGON:
-                handType = "hand";
+
+                handType = HandType.HAND;
                 break;
             case DRAGON:
-                handType = "front claw";
+                handType = HandType.FRONTCLAW;
                 break;
             case GUINEAPIG:
-                handType = "front paw";
+                handType = HandType.FRONTPAW;
                 break;
             default:
-                handType = "front claw";
-        }
-
-        return handType;
-
-    }
-
-    static String footType(AnimalType animalType)
-    {
-        String handType = "back claw";
-
-        switch (animalType) {
-            case HUMAN:
-            case UPRIGHTDRAGON:
-                handType = "foot";
-                break;
-            case DRAGON:
-                handType = "back claw";
-                break;
-            case GUINEAPIG:
-                handType = "back paw";
-                break;
-            default:
-                handType = "back claw";
+                handType = HandType.NA;
         }
 
         return handType;
@@ -363,7 +355,28 @@ public class BodyPartGenerator
     }
 
 
+    static FootType footType(AnimalType animalType)
+    {
+        FootType footType = FootType.BACKCLAW;
 
+        switch (animalType) {
+            case HUMAN:
+            case UPRIGHTDRAGON:
+                footType = FootType.FOOT;
+                break;
+            case DRAGON:
+                footType = FootType.BACKCLAW;
+                break;
+            case GUINEAPIG:
+                footType = FootType.BACKPAW;
+                break;
+            default:
+                footType = FootType.NA;
+        }
+
+        return footType;
+
+    }
 
 
 }
