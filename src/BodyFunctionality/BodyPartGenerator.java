@@ -18,6 +18,7 @@ public class BodyPartGenerator
 
     enum Gender{NA, MALE, FEMALE, OTHER}
 
+
     enum HandType{NA, HAND, FRONTCLAW, FRONTPAW, OTHER}
 
     enum FootType{NA, FOOT, BACKCLAW, BACKPAW, GRASPINGFOOT, NONE, OTHER}
@@ -26,7 +27,6 @@ public class BodyPartGenerator
     {
         BodyNail nail = new BodyNail();
         nail.create(name, "", animalType, Color.WHITE);
-
         nail.setName( name );
         nail.setType( BodyPartType.NAIL );
         nail.setColor( Color.WHITE);
@@ -123,6 +123,7 @@ public class BodyPartGenerator
         else
         {
             arm.setDescription( "A " + animalType.toString() + " " + name );
+
             if (animalType==AnimalType.HUMAN)
             {
                 arm.attachedBodyParts.add( createHand( name, side, animalType, color ) );
@@ -336,6 +337,7 @@ public class BodyPartGenerator
         switch (animalType) {
             case HUMAN:
             case UPRIGHTDRAGON:
+
                 handType = HandType.HAND;
                 break;
             case DRAGON:
@@ -351,6 +353,7 @@ public class BodyPartGenerator
         return handType;
 
     }
+
 
     static FootType footType(AnimalType animalType)
     {
@@ -374,9 +377,6 @@ public class BodyPartGenerator
         return footType;
 
     }
-
-
-
 
 
 }

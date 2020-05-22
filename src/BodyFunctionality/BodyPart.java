@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class BodyPart
 {
+
     protected final int PADDING = 2;
 
     protected String name, description;
@@ -80,6 +81,7 @@ public class BodyPart
 
         length = oldPart.getLength();
         weight = oldPart.getWeight();
+
 
         thisBody = oldPart.getThisBody();  //todo should keep this shallow copy?
         aboveBodyPart = oldPart.getAboveBodyPart(); //todo should keep this shallow copy?
@@ -164,7 +166,7 @@ public class BodyPart
         this.length = length;
     }
 
-    public void setWidth( double weight )
+    public void setWeight( double weight )
     {
         this.weight = weight;
     }
@@ -257,6 +259,7 @@ public class BodyPart
     public double getWeight()
     {
         return weight;
+
     }
 
     public Body getThisBody()
@@ -348,6 +351,7 @@ public class BodyPart
             || type == BodyPartGenerator.BodyPartType.EAR
             || type == BodyPartGenerator.BodyPartType.NOSE
             || type == BodyPartGenerator.BodyPartType.NECK)
+
         {
             isBodyColor = true;
         }
@@ -477,8 +481,6 @@ public class BodyPart
         }
         return str;
     }
-
-
 
 }
 
