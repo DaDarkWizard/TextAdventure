@@ -2,7 +2,7 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
-public class BodyEye extends BodyPart implements BodyPartInterface
+public class BodyEye extends BodyPart
 {
     enum PupilShape{NA, ROUND, SLITTED, OTHER}
 
@@ -54,20 +54,15 @@ public class BodyEye extends BodyPart implements BodyPartInterface
         return BodyPartGenerator.BodyPartType.EYE;
     }
 
-
     @Override
-    public BodyEye create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        BodyEye thisPart = (BodyEye) super.create( name, "", animalType, Color.WHITE );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
-        thisPart.setTexture( BodyPartGenerator.Texture.SPECIAL );
+        super.create(name, side, animalType, color);
+        this.type = bodyPartType();
+        this.texture = BodyPartGenerator.Texture.SPECIAL;
+        this.addSkill( "Vision: 5" );
 
-        thisPart.addSkill( "Vision: 5" );
-
-        return thisPart;
     }
-
 
 
 }

@@ -8,9 +8,9 @@ public class BodyPartGenerator
 {
 
     enum BodyPartType{ NA, FINGER, HAND, ARM, WING, HEAD, MUZZLE, NAIL, HORN, TAIL, TONGUE, EYE, EAR, NOSE, MOUTH,
-                        NECK, STOMACH, HEART, MIND, SPECIAL}
+                        NECK, FRONT, BACK, STOMACH, HEART, MIND, SPECIAL}
 
-    enum Texture{ NA, SKIN, SCALED, LEATHER, HAIRY, NAIL, BONE, SPIKY, ROUGH, SPECIAL }
+    enum Texture{ NA, SKIN, SCALED, FEATHERED, LEATHER, HAIRY, NAIL, BONE, SPIKY, ROUGH, SPECIAL }
 
     enum AnimalType{ NA, MIXED, HUMAN, DRAGON, UPRIGHTDRAGON, GUINEAPIG, OTHER }
 
@@ -22,6 +22,8 @@ public class BodyPartGenerator
     enum HandType{NA, HAND, FRONTCLAW, FRONTPAW, OTHER}
 
     enum FootType{NA, FOOT, BACKCLAW, BACKPAW, GRASPINGFOOT, NONE, OTHER}
+
+    /*
 
     static BodyNail createNail(String name, AnimalType animalType)
     {
@@ -298,7 +300,7 @@ public class BodyPartGenerator
             parts.get( i ).setAboveBodyPart( above );
         }
     }
-
+*/
 
 
     /**

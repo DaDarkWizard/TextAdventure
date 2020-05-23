@@ -2,7 +2,7 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
-public class BodyNeck extends BodyPart implements BodyPartInterface
+public class BodyNeck extends BodyPart
 {
     public BodyNeck()
     {
@@ -18,18 +18,23 @@ public class BodyNeck extends BodyPart implements BodyPartInterface
 
 
     @Override
-    public BodyNeck create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        BodyNeck thisPart = (BodyNeck) super.create( name, "", animalType, color  );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.type = bodyPartType();
 
         BodyHead head = new BodyHead();
-        head.create( "head", "", animalType, color);
-        head.setAboveBodyPart( thisPart );
-        thisPart.attachedBodyParts.add( head );
+        if (animalType== BodyPartGenerator.AnimalType.HUMAN)
+        {
+            head.createHumanHead( "head", "", animalType, color );
+        }
+        else
+        {
+            head.createAnimalHead( "head", "", animalType, color );
+        }
+        head.setAboveBodyPart( this );
+        this.attachedBodyParts.add( head );
 
-        return thisPart;
     }
 
 

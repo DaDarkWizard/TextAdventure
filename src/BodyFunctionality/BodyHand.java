@@ -2,7 +2,7 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
-public class BodyHand extends BodyPart implements BodyPartInterface
+public class BodyHand extends BodyPart
 {
 
     protected final String[] FINGERS = {" thumb", " first finger", " second finger", " third finger", " fourth finger", " fifth finger", "sixth finger", "seventh finger"};
@@ -34,11 +34,10 @@ public class BodyHand extends BodyPart implements BodyPartInterface
     }
 
     @Override
-    public BodyHand create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        BodyHand thisPart = (BodyHand) super.create( name, "", animalType, color  );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.type = bodyPartType();
         opposable = true;
 
         // create fingers starting with thumb
@@ -46,28 +45,25 @@ public class BodyHand extends BodyPart implements BodyPartInterface
         {
             BodyPart finger = new BodyFinger();
             finger.create(side + FINGERS[i] , "", animalType, color);
-            finger.setAboveBodyPart( thisPart );
-            thisPart.attachedBodyParts.add( finger);
+            finger.setAboveBodyPart( this );
+            this.attachedBodyParts.add( finger);
         }
-
-        thisPart.addSkill( "Write" );
-        thisPart.addSkill( "Wield" );
-        thisPart.addSkill( "Grasp" );
-
-        return thisPart;
+        this.addSkill( "Write" );
+        this.addSkill( "Wield" );
+        this.addSkill( "Grasp" );
+        this.addSkill( "Scratch: 1");
     }
 
-    public BodyHand createHand(String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    public void createHand(String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
     {
-        return create(name, side, animalType, color);
+        create(name, side, animalType, color);
     }
 
 
-    public BodyHand createClaw( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void createClaw( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        BodyHand thisPart = (BodyHand) super.create( name, "", animalType, color  );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.type = bodyPartType();
         opposable = false;
 
         // create fingers starting with thumb
@@ -75,18 +71,17 @@ public class BodyHand extends BodyPart implements BodyPartInterface
         {
             BodyPart finger = new BodyFinger();
             finger.create(side + FINGERS[i] , "", animalType, color);
-            finger.setAboveBodyPart( thisPart );
-            thisPart.attachedBodyParts.add( finger);
+            finger.setAboveBodyPart( this );
+            this.attachedBodyParts.add( finger);
         }
+        this.addSkill( "Scratch: 5" );
 
-        return thisPart;
     }
 
-    public BodyHand createGraspingFoot( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void createGraspingFoot( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        BodyHand thisPart = (BodyHand) super.create( name, "", animalType, color  );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.type = bodyPartType();
         opposable = true;
 
         // create toes starting with opposable toe
@@ -94,20 +89,20 @@ public class BodyHand extends BodyPart implements BodyPartInterface
         {
             BodyPart finger = new BodyFinger();
             finger.create(side + TOES[i] , "", animalType, color);
-            finger.setAboveBodyPart( thisPart );
-            thisPart.attachedBodyParts.add( finger);
+            finger.setAboveBodyPart( this );
+            this.attachedBodyParts.add( finger);
         }
 
-        thisPart.addSkill( "Grasp" );
+        this.addSkill( "Grasp" );
+        this.addSkill( "Walk: 5" );
+        this.addSkill( "Run: 15" );
 
-        return thisPart;
     }
 
-    public BodyHand createFoot( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void createFoot( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        BodyHand thisPart = (BodyHand) super.create( name, "", animalType, color  );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.type = bodyPartType();
         opposable = false;
 
         // create fingers starting with thumb
@@ -115,11 +110,13 @@ public class BodyHand extends BodyPart implements BodyPartInterface
         {
             BodyPart finger = new BodyFinger();
             finger.create(side + TOES[i] , "", animalType, color);
-            finger.setAboveBodyPart( thisPart );
-            thisPart.attachedBodyParts.add( finger);
+            finger.setAboveBodyPart( this );
+            this.attachedBodyParts.add( finger);
         }
 
-        return thisPart;
+        this.addSkill( "Walk: 5" );
+        this.addSkill( "Run: 15" );
+
     }
 
 

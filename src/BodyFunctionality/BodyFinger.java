@@ -2,7 +2,7 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
-public class BodyFinger extends BodyPart implements BodyPartInterface
+public class BodyFinger extends BodyPart
 {
     public BodyFinger()
     {
@@ -16,20 +16,16 @@ public class BodyFinger extends BodyPart implements BodyPartInterface
         return BodyPartGenerator.BodyPartType.FINGER;
     }
 
-
     @Override
-    public BodyFinger create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        BodyFinger thisPart = (BodyFinger) super.create( name, side, animalType, color  );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.type = bodyPartType();
 
         BodyPart nail = new BodyNail();
         nail.create( name + "nail", "", animalType, Color.WHITE);
-        nail.setAboveBodyPart( thisPart );
-        thisPart.attachedBodyParts.add( nail );
-
-        return thisPart;
+        nail.setAboveBodyPart( this );
+        this.attachedBodyParts.add( nail );
     }
 
 }

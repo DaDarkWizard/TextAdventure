@@ -2,7 +2,7 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
-public class BodyTongue extends BodyPart implements BodyPartInterface
+public class BodyTongue extends BodyPart
 {
     public BodyTongue()
     {
@@ -18,15 +18,12 @@ public class BodyTongue extends BodyPart implements BodyPartInterface
 
 
     @Override
-    public BodyTongue create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        BodyTongue thisPart = (BodyTongue) super.create( name, "", animalType, color );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.type = bodyPartType();
+        this.addSkill( "Basic Taste: 5" );
 
-        thisPart.addSkill( "Basic Taste" );
-
-        return thisPart;
     }
 
 }

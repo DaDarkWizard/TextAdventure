@@ -7,8 +7,6 @@ import java.util.ArrayList;
 public class BodyPart
 {
 
-    protected final int PADDING = 2;
-
     protected String name, description;
     protected BodyPartGenerator.BodyPartType type;
     protected Color color;
@@ -81,7 +79,6 @@ public class BodyPart
 
         length = oldPart.getLength();
         weight = oldPart.getWeight();
-
 
         thisBody = oldPart.getThisBody();  //todo should keep this shallow copy?
         aboveBodyPart = oldPart.getAboveBodyPart(); //todo should keep this shallow copy?
@@ -259,7 +256,6 @@ public class BodyPart
     public double getWeight()
     {
         return weight;
-
     }
 
     public Body getThisBody()
@@ -334,6 +330,7 @@ public class BodyPart
             attachedBodyParts.get( i ).setAllBody( body );  // sets all attached object's references
         }
     }
+
     /**
      * Private method that returns true if the body part is one that should be the general body color, to allow easier coloring
      * @return boolean: true if the body part is part of the general body color, false otherwise
@@ -350,8 +347,9 @@ public class BodyPart
             || type == BodyPartGenerator.BodyPartType.TAIL
             || type == BodyPartGenerator.BodyPartType.EAR
             || type == BodyPartGenerator.BodyPartType.NOSE
-            || type == BodyPartGenerator.BodyPartType.NECK)
-
+            || type == BodyPartGenerator.BodyPartType.NECK
+            || type == BodyPartGenerator.BodyPartType.FRONT
+            || type == BodyPartGenerator.BodyPartType.BACK)
         {
             isBodyColor = true;
         }
@@ -418,17 +416,28 @@ public class BodyPart
         features.clear();
     }
 
-    public BodyPart create(String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    /**
+     * Method that creates updates the BodyPart type with basic information regarding the BodyPart
+     * @param name String: The name of the BodyPart object
+     * @param side String: The side the BodyPart object is on (ie. left or right), becomes part of the name
+     * @param animalType AnimalType: The type of animal is body part belongs to
+     * @param color Color: The color of the body part
+     */
+    public void create(String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
     {
-        BodyPart thisPart = new BodyPart();
+        if (side.isEmpty())
+        {
+            this.name = name;
+        }
+        else
+        {
+            this.name = side + " " + name;
+        }
+        this.description = "A " + animalType.toString() + " " + side + " " + name;
+        this.color = color;
+        this.animalType = animalType;
+        this.type = BodyPartGenerator.BodyPartType.NA;
 
-        thisPart.setName( name );
-        thisPart.setType( BodyPartGenerator.BodyPartType.NAIL );
-        thisPart.setColor( color );
-        thisPart.setAnimalType( animalType );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
-
-        return thisPart;
     }
 
 
@@ -440,13 +449,19 @@ public class BodyPart
     @Override
     public String toString()
     {
-        String str = "A " + length + "in " + color + texture + animalType + name;
+        String str = "A " + length + "in " + color + " " + texture + " " + animalType + " " + name;
         for (int i=0; i<attachedBodyParts.size(); i++)
         {
-            str += addPadding(attachedBodyParts.get( i ).toString());
+            str += "\n" + addPadding(attachedBodyParts.get( i ).toString(), this.treeDepth()*2+ 2);
         }
         return str;
     }
+
+    public BodyPartGenerator.BodyPartType bodyPartType()
+    {
+        return BodyPartGenerator.BodyPartType.NA;
+    }
+
 
 
     /**
@@ -454,34 +469,80 @@ public class BodyPart
      * @param str String: The string to add padding to the beginning of each line
      * @return String: The str string padded (indented)
      */
-    public String addPadding(String str)
+    public String addPadding(String str, int paddingAmount)
     {
         String newStr = "";
-        String pad = strPadding();
+        String pad = strPadding(paddingAmount);
 
-        String[] strArray = str.split("\n");
-        for (int i=0; i<strArray.length; i++)
-        {
-            str += pad + strArray[i];
-        }
+        newStr = pad + str;
 
-        return str;
+        return newStr;
     }
 
     /**
      * Method that creates the padding given the PADDING constant
      * @return String: A string composed of PADDING spaces
      */
-    public String strPadding()
+    public String strPadding(int padAmount)
     {
         String str = "";
-        for (int i = 0; i<PADDING; i++)
+        for (int i = 0; i<padAmount; i++)
         {
-            str += " ";
+            str += "-";
         }
         return str;
     }
 
+    /**
+     * Method to search for a body part.  If it is not found, return null
+     * @param partName String: The BodyPart to search if it is the part looked for
+     * @return BodyPart: Returns the body part if it is found, otherwise returns null
+     */
+    public BodyPart getBodyPart(String partName)
+    {
+        BodyPart part = null;
+        if (partName.equals( name ))
+        {
+            part = this;
+        }
+        else
+        {
+            // search through all attached parts until part found
+            for (int i=0; i<attachedBodyParts.size() && part==null; i++)
+            {
+                part = attachedBodyParts.get( i ).getBodyPart( partName );
+            }
+        }
+        return part;
+    }
+
+    public int countParts()
+    {
+        int count = 1;
+        System.out.println( "Part:" + name );
+        for (int i=0; i<attachedBodyParts.size(); i++)
+        {
+            count += attachedBodyParts.get( i ).countParts();
+        }
+
+        return count;
+    }
+
+    /**
+     * Method to determine how deep the body part is in the body tree
+     * @return int: The depth of the body part in the tree (or how far the part is from the body object)
+     */
+    public int treeDepth()
+    {
+        int depth = 0;
+        BodyPart depthCheck = this;
+        while (depthCheck.aboveBodyPart!=null)
+        {
+            depthCheck=depthCheck.aboveBodyPart;
+            depth++;
+        }
+        return depth;
+    }
 }
 
 
