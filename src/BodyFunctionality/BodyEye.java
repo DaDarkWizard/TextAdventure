@@ -12,7 +12,7 @@ public class BodyEye extends BodyPart
     public BodyEye()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.EYE );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.EYE );
         pupilShape = PupilShape.ROUND;
         pupilColor = Color.BLACK;
         scleraColor = Color.WHITE;
@@ -58,7 +58,7 @@ public class BodyEye extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
         this.texture = BodyPartGenerator.Texture.SPECIAL;
         this.addSkill( "Vision: 5" );
 

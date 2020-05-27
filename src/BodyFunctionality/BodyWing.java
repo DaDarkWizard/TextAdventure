@@ -11,7 +11,7 @@ public class BodyWing extends BodyPart
     public BodyWing()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.WING );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.WING );
         wingType = WingType.BIRD;
     }
 
@@ -36,7 +36,7 @@ public class BodyWing extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
         this.texture = BodyPartGenerator.Texture.FEATHERED;
 
     }

@@ -7,7 +7,7 @@ public class BodyChest extends BodyPart
     public BodyChest()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.FRONT );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.FRONT );
     }
 
     @Override
@@ -21,7 +21,7 @@ public class BodyChest extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
 
         BodyArm leftArm = new BodyArm();
         leftArm.create( "arm", "left", animalType, color );

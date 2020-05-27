@@ -7,7 +7,7 @@ public class BodyArm extends BodyPart
     public BodyArm()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.ARM );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.ARM );
     }
 
     @Override
@@ -25,7 +25,7 @@ public class BodyArm extends BodyPart
     public void createUpperArm (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
 
         BodyArm lowerArm = new BodyArm();
         lowerArm.createLowerArm("lower arm", side, animalType, color);
@@ -36,7 +36,7 @@ public class BodyArm extends BodyPart
     public void createLowerArm (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
 
         BodyHand hand = new BodyHand();
         if (BodyPartGenerator.handType( animalType )== BodyPartGenerator.HandType.HAND)
@@ -54,7 +54,7 @@ public class BodyArm extends BodyPart
     public void createUpperLeg (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
 
         BodyArm lowerLeg = new BodyArm();
         lowerLeg.createLowerLeg("upper leg", side, animalType, color);
@@ -65,7 +65,7 @@ public class BodyArm extends BodyPart
     public void createLowerLeg (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
 
         BodyHand hand = new BodyHand();
         if (BodyPartGenerator.footType( animalType )== BodyPartGenerator.FootType.GRASPINGFOOT)

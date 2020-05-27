@@ -10,7 +10,7 @@ public class BodyHorn extends BodyPart
     public BodyHorn()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.HORN );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.HORN );
         hornStyle = HornStyle.STRAIGHT;
 
     }
@@ -35,7 +35,7 @@ public class BodyHorn extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
         this.texture = BodyPartGenerator.Texture.BONE;
 
     }

@@ -14,7 +14,7 @@ public class BodyMouth extends BodyPart
     public BodyMouth()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.MOUTH );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.MOUTH );
         teethStyle = TeethStyle.SHARP;
         mouthStyle = MouthStyle.WIDE;
         numOfTeeth = 40;
@@ -61,7 +61,7 @@ public class BodyMouth extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
 
         BodyPart tongue = new BodyTongue();
         tongue.create( "tongue", "", animalType, Color.RED);

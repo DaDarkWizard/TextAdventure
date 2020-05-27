@@ -10,7 +10,7 @@ public class BodyHead extends BodyPart
     public BodyHead()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.HEAD );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.HEAD );
         muzzled = true;
     }
 
@@ -34,7 +34,7 @@ public class BodyHead extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
         muzzled = true;
 
         BodyPart leftEye = new BodyEye();
@@ -72,7 +72,7 @@ public class BodyHead extends BodyPart
     public void createHumanHead( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
         muzzled = false;
 
         BodyPart leftEye = new BodyEye();

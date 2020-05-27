@@ -11,7 +11,7 @@ public class BodyEar extends BodyPart
     public BodyEar()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.EAR );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.EAR );
         earShape = EarShape.POINTED;
     }
 
@@ -35,7 +35,7 @@ public class BodyEar extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
         this.addSkill( "Hearing: 5" );
 
     }

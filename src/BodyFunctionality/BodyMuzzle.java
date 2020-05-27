@@ -8,7 +8,7 @@ public class BodyMuzzle extends BodyPart
     public BodyMuzzle()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.MUZZLE );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.MUZZLE );
     }
 
     @Override
@@ -21,7 +21,7 @@ public class BodyMuzzle extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
 
         BodyNose nose = new BodyNose();
         nose.create( "nose", "", animalType, color );

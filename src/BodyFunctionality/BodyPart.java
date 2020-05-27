@@ -2,13 +2,14 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class BodyPart
 {
 
     protected String name, description;
-    protected BodyPartGenerator.BodyPartType type;
+    protected BodyPartGenerator.BodyPartType bodyPartType;
     protected Color color;
     protected BodyPartGenerator.Texture texture;
     protected BodyPartGenerator.AnimalType animalType;
@@ -31,7 +32,7 @@ public class BodyPart
     public BodyPart()
     {
         name="";
-        type=BodyPartGenerator.BodyPartType.NA;
+        bodyPartType=BodyPartGenerator.BodyPartType.NA;
         color=Color.BLACK;
         texture=BodyPartGenerator.Texture.NA;
         description="";
@@ -55,18 +56,79 @@ public class BodyPart
     }
 
     /**
+     * Constructor method to construct a body part from a ByteBuffer object
+     * @param buffer ByteBuffer: The ByteBuffer object that contains the BodyPart data
+     */
+    public BodyPart(ByteBuffer buffer)
+    {
+        System.out.println( "In BodyPart(Buffer) constructor" );
+        name = ByteBufferIO.getString( buffer );
+        System.out.println( "Setting name to " + name );
+
+        description = ByteBufferIO.getString( buffer );
+        System.out.println( "Setting description to " + description );
+
+        bodyPartType = BodyPartGenerator.BodyPartType.fromOrdinal( buffer.getInt());
+        System.out.println( "Setting bodyPartType to " + bodyPartType );
+
+        color = ByteBufferIO.getColor( buffer );
+        System.out.println( "Setting color to " + color );
+
+        texture = BodyPartGenerator.Texture.fromOrdinal( buffer.getInt());
+        System.out.println( "Setting texture to " + texture );
+
+        animalType = BodyPartGenerator.AnimalType.fromOrdinal( buffer.getInt());
+        System.out.println( "Setting animalType to " + animalType );
+
+        features = ByteBufferIO.getFeatures( buffer );
+        System.out.println( "Setting features to " + features );
+
+        itemsWorn = ByteBufferIO.getItemsWorn( buffer );
+        System.out.println( "Setting itemsWorn to " + itemsWorn );
+
+        resistances = ByteBufferIO.getResistances( buffer );
+        System.out.println( "Setting resistances to " + resistances );
+
+        skills = ByteBufferIO.getSkills( buffer );
+        System.out.println( "Setting skills to " + skills );
+
+        injuries = ByteBufferIO.getInjuries( buffer );
+        System.out.println( "Setting injuries to " + injuries );
+
+        length = buffer.getDouble();
+        System.out.println( "Setting length to " + length );
+
+        weight = buffer.getDouble();
+        System.out.println( "Setting weight to " + weight );
+
+        maxHealth = buffer.getInt();
+        System.out.println( "Setting maxHealth to " + maxHealth );
+
+        health = buffer.getInt();
+        System.out.println( "Setting health to " + health );
+
+        System.out.println( "Preparing to Create more subordinate body parts if they exist" );
+        ArrayList<BodyPart> attachedBodyParts = ByteBufferIO.getAttachedBodyParts( buffer );
+
+        for (int i=0; i<attachedBodyParts.size(); i++)
+        {
+            attachedBodyParts.get( i ).setAboveBodyPart( this );
+        }
+        System.out.println( "Setting attachedBodyParts for " + name + " to " + attachedBodyParts );
+
+    }
+    /**
      * Copy constructor
      * The copy constructor should make deep copies of most objects with the exception of this and above body part objects
      * It will make a deep copy of the attachedBodyParts object
      *
-     *
-     * @param oldPart:
+     * @param oldPart: The BodyPart object to make a copy of
      */
 
     public BodyPart(BodyPart oldPart)
     {
         name = oldPart.getName();
-        type = oldPart.getType();
+        bodyPartType = oldPart.getBodyPartType();
         color = oldPart.getColor();
         texture = oldPart.getTexture();
         description = oldPart.getDescription();
@@ -108,9 +170,9 @@ public class BodyPart
         this.name = name;
     }
 
-    public void setType( BodyPartGenerator.BodyPartType type )
+    public void setBodyPartType( BodyPartGenerator.BodyPartType type )
     {
-        this.type = type;
+        this.bodyPartType = type;
     }
 
     public void setColor( Color color )
@@ -198,9 +260,9 @@ public class BodyPart
         return name;
     }
 
-    public BodyPartGenerator.BodyPartType getType()
+    public BodyPartGenerator.BodyPartType getBodyPartType()
     {
-        return type;
+        return bodyPartType;
     }
 
     public Color getColor()
@@ -338,18 +400,18 @@ public class BodyPart
     private boolean isBodyColorPart()
     {
         boolean isBodyColor = false;
-        if ( type == BodyPartGenerator.BodyPartType.FINGER
-            || type == BodyPartGenerator.BodyPartType.HAND
-            || type == BodyPartGenerator.BodyPartType.ARM
-            || type == BodyPartGenerator.BodyPartType.WING
-            || type == BodyPartGenerator.BodyPartType.HEAD
-            || type == BodyPartGenerator.BodyPartType.MUZZLE
-            || type == BodyPartGenerator.BodyPartType.TAIL
-            || type == BodyPartGenerator.BodyPartType.EAR
-            || type == BodyPartGenerator.BodyPartType.NOSE
-            || type == BodyPartGenerator.BodyPartType.NECK
-            || type == BodyPartGenerator.BodyPartType.FRONT
-            || type == BodyPartGenerator.BodyPartType.BACK)
+        if ( bodyPartType == BodyPartGenerator.BodyPartType.FINGER
+            || bodyPartType == BodyPartGenerator.BodyPartType.HAND
+            || bodyPartType == BodyPartGenerator.BodyPartType.ARM
+            || bodyPartType == BodyPartGenerator.BodyPartType.WING
+            || bodyPartType == BodyPartGenerator.BodyPartType.HEAD
+            || bodyPartType == BodyPartGenerator.BodyPartType.MUZZLE
+            || bodyPartType == BodyPartGenerator.BodyPartType.TAIL
+            || bodyPartType == BodyPartGenerator.BodyPartType.EAR
+            || bodyPartType == BodyPartGenerator.BodyPartType.NOSE
+            || bodyPartType == BodyPartGenerator.BodyPartType.NECK
+            || bodyPartType == BodyPartGenerator.BodyPartType.FRONT
+            || bodyPartType == BodyPartGenerator.BodyPartType.BACK)
         {
             isBodyColor = true;
         }
@@ -364,7 +426,7 @@ public class BodyPart
     private boolean isHornColorPart()
     {
         boolean isHornColor = false;
-        if (type == BodyPartGenerator.BodyPartType.NAIL || type == BodyPartGenerator.BodyPartType.HORN)
+        if (bodyPartType == BodyPartGenerator.BodyPartType.NAIL || bodyPartType == BodyPartGenerator.BodyPartType.HORN)
         {
             isHornColor = true;
         }
@@ -436,7 +498,7 @@ public class BodyPart
         this.description = "A " + animalType.toString() + " " + side + " " + name;
         this.color = color;
         this.animalType = animalType;
-        this.type = BodyPartGenerator.BodyPartType.NA;
+        this.bodyPartType = BodyPartGenerator.BodyPartType.NA;
 
     }
 
@@ -450,7 +512,7 @@ public class BodyPart
     public String toString()
     {
         String str = "A " + length + "in " + color + " " + texture + " " + animalType + " " + name;
-        for (int i=0; i<attachedBodyParts.size(); i++)
+        for (int i=0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
         {
             str += "\n" + addPadding(attachedBodyParts.get( i ).toString(), this.treeDepth()*2+ 2);
         }
@@ -543,6 +605,65 @@ public class BodyPart
         }
         return depth;
     }
+
+    /**
+     * Method to convert the Body Object data to a ByteBuffer, it calls the addToBuffer method to do this
+     * @return ByteBuffer: The Object's data stored in a ByteBuffer
+     */
+    public ByteBuffer toBuffer()
+    {
+        System.out.println( "In BodyPart toBuffer" );
+
+        ByteBuffer buf = ByteBuffer.allocate(16384);
+        addToBuffer(buf);
+
+        return buf;
+    }
+
+    /**
+     * Method that converts the Body Object data to a ByteBuffer
+     * @param buf ByteBuffer: The ByteBuffer used to store the object data
+     * @return boolean: true is there was no problems in storing the buffer data, false if there was problems
+     */
+    public boolean addToBuffer(ByteBuffer buf)
+    {
+        System.out.println( "In BodyPart addToBuffer" );
+        boolean noProblems = true;
+
+        noProblems = noProblems && ByteBufferIO.putString( buf, name );
+        noProblems = noProblems && ByteBufferIO.putString( buf, description );
+        buf.putInt(bodyPartType.ordinal());
+        System.out.println( "bodyPartType ordinal buffered:" + bodyPartType.ordinal() );
+
+        noProblems = noProblems && ByteBufferIO.putColor( buf, color );
+        buf.putInt(texture.ordinal());
+        System.out.println( "texture ordinal buffered:" + texture.ordinal() );
+
+        buf.putInt(animalType.ordinal());
+        System.out.println( "animalType ordinal buffered:" + animalType.ordinal() );
+
+        noProblems = noProblems && ByteBufferIO.putFeatures(buf, features);
+        noProblems = noProblems && ByteBufferIO.putItemsWorn(buf, itemsWorn);
+        noProblems = noProblems && ByteBufferIO.putResistances(buf, resistances);
+        noProblems = noProblems && ByteBufferIO.putSkills(buf, skills);
+        noProblems = noProblems && ByteBufferIO.putInjuries(buf, injuries);
+        buf.putDouble( length );
+        System.out.println( "double buffered:" + bodyPartType.ordinal() );
+        buf.putDouble( weight );
+        System.out.println( "double buffered:" + bodyPartType.ordinal() );
+        buf.putInt( maxHealth );
+        System.out.println( "int buffered:" + bodyPartType.ordinal() );
+        buf.putInt( health );
+        System.out.println( "int buffered:" + bodyPartType.ordinal() );
+// do not store reference to thisBody, but when creating set reference to this object
+        // do not store reference to aboveBodyPart, but set reference when object created
+
+        noProblems = noProblems && ByteBufferIO.putAttachedBodyParts(buf, attachedBodyParts);
+
+
+        return noProblems;
+    }
+
 }
 
 

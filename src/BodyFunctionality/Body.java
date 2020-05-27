@@ -2,6 +2,7 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 
@@ -146,6 +147,68 @@ public class Body extends BodyPart
         return str;
     }
 
+    @Override
+    public ByteBuffer toBuffer()
+    {
+        System.out.println( "In Body toBuffer" );
+        ByteBuffer buf = super.toBuffer();
+
+        ByteBufferIO.putString( buf, firstName );
+
+
+        /*
+
+        stringBytes = firstName.getBytes();
+        buf.putInt(stringBytes.length);
+        buf.put(stringBytes);
+
+        stringBytes = lastName.getBytes();
+        buf.putInt(stringBytes.length);
+        buf.put(stringBytes);
+
+        stringBytes = lastName.getBytes();
+        buf.putInt(stringBytes.length);
+        buf.put(stringBytes);
+
+        buf.putInt(indentifier);
+
+        stringBytes = lastName.getBytes();
+        buf.putInt(stringBytes.length);
+        buf.put(stringBytes);
+
+        */
+
+
+        /*
+        for (int i = 0; i < prices.length; i++) {
+            buf.putDouble(prices[i]);
+            buf.putInt(units[i]);
+
+            byte[] descsBytes = descs[i].getBytes();
+            buf.putInt(descsBytes.length);
+            buf.put(descsBytes);
+        }
+        */
+
+        /*
+        while (buf.hasRemaining()) {
+
+            price = buf.getDouble();
+            unit = buf.getInt();
+
+            int len = buf.getInt();
+            byte[] bytes = new byte[len];
+            buf.get(bytes);
+            desc = new String(bytes);
+
+            System.out.format("You ordered %d" + " units of %s at $%.2f%n",
+                    unit, desc, price);
+            total += unit * price;
+        }
+        */
+
+        return buf;
+    }
 
 
 

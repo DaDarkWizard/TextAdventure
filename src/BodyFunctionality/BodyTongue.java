@@ -7,7 +7,7 @@ public class BodyTongue extends BodyPart
     public BodyTongue()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.TONGUE );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.TONGUE );
     }
 
     @Override
@@ -21,7 +21,7 @@ public class BodyTongue extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
         this.addSkill( "Basic Taste: 5" );
 
     }

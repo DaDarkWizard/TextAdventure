@@ -13,7 +13,7 @@ public class BodyHand extends BodyPart
     public BodyHand()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.HAND );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.HAND );
         opposable = false;
     }
 
@@ -37,7 +37,7 @@ public class BodyHand extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
         opposable = true;
 
         // create fingers starting with thumb
@@ -63,7 +63,7 @@ public class BodyHand extends BodyPart
     public void createClaw( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
         opposable = false;
 
         // create fingers starting with thumb
@@ -81,7 +81,7 @@ public class BodyHand extends BodyPart
     public void createGraspingFoot( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
         opposable = true;
 
         // create toes starting with opposable toe
@@ -102,7 +102,7 @@ public class BodyHand extends BodyPart
     public void createFoot( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
         opposable = false;
 
         // create fingers starting with thumb

@@ -12,7 +12,7 @@ public class BodyNose extends BodyPart
     public BodyNose()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.NOSE );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.NOSE );
         noseShape = NoseShape.HIDDEN;
     }
 
@@ -37,7 +37,7 @@ public class BodyNose extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
         this.addSkill( "Smell: 5" );
 
     }

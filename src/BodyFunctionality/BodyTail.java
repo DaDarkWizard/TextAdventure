@@ -7,7 +7,7 @@ public class BodyTail extends BodyPart
     public BodyTail()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.TAIL );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.TAIL );
     }
 
     @Override
@@ -21,7 +21,7 @@ public class BodyTail extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
 
     }
 

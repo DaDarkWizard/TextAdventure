@@ -7,7 +7,7 @@ public class BodyBack extends BodyPart
     public BodyBack()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.BACK );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.BACK );
     }
 
     @Override
@@ -21,7 +21,7 @@ public class BodyBack extends BodyPart
     public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
         super.create(name, side, animalType, color);
-        this.type = bodyPartType();
+        this.bodyPartType = bodyPartType();
 
     }
 }

@@ -8,20 +8,42 @@ public class BodyPartGenerator
 {
 
     enum BodyPartType{ NA, FINGER, HAND, ARM, WING, HEAD, MUZZLE, NAIL, HORN, TAIL, TONGUE, EYE, EAR, NOSE, MOUTH,
-                        NECK, FRONT, BACK, STOMACH, HEART, MIND, SPECIAL}
+                        NECK, FRONT, BACK, STOMACH, HEART, MIND, SPECIAL;
+        // enum methods to allow for retreiving type from integers
+        private static BodyPartType[] allValues = values();
+        public static BodyPartType fromOrdinal(int n) {return allValues[n];}}
 
-    enum Texture{ NA, SKIN, SCALED, FEATHERED, LEATHER, HAIRY, NAIL, BONE, SPIKY, ROUGH, SPECIAL }
+    enum Texture{ NA, SKIN, SCALED, FEATHERED, LEATHER, HAIRY, NAIL, BONE, SPIKY, ROUGH, SPECIAL;
+        // enum methods to allow for retreiving type from integers
+        private static Texture[] allValues = values();
+        public static Texture fromOrdinal(int n) {return allValues[n];}}
 
-    enum AnimalType{ NA, MIXED, HUMAN, DRAGON, UPRIGHTDRAGON, GUINEAPIG, OTHER }
+    enum AnimalType{ NA, MIXED, HUMAN, DRAGON, UPRIGHTDRAGON, GUINEAPIG, OTHER;
 
-    enum Stance{NA, UPRIGHT, ONFEET, ONGROUND, OTHER}
+        // enum methods to allow for retreiving type from integers
+        private static AnimalType[] allValues = values();
+        public static AnimalType fromOrdinal(int n) {return allValues[n];}}
 
-    enum Gender{NA, MALE, FEMALE, OTHER}
+    enum Stance{NA, UPRIGHT, ONFEET, ONGROUND, OTHER;
+        // enum methods to allow for retreiving type from integers
+        private static Stance[] allValues = values();
+        public static Stance fromOrdinal(int n) {return allValues[n];}}
+
+    enum Gender{NA, MALE, FEMALE, OTHER;
+        // enum methods to allow for retreiving type from integers
+        private static Gender[] allValues = values();
+        public static Gender fromOrdinal(int n) {return allValues[n];}}
 
 
-    enum HandType{NA, HAND, FRONTCLAW, FRONTPAW, OTHER}
+    enum HandType{NA, HAND, FRONTCLAW, FRONTPAW, OTHER;
+        // enum methods to allow for retreiving type from integers
+        private static HandType[] allValues = values();
+        public static HandType fromOrdinal(int n) {return allValues[n];}}
 
-    enum FootType{NA, FOOT, BACKCLAW, BACKPAW, GRASPINGFOOT, NONE, OTHER}
+    enum FootType{NA, FOOT, BACKCLAW, BACKPAW, GRASPINGFOOT, NONE, OTHER;
+        // enum methods to allow for retreiving type from integers
+        private static FootType[] allValues = values();
+        public static FootType fromOrdinal(int n) {return allValues[n];}}
 
     /*
 
