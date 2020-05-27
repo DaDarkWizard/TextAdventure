@@ -387,7 +387,7 @@ public class BodyPart
     public void setAllBody(Body body)
     {
         thisBody = body;                                    // sets this object's reference
-        for (int i = 0; i<attachedBodyParts.size(); i++)
+        for (int i = 0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
         {
             attachedBodyParts.get( i ).setAllBody( body );  // sets all attached object's references
         }

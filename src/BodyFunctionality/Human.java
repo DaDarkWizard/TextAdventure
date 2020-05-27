@@ -594,7 +594,7 @@ public class Human implements CreatureCreationInterface
 
             // todo update creation method to either update body here, or during body part creation
             //  update the body
-            newBody.setFirstName( "Human" + Integer.toString( newBody.getIndentifier() ) );
+            newBody.setFirstName( "Human" + Integer.toString( newBody.getIdentifier() ) );
             newBody.setColor( Color.PEACHPUFF );
             newBody.setTexture( BodyPartGenerator.Texture.SKIN );
             newBody.setAnimalType( BodyPartGenerator.AnimalType.HUMAN );

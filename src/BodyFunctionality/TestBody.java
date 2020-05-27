@@ -19,6 +19,8 @@ public class TestBody
         buffer.flip();
         // from BodyPart class
 
+        Body body1 = new Body(buffer);
+        /*
         System.out.println( "Buffer contents:\n" + buffer );
 
         String name = ByteBufferIO.getString( buffer );
@@ -64,8 +66,29 @@ public class TestBody
 
     // from Body class
         String firstName = ByteBufferIO.getString( buffer );
-
         System.out.println( "Body First Name: " + firstName );
+
+        String lastName = ByteBufferIO.getString( buffer );
+        System.out.println( "Body Last Name: " + lastName );
+
+        int identifier = buffer.getInt();
+        System.out.println( "Body Identifier: " + identifier );
+
+        String player = ByteBufferIO.getString( buffer );
+        System.out.println( "Body Player: " + player );
+
+        BodyPartGenerator.Gender gender = BodyPartGenerator.Gender.fromOrdinal( buffer.getInt());
+        System.out.println( "Body Gender Type: " + gender);
+
+        BodyPartGenerator.Stance stance = BodyPartGenerator.Stance.fromOrdinal( buffer.getInt());
+        System.out.println( "Body Stance Type: " + stance);
+
+        ArrayList<BodyPart> internalBodyParts = ByteBufferIO.getAttachedBodyParts( buffer );
+        System.out.println( "Body Internal Body Parts: " + internalBodyParts);
+
+
+*/
+
 
 
     }

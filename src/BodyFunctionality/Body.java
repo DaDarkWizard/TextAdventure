@@ -9,20 +9,21 @@ import java.util.ArrayList;
 public class Body extends BodyPart
 {
 
-    private static int nextIdentifier = 1;
+    protected static int nextIdentifier = 1;
 
-    private String firstName, lastName, title;
-    private int indentifier;
-    private String player;       //to do attach to player object if controlled by a player
+    protected String firstName, lastName, title;
+    protected int identifier;
+    protected String player;       //to do attach to player object if controlled by a player
 
-    private BodyPartGenerator.Gender gender;
+    protected BodyPartGenerator.Gender gender;
 
-    private BodyPartGenerator.Stance stance; // if on two or four feet
+    protected BodyPartGenerator.Stance stance; // if on two or four feet
 
-    private ArrayList<BodyPart> internalBodyParts;
+    protected ArrayList<BodyPart> internalBodyParts;
 
-    private int maxHealth, health;
-
+    /**
+     * No-argument constructor, sets default values
+     */
     public Body()
     {
         super();
@@ -30,7 +31,7 @@ public class Body extends BodyPart
         lastName="";
         title="";
         description="";
-        indentifier=nextIdentifier++;
+        identifier=nextIdentifier++;
         player = null;
         color = Color.BLACK;
         gender = BodyPartGenerator.Gender.NA;
@@ -51,6 +52,41 @@ public class Body extends BodyPart
 
     }
 
+    /**
+     * Constructor with a buffer containing the entire Body's data (including all BodyParts)
+     *
+     * This constructor will load the entire Body with its attached BodyParts in the buffer
+     * @param buffer ByteBuffer: The buffer containing the Body data
+     */
+    public Body(ByteBuffer buffer)
+    {
+        super(buffer);
+        firstName = ByteBufferIO.getString( buffer );
+        System.out.println( "Setting Body First Name: " + firstName );
+
+        lastName = ByteBufferIO.getString( buffer );
+        System.out.println( "Setting Body Last Name: " + lastName );
+
+        identifier = buffer.getInt();
+        System.out.println( "Setting Body Identifier: " + identifier );
+
+        player = ByteBufferIO.getString( buffer );
+        System.out.println( "Setting Body Player: " + player );
+
+        gender = BodyPartGenerator.Gender.fromOrdinal( buffer.getInt());
+        System.out.println( "Setting Body Gender Type: " + gender);
+
+        stance = BodyPartGenerator.Stance.fromOrdinal( buffer.getInt());
+        System.out.println( "Setting Body Stance Type: " + stance);
+
+        internalBodyParts = ByteBufferIO.getAttachedBodyParts( buffer );
+        System.out.println( "Setting Body Internal Body Parts: " + internalBodyParts);
+
+        this.setAllBody( this );
+    }
+
+
+
     public void setFirstName( String firstName )
     {
         this.firstName = firstName;
@@ -66,9 +102,9 @@ public class Body extends BodyPart
         this.title = title;
     }
 
-    public void setIndentifier( int indentifier )
+    public void setIdentifier( int identifier )
     {
-        this.indentifier = indentifier;
+        this.identifier = identifier;
     }
 
     public void setPlayer( String player )
@@ -106,9 +142,9 @@ public class Body extends BodyPart
         return title;
     }
 
-    public int getIndentifier()
+    public int getIdentifier()
     {
-        return indentifier;
+        return identifier;
     }
 
     public String getPlayer()
@@ -154,58 +190,12 @@ public class Body extends BodyPart
         ByteBuffer buf = super.toBuffer();
 
         ByteBufferIO.putString( buf, firstName );
-
-
-        /*
-
-        stringBytes = firstName.getBytes();
-        buf.putInt(stringBytes.length);
-        buf.put(stringBytes);
-
-        stringBytes = lastName.getBytes();
-        buf.putInt(stringBytes.length);
-        buf.put(stringBytes);
-
-        stringBytes = lastName.getBytes();
-        buf.putInt(stringBytes.length);
-        buf.put(stringBytes);
-
-        buf.putInt(indentifier);
-
-        stringBytes = lastName.getBytes();
-        buf.putInt(stringBytes.length);
-        buf.put(stringBytes);
-
-        */
-
-
-        /*
-        for (int i = 0; i < prices.length; i++) {
-            buf.putDouble(prices[i]);
-            buf.putInt(units[i]);
-
-            byte[] descsBytes = descs[i].getBytes();
-            buf.putInt(descsBytes.length);
-            buf.put(descsBytes);
-        }
-        */
-
-        /*
-        while (buf.hasRemaining()) {
-
-            price = buf.getDouble();
-            unit = buf.getInt();
-
-            int len = buf.getInt();
-            byte[] bytes = new byte[len];
-            buf.get(bytes);
-            desc = new String(bytes);
-
-            System.out.format("You ordered %d" + " units of %s at $%.2f%n",
-                    unit, desc, price);
-            total += unit * price;
-        }
-        */
+        ByteBufferIO.putString( buf, lastName );
+        buf.putInt( identifier );
+        ByteBufferIO.putString( buf, player );
+        buf.putInt( gender.ordinal());
+        buf.putInt( stance.ordinal() );
+        ByteBufferIO.putAttachedBodyParts( buf, internalBodyParts );
 
         return buf;
     }

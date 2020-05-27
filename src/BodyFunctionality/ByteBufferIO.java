@@ -222,20 +222,7 @@ public class ByteBufferIO
 
     }
 
-    static public ArrayList<BodyPart> getAttachedBodyParts(ByteBuffer buffer)
-    {
-        BodyPart bodyPart;
-        ArrayList<BodyPart> bodyPartList = new ArrayList<BodyPart>(  );
-        int size = buffer.getInt();
-        for (int i=0; i<size; i++)
-        {
-            bodyPart = new BodyPart( buffer );
-            bodyPartList.add( bodyPart );
-        }
 
-        return bodyPartList;
-
-    }
     /**
      * Static method to save the data in the ArrayList containing body parts in the buffer
      * @param buffer ByteBuffer: The ByteBuffer to be used to save the attached parts data
@@ -397,7 +384,25 @@ public class ByteBufferIO
         return list;
     }
 
+    /**
+     * Static method thot loads attached body parts (and all subordinate parts) from the buffer into memory
+     * @param buffer ByteBuffer: The buffer that contains data about the BodyPart objects
+     * @return ArrayList<BodyPart>: A list containing all of the attached (and recreated) BodyPart objects
+     */
+    static public ArrayList<BodyPart> getAttachedBodyParts(ByteBuffer buffer)
+    {
+        BodyPart bodyPart;
+        ArrayList<BodyPart> bodyPartList = new ArrayList<BodyPart>(  );
+        int size = buffer.getInt();
+        for (int i=0; i<size; i++)
+        {
+            bodyPart = new BodyPart( buffer );
+            bodyPartList.add( bodyPart );
+        }
 
+        return bodyPartList;
+
+    }
 
 
 
