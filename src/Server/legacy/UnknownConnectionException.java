@@ -1,4 +1,4 @@
-package Server;
+package Server.legacy;
 
 /**
  * This is the exception thrown for unknown connections

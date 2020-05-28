@@ -1,4 +1,4 @@
-package Server;
+package Server.legacy;
 
 
 import java.util.ConcurrentModificationException;
@@ -40,7 +40,7 @@ public class TechAdventure implements ConnectionListener {
     /**
      * Handles new connections, input, and terminations
      *
-     * @param e the Server.ConnectionEvent
+     * @param e the Server.legacy.ConnectionEvent
      */
     @Override
     public void handle(ConnectionEvent e) {

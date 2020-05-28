@@ -1,4 +1,4 @@
-package Server;
+package Server.legacy;
 
 public class ConnectionEvent {
     private ConnectionEventCode code = null;

@@ -1,4 +1,4 @@
-package Server;
+package Server.legacy;
 
 import java.io.IOException;
 import java.net.*;
