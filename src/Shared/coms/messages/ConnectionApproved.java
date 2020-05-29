@@ -31,7 +31,7 @@ public class ConnectionApproved implements Message {
     public boolean write(OutputStream output) throws IOException {
         output.write(new byte[]{id});
         output.write(ByteBuffer.allocate(4).putInt(clientID).array());
-        return false;
+        return true;
     }
 
     @Override

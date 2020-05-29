@@ -46,6 +46,9 @@ public class ByteString {
      * @param string the String to convert
      */
     public ByteString(String string) {
+        if (string == null) {
+            string = "";
+        }
         this.string = string;
         complete = true;
         byte[] characters = getBytesFromString(string);

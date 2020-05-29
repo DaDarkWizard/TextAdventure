@@ -1,5 +1,6 @@
 package Server;
 
+import Shared.coms.messages.ConnectionApproved;
 import Shared.coms.messages.ConnectionRequest;
 import Shared.coms.messages.FatalError;
 import Shared.coms.messages.Message;
@@ -43,7 +44,8 @@ public class MessageHandler {
 
     public static void handleConnectionRequest(Client client, ConnectionRequest message) {
         if (message.getVersion().equals(Server.version)) {
-
+            ConnectionApproved out = new ConnectionApproved(client.getConnectionID());
+            Client.sendMessage(client, out);
         } else {
             FatalError out = new FatalError("Incorrect version! Correct version: " + Server.version);
             Client.sendMessage(client, out);
