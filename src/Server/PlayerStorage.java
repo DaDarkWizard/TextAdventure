@@ -1,5 +1,6 @@
 package Server;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -29,5 +30,17 @@ public class PlayerStorage {
             Client player = players.remove(connectionID);
             unusedSlots.add(player.getConnectionID());
         }
+    }
+
+    public static void addClient(Client client) {
+        players.put(client.getConnectionID(), client);
+    }
+
+    public static boolean isTracked(int connectionID) {
+        return players.containsKey(connectionID);
+    }
+
+    public static Collection<Client> getClients() {
+        return players.values();
     }
 }

@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class ConnectionRequest implements MessageInterface {
+public class ConnectionRequest implements Message {
     private static final byte id = (byte)0x01;
     private ByteString version;
+    private byte[] bytes;
+    private boolean bytesMade = false;
 
     public ConnectionRequest() {
 

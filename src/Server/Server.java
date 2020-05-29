@@ -6,6 +6,8 @@ import java.net.Socket;
 
 public class Server {
 
+    public static final String version = "Text0.0.1";
+
     public static void main(String[] args) {
         if (args.length < 1) {
 
@@ -18,11 +20,7 @@ public class Server {
 
     }
 
-    private class Connection {
-        public long connectionID = System.currentTimeMillis();
+    public void run() {
 
-        public Connection(Socket socket) {
-            //MessageType.message.saved = false;
-        }
     }
 }

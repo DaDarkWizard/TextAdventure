@@ -13,15 +13,22 @@ public class ByteString {
     private short pointer = 0;
     private String string;
     private boolean complete = false;
+    private byte[] bytes;
+    boolean bytesMade = false;
 
+    /**
+     * Constructor for receiving a message with the ByteString
+     */
     public ByteString() {
 
     }
 
-    public static void main(String[] args) {
-
-    }
-
+    /**
+     * Converts a string into bytes
+     *
+     * @param string the String to convert
+     * @return A byte array of the string
+     */
     public static byte[] getBytesFromString(String string) {
         byte[] output = new byte[string.length() * 2];
         byte[] _temp = new byte[2];
@@ -33,6 +40,11 @@ public class ByteString {
         return output;
     }
 
+    /**
+     * Constructor for using the ByteString to convert a given string
+     *
+     * @param string the String to convert
+     */
     public ByteString(String string) {
         this.string = string;
         complete = true;
@@ -40,17 +52,37 @@ public class ByteString {
         size = (short) (characters.length / 2);
     }
 
+    /**
+     * Converts the ByteString into bytes ready to be streamed
+     * @return an array of bytes
+     */
     public byte[] getBytes() {
-        ByteBuffer buffer = ByteBuffer.allocate(2 + (2 * size));
-        buffer.putShort(size);
-        buffer.put(characters);
-        return buffer.array();
+        if (!bytesMade) {
+            ByteBuffer buffer = ByteBuffer.allocate(2 + (2 * size));
+            buffer.putShort(size);
+            buffer.put(characters);
+            bytes = buffer.array();
+            bytesMade = true;
+            return bytes;
+        } else {
+            return bytes;
+        }
     }
 
+    /**
+     * Checks whether the ByteString is done being formed
+     *
+     * @return whether it is complete
+     */
     public boolean isComplete() {
         return complete;
     }
 
+    /**
+     * Gets a string version of the ByteString
+     *
+     * @return ByteString as a string
+     */
     public String getString() {
         return string;
     }

@@ -1,6 +1,9 @@
 package Server;
 
 import Exceptions.ByteUnderflowException;
+import Shared.coms.messages.ConnectionRequest;
+import Shared.coms.messages.Message;
+import Shared.coms.MessageType;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -10,6 +13,7 @@ public class Client {
     private Socket socket;
     boolean receivingMessage = false;
     private byte messageType = -1;
+    private Message message;
 
     public Client(Socket socket, int connectionID) {
         this.socket = socket;
@@ -32,26 +36,11 @@ public class Client {
         }
     }
 
-    public byte[] receiveMessage() {
-        try {
-            if (receivingMessage) {
-                return null;
-            } else { //Try to begin receiving a message.
-                //Check if bytes are available
-                if (socket.getInputStream().available() > 0) {
-                    //Create array to store first byte
-                    byte[] _temp = new byte[1];
-                    int readBytes = socket.getInputStream().read(_temp);
-                    if(readBytes < 1) {
-                        throw new ByteUnderflowException();
-                    }
-                    messageType = _temp[0];
-                }
-                return null;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public Message receiveMessage() {
+        return null;
+    }
+
+    public static void sendMessage(Client client, Message message) {
+
     }
 }
