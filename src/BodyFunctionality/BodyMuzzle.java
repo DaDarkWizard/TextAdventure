@@ -2,13 +2,13 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
-public class BodyMuzzle extends BodyPart implements BodyPartInterface
+public class BodyMuzzle extends BodyPart
 {
 
     public BodyMuzzle()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.MUZZLE );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.MUZZLE );
     }
 
     @Override
@@ -18,28 +18,23 @@ public class BodyMuzzle extends BodyPart implements BodyPartInterface
     }
 
     @Override
-    public BodyMuzzle create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        BodyMuzzle thisPart = (BodyMuzzle) super.create( name, "", animalType, color  );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.bodyPartType = bodyPartType();
 
         BodyNose nose = new BodyNose();
         nose.create( "nose", "", animalType, color );
         nose.setNoseShape( BodyNose.NoseShape.HIDDEN);
-        nose.setAboveBodyPart( thisPart );
-        thisPart.attachedBodyParts.add( nose );
+        nose.setAboveBodyPart( this );
+        this.attachedBodyParts.add( nose );
 
         BodyMouth mouth = new BodyMouth();
         mouth.create( "mouth", "", animalType, Color.RED );
-        mouth.setAboveBodyPart( thisPart );
+        mouth.setAboveBodyPart( this );
         mouth.setMouthStyle( BodyMouth.MouthStyle.WIDE );
         mouth.setTeethStyle( BodyMouth.TeethStyle.SHARP );
-        thisPart.attachedBodyParts.add( mouth );
-
-        return thisPart;
-
+        this.attachedBodyParts.add( mouth );
     }
-
 
 }

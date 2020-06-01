@@ -2,44 +2,36 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 
-public class Body
+public class Body extends BodyPart
 {
 
-    private static int nextIdentifier = 1;
+    protected static int nextIdentifier = 1;
 
-    private String firstName, lastName, title, description;
-    private int indentifier;
-    private String player;       //to do attach to player object if controlled by a player
-    private Color color;
-    private BodyPartGenerator.Gender gender;
-    private BodyPartGenerator.Texture texture;
-    private BodyPartGenerator.AnimalType animalType;
-    private BodyPartGenerator.Stance stance; // if on two or four feet
+    protected String firstName, lastName, title;
+    protected int identifier;
+    protected String player;       //to do attach to player object if controlled by a player
 
-    // todo change some Strings to objects at a later time
-    private ArrayList<String> features;
-    private ArrayList<String> itemsWorn;    // change to item object later
-    private ArrayList<String> resistances;
-    private ArrayList<String> skills;
-    private ArrayList<String> injuries;
+    protected BodyPartGenerator.Gender gender;
 
-    private double length, width, depth;
+    protected BodyPartGenerator.Stance stance; // if on two or four feet
 
-    private ArrayList<BodyPart> attachedBodyParts;
-    private ArrayList<BodyPart> internalBodyParts;
+    protected ArrayList<BodyPart> internalBodyParts;
 
-    private int maxHealth, health;
-
+    /**
+     * No-argument constructor, sets default values
+     */
     public Body()
     {
+        super();
         firstName="";
         lastName="";
         title="";
         description="";
-        indentifier=nextIdentifier++;
+        identifier=nextIdentifier++;
         player = null;
         color = Color.BLACK;
         gender = BodyPartGenerator.Gender.NA;
@@ -52,14 +44,48 @@ public class Body
         skills = new ArrayList<String>();
         injuries = new ArrayList<String>();
         length = 0;
-        width = 0;
-        depth = 0;
+        aboveBodyPart = null;
         attachedBodyParts = new ArrayList<BodyPart>();
         internalBodyParts = new ArrayList<BodyPart>();
         maxHealth = 0;
         health = 0;
 
     }
+
+    /**
+     * Constructor with a buffer containing the entire Body's data (including all BodyParts)
+     *
+     * This constructor will load the entire Body with its attached BodyParts in the buffer
+     * @param buffer ByteBuffer: The buffer containing the Body data
+     */
+    public Body(ByteBuffer buffer)
+    {
+        super(buffer);
+        firstName = ByteBufferIO.getString( buffer );
+        System.out.println( "Setting Body First Name: " + firstName );
+
+        lastName = ByteBufferIO.getString( buffer );
+        System.out.println( "Setting Body Last Name: " + lastName );
+
+        identifier = buffer.getInt();
+        System.out.println( "Setting Body Identifier: " + identifier );
+
+        player = ByteBufferIO.getString( buffer );
+        System.out.println( "Setting Body Player: " + player );
+
+        gender = BodyPartGenerator.Gender.fromOrdinal( buffer.getInt());
+        System.out.println( "Setting Body Gender Type: " + gender);
+
+        stance = BodyPartGenerator.Stance.fromOrdinal( buffer.getInt());
+        System.out.println( "Setting Body Stance Type: " + stance);
+
+        internalBodyParts = ByteBufferIO.getAttachedBodyParts( buffer );
+        System.out.println( "Setting Body Internal Body Parts: " + internalBodyParts);
+
+        this.setAllBody( this );
+    }
+
+
 
     public void setFirstName( String firstName )
     {
@@ -76,14 +102,9 @@ public class Body
         this.title = title;
     }
 
-    public void setDescription( String description )
+    public void setIdentifier( int identifier )
     {
-        this.description = description;
-    }
-
-    public void setIndentifier( int indentifier )
-    {
-        this.indentifier = indentifier;
+        this.identifier = identifier;
     }
 
     public void setPlayer( String player )
@@ -91,24 +112,9 @@ public class Body
         this.player = player;
     }
 
-    public void setColor( Color color )
-    {
-        this.color = color;
-    }
-
     public void setGender( BodyPartGenerator.Gender gender )
     {
         this.gender = gender;
-    }
-
-    public void setTexture( BodyPartGenerator.Texture texture )
-    {
-        this.texture = texture;
-    }
-
-    public void setAnimalType( BodyPartGenerator.AnimalType animalType )
-    {
-        this.animalType = animalType;
     }
 
     public void setStance( BodyPartGenerator.Stance stance )
@@ -116,64 +122,9 @@ public class Body
         this.stance = stance;
     }
 
-    public void setFeatures( ArrayList<String> features )
-    {
-        this.features = features;
-    }
-
-    public void setItemsWorn( ArrayList<String> itemsWorn )
-    {
-        this.itemsWorn = itemsWorn;
-    }
-
-    public void setResistances( ArrayList<String> resistances )
-    {
-        this.resistances = resistances;
-    }
-
-    public void setSkills( ArrayList<String> skills )
-    {
-        this.skills = skills;
-    }
-
-    public void setInjuries( ArrayList<String> injuries )
-    {
-        this.injuries = injuries;
-    }
-
-    public void setLength( double length )
-    {
-        this.length = length;
-    }
-
-    public void setWidth( double width )
-    {
-        this.width = width;
-    }
-
-    public void setDepth( double depth )
-    {
-        this.depth = depth;
-    }
-
-    public void setAttachedBodyParts( ArrayList<BodyPart> attachedBodyParts )
-    {
-        this.attachedBodyParts = attachedBodyParts;
-    }
-
     public void setInternalBodyParts( ArrayList<BodyPart> internalBodyParts )
     {
         this.internalBodyParts = internalBodyParts;
-    }
-
-    public void setMaxHealth( int maxHealth )
-    {
-        this.maxHealth = maxHealth;
-    }
-
-    public void setHealth( int health )
-    {
-        this.health = health;
     }
 
     public String getFirstName()
@@ -191,14 +142,9 @@ public class Body
         return title;
     }
 
-    public String getDescription()
+    public int getIdentifier()
     {
-        return description;
-    }
-
-    public int getIndentifier()
-    {
-        return indentifier;
+        return identifier;
     }
 
     public String getPlayer()
@@ -211,69 +157,9 @@ public class Body
         return gender;
     }
 
-    public Color getColor()
-    {
-        return color;
-    }
-
-    public BodyPartGenerator.Texture getTexture()
-    {
-        return texture;
-    }
-
-    public BodyPartGenerator.AnimalType getAnimalType()
-    {
-        return animalType;
-    }
-
     public BodyPartGenerator.Stance getStance()
     {
         return stance;
-    }
-
-    public ArrayList<String> getFeatures()
-    {
-        return features;
-    }
-
-    public ArrayList<String> getItemsWorn()
-    {
-        return itemsWorn;
-    }
-
-    public ArrayList<String> getSkills()
-    {
-        return skills;
-    }
-
-    public ArrayList<String> getResistances()
-    {
-        return resistances;
-    }
-
-    public ArrayList<String> getInjuries()
-    {
-        return injuries;
-    }
-
-    public double getLength()
-    {
-        return length;
-    }
-
-    public double getWidth()
-    {
-        return width;
-    }
-
-    public double getDepth()
-    {
-        return depth;
-    }
-
-    public ArrayList<BodyPart> getAttachedBodyParts()
-    {
-        return attachedBodyParts;
     }
 
     public ArrayList<BodyPart> getInternalBodyParts()
@@ -281,17 +167,38 @@ public class Body
         return internalBodyParts;
     }
 
-    public int getMaxHealth()
+    /**
+     * Method that converts a basic description of the object (and its attachments) to a string
+     * @return String: A String that lists some basic descriptions of the object along with padded descriptions
+     *                  of its attached objects
+     */
+    @Override
+    public String toString()
     {
-        return maxHealth;
+        String str = "A " + length + "in creature known as " + firstName + " " + lastName;
+        for (int i=0; i<attachedBodyParts.size(); i++)
+        {
+            str += "\n" + addPadding(attachedBodyParts.get( i ).toString(), 2);
+        }
+        return str;
     }
 
-    public int getHealth()
+    @Override
+    public ByteBuffer toBuffer()
     {
-        return health;
+        System.out.println( "In Body toBuffer" );
+        ByteBuffer buf = super.toBuffer();
+
+        ByteBufferIO.putString( buf, firstName );
+        ByteBufferIO.putString( buf, lastName );
+        buf.putInt( identifier );
+        ByteBufferIO.putString( buf, player );
+        buf.putInt( gender.ordinal());
+        buf.putInt( stance.ordinal() );
+        ByteBufferIO.putAttachedBodyParts( buf, internalBodyParts );
+
+        return buf;
     }
-
-
 
 
 

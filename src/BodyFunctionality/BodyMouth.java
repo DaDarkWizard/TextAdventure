@@ -2,7 +2,7 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
-public class BodyMouth extends BodyPart implements BodyPartInterface
+public class BodyMouth extends BodyPart
 {
     enum TeethStyle{NA, HUMAN, GNAWING, SHARP, FANGED, SHARPRAGGED, OTHER}
     enum MouthStyle{NA, FRONT, SMALL, WIDE, OTHER}
@@ -14,7 +14,7 @@ public class BodyMouth extends BodyPart implements BodyPartInterface
     public BodyMouth()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.MOUTH );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.MOUTH );
         teethStyle = TeethStyle.SHARP;
         mouthStyle = MouthStyle.WIDE;
         numOfTeeth = 40;
@@ -58,19 +58,16 @@ public class BodyMouth extends BodyPart implements BodyPartInterface
 
 
     @Override
-    public BodyMouth create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        BodyMouth thisPart = (BodyMouth) super.create( name, side, animalType, color  );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.bodyPartType = bodyPartType();
 
         BodyPart tongue = new BodyTongue();
         tongue.create( "tongue", "", animalType, Color.RED);
-        tongue.setAboveBodyPart( thisPart );
+        tongue.setAboveBodyPart( this );
         tongue.setTexture( BodyPartGenerator.Texture.SPECIAL );
-        thisPart.attachedBodyParts.add( tongue );
-
-        return thisPart;
+        this.attachedBodyParts.add( tongue );
     }
 
 }

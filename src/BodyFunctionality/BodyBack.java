@@ -2,18 +2,18 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
-public class BodyNail extends BodyPart
+public class BodyBack extends BodyPart
 {
-    public BodyNail()
+    public BodyBack()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.NAIL );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.BACK );
     }
 
     @Override
     public BodyPartGenerator.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.NAIL;
+        return BodyPartGenerator.BodyPartType.BACK;
     }
 
 
@@ -22,9 +22,6 @@ public class BodyNail extends BodyPart
     {
         super.create(name, side, animalType, color);
         this.bodyPartType = bodyPartType();
-        this.texture = BodyPartGenerator.Texture.NAIL;
 
     }
-
-
 }

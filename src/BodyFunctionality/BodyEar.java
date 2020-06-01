@@ -2,7 +2,7 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
-public class BodyEar extends BodyPart implements BodyPartInterface
+public class BodyEar extends BodyPart
 {
     enum EarShape{NA, ROUND, HIDDEN, FRILLED, POINTED}
 
@@ -11,7 +11,7 @@ public class BodyEar extends BodyPart implements BodyPartInterface
     public BodyEar()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.EAR );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.EAR );
         earShape = EarShape.POINTED;
     }
 
@@ -32,14 +32,12 @@ public class BodyEar extends BodyPart implements BodyPartInterface
     }
 
     @Override
-    public BodyEar create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        BodyEar thisPart = (BodyEar) super.create( name, side, animalType, color );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
-        thisPart.addSkill( "Hearing: 5" );
+        super.create(name, side, animalType, color);
+        this.bodyPartType = bodyPartType();
+        this.addSkill( "Hearing: 5" );
 
-        return thisPart;
     }
 
 

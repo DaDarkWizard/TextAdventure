@@ -2,7 +2,7 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
-public class BodyNose extends BodyPart implements BodyPartInterface
+public class BodyNose extends BodyPart
 {
 
     enum NoseShape{NA, ROUND, HIDDEN, SPLITLIP, POINTED}
@@ -12,7 +12,7 @@ public class BodyNose extends BodyPart implements BodyPartInterface
     public BodyNose()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.NOSE );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.NOSE );
         noseShape = NoseShape.HIDDEN;
     }
 
@@ -34,14 +34,12 @@ public class BodyNose extends BodyPart implements BodyPartInterface
 
 
     @Override
-    public BodyNose create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        BodyNose thisPart = (BodyNose) super.create( name, "", animalType, color );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
-        thisPart.addSkill( "Smell: 5" );
+        super.create(name, side, animalType, color);
+        this.bodyPartType = bodyPartType();
+        this.addSkill( "Smell: 5" );
 
-        return thisPart;
     }
 
 

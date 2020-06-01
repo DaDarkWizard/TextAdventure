@@ -2,12 +2,13 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
-public class BodyArm extends BodyPart implements BodyPartInterface
+
+public class BodyArm extends BodyPart
 {
     public BodyArm()
     {
         super();
-        this.setType( BodyPartGenerator.BodyPartType.ARM );
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.ARM );
     }
 
     @Override
@@ -17,32 +18,26 @@ public class BodyArm extends BodyPart implements BodyPartInterface
     }
 
     @Override
-    public BodyArm create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
     {
-        return createUpperArm( name, side, animalType, color );
+        createUpperArm( name, side, animalType, color );
     }
 
-    public BodyArm createUpperArm (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    public void createUpperArm (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
     {
-
-        BodyArm thisPart = (BodyArm) super.create( name, side, animalType, color );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.bodyPartType = bodyPartType();
 
         BodyArm lowerArm = new BodyArm();
         lowerArm.createLowerArm("lower arm", side, animalType, color);
-        lowerArm.setAboveBodyPart( thisPart );
-        thisPart.attachedBodyParts.add( lowerArm );
-
-        return thisPart;
+        lowerArm.setAboveBodyPart( this );
+        this.attachedBodyParts.add( lowerArm );
     }
 
-    public BodyArm createLowerArm (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    public void createLowerArm (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
     {
-
-        BodyArm thisPart = (BodyArm) super.create( name, side, animalType, color );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.bodyPartType = bodyPartType();
 
         BodyHand hand = new BodyHand();
         if (BodyPartGenerator.handType( animalType )== BodyPartGenerator.HandType.HAND)
@@ -53,33 +48,25 @@ public class BodyArm extends BodyPart implements BodyPartInterface
         {
             hand.createClaw(BodyPartGenerator.handType( animalType ).toString().toLowerCase(), side, animalType, color);
         }
-        hand.setAboveBodyPart( thisPart );
-        thisPart.attachedBodyParts.add( hand );
-
-        return thisPart;
+        hand.setAboveBodyPart( this );
+        this.attachedBodyParts.add( hand );
     }
 
-    public BodyArm createUpperLeg (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    public void createUpperLeg (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
     {
-
-        BodyArm thisPart = (BodyArm) super.create( name, side, animalType, color );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.bodyPartType = bodyPartType();
 
         BodyArm lowerLeg = new BodyArm();
         lowerLeg.createLowerLeg("upper leg", side, animalType, color);
-        lowerLeg.setAboveBodyPart( thisPart );
-        thisPart.attachedBodyParts.add( lowerLeg );
-
-        return thisPart;
+        lowerLeg.setAboveBodyPart( this );
+        this.attachedBodyParts.add( lowerLeg );
     }
 
-    public BodyArm createLowerLeg (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    public void createLowerLeg (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
     {
-
-        BodyArm thisPart = (BodyArm) super.create( name, side, animalType, color );
-        thisPart.setType( bodyPartType() );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
+        super.create(name, side, animalType, color);
+        this.bodyPartType = bodyPartType();
 
         BodyHand hand = new BodyHand();
         if (BodyPartGenerator.footType( animalType )== BodyPartGenerator.FootType.GRASPINGFOOT)
@@ -95,15 +82,9 @@ public class BodyArm extends BodyPart implements BodyPartInterface
             hand.createFoot(BodyPartGenerator.handType( animalType ).toString().toLowerCase(), side, animalType, color);
         }
 
-        hand.setAboveBodyPart( thisPart );
-        thisPart.attachedBodyParts.add( hand );
+        hand.setAboveBodyPart( this );
+        this.attachedBodyParts.add( hand );
 
-        return thisPart;
     }
-
-
-
-
-
 
 }

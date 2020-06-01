@@ -2,6 +2,7 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class BodyPart
@@ -10,7 +11,7 @@ public class BodyPart
     protected final int PADDING = 2;
 
     protected String name, description;
-    protected BodyPartGenerator.BodyPartType type;
+    protected BodyPartGenerator.BodyPartType bodyPartType;
     protected Color color;
     protected BodyPartGenerator.Texture texture;
     protected BodyPartGenerator.AnimalType animalType;
@@ -33,7 +34,7 @@ public class BodyPart
     public BodyPart()
     {
         name="";
-        type=BodyPartGenerator.BodyPartType.NA;
+        bodyPartType=BodyPartGenerator.BodyPartType.NA;
         color=Color.BLACK;
         texture=BodyPartGenerator.Texture.NA;
         description="";
@@ -57,18 +58,79 @@ public class BodyPart
     }
 
     /**
+     * Constructor method to construct a body part from a ByteBuffer object
+     * @param buffer ByteBuffer: The ByteBuffer object that contains the BodyPart data
+     */
+    public BodyPart(ByteBuffer buffer)
+    {
+        System.out.println( "In BodyPart(Buffer) constructor" );
+        name = ByteBufferIO.getString( buffer );
+        System.out.println( "Setting name to " + name );
+
+        description = ByteBufferIO.getString( buffer );
+        System.out.println( "Setting description to " + description );
+
+        bodyPartType = BodyPartGenerator.BodyPartType.fromOrdinal( buffer.getInt());
+        System.out.println( "Setting bodyPartType to " + bodyPartType );
+
+        color = ByteBufferIO.getColor( buffer );
+        System.out.println( "Setting color to " + color );
+
+        texture = BodyPartGenerator.Texture.fromOrdinal( buffer.getInt());
+        System.out.println( "Setting texture to " + texture );
+
+        animalType = BodyPartGenerator.AnimalType.fromOrdinal( buffer.getInt());
+        System.out.println( "Setting animalType to " + animalType );
+
+        features = ByteBufferIO.getFeatures( buffer );
+        System.out.println( "Setting features to " + features );
+
+        itemsWorn = ByteBufferIO.getItemsWorn( buffer );
+        System.out.println( "Setting itemsWorn to " + itemsWorn );
+
+        resistances = ByteBufferIO.getResistances( buffer );
+        System.out.println( "Setting resistances to " + resistances );
+
+        skills = ByteBufferIO.getSkills( buffer );
+        System.out.println( "Setting skills to " + skills );
+
+        injuries = ByteBufferIO.getInjuries( buffer );
+        System.out.println( "Setting injuries to " + injuries );
+
+        length = buffer.getDouble();
+        System.out.println( "Setting length to " + length );
+
+        weight = buffer.getDouble();
+        System.out.println( "Setting weight to " + weight );
+
+        maxHealth = buffer.getInt();
+        System.out.println( "Setting maxHealth to " + maxHealth );
+
+        health = buffer.getInt();
+        System.out.println( "Setting health to " + health );
+
+        System.out.println( "Preparing to Create more subordinate body parts if they exist" );
+        ArrayList<BodyPart> attachedBodyParts = ByteBufferIO.getAttachedBodyParts( buffer );
+
+        for (int i=0; i<attachedBodyParts.size(); i++)
+        {
+            attachedBodyParts.get( i ).setAboveBodyPart( this );
+        }
+        System.out.println( "Setting attachedBodyParts for " + name + " to " + attachedBodyParts );
+
+    }
+    /**
      * Copy constructor
      * The copy constructor should make deep copies of most objects with the exception of this and above body part objects
      * It will make a deep copy of the attachedBodyParts object
      *
-     *
-     * @param oldPart:
+     * @param oldPart: The BodyPart object to make a copy of
      */
 
     public BodyPart(BodyPart oldPart)
     {
         name = oldPart.getName();
-        type = oldPart.getType();
+        bodyPartType = oldPart.getBodyPartType();
         color = oldPart.getColor();
         texture = oldPart.getTexture();
         description = oldPart.getDescription();
@@ -81,7 +143,6 @@ public class BodyPart
 
         length = oldPart.getLength();
         weight = oldPart.getWeight();
-
 
         thisBody = oldPart.getThisBody();  //todo should keep this shallow copy?
         aboveBodyPart = oldPart.getAboveBodyPart(); //todo should keep this shallow copy?
@@ -111,9 +172,9 @@ public class BodyPart
         this.name = name;
     }
 
-    public void setType( BodyPartGenerator.BodyPartType type )
+    public void setBodyPartType( BodyPartGenerator.BodyPartType type )
     {
-        this.type = type;
+        this.bodyPartType = type;
     }
 
     public void setColor( Color color )
@@ -201,9 +262,9 @@ public class BodyPart
         return name;
     }
 
-    public BodyPartGenerator.BodyPartType getType()
+    public BodyPartGenerator.BodyPartType getBodyPartType()
     {
-        return type;
+        return bodyPartType;
     }
 
     public Color getColor()
@@ -259,7 +320,6 @@ public class BodyPart
     public double getWeight()
     {
         return weight;
-
     }
 
     public Body getThisBody()
@@ -329,11 +389,12 @@ public class BodyPart
     public void setAllBody(Body body)
     {
         thisBody = body;                                    // sets this object's reference
-        for (int i = 0; i<attachedBodyParts.size(); i++)
+        for (int i = 0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
         {
             attachedBodyParts.get( i ).setAllBody( body );  // sets all attached object's references
         }
     }
+
     /**
      * Private method that returns true if the body part is one that should be the general body color, to allow easier coloring
      * @return boolean: true if the body part is part of the general body color, false otherwise
@@ -341,17 +402,18 @@ public class BodyPart
     private boolean isBodyColorPart()
     {
         boolean isBodyColor = false;
-        if ( type == BodyPartGenerator.BodyPartType.FINGER
-            || type == BodyPartGenerator.BodyPartType.HAND
-            || type == BodyPartGenerator.BodyPartType.ARM
-            || type == BodyPartGenerator.BodyPartType.WING
-            || type == BodyPartGenerator.BodyPartType.HEAD
-            || type == BodyPartGenerator.BodyPartType.MUZZLE
-            || type == BodyPartGenerator.BodyPartType.TAIL
-            || type == BodyPartGenerator.BodyPartType.EAR
-            || type == BodyPartGenerator.BodyPartType.NOSE
-            || type == BodyPartGenerator.BodyPartType.NECK)
-
+        if ( bodyPartType == BodyPartGenerator.BodyPartType.FINGER
+            || bodyPartType == BodyPartGenerator.BodyPartType.HAND
+            || bodyPartType == BodyPartGenerator.BodyPartType.ARM
+            || bodyPartType == BodyPartGenerator.BodyPartType.WING
+            || bodyPartType == BodyPartGenerator.BodyPartType.HEAD
+            || bodyPartType == BodyPartGenerator.BodyPartType.MUZZLE
+            || bodyPartType == BodyPartGenerator.BodyPartType.TAIL
+            || bodyPartType == BodyPartGenerator.BodyPartType.EAR
+            || bodyPartType == BodyPartGenerator.BodyPartType.NOSE
+            || bodyPartType == BodyPartGenerator.BodyPartType.NECK
+            || bodyPartType == BodyPartGenerator.BodyPartType.FRONT
+            || bodyPartType == BodyPartGenerator.BodyPartType.BACK)
         {
             isBodyColor = true;
         }
@@ -366,7 +428,7 @@ public class BodyPart
     private boolean isHornColorPart()
     {
         boolean isHornColor = false;
-        if (type == BodyPartGenerator.BodyPartType.NAIL || type == BodyPartGenerator.BodyPartType.HORN)
+        if (bodyPartType == BodyPartGenerator.BodyPartType.NAIL || bodyPartType == BodyPartGenerator.BodyPartType.HORN)
         {
             isHornColor = true;
         }
@@ -418,17 +480,27 @@ public class BodyPart
         features.clear();
     }
 
-    public BodyPart create(String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    /**
+     * Method that creates updates the BodyPart type with basic information regarding the BodyPart
+     * @param name String: The name of the BodyPart object
+     * @param side String: The side the BodyPart object is on (ie. left or right), becomes part of the name
+     * @param animalType AnimalType: The type of animal is body part belongs to
+     * @param color Color: The color of the body part
+     */
+    public void create(String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
     {
-        BodyPart thisPart = new BodyPart();
-
-        thisPart.setName( name );
-        thisPart.setType( BodyPartGenerator.BodyPartType.NAIL );
-        thisPart.setColor( color );
-        thisPart.setAnimalType( animalType );
-        thisPart.setDescription( "A " + animalType.toString() + " " + name );
-
-        return thisPart;
+        if (side.isEmpty())
+        {
+            this.name = name;
+        }
+        else
+        {
+            this.name = side + " " + name;
+        }
+        this.description = "A " + animalType.toString() + " " + side + " " + name;
+        this.color = color;
+        this.animalType = animalType;
+        this.bodyPartType = BodyPartGenerator.BodyPartType.NA;
     }
 
 
@@ -440,12 +512,17 @@ public class BodyPart
     @Override
     public String toString()
     {
-        String str = "A " + length + "in " + color + texture + animalType + name;
-        for (int i=0; i<attachedBodyParts.size(); i++)
+        String str = "A " + length + "in " + color + " " + texture + " " + animalType + " " + name;
+        for (int i=0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
         {
-            str += addPadding(attachedBodyParts.get( i ).toString());
+            str += "\n" + addPadding(attachedBodyParts.get( i ).toString(), this.treeDepth()*2+ 2);
         }
         return str;
+    }
+
+    public BodyPartGenerator.BodyPartType bodyPartType()
+    {
+        return BodyPartGenerator.BodyPartType.NA;
     }
 
 
@@ -454,32 +531,137 @@ public class BodyPart
      * @param str String: The string to add padding to the beginning of each line
      * @return String: The str string padded (indented)
      */
-    public String addPadding(String str)
+    public String addPadding(String str, int paddingAmount)
     {
         String newStr = "";
-        String pad = strPadding();
+        String pad = strPadding(paddingAmount);
 
-        String[] strArray = str.split("\n");
-        for (int i=0; i<strArray.length; i++)
-        {
-            str += pad + strArray[i];
-        }
+        newStr = pad + str;
 
-        return str;
+        return newStr;
     }
 
     /**
      * Method that creates the padding given the PADDING constant
      * @return String: A string composed of PADDING spaces
      */
-    public String strPadding()
+    public String strPadding(int padAmount)
     {
         String str = "";
-        for (int i = 0; i<PADDING; i++)
+        for (int i = 0; i<padAmount; i++)
         {
-            str += " ";
+            str += "-";
         }
         return str;
+    }
+
+    /**
+     * Method to search for a body part.  If it is not found, return null
+     * @param partName String: The BodyPart to search if it is the part looked for
+     * @return BodyPart: Returns the body part if it is found, otherwise returns null
+     */
+    public BodyPart getBodyPart(String partName)
+    {
+        BodyPart part = null;
+        if (partName.equals( name ))
+        {
+            part = this;
+        }
+        else
+        {
+            // search through all attached parts until part found
+            for (int i=0; i<attachedBodyParts.size() && part==null; i++)
+            {
+                part = attachedBodyParts.get( i ).getBodyPart( partName );
+            }
+        }
+        return part;
+    }
+
+    public int countParts()
+    {
+        int count = 1;
+        System.out.println( "Part:" + name );
+        for (int i=0; i<attachedBodyParts.size(); i++)
+        {
+            count += attachedBodyParts.get( i ).countParts();
+        }
+
+        return count;
+    }
+
+    /**
+     * Method to determine how deep the body part is in the body tree
+     * @return int: The depth of the body part in the tree (or how far the part is from the body object)
+     */
+    public int treeDepth()
+    {
+        int depth = 0;
+        BodyPart depthCheck = this;
+        while (depthCheck.aboveBodyPart!=null)
+        {
+            depthCheck=depthCheck.aboveBodyPart;
+            depth++;
+        }
+        return depth;
+    }
+
+    /**
+     * Method to convert the Body Object data to a ByteBuffer, it calls the addToBuffer method to do this
+     * @return ByteBuffer: The Object's data stored in a ByteBuffer
+     */
+    public ByteBuffer toBuffer()
+    {
+        System.out.println( "In BodyPart toBuffer" );
+
+        ByteBuffer buf = ByteBuffer.allocate(16384);
+        addToBuffer(buf);
+
+        return buf;
+    }
+
+    /**
+     * Method that converts the Body Object data to a ByteBuffer
+     * @param buf ByteBuffer: The ByteBuffer used to store the object data
+     * @return boolean: true is there was no problems in storing the buffer data, false if there was problems
+     */
+    public boolean addToBuffer(ByteBuffer buf)
+    {
+        System.out.println( "In BodyPart addToBuffer" );
+        boolean noProblems = true;
+
+        noProblems = noProblems && ByteBufferIO.putString( buf, name );
+        noProblems = noProblems && ByteBufferIO.putString( buf, description );
+        buf.putInt(bodyPartType.ordinal());
+        System.out.println( "bodyPartType ordinal buffered:" + bodyPartType.ordinal() );
+
+        noProblems = noProblems && ByteBufferIO.putColor( buf, color );
+        buf.putInt(texture.ordinal());
+        System.out.println( "texture ordinal buffered:" + texture.ordinal() );
+
+        buf.putInt(animalType.ordinal());
+        System.out.println( "animalType ordinal buffered:" + animalType.ordinal() );
+
+        noProblems = noProblems && ByteBufferIO.putFeatures(buf, features);
+        noProblems = noProblems && ByteBufferIO.putItemsWorn(buf, itemsWorn);
+        noProblems = noProblems && ByteBufferIO.putResistances(buf, resistances);
+        noProblems = noProblems && ByteBufferIO.putSkills(buf, skills);
+        noProblems = noProblems && ByteBufferIO.putInjuries(buf, injuries);
+        buf.putDouble( length );
+        System.out.println( "double buffered:" + bodyPartType.ordinal() );
+        buf.putDouble( weight );
+        System.out.println( "double buffered:" + bodyPartType.ordinal() );
+        buf.putInt( maxHealth );
+        System.out.println( "int buffered:" + bodyPartType.ordinal() );
+        buf.putInt( health );
+        System.out.println( "int buffered:" + bodyPartType.ordinal() );
+// do not store reference to thisBody, but when creating set reference to this object
+        // do not store reference to aboveBodyPart, but set reference when object created
+
+        noProblems = noProblems && ByteBufferIO.putAttachedBodyParts(buf, attachedBodyParts);
+
+
+        return noProblems;
     }
 
 }
