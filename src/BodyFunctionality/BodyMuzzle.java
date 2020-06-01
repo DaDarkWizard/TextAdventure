@@ -35,8 +35,6 @@ public class BodyMuzzle extends BodyPart
         mouth.setMouthStyle( BodyMouth.MouthStyle.WIDE );
         mouth.setTeethStyle( BodyMouth.TeethStyle.SHARP );
         this.attachedBodyParts.add( mouth );
-
     }
-
 
 }

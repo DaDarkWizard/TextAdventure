@@ -23,7 +23,6 @@ public class BodyTongue extends BodyPart
         super.create(name, side, animalType, color);
         this.bodyPartType = bodyPartType();
         this.addSkill( "Basic Taste: 5" );
-
     }
 
 }

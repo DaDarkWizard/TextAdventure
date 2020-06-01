@@ -2,6 +2,7 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
+
 public class BodyArm extends BodyPart
 {
     public BodyArm()
@@ -85,10 +86,5 @@ public class BodyArm extends BodyPart
         this.attachedBodyParts.add( hand );
 
     }
-
-
-
-
-
 
 }

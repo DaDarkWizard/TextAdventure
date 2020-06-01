@@ -68,7 +68,6 @@ public class BodyMouth extends BodyPart
         tongue.setAboveBodyPart( this );
         tongue.setTexture( BodyPartGenerator.Texture.SPECIAL );
         this.attachedBodyParts.add( tongue );
-
     }
 
 }

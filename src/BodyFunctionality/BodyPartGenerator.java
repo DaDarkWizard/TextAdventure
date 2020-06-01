@@ -13,6 +13,7 @@ public class BodyPartGenerator
         private static BodyPartType[] allValues = values();
         public static BodyPartType fromOrdinal(int n) {return allValues[n];}}
 
+
     enum Texture{ NA, SKIN, SCALED, FEATHERED, LEATHER, HAIRY, NAIL, BONE, SPIKY, ROUGH, SPECIAL;
         // enum methods to allow for retreiving type from integers
         private static Texture[] allValues = values();

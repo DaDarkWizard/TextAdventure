@@ -34,8 +34,6 @@ public class BodyNeck extends BodyPart
         }
         head.setAboveBodyPart( this );
         this.attachedBodyParts.add( head );
-
     }
-
 
 }

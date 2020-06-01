@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class BodyPart
 {
 
+    protected final int PADDING = 2;
+
     protected String name, description;
     protected BodyPartGenerator.BodyPartType bodyPartType;
     protected Color color;
@@ -499,7 +501,6 @@ public class BodyPart
         this.color = color;
         this.animalType = animalType;
         this.bodyPartType = BodyPartGenerator.BodyPartType.NA;
-
     }
 
 
@@ -523,7 +524,6 @@ public class BodyPart
     {
         return BodyPartGenerator.BodyPartType.NA;
     }
-
 
 
     /**
