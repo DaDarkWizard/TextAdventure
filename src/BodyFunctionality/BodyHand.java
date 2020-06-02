@@ -2,6 +2,8 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
+import java.nio.ByteBuffer;
+
 public class BodyHand extends BodyPart
 {
 
@@ -16,6 +18,37 @@ public class BodyHand extends BodyPart
         this.setBodyPartType( BodyPartGenerator.BodyPartType.HAND );
         opposable = false;
     }
+
+    /**
+     * Constructor with a buffer containing the BodyHand data including it's children
+     *
+     * @param buffer ByteBuffer: The buffer containing the BodyHand data
+     */
+    public BodyHand( ByteBuffer buffer)
+    {
+        super(buffer);
+        System.out.println( "In BodyHand(Buffer) constructor" );
+        opposable = false;
+        int opposableValue = buffer.getInt();
+        if (opposableValue==1)
+        {
+            opposable = true;
+        }
+
+
+    }
+
+
+    /**
+     * Copy Constructor
+     * @param oldPart BodyHand:  The original part to copy
+     */
+    public BodyHand(BodyHand oldPart)
+    {
+        super( oldPart );
+        opposable = oldPart.isOpposable();
+    }
+
 
     public void setOpposable( boolean opposable )
     {
@@ -34,19 +67,20 @@ public class BodyHand extends BodyPart
     }
 
     @Override
-    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, CreatureDataObject creatureData, Color color )
     {
-        super.create(name, side, animalType, color);
+        super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
         opposable = true;
 
+        int fingerCount = creatureData.getFingerCount();
         // create fingers starting with thumb
-        for (int i=0; i<5; i++)
+        for (int i=0; i<fingerCount; i++)
         {
             BodyPart finger = new BodyFinger();
-            finger.create(side + FINGERS[i] , "", animalType, color);
+            finger.create(side + FINGERS[i] , "", creatureData, color);
             finger.setAboveBodyPart( this );
-            this.attachedBodyParts.add( finger);
+            this.attachedBodyParts.add( finger );
         }
         this.addSkill( "Write" );
         this.addSkill( "Wield" );
@@ -54,23 +88,25 @@ public class BodyHand extends BodyPart
         this.addSkill( "Scratch: 1");
     }
 
-    public void createHand(String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    public void createHand(String name, String side, CreatureDataObject creatureData, Color color)
     {
-        create(name, side, animalType, color);
+        create(name, side, creatureData, color);
     }
 
 
-    public void createClaw( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void createClaw( String name, String side, CreatureDataObject creatureData, Color color )
     {
-        super.create(name, side, animalType, color);
+        super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
         opposable = false;
 
-        // create fingers starting with thumb
-        for (int i=1; i<6; i++)
+        int fingerCount = creatureData.getFingerCount();
+
+        // create fingers starting with first finger
+        for (int i=1; i<fingerCount+1; i++)
         {
             BodyPart finger = new BodyFinger();
-            finger.create(side + FINGERS[i] , "", animalType, color);
+            finger.create(side + FINGERS[i] , "", creatureData, color);
             finger.setAboveBodyPart( this );
             this.attachedBodyParts.add( finger);
         }
@@ -78,17 +114,20 @@ public class BodyHand extends BodyPart
 
     }
 
-    public void createGraspingFoot( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void createGraspingFoot( String name, String side, CreatureDataObject creatureData, Color color )
     {
-        super.create(name, side, animalType, color);
+        super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
         opposable = true;
 
+        int toeCount = creatureData.getToeCount();
+
+
         // create toes starting with opposable toe
-        for (int i=0; i<5; i++)
+        for (int i=0; i<toeCount; i++)
         {
             BodyPart finger = new BodyFinger();
-            finger.create(side + TOES[i] , "", animalType, color);
+            finger.create(side + TOES[i] , "", creatureData, color);
             finger.setAboveBodyPart( this );
             this.attachedBodyParts.add( finger);
         }
@@ -99,25 +138,54 @@ public class BodyHand extends BodyPart
 
     }
 
-    public void createFoot( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void createFoot( String name, String side, CreatureDataObject creatureData, Color color )
     {
-        super.create(name, side, animalType, color);
+        super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
         opposable = false;
 
-        // create fingers starting with thumb
-        for (int i=1; i<6; i++)
+        int toeCount = creatureData.getToeCount();
+
+        // create fingers starting with first toe
+        for (int i=1; i<toeCount + 1; i++)
         {
             BodyPart finger = new BodyFinger();
-            finger.create(side + TOES[i] , "", animalType, color);
+            finger.create(side + TOES[i] , "", creatureData, color);
             finger.setAboveBodyPart( this );
-            this.attachedBodyParts.add( finger);
+            this.attachedBodyParts.add( finger );
         }
 
         this.addSkill( "Walk: 5" );
         this.addSkill( "Run: 15" );
 
     }
+
+    /**
+     * Method that creates a ByteBuffer containing the BodyHand's data.
+     *
+     * @param buffer ByteBuffer: The ByteBuffer to add data to
+     * @return boolean: true if there is enough room to add data, false otherwise
+     */
+    @Override
+    public boolean bufferExtraFields(ByteBuffer buffer)
+    {
+        boolean isValid=false;
+        if (buffer.limit()>buffer.position()+2)
+        {
+            if (opposable)
+            {
+                buffer.putInt( 1 );
+            }
+            else
+            {
+                buffer.putInt( 0 );
+            }
+
+            isValid = true;
+        }
+        return isValid;
+    }
+
 
 
 }

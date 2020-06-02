@@ -2,23 +2,59 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
+import java.nio.ByteBuffer;
+
 public class BodyEye extends BodyPart
 {
-    enum PupilShape{NA, ROUND, SLITTED, OTHER}
 
-    protected PupilShape pupilShape;
+
+    protected BodyPartGenerator.PupilShape pupilShape;
     protected Color pupilColor, scleraColor;
 
     public BodyEye()
     {
         super();
         this.setBodyPartType( BodyPartGenerator.BodyPartType.EYE );
-        pupilShape = PupilShape.ROUND;
+        pupilShape = BodyPartGenerator.PupilShape.ROUND;
         pupilColor = Color.BLACK;
         scleraColor = Color.WHITE;
     }
 
-    public void setPupilShape( PupilShape pupilShape )
+    /**
+     * Constructor with a buffer containing the BodyEye data including it's children
+     *
+     * @param buffer ByteBuffer: The buffer containing the BodyEye data
+     */
+    public BodyEye( ByteBuffer buffer)
+    {
+        super(buffer);
+        System.out.println( "In BodyEye(Buffer) constructor" );
+
+        pupilShape = BodyPartGenerator.PupilShape.fromOrdinal( buffer.getInt());
+        System.out.println( "Setting eye shape to " + pupilShape );
+
+        pupilColor = ByteBufferIO.getColor( buffer );
+        System.out.println( "Setting pupil color to " + pupilColor );
+
+        scleraColor = ByteBufferIO.getColor( buffer );
+        System.out.println( "Setting sclera color to " + scleraColor );
+
+    }
+
+    /**
+     * Copy Constructor
+     * @param oldPart BodyEye:  The original part to copy
+     */
+    public BodyEye(BodyEye oldPart)
+    {
+        super(oldPart);
+        pupilShape = oldPart.getPupilShape();
+        pupilColor = oldPart.getPupilColor();
+        scleraColor = oldPart.getScleraColor();
+    }
+
+
+    public void setPupilShape( BodyPartGenerator.PupilShape pupilShape )
     {
         this.pupilShape = pupilShape;
     }
@@ -33,7 +69,7 @@ public class BodyEye extends BodyPart
         this.scleraColor = scleraColor;
     }
 
-    public PupilShape getPupilShape()
+    public BodyPartGenerator.PupilShape getPupilShape()
     {
         return pupilShape;
     }
@@ -55,13 +91,36 @@ public class BodyEye extends BodyPart
     }
 
     @Override
-    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, CreatureDataObject creatureData, Color color )
     {
-        super.create(name, side, animalType, color);
+        super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
-        this.texture = BodyPartGenerator.Texture.SPECIAL;
+        this.texture = BodyPartGenerator.Texture.EYE;
+        pupilColor = Color.BLACK;
+        scleraColor = Color.WHITE;
         this.addSkill( "Vision: 5" );
 
+    }
+
+    /**
+     * Method that creates a ByteBuffer containing the BodyEye's data.
+     *
+     * @param buffer ByteBuffer: The ByteBuffer to add data to
+     * @return boolean: true if there is enough room to add data, false otherwise
+     */
+    @Override
+    public boolean bufferExtraFields(ByteBuffer buffer)
+    {
+        boolean isValid=false;
+        if (buffer.limit()>buffer.position()+22)
+        {
+            buffer.putInt( pupilShape.ordinal() );
+            System.out.println( "Buffering pupil shape as " + pupilShape.ordinal() );
+            ByteBufferIO.putColor( buffer, pupilColor );
+            ByteBufferIO.putColor( buffer, scleraColor );
+            isValid = true;
+        }
+        return isValid;
     }
 
 

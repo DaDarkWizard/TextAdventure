@@ -1,6 +1,7 @@
 package BodyFunctionality;
 
 import javafx.scene.paint.Color;
+import java.nio.ByteBuffer;
 
 public class BodyArm extends BodyPart
 {
@@ -8,7 +9,29 @@ public class BodyArm extends BodyPart
     {
         super();
         this.setBodyPartType( BodyPartGenerator.BodyPartType.ARM );
+
     }
+
+    /**
+     * Constructor with a buffer containing the BodyArm data including it's children
+     * This method does nothing but call the BodyPart class method constructor
+     *
+     * @param buffer ByteBuffer: The buffer containing the BodyArm data
+     */
+    public BodyArm( ByteBuffer buffer)
+    {
+        super(buffer);
+    }
+
+    /**
+     * Copy Constructor
+     * @param oldPart BodyArm:  The original part to copy
+     */
+    public BodyArm(BodyArm oldPart)
+    {
+        super(oldPart);
+    }
+
 
     @Override
     public BodyPartGenerator.BodyPartType bodyPartType()
@@ -17,68 +40,71 @@ public class BodyArm extends BodyPart
     }
 
     @Override
-    public void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color )
+    public void create( String name, String side, CreatureDataObject creatureData, Color color )
     {
-        createUpperArm( name, side, animalType, color );
+        createUpperArm( name, side, creatureData, color );
     }
 
-    public void createUpperArm (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    public void createUpperArm (String name, String side, CreatureDataObject creatureData, Color color)
     {
-        super.create(name, side, animalType, color);
+        super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
 
         BodyArm lowerArm = new BodyArm();
-        lowerArm.createLowerArm("lower arm", side, animalType, color);
+        lowerArm.createLowerArm("lower arm", side, creatureData, color);
         lowerArm.setAboveBodyPart( this );
         this.attachedBodyParts.add( lowerArm );
     }
 
-    public void createLowerArm (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    public void createLowerArm (String name, String side, CreatureDataObject creatureData, Color color)
     {
-        super.create(name, side, animalType, color);
+        super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
 
         BodyHand hand = new BodyHand();
-        if (BodyPartGenerator.handType( animalType )== BodyPartGenerator.HandType.HAND)
+        if ( creatureData.isOpposable())
         {
-            hand.createHand("hand", side, animalType, color);
+            hand.createHand("hand", side, creatureData, color);
         }
         else
         {
-            hand.createClaw(BodyPartGenerator.handType( animalType ).toString().toLowerCase(), side, animalType, color);
+            hand.createClaw("claw", side, creatureData, color);
         }
         hand.setAboveBodyPart( this );
         this.attachedBodyParts.add( hand );
     }
 
-    public void createUpperLeg (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    public void createUpperLeg (String name, String side, CreatureDataObject creatureData, Color color)
     {
-        super.create(name, side, animalType, color);
+        super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
 
         BodyArm lowerLeg = new BodyArm();
-        lowerLeg.createLowerLeg("upper leg", side, animalType, color);
+        lowerLeg.createLowerLeg("upper leg", side, creatureData, color);
         lowerLeg.setAboveBodyPart( this );
         this.attachedBodyParts.add( lowerLeg );
     }
 
-    public void createLowerLeg (String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    public void createLowerLeg (String name, String side, CreatureDataObject creatureData, Color color)
     {
-        super.create(name, side, animalType, color);
+        super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
 
         BodyHand hand = new BodyHand();
-        if (BodyPartGenerator.footType( animalType )== BodyPartGenerator.FootType.GRASPINGFOOT)
+        BodyPartGenerator.LimbType limbType = creatureData.getLimbStyle();
+        if (creatureData.isOpposable() && limbType == BodyPartGenerator.LimbType.LEGS2WINGS2)
         {
-            hand.createGraspingFoot("grasping foot", side, animalType, color);
+            hand.createGraspingFoot("grasping foot", side, creatureData, color);
         }
-        else if (BodyPartGenerator.footType( animalType )== BodyPartGenerator.FootType.FOOT)
+        else if ( limbType == BodyPartGenerator.LimbType.ARMS2LEGS2
+                || limbType == BodyPartGenerator.LimbType.ARMS2LEGS2ARMWINGS2
+                || limbType == BodyPartGenerator.LimbType.LEGS2WINGS2)
         {
-            hand.createFoot(name, side, animalType, color);
+            hand.createFoot("foot", side, creatureData, color);
         }
         else
         {
-            hand.createFoot(BodyPartGenerator.handType( animalType ).toString().toLowerCase(), side, animalType, color);
+            hand.createFoot("claw", side, creatureData, color);
         }
 
         hand.setAboveBodyPart( this );
@@ -86,9 +112,44 @@ public class BodyArm extends BodyPart
 
     }
 
+    public void createUpperWingArm (String name, String side, CreatureDataObject creatureData, Color color)
+    {
+        super.create(name, side, creatureData, color);
+        this.bodyPartType = bodyPartType();
+
+        BodyArm lowerArm = new BodyArm();
+        lowerArm.createLowerArm("lower wing arm", side, creatureData, color);
+        lowerArm.setAboveBodyPart( this );
+        this.attachedBodyParts.add( lowerArm );
+    }
+
+    public void createLowerWingArm (String name, String side, CreatureDataObject creatureData, Color color)
+    {
+        super.create(name, side, creatureData, color);
+        this.bodyPartType = bodyPartType();
+
+        BodyHand hand = new BodyHand();
+
+            hand.createHand("wing", side, creatureData, color);
+
+
+        hand.setAboveBodyPart( this );
+        this.attachedBodyParts.add( hand );
+    }
 
 
 
-
+    /**
+     * Method that creates a ByteBuffer containing the BodyArm's data.
+     *
+     * @param buffer ByteBuffer: The ByteBuffer to add data to
+     * @return boolean: true if there is enough room to add data, false otherwise
+     */
+    @Override
+    public boolean bufferExtraFields(ByteBuffer buffer)
+    {
+        boolean isValid=true;
+        return isValid;
+    }
 
 }

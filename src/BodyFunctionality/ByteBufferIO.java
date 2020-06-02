@@ -239,6 +239,7 @@ public class ByteBufferIO
             buffer.putInt( size );
             for (int i = 0; i < size && noProblems; i++)
             {
+                buffer.putInt(bodyPartList.get(i).bodyPartType.ordinal());
                 noProblems = bodyPartList.get( i ).addToBuffer( buffer );
             }
             isValid = noProblems;
@@ -396,7 +397,62 @@ public class ByteBufferIO
         int size = buffer.getInt();
         for (int i=0; i<size; i++)
         {
-            bodyPart = new BodyPart( buffer );
+            BodyPartGenerator.BodyPartType partType = BodyPartGenerator.BodyPartType.fromOrdinal(buffer.getInt());
+
+            switch(partType)
+            {
+                case ARM:
+                    bodyPart = new BodyArm( buffer );
+                    break;
+                case BACK:
+                    bodyPart = new BodyBack( buffer );
+                    break;
+                case CHEST:
+                    bodyPart = new BodyChest( buffer );
+                    break;
+                case EAR:
+                    bodyPart = new BodyEar( buffer );
+                    break;
+                case EYE:
+                    bodyPart = new BodyEye( buffer );
+                    break;
+                case FINGER:
+                    bodyPart = new BodyFinger( buffer );
+                    break;
+                case HAND:
+                    bodyPart = new BodyHand( buffer );
+                    break;
+                case HEAD:
+                    bodyPart = new BodyHead( buffer );
+                    break;
+                case HORN:
+                    bodyPart = new BodyHorn( buffer );
+                    break;
+                case MOUTH:
+                    bodyPart = new BodyMouth( buffer );
+                    break;
+                case MUZZLE:
+                    bodyPart = new BodyMuzzle( buffer );
+                    break;
+                case NECK:
+                    bodyPart = new BodyNeck( buffer );
+                    break;
+                case NOSE:
+                    bodyPart = new BodyNose( buffer );
+                    break;
+                case TAIL:
+                    bodyPart = new BodyTail( buffer );
+                    break;
+                case TONGUE:
+                    bodyPart = new BodyTongue( buffer );
+                    break;
+                case WING:
+                    bodyPart = new BodyWing( buffer );
+                    break;
+                default:
+                    bodyPart = null;
+            }
+
             bodyPartList.add( bodyPart );
         }
 

@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
-public class BodyPart
+public abstract class BodyPart
 {
 
     protected String name, description;
@@ -108,7 +108,7 @@ public class BodyPart
         System.out.println( "Setting health to " + health );
 
         System.out.println( "Preparing to Create more subordinate body parts if they exist" );
-        ArrayList<BodyPart> attachedBodyParts = ByteBufferIO.getAttachedBodyParts( buffer );
+        attachedBodyParts = ByteBufferIO.getAttachedBodyParts( buffer );
 
         for (int i=0; i<attachedBodyParts.size(); i++)
         {
@@ -150,17 +150,78 @@ public class BodyPart
         health = oldPart.getHealth();
     }
 
-    public BodyPart copy(BodyPart oldPart)
-    {
-        return new BodyPart(oldPart);
-    }
+
 
     private ArrayList<BodyPart> copyArrayBodyPart(ArrayList<BodyPart> bodyPartList)
     {
+        BodyPartGenerator.BodyPartType copyType;
+                BodyPart copiedPart;
+
         ArrayList<BodyPart> newList = new ArrayList<BodyPart>(  );
         for (int i = 0; i<bodyPartList.size(); i++)
         {
-            newList.add(new BodyPart( bodyPartList.get( i )));
+
+            copyType = bodyPartList.get( i ).bodyPartType;
+            switch(copyType)
+            {
+                case ARM:
+                    copiedPart = new BodyArm( (BodyArm) bodyPartList.get( i ) );
+                    break;
+                case BACK:
+                    copiedPart = new BodyBack( (BodyBack) bodyPartList.get( i ) );
+                    break;
+                case CHEST:
+                    copiedPart = new BodyChest( (BodyChest) bodyPartList.get( i ) );
+                    break;
+                case EAR:
+                    copiedPart = new BodyEar( (BodyEar) bodyPartList.get( i ) );
+                    break;
+                case EYE:
+                    copiedPart = new BodyEye( (BodyEye) bodyPartList.get( i ) );
+                    break;
+                case FINGER:
+                    copiedPart = new BodyFinger( (BodyFinger) bodyPartList.get( i ) );
+                    break;
+                case HAND:
+                    copiedPart = new BodyHand( (BodyHand) bodyPartList.get( i ) );
+                    break;
+                case HEAD:
+                    copiedPart = new BodyHead( (BodyHead) bodyPartList.get( i ) );
+                    break;
+                case HORN:
+                    copiedPart = new BodyHorn( (BodyHorn) bodyPartList.get( i ) );
+                    break;
+                case MOUTH:
+                    copiedPart = new BodyMouth( (BodyMouth) bodyPartList.get( i ) );
+                    break;
+                case MUZZLE:
+                    copiedPart = new BodyMuzzle( (BodyMuzzle) bodyPartList.get( i ) );
+                    break;
+                case NECK:
+                    copiedPart = new BodyNeck( (BodyNeck) bodyPartList.get( i ) );
+                    break;
+                case NOSE:
+                    copiedPart = new BodyNose( (BodyNose) bodyPartList.get( i ) );
+                    break;
+                case TAIL:
+                    copiedPart = new BodyTail( (BodyTail) bodyPartList.get( i ) );
+                    break;
+                case TONGUE:
+                    copiedPart = new BodyTongue( (BodyTongue) bodyPartList.get( i ) );
+                    break;
+                case WING:
+                    copiedPart = new BodyWing( (BodyWing) bodyPartList.get( i ) );
+                    break;
+
+
+                default:
+                    copiedPart = null;
+                    break;
+            }
+
+
+
+            newList.add( copiedPart );
         }
         return newList;
     }
@@ -369,10 +430,15 @@ public class BodyPart
 
     public void setAllHornColor(Color color)
     {
-        // color is part if it is a colored outer body part
-        if (isBodyColorPart())
+        // color is part if it is a horn or nail outer body part
+        if (isHornColorPart())
         {
             this.color = color;
+        }
+        else if(bodyPartType== BodyPartGenerator.BodyPartType.FINGER)
+        {
+            BodyFinger finger = (BodyFinger) this;
+            finger.setNailColor( color );
         }
         for (int i = 0; i<attachedBodyParts.size(); i++)
         {
@@ -410,7 +476,7 @@ public class BodyPart
             || bodyPartType == BodyPartGenerator.BodyPartType.EAR
             || bodyPartType == BodyPartGenerator.BodyPartType.NOSE
             || bodyPartType == BodyPartGenerator.BodyPartType.NECK
-            || bodyPartType == BodyPartGenerator.BodyPartType.FRONT
+            || bodyPartType == BodyPartGenerator.BodyPartType.CHEST
             || bodyPartType == BodyPartGenerator.BodyPartType.BACK)
         {
             isBodyColor = true;
@@ -482,10 +548,10 @@ public class BodyPart
      * Method that creates updates the BodyPart type with basic information regarding the BodyPart
      * @param name String: The name of the BodyPart object
      * @param side String: The side the BodyPart object is on (ie. left or right), becomes part of the name
-     * @param animalType AnimalType: The type of animal is body part belongs to
+     * @param creatureData AnimalType: The type of animal is body part belongs to
      * @param color Color: The color of the body part
      */
-    public void create(String name, String side, BodyPartGenerator.AnimalType animalType, Color color)
+    public void create(String name, String side, CreatureDataObject creatureData, Color color)
     {
         if (side.isEmpty())
         {
@@ -495,10 +561,11 @@ public class BodyPart
         {
             this.name = side + " " + name;
         }
+        this.animalType = creatureData.getAnimalTypeStyle();
         this.description = "A " + animalType.toString() + " " + side + " " + name;
         this.color = color;
-        this.animalType = animalType;
         this.bodyPartType = BodyPartGenerator.BodyPartType.NA;
+        this.texture = creatureData.getBodyTexture();
 
     }
 
@@ -511,7 +578,7 @@ public class BodyPart
     @Override
     public String toString()
     {
-        String str = "A " + length + "in " + color + " " + texture + " " + animalType + " " + name;
+        String str = "A " + String.format( "%.2f", length ) + "in " + color + " " + texture + " " + animalType + " " + name;
         for (int i=0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
         {
             str += "\n" + addPadding(attachedBodyParts.get( i ).toString(), this.treeDepth()*2+ 2);
@@ -582,7 +649,7 @@ public class BodyPart
     {
         int count = 1;
         System.out.println( "Part:" + name );
-        for (int i=0; i<attachedBodyParts.size(); i++)
+        for (int i=0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
         {
             count += attachedBodyParts.get( i ).countParts();
         }
@@ -648,21 +715,25 @@ public class BodyPart
         noProblems = noProblems && ByteBufferIO.putSkills(buf, skills);
         noProblems = noProblems && ByteBufferIO.putInjuries(buf, injuries);
         buf.putDouble( length );
-        System.out.println( "double buffered:" + bodyPartType.ordinal() );
+        System.out.println( "double buffered:" + length );
         buf.putDouble( weight );
-        System.out.println( "double buffered:" + bodyPartType.ordinal() );
+        System.out.println( "double buffered:" + weight );
         buf.putInt( maxHealth );
-        System.out.println( "int buffered:" + bodyPartType.ordinal() );
+        System.out.println( "int buffered:" + maxHealth );
         buf.putInt( health );
-        System.out.println( "int buffered:" + bodyPartType.ordinal() );
-// do not store reference to thisBody, but when creating set reference to this object
+        System.out.println( "int buffered:" + health );
+        // do not store reference to thisBody, but when creating set reference to this object
         // do not store reference to aboveBodyPart, but set reference when object created
 
         noProblems = noProblems && ByteBufferIO.putAttachedBodyParts(buf, attachedBodyParts);
 
+        noProblems = noProblems && this.bufferExtraFields(buf);
 
         return noProblems;
     }
+
+    protected abstract boolean bufferExtraFields(ByteBuffer buffer);
+
 
 }
 

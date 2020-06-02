@@ -29,6 +29,8 @@ public interface CreatureCreationInterface
     double getAverageEarLength();
     double getRandomEarLength();
 
+    BodyPartGenerator.EarShape getEarShape();
+
     double getMinEyeLength();
     double getMaxEyeLength();
     double getAverageEyeLength();
@@ -44,12 +46,19 @@ public interface CreatureCreationInterface
     int getToeCount();
     boolean isOpposable();
 
-    BodyPartGenerator.Stance getStance();
+    BodyPartGenerator.LimbType getLimbStyle();
 
     double getMinHandLength();
     double getMaxHandLength();
     double getAverageHandLength();
     double getRandomHandLength();
+
+    double getMinHeadLength();
+    double getMaxHeadLength();
+    double getAverageHeadLength();
+    double getRandomHeadLength();
+
+
 
     double getMinHornLength();
     double getMaxHornLength();
@@ -57,15 +66,16 @@ public interface CreatureCreationInterface
     double getRandomHornLength();
 
     boolean isHorned();
-    BodyHorn.HornStyle getHornStyle();
+    BodyPartGenerator.HornStyle getHornStyle();
 
     double getMinMouthLength();
     double getMaxMouthLength();
     double getAverageMouthLength();
     double getRandomMouthLength();
 
-    BodyMouth.MouthStyle getMouthStyle();
-    BodyMouth.TeethStyle getTeethStyle();
+    BodyPartGenerator.MouthStyle getMouthStyle();
+    BodyPartGenerator.TeethStyle getTeethStyle();
+    int getTeethCount();
 
     double getMinMuzzleLength();
     double getMaxMuzzleLength();
@@ -89,12 +99,16 @@ public interface CreatureCreationInterface
     double getAverageNoseLength();
     double getRandomNoseLength();
 
+    BodyPartGenerator.NoseShape getNoseShape();
+
     double getMinTailLength();
     double getMaxTailLength();
     double getAverageTailLength();
     double getRandomTailLength();
 
     boolean isTailed();
+
+    BodyPartGenerator.TailType getTailType();
 
     double getMinTongueLength();
     double getMaxTongueLength();
@@ -114,22 +128,22 @@ public interface CreatureCreationInterface
     double getRandomBodyLength();
 
     // used to set Maximum health for character
-    double getMinMaxHealth();
-    double getMaxMaxHealth();
-    double getAverageMaxHealth();
-    double getRandomMaxHealth();
+    int getMinMaxHealth();
+    int getMaxMaxHealth();
+    int getAverageMaxHealth();
+    int getRandomMaxHealth();
 
     BodyPartGenerator.Gender getRandomGender();
 
     BodyPartGenerator.Texture getBodyTexture();
 
     // one of possible colors for the body
-    ArrayList<Color> getColors();
+    ArrayList<Color> getBodyColors();
     Color getRandomColor();
 
     // still thinking about if these are possible items, choose one, or if they pertain to all the body
     ArrayList<String> getBodyFeatures();
-    ArrayList<String> getBodyItemsWorn();    // change to item object later
+    ArrayList<String> getInventory();
     ArrayList<String> getBodyResistances();
     ArrayList<String> getBodySkills();
     ArrayList<Color> getEyeColors();
