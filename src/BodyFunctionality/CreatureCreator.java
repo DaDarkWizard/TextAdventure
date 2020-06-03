@@ -8,11 +8,20 @@ import java.util.Random;
 public class CreatureCreator
 {
 
+    protected CreatureData creatureData;
+
+    public CreatureCreator()
+    {
+        creatureData = new CreatureData();
+    }
+
+
+    /*
     public static Body createAverageHuman()
     {
-        Human human = new Human();
+        CreatureDataObject human = creatureData.getCreatureDataObject( BodyPartGenerator.AnimalType.HUMAN );
         Body body = human.generateRandomBody();
         return body;
     }
-
+    */
 }

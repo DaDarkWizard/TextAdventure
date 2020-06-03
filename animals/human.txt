@@ -1,0 +1,113 @@
+HUMAN
+human
+13.0
+28.0
+6.0
+0.94
+3.0
+7.2
+8.8
+0.0
+2.15
+0.0
+0.2
+4.3
+2.1
+0.0
+3.2
+0.0
+66.0
+true
+false
+false
+false
+false
+SKIN
+ROUND
+NA
+ARMS2LEGS2
+FRONT
+NAIL
+POINTED
+NA
+HUMAN
+5
+5
+32
+1000
+5
+0xf5f5dcff
+0xdeb887ff
+0xd2691eff
+0xffdeadff
+0xffdab9ff
+5
+0x8b4513ff
+0x48d1ccff
+0x3cb371ff
+0x0000cdff
+0x8fbc8fff
+0
+0
+0
+2
+SpeakHuman
+KnowHuman
+0
+
+
+
+The values above should follow the following format for the game to understand the data.
+Each line should contain one unit of data:
+
+AnimalTypeEnum		[ALL CAPS]
+Animal general name	[String]
+defaultArmLength	[Doubles]
+defaultBackLength
+defaultEarLength
+defaultEyeLength
+defaultFingerLength
+defaultHandLength
+defaultHeadLength
+defaultHornLength
+defaultMouthLength
+defaultMuzzleLength
+defaultNailLength
+defaultNeckLength
+defaultNoseLength
+defaultTailLength
+defaultTongueLength
+defaultWingLength
+defaultBodyLength
+opposable 		[boolean: true/false]
+horned
+muzzled
+tailed
+winged
+bodyTextureStyle 	[Enums]
+earShape
+hornStyle
+limbStyle
+mouthStyle
+nailStyle		[This is Texture Enum]
+noseShape
+tailType
+teethStyle
+fingerCount		[int]
+toeCount
+teethCount
+defaultMaxHealth
+Number of possibleBodyColors	[Arrays: include int representing the number (may be 0) then that number of elements
+possibleBodyColors elements
+Number of possibleEyeColors        
+possibleEyeColors elements
+Number of bodyFeatures
+bodyFeatures elements
+Number of inventory items
+inventory elements
+Number of bodyResistances
+bodyResistances elements
+Number of bodySkills
+bodySkills elements
+Number of killDrops
+killDrops elements

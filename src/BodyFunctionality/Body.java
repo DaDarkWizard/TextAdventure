@@ -17,7 +17,7 @@ public class Body extends BodyPart
 
     protected BodyPartGenerator.Gender gender;
 
-    protected BodyPartGenerator.Stance stance; // if on two or four feet
+    protected BodyPartGenerator.LimbType limbType; // the different kinds of limbs
 
     protected ArrayList<BodyPart> internalBodyParts;
 
@@ -37,7 +37,7 @@ public class Body extends BodyPart
         gender = BodyPartGenerator.Gender.NA;
         texture = BodyPartGenerator.Texture.NA;
         animalType = BodyPartGenerator.AnimalType.NA;
-        stance = BodyPartGenerator.Stance.ONFEET;
+        limbType = BodyPartGenerator.LimbType.LEGS4;
         features = new ArrayList<String>();
         itemsWorn = new ArrayList<String>();
         resistances = new ArrayList<String>();
@@ -67,6 +67,9 @@ public class Body extends BodyPart
         lastName = ByteBufferIO.getString( buffer );
         System.out.println( "Setting Body Last Name: " + lastName );
 
+        title = ByteBufferIO.getString( buffer );
+        System.out.println( "Setting Body Last Name: " + title );
+
         identifier = buffer.getInt();
         System.out.println( "Setting Body Identifier: " + identifier );
 
@@ -76,13 +79,14 @@ public class Body extends BodyPart
         gender = BodyPartGenerator.Gender.fromOrdinal( buffer.getInt());
         System.out.println( "Setting Body Gender Type: " + gender);
 
-        stance = BodyPartGenerator.Stance.fromOrdinal( buffer.getInt());
-        System.out.println( "Setting Body Stance Type: " + stance);
+        limbType = BodyPartGenerator.LimbType.fromOrdinal( buffer.getInt());
+        System.out.println( "Setting Body Stance Type: " + limbType);
 
         internalBodyParts = ByteBufferIO.getAttachedBodyParts( buffer );
         System.out.println( "Setting Body Internal Body Parts: " + internalBodyParts);
 
         this.setAllBody( this );
+
     }
 
 
@@ -117,9 +121,9 @@ public class Body extends BodyPart
         this.gender = gender;
     }
 
-    public void setStance( BodyPartGenerator.Stance stance )
+    public void setLimbType( BodyPartGenerator.LimbType stance )
     {
-        this.stance = stance;
+        this.limbType = stance;
     }
 
     public void setInternalBodyParts( ArrayList<BodyPart> internalBodyParts )
@@ -157,9 +161,9 @@ public class Body extends BodyPart
         return gender;
     }
 
-    public BodyPartGenerator.Stance getStance()
+    public BodyPartGenerator.LimbType getLimbType()
     {
-        return stance;
+        return limbType;
     }
 
     public ArrayList<BodyPart> getInternalBodyParts()
@@ -176,7 +180,7 @@ public class Body extends BodyPart
     public String toString()
     {
         String str = "A " + length + "in creature known as " + firstName + " " + lastName;
-        for (int i=0; i<attachedBodyParts.size(); i++)
+        for (int i=0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
         {
             str += "\n" + addPadding(attachedBodyParts.get( i ).toString(), 2);
         }
@@ -191,15 +195,24 @@ public class Body extends BodyPart
 
         ByteBufferIO.putString( buf, firstName );
         ByteBufferIO.putString( buf, lastName );
+        ByteBufferIO.putString( buf, title );
         buf.putInt( identifier );
         ByteBufferIO.putString( buf, player );
         buf.putInt( gender.ordinal());
-        buf.putInt( stance.ordinal() );
+        buf.putInt( limbType.ordinal() );
         ByteBufferIO.putAttachedBodyParts( buf, internalBodyParts );
 
         return buf;
     }
 
-
-
+    /**
+     * Method that is to be implemented to load extra fields to the buffer (but this class does nothing
+     * @param buffer: A ByteBuffer to save data
+     * @return boolean: always returns true
+     */
+    @Override
+    protected boolean bufferExtraFields( ByteBuffer buffer )
+    {
+        return true;
+    }
 }
