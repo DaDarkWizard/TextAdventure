@@ -8,13 +8,12 @@ public class BodyPartGenerator
 {
 
     enum BodyPartType{ NA, FINGER, HAND, ARM, WING, HEAD, MUZZLE, NAIL, HORN, TAIL, TONGUE, EYE, EAR, NOSE, MOUTH,
-                        NECK, FRONT, BACK, STOMACH, HEART, MIND, SPECIAL;
+                        NECK, CHEST, BACK, STOMACH, HEART, MIND, SPECIAL;
         // enum methods to allow for retreiving type from integers
         private static BodyPartType[] allValues = values();
         public static BodyPartType fromOrdinal(int n) {return allValues[n];}}
 
-
-    enum Texture{ NA, SKIN, SCALED, FEATHERED, LEATHER, HAIRY, NAIL, BONE, SPIKY, ROUGH, SPECIAL;
+    enum Texture{ NA, SKIN, SCALED, FEATHERED, LEATHER, HAIRY, NAIL, BONE, SPIKY, ROUGH, EYE, MUSCLE, SPECIAL;
         // enum methods to allow for retreiving type from integers
         private static Texture[] allValues = values();
         public static Texture fromOrdinal(int n) {return allValues[n];}}
@@ -24,11 +23,6 @@ public class BodyPartGenerator
         // enum methods to allow for retreiving type from integers
         private static AnimalType[] allValues = values();
         public static AnimalType fromOrdinal(int n) {return allValues[n];}}
-
-    enum Stance{NA, UPRIGHT, ONFEET, ONGROUND, OTHER;
-        // enum methods to allow for retreiving type from integers
-        private static Stance[] allValues = values();
-        public static Stance fromOrdinal(int n) {return allValues[n];}}
 
     enum Gender{NA, MALE, FEMALE, OTHER;
         // enum methods to allow for retreiving type from integers
@@ -46,284 +40,46 @@ public class BodyPartGenerator
         private static FootType[] allValues = values();
         public static FootType fromOrdinal(int n) {return allValues[n];}}
 
-    /*
+    enum EarShape{NA, ROUND, HIDDEN, FRILLED, POINTED;
+        // enum methods to allow for retreiving type from integers
+        private static EarShape[] allValues = values();
+        public static EarShape fromOrdinal(int n) {return allValues[n];}}
 
-    static BodyNail createNail(String name, AnimalType animalType)
-    {
-        BodyNail nail = new BodyNail();
-        nail.create(name, "", animalType, Color.WHITE);
-        nail.setName( name );
-        nail.setType( BodyPartType.NAIL );
-        nail.setColor( Color.WHITE);
-        nail.setAnimalType( animalType );
-        nail.setDescription( "A " + animalType.toString() + " " + name );
+    enum PupilShape{NA, ROUND, SLITTED, OTHER;
+        // enum methods to allow for retreiving type from integers
+        private static PupilShape[] allValues = values();
+        public static PupilShape fromOrdinal(int n) {return allValues[n];}}
 
-        return nail;
-    }
+    enum HornStyle {NA, SHORT, STRAIGHT, CURVED, WAVE, ANTLER, OTHER;
+        // enum methods to allow for retreiving type from integers
+        private static HornStyle[] allValues = values();
+        public static HornStyle fromOrdinal(int n) {return allValues[n];}}
 
-    static BodyPart createFinger(String name, AnimalType animalType, Color color)
-    {
-        BodyPart finger = new BodyPart();
-        finger.setName( name );
-        finger.setType( BodyPartType.FINGER );
-        finger.setColor( color );
-        finger.setTexture(getAnimalTexture(animalType));
-        finger.setAnimalType( animalType );
-        finger.setDescription( "A " + animalType.toString() + " " + name );
-
-        BodyPart nail = createNail( name + "nail", animalType);
-        nail.setAboveBodyPart( finger );
-        finger.attachedBodyParts.add( nail );
-
-        return finger;
-    }
-
-    static BodyPart createHand(String name, String side, AnimalType animalType, Color color)
-    {
-        BodyPart hand = new BodyPart();
-        hand.setName( side + " " + name );
-        hand.setType( BodyPartType.HAND );
-        hand.setColor( color );
-        hand.setTexture(getAnimalTexture(animalType));
-        hand.setAnimalType( animalType );
-        hand.setDescription( "A " + animalType.toString() + " " + name );
-
-        hand.attachedBodyParts.add( createFinger( side + " thumb", animalType, color ) );
-        hand.attachedBodyParts.add( createFinger( side + " first finger", animalType, color ) );
-        hand.attachedBodyParts.add( createFinger( side + " second finger", animalType, color ) );
-        hand.attachedBodyParts.add( createFinger( side + " third finger", animalType, color ) );
-        hand.attachedBodyParts.add( createFinger( side + " fourth finger", animalType, color ) );
-
-        hand.addSkill( "Write" );
-        hand.addSkill( "Wield" );
-
-        attachBodyParts(hand.attachedBodyParts, hand);
-
-        return hand;
-    }
-
-    static BodyPart createClaw(String name, String side, AnimalType animalType, Color color)
-    {
-        BodyPart hand = new BodyPart();
-        hand.setName( side + " " + name );
-        hand.setType( BodyPartType.HAND );
-        hand.setColor( color );
-        hand.setTexture(getAnimalTexture(animalType));
-        hand.setAnimalType( animalType );
-        hand.setDescription( "A " + animalType.toString() + " " + name );
-
-        String digit = "finger";
-        if (name.contains( "leg" ) || name.contains( "back" ))
-        {
-            digit = "toe";
-        }
+    enum TeethStyle{NA, HUMAN, GNAWING, SHARP, FANGED, SHARPRAGGED, OTHER;
+        // enum methods to allow for retreiving type from integers
+        private static TeethStyle[] allValues = values();
+        public static TeethStyle fromOrdinal(int n) {return allValues[n];}}
 
 
-        hand.attachedBodyParts.add( createFinger( side + " first " + digit, animalType, color ) );
-        hand.attachedBodyParts.add( createFinger( side + " second " + digit, animalType, color ) );
-        hand.attachedBodyParts.add( createFinger( side + " third " + digit, animalType, color ) );
-        hand.attachedBodyParts.add( createFinger( side + " fourth " + digit, animalType, color ) );
-        hand.attachedBodyParts.add( createFinger( side + " fifth " + digit, animalType, color ) );
+    enum MouthStyle{NA, FRONT, SMALL, WIDE, OTHER;// enum methods to allow for retreiving type from integers
+        private static MouthStyle[] allValues = values();
+        public static MouthStyle fromOrdinal(int n) {return allValues[n];}}
 
-        attachBodyParts(hand.attachedBodyParts, hand);
+    enum NoseShape{NA, ROUND, HIDDEN, SPLITLIP, POINTED;
+        private static NoseShape[] allValues = values();
+        public static NoseShape fromOrdinal(int n) {return allValues[n];}}
 
-        return hand;
-    }
+    enum WingType {NA, BIRD, BAT, DRAGON, OTHER;
+        private static WingType[] allValues = values();
+        public static WingType fromOrdinal(int n) {return allValues[n];}}
 
+    enum TailType {NA, BIRD, CAT, GATOR, FIN, SCREW, SICKLE, OTHER;
+        private static TailType[] allValues = values();
+        public static TailType fromOrdinal(int n) {return allValues[n];}}
 
-    static BodyPart createArm(String name, String side, String location, AnimalType animalType, Color color)
-    {
-        BodyPart arm = new BodyPart();
-        arm.setName( side + " " + location + " " + name );
-        arm.setType( BodyPartType.ARM );
-        arm.setColor( color );
-        arm.setTexture(getAnimalTexture(animalType));
-        arm.setAnimalType( animalType );
-
-        if (location.equals( "upper" ))
-        {
-            arm.setDescription( "An " + animalType.toString() + " " + name );
-            arm.attachedBodyParts.add( createArm( name, side, "lower" , animalType, color ) );
-        }
-        else
-        {
-            arm.setDescription( "A " + animalType.toString() + " " + name );
-
-            if (animalType==AnimalType.HUMAN)
-            {
-                arm.attachedBodyParts.add( createHand( name, side, animalType, color ) );
-
-            }
-            else
-            {
-                arm.attachedBodyParts.add( createClaw( name, side, animalType, color ) );
-            }
-        }
-
-        attachBodyParts(arm.attachedBodyParts, arm);
-
-
-        return arm;
-    }
-
-    static BodyPart createNeck(AnimalType animalType, Color color)
-    {
-        BodyPart neck = new BodyPart();
-        neck.setName( "Neck" );
-        neck.setType( BodyPartType.NECK );
-        neck.setColor( color );
-        neck.setTexture(getAnimalTexture(animalType));
-        neck.setAnimalType( animalType );
-
-        if (animalType==AnimalType.HUMAN)
-        {
-            neck.attachedBodyParts.add( createHumanHead(animalType, color) );
-        }
-        else
-        {
-            neck.attachedBodyParts.add( createHead( animalType, color ) );
-        }
-
-        attachBodyParts(neck.attachedBodyParts, neck);
-
-        return neck;
-    }
-
-    static BodyPart createHead(AnimalType animalType, Color color)
-    {
-        BodyPart head = new BodyPart();
-        head.setName( "Head" );
-        head.setType( BodyPartType.HEAD );
-        head.setColor( color );
-        head.setTexture(getAnimalTexture(animalType));
-        head.setAnimalType( animalType );
-
-        head.attachedBodyParts.add( createEye("Left", animalType, Color.GREEN));
-        head.attachedBodyParts.add( createEye("Right", animalType, Color.GREEN));
-        head.attachedBodyParts.add( createMuzzle(animalType, color));
-        head.attachedBodyParts.add ( createEar("Left", animalType, color));
-        head.attachedBodyParts.add ( createEar("Right", animalType, color));
-
-        attachBodyParts(head.attachedBodyParts, head);
-
-        return head;
-    }
-
-    static BodyPart createHumanHead(AnimalType animalType, Color color)
-    {
-        BodyPart head = new BodyPart();
-        head.setName( "Head" );
-        head.setType( BodyPartType.HEAD );
-        head.setColor( color );
-        head.setTexture(getAnimalTexture(animalType));
-        head.setAnimalType( animalType );
-
-        head.attachedBodyParts.add( createEye("Left", animalType, Color.BLUE));
-        head.attachedBodyParts.add( createEye("Right", animalType, Color.BLUE));
-        head.attachedBodyParts.add( createNose(animalType, color));
-        head.attachedBodyParts.add( createMouth(animalType));
-        head.attachedBodyParts.add( createEar("Left", animalType, color));
-        head.attachedBodyParts.add( createEar("Right", animalType, color));
-
-        attachBodyParts(head.attachedBodyParts, head);
-
-        return head;
-    }
-
-    static BodyPart createEye(String side, AnimalType animalType, Color color)
-    {
-        BodyPart eye = new BodyPart();
-        eye.setName( side + " Eye" );
-        eye.setType( BodyPartType.EYE );
-        eye.setColor( color );
-        eye.setTexture(getAnimalTexture(animalType));
-        eye.setAnimalType( animalType );
-        eye.addFeature( "Sclera: WHITE" );
-        eye.addFeature( "Pupil: BLACK" );
-
-        return eye;
-    }
-
-    static BodyPart createEar(String side, AnimalType animalType, Color color)
-    {
-        BodyPart ear = new BodyPart();
-        ear.setName( side + " Ear" );
-        ear.setType( BodyPartType.EAR );
-        ear.setColor( color );
-        ear.setTexture(getAnimalTexture(animalType));
-        ear.setAnimalType( animalType );
-        ear.addFeature( "Shape: Round" );
-
-        return ear;
-    }
-
-    static BodyPart createMuzzle(AnimalType animalType, Color color)
-    {
-        BodyPart muzzle = new BodyPart(  );
-        muzzle.setName( "Muzzle" );
-        muzzle.setType( BodyPartType.MUZZLE );
-        muzzle.setColor( color );
-        muzzle.setTexture(getAnimalTexture(animalType));
-        muzzle.setAnimalType( animalType );
-
-        muzzle.attachedBodyParts.add( createNose(animalType, color));
-        muzzle.attachedBodyParts.add( createMouth(animalType));
-
-        attachBodyParts(muzzle.attachedBodyParts, muzzle);
-
-        return muzzle;
-    }
-
-    static BodyPart createNose(AnimalType animalType, Color color)
-    {
-        BodyPart nose = new BodyPart(  );
-        nose.setName( "Nose" );
-        nose.setType( BodyPartType.NOSE );
-        nose.setColor( color );
-        nose.setTexture(getAnimalTexture(animalType));
-        nose.setAnimalType( animalType );
-        nose.addFeature( "Shape: Round" );
-
-        return nose;
-    }
-
-    static BodyPart createMouth(AnimalType animalType)
-    {
-        BodyPart mouth = new BodyPart(  );
-        mouth.setName( "Mouth" );
-        mouth.setType( BodyPartType.MOUTH );
-        mouth.setColor( Color.RED );
-        mouth.setTexture(getAnimalTexture(animalType));
-        mouth.setAnimalType( animalType );
-
-        mouth.attachedBodyParts.add( createTongue(animalType));
-
-        attachBodyParts(mouth.attachedBodyParts, mouth);
-
-        return mouth;
-    }
-
-    static BodyPart createTongue(AnimalType animalType)
-    {
-        BodyPart tongue = new BodyPart(  );
-        tongue.setName( "Tongue" );
-        tongue.setType( BodyPartType.TONGUE );
-        tongue.setColor( Color.RED );
-        tongue.setTexture(getAnimalTexture(animalType));
-        tongue.setAnimalType( animalType );
-
-        return tongue;
-    }
-
-
-    static void attachBodyParts(ArrayList<BodyPart> parts, BodyPart above)
-    {
-        for (int i=0; i<parts.size(); i++)
-        {
-            parts.get( i ).setAboveBodyPart( above );
-        }
-    }
-*/
+    enum LimbType {NA, ARMS2LEGS2, LEGS4, ARMS2LEGS2ARMWINGS2, LEGS4ARMWINGS2, LEGS2WINGS2, NOLIMBS;
+        private static LimbType[] allValues = values();
+        public static LimbType fromOrdinal(int n) {return allValues[n];}}
 
 
     /**

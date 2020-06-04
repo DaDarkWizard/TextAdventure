@@ -2,6 +2,8 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
+import java.nio.ByteBuffer;
+
 public interface BodyPartInterface
 {
 
@@ -12,4 +14,6 @@ public interface BodyPartInterface
     String toString();
 
     BodyPartGenerator.BodyPartType bodyPartType();
+
+    ByteBuffer toBuffer();
 }
