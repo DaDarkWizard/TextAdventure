@@ -27,3 +27,8 @@
   - [ ] Create equipment textures
   - [ ] Create item textures
   - [ ] Create Map textures
+- [ ] Create server
+  - [ ] Create communication protocol
+  - [ ] Implement client/server side engines
+  - [ ] Create login
+  - [ ] Implement saving/loading
