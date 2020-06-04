@@ -1,11 +1,9 @@
-package Client;
+package Client.legacy;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -113,7 +111,7 @@ public class CustomAdventureClient extends Application {
             } else {
                 try (Socket server = new Socket(args.get(0),
                         Integer.valueOf(args.get(1)))) {
-                    System.out.println("Connected to Server.AdventureServer host " + server.getInetAddress());
+                    System.out.println("Connected to Server.legacy.AdventureServer host " + server.getInetAddress());
                     fromServer = new BufferedReader(new InputStreamReader(server.getInputStream()));
                     toServer = new PrintWriter(server.getOutputStream(), true);
                     String s = "";

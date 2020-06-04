@@ -1,4 +1,4 @@
-package Server;
+package Server.legacy;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,7 +35,7 @@ public final class AdventureServer implements AdventureServerAPI {
 
     /*
      * ClientThread is a Thread where the input from the connection is accepted.
-     * Accepted input is sent to registered Server.ConnectionListener.
+     * Accepted input is sent to registered Server.legacy.ConnectionListener.
      *
      * The ClientThread allows for multiple connections.
      */

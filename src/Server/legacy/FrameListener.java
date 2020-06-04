@@ -1,4 +1,4 @@
-package Server;
+package Server.legacy;
 
 import java.util.EventListener;
 
@@ -14,9 +14,9 @@ import java.util.EventListener;
  */
 public interface FrameListener extends EventListener {
     /**
-     * Handle the Server.FrameEvent
+     * Handle the Server.legacy.FrameEvent
      *
-     * @param e the Server.FrameEvent in question
+     * @param e the Server.legacy.FrameEvent in question
      */
     void handle(FrameEvent e);
 }
