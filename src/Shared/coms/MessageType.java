@@ -5,7 +5,10 @@ public enum MessageType {
     CONNECTION_REQUEST((byte)0x01),
     FATAL_ERROR((byte)0x02),
     CONNECTION_APPROVED((byte)0x03),
-    PLAYER_CONTROL((byte)0x04),
+    PLAYER_MOVEMENT((byte)0x04),
+    NPC_MOVEMENT((byte)0x05),
+    NPC_USE_SKILL((byte)0x06),
+    PLAYER_USE_SKILL((byte)0x07),
     UNKNOWN_TYPE((byte)0xFF);
 
 
@@ -29,7 +32,7 @@ public enum MessageType {
             case (byte)0x03:
                 return MessageType.CONNECTION_APPROVED;
             case (byte)0x04:
-                return MessageType.PLAYER_CONTROL;
+                return MessageType.PLAYER_MOVEMENT;
             default: return MessageType.UNKNOWN_TYPE;
         }
     }

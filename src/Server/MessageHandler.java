@@ -32,12 +32,9 @@ public class MessageHandler {
                 case CONNECTION_REQUEST:
                     handleConnectionRequest(client, (ConnectionRequest) message);
                     break;
-                case CONNECTION_APPROVED:
-                    break;
                 case UNKNOWN_TYPE:
                     break;
             }
-
             message = null;
         }
     }
