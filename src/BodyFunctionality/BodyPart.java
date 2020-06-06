@@ -459,6 +459,18 @@ public abstract class BodyPart
         }
     }
 
+
+    public ArrayList<BodyPart> getAllBodyPartChildren()
+    {
+        ArrayList<BodyPart> allChildren = new ArrayList<BodyPart>( attachedBodyParts ); // include all attached parts
+        for (int i=0; attachedBodyParts!=null && i < attachedBodyParts.size(); i++)
+        {
+            allChildren.addAll( attachedBodyParts.get(i).getAllBodyPartChildren() );
+        }
+        return allChildren;
+    }
+
+
     /**
      * Private method that returns true if the body part is one that should be the general body color, to allow easier coloring
      * @return boolean: true if the body part is part of the general body color, false otherwise

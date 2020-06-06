@@ -26,7 +26,7 @@ public class TestBody
 
         System.out.println( body1.toString() );
         System.out.println( "Total body parts: " + body1.countParts() );
-        System.out.println(  "Attached body parts to body: " + body1.attachedBodyParts);
+        System.out.println(  "Attached body parts to body: " + body1);
 
 
 

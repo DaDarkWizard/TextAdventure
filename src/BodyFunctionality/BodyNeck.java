@@ -58,7 +58,7 @@ public class BodyNeck extends BodyPart
             head.createHumanHead( "head", "", creatureData, color );
         }
 
-        double headSize = creatureData.getRandomEyeLength();
+        double headSize = creatureData.getRandomHeadLength();
         double headWeight = creatureData.getRandomWeightFactor() * headSize;
 
         head.setLength( headSize );
