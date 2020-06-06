@@ -1200,7 +1200,6 @@ public class CreatureDataObject implements CreatureCreationInterface
         double chestWeight = chestLength * getRandomWeightFactor();
 
 
-
         neck = new BodyNeck();
         neck.create( "neck", "", this, color );
         neck.setAboveBodyPart( newBody );
@@ -1217,6 +1216,7 @@ public class CreatureDataObject implements CreatureCreationInterface
         back.setAboveBodyPart( newBody );
         back.setLength( chestLength );
         back.setWeight( chestWeight );
+
 
         neck.setAllBody( newBody );
         chest.setAllBody( newBody );
@@ -1298,7 +1298,7 @@ public class CreatureDataObject implements CreatureCreationInterface
 
 
 
-        //todo add code to adjust limb lengths and weights
+
     }
 
 

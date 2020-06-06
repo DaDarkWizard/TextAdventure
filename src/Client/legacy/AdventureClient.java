@@ -1,4 +1,4 @@
-package Client;
+package Client.legacy;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class AdventureClient {
             System.out.println("Command line arguments: server_address port");
         } else {
             try (Socket server = new Socket(args[0], Integer.valueOf(args[1]))) {
-                System.out.println("Connected to Server.AdventureServer host " + server.getInetAddress());
+                System.out.println("Connected to Server.legacy.AdventureServer host " + server.getInetAddress());
                 BufferedReader fromServer = new BufferedReader(new InputStreamReader(server.getInputStream()));
                 PrintWriter toServer = new PrintWriter(server.getOutputStream(), true);
                 BufferedReader keyboardInput = new BufferedReader(new InputStreamReader(System.in));

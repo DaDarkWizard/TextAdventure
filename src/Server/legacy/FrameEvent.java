@@ -1,9 +1,9 @@
-package Server;
+package Server.legacy;
 
 import java.util.EventObject;
 
 /**
- * Server.FrameEvent for updating player
+ * Server.legacy.FrameEvent for updating player
  * <p>
  * Date Last Modified: 12/5/2019
  *
