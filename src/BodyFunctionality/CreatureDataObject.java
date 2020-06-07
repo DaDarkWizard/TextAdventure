@@ -1196,18 +1196,27 @@ public class CreatureDataObject implements CreatureCreationInterface
 
         Color color = getRandomColor();
         BodyPart neck, back, chest;
+        double chestLength = getRandomArmLength();
+        double chestWeight = chestLength * getRandomWeightFactor();
+
 
         neck = new BodyNeck();
         neck.create( "neck", "", this, color );
         neck.setAboveBodyPart( newBody );
 
+
         chest = new BodyChest();
         chest.create( "chest", "", this, color );
         chest.setAboveBodyPart( newBody );
+        chest.setLength( chestLength );
+        chest.setWeight( chestWeight );
 
         back = new BodyBack();
         back.create( "back", "", this, color );
         back.setAboveBodyPart( newBody );
+        back.setLength( chestLength );
+        back.setWeight( chestWeight );
+
 
         neck.setAllBody( newBody );
         chest.setAllBody( newBody );
@@ -1246,12 +1255,50 @@ public class CreatureDataObject implements CreatureCreationInterface
      * Method to set certain body part lengths and widths to random by symmetric values
      * body parts needing to be adjusted evenly are arms, hands, fingers, and legs
      *
-     *
-     * @param body Body: The body to adjust, setting length and weight balues
+     * @param body Body: The body to adjust, setting length and weight values
      */
     protected void setBodyLengthsAndWeights(Body body)
     {
-        //todo add code to adjust limb lengths and weights
+
+        double armsLength, armsWeight, handLength, handWeight, fingerLength, fingerWeight;
+        String partName;
+        BodyPart thisPart;
+
+        ArrayList<BodyPart> allParts = body.getAllBodyParts();
+
+        armsLength = getRandomArmLength();
+        armsWeight = armsLength * getRandomWeightFactor();
+        handLength = getRandomHandLength();
+        handWeight = handLength * getRandomWeightFactor();
+        fingerLength = getRandomFingerLength();
+        fingerWeight = fingerLength * getRandomWeightFactor();
+
+        int size = allParts.size();
+        for (int i = 0; i<size; i++)
+        {
+            thisPart = allParts.get( i );
+            partName = thisPart.getName();
+            if (partName.contains( "arm" ) || partName.contains( "leg" ))
+            {
+                thisPart.setLength( armsLength );
+                thisPart.setWeight( armsWeight );
+            }
+            else if(partName.contains( "hand" ) || partName.contains( "claw" ) || partName.contains( "foot" ))
+            {
+                thisPart.setLength( handLength );
+                thisPart.setWeight( handWeight );
+            }
+            else if(partName.contains( "finger" ) || partName.contains( "thumb" ) || partName.contains("toe"))
+            {
+                thisPart.setLength( fingerLength );
+                thisPart.setLength( fingerWeight );
+            }
+        }
+
+
+
+
+
     }
 
 

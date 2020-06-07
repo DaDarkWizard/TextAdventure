@@ -89,6 +89,8 @@ public class BodyPartGenerator
      * @param animalType AnimalType: The general type of creature
      * @return Texture: The texture that that general type of creature has
      */
+
+    /*
     static Texture getAnimalTexture(AnimalType animalType)
     {
         Texture texture = Texture.NA;
@@ -159,5 +161,5 @@ public class BodyPartGenerator
 
     }
 
-
+    */
 }
