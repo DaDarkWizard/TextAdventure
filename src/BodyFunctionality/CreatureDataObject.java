@@ -1185,7 +1185,7 @@ public class CreatureDataObject implements CreatureCreationInterface
     */
     public void bodyAdjustments(Body body)
     {
-        CreatureSpecial.createBody( animalTypeStyle, body );
+        CreatureSpecial.createBody( this, body );
     }
 
     /**
@@ -1254,9 +1254,9 @@ public class CreatureDataObject implements CreatureCreationInterface
 
         //  update the body
         newBody.setFirstName( animalName + Integer.toString( newBody.getIdentifier() ) );
-        newBody.setColor( Color.PEACHPUFF );
-        newBody.setTexture( BodyPartGenerator.Texture.SKIN );
-        newBody.setAnimalType( BodyPartGenerator.AnimalType.HUMAN );
+        newBody.setColor( color );
+        newBody.setTexture( getBodyTexture() );
+        newBody.setAnimalType( getAnimalTypeStyle());
         newBody.setGender( getRandomGender() );
         newBody.setDescription( "A " + newBody.getGender().toString().toLowerCase() + " " + animalName);
         newBody.setLimbType( limbStyle );

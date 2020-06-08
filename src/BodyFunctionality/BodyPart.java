@@ -636,6 +636,8 @@ public abstract class BodyPart
 
     /**
      * Method to search for a body part.  If it is not found, return null
+     * Returns a shallow copy of the body part
+     *
      * @param partName String: The BodyPart to search if it is the part looked for
      * @return BodyPart: Returns the body part if it is found, otherwise returns null
      */
