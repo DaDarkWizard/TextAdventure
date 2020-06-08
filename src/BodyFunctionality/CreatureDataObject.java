@@ -1178,7 +1178,8 @@ public class CreatureDataObject implements CreatureCreationInterface
     }
 
 
-    /* this method makes all the body adjustments that cannot be made by other methods
+    /*
+    this method makes all the body adjustments that cannot be made by other methods
      (i.e. changes unique features, adjusts color patterns, gives unique skills, etc)
      it should be called after the body is updated
     */
@@ -1187,10 +1188,13 @@ public class CreatureDataObject implements CreatureCreationInterface
         CreatureSpecial.createBody( animalTypeStyle, body );
     }
 
+    /**
+     * Method that creates a body with random characteristics of the specific animal type
+     * @return Body: A creature Body with some randomness in the size of its features
+     */
     public Body generateRandomBody()
     {
         Body newBody = new Body();
-
 
         // create the basic body
 
@@ -1222,12 +1226,32 @@ public class CreatureDataObject implements CreatureCreationInterface
         chest.setAllBody( newBody );
         back.setAllBody( newBody );
 
-        // todo modifying ArrayList of attached body parts here - think about shallow/deep copy usage
         newBody.getAttachedBodyParts().add( neck );
         newBody.getAttachedBodyParts().add( chest );
         newBody.getAttachedBodyParts().add( back );
 
-        // todo update creation method to either update body here, or during body part creation
+        // create internal organs
+
+        BodyPart stomach, heart, brain;
+
+        stomach = new BodyInternalStomach();
+        stomach.create( "stomach", "", this, color );
+        stomach.setAboveBodyPart( newBody );
+
+        heart = new BodyInternalHeart();
+        heart.create( "heart", "", this, color );
+        heart.setAboveBodyPart( newBody );
+
+        brain = new BodyInternalBrain();
+        brain.create( "brain", "", this, color );
+        brain.setAboveBodyPart( newBody );
+
+        newBody.getInternalBodyParts().add( stomach );
+        newBody.getInternalBodyParts().add( heart );
+        newBody.getInternalBodyParts().add( brain );
+
+
+
         //  update the body
         newBody.setFirstName( animalName + Integer.toString( newBody.getIdentifier() ) );
         newBody.setColor( Color.PEACHPUFF );
@@ -1288,15 +1312,12 @@ public class CreatureDataObject implements CreatureCreationInterface
                 thisPart.setLength( handLength );
                 thisPart.setWeight( handWeight );
             }
-            else if(partName.contains( "finger" ) || partName.contains( "thumb" ) || partName.contains("toe"))
+            else if(partName.contains( "finger" ) || partName.contains( "thumb" ) || partName.contains( "toe" ))
             {
                 thisPart.setLength( fingerLength );
                 thisPart.setLength( fingerWeight );
             }
         }
-
-
-
 
 
     }

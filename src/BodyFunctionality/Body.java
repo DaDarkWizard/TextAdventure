@@ -69,7 +69,7 @@ public class Body extends BodyPart
         System.out.println( "Setting Body Last Name: " + lastName );
 
         title = ByteBufferIO.getString( buffer );
-        System.out.println( "Setting Body Last Name: " + title );
+        System.out.println( "Setting Body Title: " + title );
 
         identifier = buffer.getInt();
         System.out.println( "Setting Body Identifier: " + identifier );
