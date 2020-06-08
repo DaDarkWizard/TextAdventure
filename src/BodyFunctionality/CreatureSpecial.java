@@ -61,6 +61,7 @@ public class CreatureSpecial
 
         BodyHorn leftHeadHorn, rightHeadHorn;
         BodyHead head;
+        BodyInternalGland fireGland;
         Color hornColor = Color.GAINSBORO;
 
         head = (BodyHead) body.getBodyPart( "head" );
@@ -69,13 +70,13 @@ public class CreatureSpecial
         rightHeadHorn = new BodyHorn(  );
 
 
-        leftHeadHorn.create( "horn", "left", creatureDataObject, hornColor);
+        leftHeadHorn.create( "forehead horn", "left", creatureDataObject, hornColor);
         leftHeadHorn.setAboveBodyPart( head );
         leftHeadHorn.setLength( hornLength );
         leftHeadHorn.setWeight( hornWeight );
         leftHeadHorn.setThisBody( body );
 
-        rightHeadHorn.create( "horn", "right", creatureDataObject, hornColor);
+        rightHeadHorn.create( "forehead horn", "right", creatureDataObject, hornColor);
         rightHeadHorn.setAboveBodyPart( head );
         rightHeadHorn.setLength( hornLength );
         rightHeadHorn.setWeight( hornWeight );
@@ -83,6 +84,14 @@ public class CreatureSpecial
 
         head.attachedBodyParts.add(leftHeadHorn);
         head.attachedBodyParts.add(rightHeadHorn);
+
+        fireGland = new BodyInternalGland(  );
+        fireGland.create( "firebreath gland" , "", creatureDataObject, hornColor);
+        fireGland.addSkill( "FireBreath: 10" );
+        fireGland.setAboveBodyPart( body );
+        fireGland.setThisBody( body );
+        body.internalBodyParts.add(fireGland);
+
 
     }
 
