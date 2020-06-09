@@ -4,6 +4,7 @@ import Exceptions.ByteUnderflowException;
 import Shared.coms.messages.ConnectionRequest;
 import Shared.coms.messages.Message;
 import Shared.coms.MessageType;
+import Shared.world.Chunk;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -14,6 +15,7 @@ public class Client {
     boolean receivingMessage = false;
     private byte messageType = -1;
     private Message message;
+    private Chunk chunk;
 
     public Client(Socket socket, int connectionID) {
         this.socket = socket;
@@ -28,9 +30,9 @@ public class Client {
         return this.socket;
     }
 
-    public void sendMessage(byte[] bytes) {
+    public void sendMessage(Message message) {
         try {
-            socket.getOutputStream().write(bytes);
+            message.write(socket.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
