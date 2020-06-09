@@ -1,0 +1,115 @@
+DRAGON
+dragon
+18.0
+60.0
+5.0
+2.0
+6.0
+12.0
+18.0
+18.0
+24.0
+24.0
+3.0
+36.0
+3.0
+72.0
+30.0
+60.0
+210.0
+false
+true
+true
+true
+true
+SCALED
+FRILLED
+STRAIGHT
+LEGS4ARMWINGS2
+WIDE
+SHARPNAIL
+ROUND
+GATOR
+SHARPRAGGED
+4
+4
+96
+10000
+7
+0xdc143cff
+0xff4500ff
+0x2e8b57ff
+0x9acd32ff
+0x6a5acdff
+0x006400ff
+0xb8860bff
+4
+0xff8c00ff
+0x00ced1ff
+0xdc143cff
+0xffd700ff
+0
+0
+0
+3
+SpeakDragon
+KnowDragon
+DragonFear
+0
+
+
+
+The values above should follow the following format for the game to understand the data.
+Each line should contain one unit of data:
+
+AnimalTypeEnum		[ALL CAPS]
+Animal general name	[String]
+defaultArmLength	[Doubles]
+defaultBackLength
+defaultEarLength
+defaultEyeLength
+defaultFingerLength
+defaultHandLength
+defaultHeadLength
+defaultHornLength
+defaultMouthLength
+defaultMuzzleLength
+defaultNailLength
+defaultNeckLength
+defaultNoseLength
+defaultTailLength
+defaultTongueLength
+defaultWingLength
+defaultBodyLength
+opposable 		[boolean: true/false]
+horned
+muzzled
+tailed
+winged
+bodyTextureStyle 	[Enums]
+earShape
+hornStyle
+limbStyle
+mouthStyle
+nailStyle		[This is Texture Enum]
+noseShape
+tailType
+teethStyle
+fingerCount		[int]
+toeCount
+teethCount
+defaultMaxHealth
+Number of possibleBodyColors	[Arrays: include int representing the number (may be 0) then that number of elements
+possibleBodyColors elements
+Number of possibleEyeColors        
+possibleEyeColors elements
+Number of bodyFeatures
+bodyFeatures elements
+Number of inventory items
+inventory elements
+Number of bodyResistances
+bodyResistances elements
+Number of bodySkills
+bodySkills elements
+Number of killDrops
+killDrops elements

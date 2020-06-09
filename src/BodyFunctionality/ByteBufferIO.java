@@ -449,6 +449,18 @@ public class ByteBufferIO
                 case WING:
                     bodyPart = new BodyWing( buffer );
                     break;
+                case BRAIN:
+                    bodyPart = new BodyInternalBrain( buffer );
+                    break;
+                case GLAND:
+                    bodyPart = new BodyInternalGland( buffer );
+                    break;
+                case HEART:
+                    bodyPart = new BodyInternalHeart( buffer );
+                    break;
+                case STOMACH:
+                    bodyPart = new BodyInternalStomach( buffer );
+                    break;
                 default:
                     bodyPart = null;
             }

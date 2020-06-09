@@ -8,17 +8,17 @@ public class BodyPartGenerator
 {
 
     enum BodyPartType{ NA, FINGER, HAND, ARM, WING, HEAD, MUZZLE, NAIL, HORN, TAIL, TONGUE, EYE, EAR, NOSE, MOUTH,
-                        NECK, CHEST, BACK, STOMACH, HEART, MIND, SPECIAL;
+                        NECK, CHEST, BACK, STOMACH, HEART, BRAIN, GLAND, SPECIAL;
         // enum methods to allow for retreiving type from integers
         private static BodyPartType[] allValues = values();
         public static BodyPartType fromOrdinal(int n) {return allValues[n];}}
 
-    enum Texture{ NA, SKIN, SCALED, FEATHERED, LEATHER, HAIRY, NAIL, BONE, SPIKY, ROUGH, EYE, MUSCLE, SPECIAL;
+    enum Texture{ NA, SKIN, SCALED, FEATHERED, LEATHER, HAIRY, NAIL, SHARPNAIL, BONE, SPIKY, ROUGH, EYE, MUSCLE, SPECIAL;
         // enum methods to allow for retreiving type from integers
         private static Texture[] allValues = values();
         public static Texture fromOrdinal(int n) {return allValues[n];}}
 
-    enum AnimalType{ NA, MIXED, HUMAN, DRAGON, UPRIGHTDRAGON, GUINEAPIG, OTHER;
+    enum AnimalType{ NA, MIXED, HUMAN, DRAGON, AIRIAN, GUINEAPIG, WYVERN, EAGLE, WOLF, SNAKE, BAT, RAT, OTHER;
 
         // enum methods to allow for retreiving type from integers
         private static AnimalType[] allValues = values();
@@ -40,7 +40,7 @@ public class BodyPartGenerator
         private static FootType[] allValues = values();
         public static FootType fromOrdinal(int n) {return allValues[n];}}
 
-    enum EarShape{NA, ROUND, HIDDEN, FRILLED, POINTED;
+    enum EarShape{NA, ROUND, HIDDEN, FRILLED, POINTED, OTHER;
         // enum methods to allow for retreiving type from integers
         private static EarShape[] allValues = values();
         public static EarShape fromOrdinal(int n) {return allValues[n];}}
@@ -65,7 +65,7 @@ public class BodyPartGenerator
         private static MouthStyle[] allValues = values();
         public static MouthStyle fromOrdinal(int n) {return allValues[n];}}
 
-    enum NoseShape{NA, ROUND, HIDDEN, SPLITLIP, POINTED;
+    enum NoseShape{NA, ROUND, HIDDEN, SPLITLIP, POINTED, OTHER;
         private static NoseShape[] allValues = values();
         public static NoseShape fromOrdinal(int n) {return allValues[n];}}
 
@@ -77,10 +77,13 @@ public class BodyPartGenerator
         private static TailType[] allValues = values();
         public static TailType fromOrdinal(int n) {return allValues[n];}}
 
-    enum LimbType {NA, ARMS2LEGS2, LEGS4, ARMS2LEGS2ARMWINGS2, LEGS4ARMWINGS2, LEGS2WINGS2, NOLIMBS;
+    enum LimbType {NA, ARMS2LEGS2, LEGS4, ARMS2LEGS2ARMWINGS2, LEGS4ARMWINGS2, LEGS2WINGS2, NOLIMBS, OTHER;
         private static LimbType[] allValues = values();
         public static LimbType fromOrdinal(int n) {return allValues[n];}}
 
+    enum GlandType {NA, INJECT, BREATH, GAS, OTHER;
+        private static GlandType[] allValues = values();
+        public static GlandType fromOrdinal(int n) {return allValues[n];}}
 
     /**
      * Method that returns the general type of texture for a creature
