@@ -11,6 +11,8 @@ public class Chunk {
     private Tile[][] tiles = new Tile[10][10];
     private Chunk north, south, east, west;
     private ArrayList<Chunk> checkChunks;
+
+    //Stores the players at their id
     private HashMap<Integer, Player> players = new HashMap<>();
 
     public Chunk(Tile[][] tiles) {
