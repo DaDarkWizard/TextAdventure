@@ -1178,52 +1178,85 @@ public class CreatureDataObject implements CreatureCreationInterface
     }
 
 
-    /* this method makes all the body adjustments that cannot be made by other methods
+    /*
+    this method makes all the body adjustments that cannot be made by other methods
      (i.e. changes unique features, adjusts color patterns, gives unique skills, etc)
      it should be called after the body is updated
     */
     public void bodyAdjustments(Body body)
     {
-        CreatureSpecial.createBody( animalTypeStyle, body );
+        CreatureSpecial.createBody( this, body );
     }
 
+    /**
+     * Method that creates a body with random characteristics of the specific animal type
+     * @return Body: A creature Body with some randomness in the size of its features
+     */
     public Body generateRandomBody()
     {
         Body newBody = new Body();
-
 
         // create the basic body
 
         Color color = getRandomColor();
         BodyPart neck, back, chest;
+        double chestLength = getRandomArmLength();
+        double chestWeight = chestLength * getRandomWeightFactor();
+
 
         neck = new BodyNeck();
         neck.create( "neck", "", this, color );
         neck.setAboveBodyPart( newBody );
 
+
         chest = new BodyChest();
         chest.create( "chest", "", this, color );
         chest.setAboveBodyPart( newBody );
+        chest.setLength( chestLength );
+        chest.setWeight( chestWeight );
 
         back = new BodyBack();
         back.create( "back", "", this, color );
         back.setAboveBodyPart( newBody );
+        back.setLength( chestLength );
+        back.setWeight( chestWeight );
+
 
         neck.setAllBody( newBody );
         chest.setAllBody( newBody );
         back.setAllBody( newBody );
 
-        // todo modifying ArrayList of attached body parts here - think about shallow/deep copy usage
         newBody.getAttachedBodyParts().add( neck );
         newBody.getAttachedBodyParts().add( chest );
         newBody.getAttachedBodyParts().add( back );
 
-        // todo update creation method to either update body here, or during body part creation
+        // create internal organs
+
+        BodyPart stomach, heart, brain;
+
+        stomach = new BodyInternalStomach();
+        stomach.create( "stomach", "", this, color );
+        stomach.setAboveBodyPart( newBody );
+
+        heart = new BodyInternalHeart();
+        heart.create( "heart", "", this, color );
+        heart.setAboveBodyPart( newBody );
+
+        brain = new BodyInternalBrain();
+        brain.create( "brain", "", this, color );
+        brain.setAboveBodyPart( newBody );
+
+        newBody.getInternalBodyParts().add( stomach );
+        newBody.getInternalBodyParts().add( heart );
+        newBody.getInternalBodyParts().add( brain );
+
+
+
         //  update the body
         newBody.setFirstName( animalName + Integer.toString( newBody.getIdentifier() ) );
-        newBody.setColor( Color.PEACHPUFF );
-        newBody.setTexture( BodyPartGenerator.Texture.SKIN );
-        newBody.setAnimalType( BodyPartGenerator.AnimalType.HUMAN );
+        newBody.setColor( color );
+        newBody.setTexture( getBodyTexture() );
+        newBody.setAnimalType( getAnimalTypeStyle());
         newBody.setGender( getRandomGender() );
         newBody.setDescription( "A " + newBody.getGender().toString().toLowerCase() + " " + animalName);
         newBody.setLimbType( limbStyle );
@@ -1246,12 +1279,47 @@ public class CreatureDataObject implements CreatureCreationInterface
      * Method to set certain body part lengths and widths to random by symmetric values
      * body parts needing to be adjusted evenly are arms, hands, fingers, and legs
      *
-     *
-     * @param body Body: The body to adjust, setting length and weight balues
+     * @param body Body: The body to adjust, setting length and weight values
      */
     protected void setBodyLengthsAndWeights(Body body)
     {
-        //todo add code to adjust limb lengths and weights
+
+        double armsLength, armsWeight, handLength, handWeight, fingerLength, fingerWeight;
+        String partName;
+        BodyPart thisPart;
+
+        ArrayList<BodyPart> allParts = body.getAllBodyParts();
+
+        armsLength = getRandomArmLength();
+        armsWeight = armsLength * getRandomWeightFactor();
+        handLength = getRandomHandLength();
+        handWeight = handLength * getRandomWeightFactor();
+        fingerLength = getRandomFingerLength();
+        fingerWeight = fingerLength * getRandomWeightFactor();
+
+        int size = allParts.size();
+        for (int i = 0; i<size; i++)
+        {
+            thisPart = allParts.get( i );
+            partName = thisPart.getName();
+            if (partName.contains( "arm" ) || partName.contains( "leg" ))
+            {
+                thisPart.setLength( armsLength );
+                thisPart.setWeight( armsWeight );
+            }
+            else if(partName.contains( "hand" ) || partName.contains( "claw" ) || partName.contains( "foot" ))
+            {
+                thisPart.setLength( handLength );
+                thisPart.setWeight( handWeight );
+            }
+            else if(partName.contains( "finger" ) || partName.contains( "thumb" ) || partName.contains( "toe" ))
+            {
+                thisPart.setLength( fingerLength );
+                thisPart.setLength( fingerWeight );
+            }
+        }
+
+
     }
 
 

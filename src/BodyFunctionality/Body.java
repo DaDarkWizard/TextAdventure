@@ -2,6 +2,7 @@ package BodyFunctionality;
 
 import javafx.scene.paint.Color;
 
+import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
@@ -68,7 +69,7 @@ public class Body extends BodyPart
         System.out.println( "Setting Body Last Name: " + lastName );
 
         title = ByteBufferIO.getString( buffer );
-        System.out.println( "Setting Body Last Name: " + title );
+        System.out.println( "Setting Body Title: " + title );
 
         identifier = buffer.getInt();
         System.out.println( "Setting Body Identifier: " + identifier );
@@ -172,6 +173,23 @@ public class Body extends BodyPart
     }
 
     /**
+     * Method to return an ArrayList containing all Body Parts connected to the body - internal, attached, and this part
+     * This should return shallow copies of the body parts (if modified that will also affect the original)
+     * @return ArrayList<BodyPart>: A list containing all Body Parts connected with this body
+     */
+    public ArrayList<BodyPart> getAllBodyParts()
+    {
+        ArrayList<BodyPart> allParts = new ArrayList<BodyPart>( getInternalBodyParts() );  // include internal parts
+
+        allParts.addAll(getAllBodyPartChildren());  // include attached body parts
+        allParts.add(this);                         // include body in parts
+
+        return allParts;
+    }
+
+
+
+    /**
      * Method that converts a basic description of the object (and its attachments) to a string
      * @return String: A String that lists some basic descriptions of the object along with padded descriptions
      *                  of its attached objects
@@ -179,7 +197,7 @@ public class Body extends BodyPart
     @Override
     public String toString()
     {
-        String str = "A " + length + "in creature known as " + firstName + " " + lastName;
+        String str = "A " + String.format( "%.2f", length ) + "in creature known as " + firstName + " " + lastName;
         for (int i=0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
         {
             str += "\n" + addPadding(attachedBodyParts.get( i ).toString(), 2);

@@ -459,6 +459,18 @@ public abstract class BodyPart
         }
     }
 
+
+    public ArrayList<BodyPart> getAllBodyPartChildren()
+    {
+        ArrayList<BodyPart> allChildren = new ArrayList<BodyPart>( attachedBodyParts ); // include all attached parts
+        for (int i=0; attachedBodyParts!=null && i < attachedBodyParts.size(); i++)
+        {
+            allChildren.addAll( attachedBodyParts.get(i).getAllBodyPartChildren() );
+        }
+        return allChildren;
+    }
+
+
     /**
      * Private method that returns true if the body part is one that should be the general body color, to allow easier coloring
      * @return boolean: true if the body part is part of the general body color, false otherwise
@@ -624,6 +636,8 @@ public abstract class BodyPart
 
     /**
      * Method to search for a body part.  If it is not found, return null
+     * Returns a shallow copy of the body part
+     *
      * @param partName String: The BodyPart to search if it is the part looked for
      * @return BodyPart: Returns the body part if it is found, otherwise returns null
      */

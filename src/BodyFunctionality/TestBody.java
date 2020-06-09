@@ -13,8 +13,9 @@ public class TestBody
     {
         CreatureData creatureData = new CreatureData();
         CreatureDataObject humanObject = creatureData.getCreatureDataObject( BodyPartGenerator.AnimalType.HUMAN );
+        CreatureDataObject dragonObject = creatureData.getCreatureDataObject( BodyPartGenerator.AnimalType.DRAGON );
 
-        Body body = humanObject.generateRandomBody();
+        Body body = dragonObject.generateRandomBody();
         System.out.println( body.toString() );
         System.out.println( "Total body parts: " + body.countParts() );
 
@@ -26,7 +27,8 @@ public class TestBody
 
         System.out.println( body1.toString() );
         System.out.println( "Total body parts: " + body1.countParts() );
-        System.out.println(  "Attached body parts to body: " + body1.attachedBodyParts);
+        System.out.println(  "Attached body parts to body: " + body1);
+
 
 
 
