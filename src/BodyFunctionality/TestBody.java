@@ -1,7 +1,7 @@
 package BodyFunctionality;
 
 import javafx.scene.paint.Color;
-
+import BodyFunctionality.CreatureData;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 

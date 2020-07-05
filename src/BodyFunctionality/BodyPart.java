@@ -531,19 +531,13 @@ public abstract class BodyPart
 
     public void removeSkill(String skill) //todo change to skill object
     {
-        if ( skills.contains( skill ))
-        {
-            skills.remove(skill);
-        }
+        skills.remove(skill);
     }
 
 
     public void removeFeature(String feature)
     {
-        if ( features.contains( feature ))
-        {
-            features.remove(feature);
-        }
+        features.remove(feature);
     }
 
     public void clearSkills()

@@ -15,8 +15,8 @@ import java.util.ConcurrentModificationException;
  */
 public class TechAdventure implements ConnectionListener {
 
-    private AdventureServer adventureServer;                                         //End of a random dungeon
-    private static boolean runFrames = true;                //True if frames thread should run
+    private final AdventureServer adventureServer;                                         //End of a random dungeon
+    private static final boolean runFrames = true;                //True if frames thread should run
     public static final Object lock = 0;                    //Lock for multithreading sync
 
     /**

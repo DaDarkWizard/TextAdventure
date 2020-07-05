@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class Client {
-    private int connectionID;
-    private Socket socket;
+    private final int connectionID;
+    private final Socket socket;
     boolean receivingMessage = false;
-    private byte messageType = -1;
+    private final byte messageType = -1;
     private Message message;
     private Chunk chunk;
 

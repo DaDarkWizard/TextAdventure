@@ -1,8 +1,7 @@
 package Shared.coms.messages;
 
 import Shared.coms.ByteString;
-import com.sun.org.apache.bcel.internal.generic.ARETURN;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import jdk.jshell.spi.ExecutionControl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +9,7 @@ import java.io.OutputStream;
 
 public class FatalError implements Message {
     private static final byte id = (byte)0x02;
-    private ByteString message;
+    private final ByteString message;
 
     public FatalError(String message) {
         this.message = new ByteString(message);
@@ -23,7 +22,7 @@ public class FatalError implements Message {
 
     @Override
     public boolean read(InputStream input) throws IOException {
-        throw new NotImplementedException();
+        throw new RuntimeException();
     }
 
     @Override

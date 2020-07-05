@@ -8,12 +8,12 @@ import java.util.HashMap;
 
 public class Chunk {
     private static final int radius = 2;
-    private Tile[][] tiles = new Tile[10][10];
+    private final Tile[][] tiles = new Tile[10][10];
     private Chunk north, south, east, west;
     private ArrayList<Chunk> checkChunks;
 
     //Stores the players at their id
-    private HashMap<Integer, Player> players = new HashMap<>();
+    private final HashMap<Integer, Player> players = new HashMap<>();
 
     public Chunk(Tile[][] tiles) {
         if(tiles.length != 10) {

@@ -8,7 +8,7 @@ public enum Elements {
 
     public final byte b;
 
-    private Elements(byte b) {
+    Elements(byte b) {
         this.b = b;
     }
 

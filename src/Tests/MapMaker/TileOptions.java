@@ -4,7 +4,6 @@ import Shared.world.Tile;
 import javafx.scene.Node;
 import javafx.scene.input.PickResult;
 import javafx.scene.layout.GridPane;
-import sun.rmi.runtime.NewThreadAction;
 
 public class TileOptions extends GridPane {
     boolean left = false;

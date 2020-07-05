@@ -1,6 +1,6 @@
 package Shared.coms.messages;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,7 +9,7 @@ import java.nio.ByteBuffer;
 
 public class ConnectionApproved implements Message {
     private static final byte id = 0x03;
-    private int clientID;
+    private final int clientID;
     private boolean complete = false;
 
     public ConnectionApproved(int clientID) {
@@ -24,7 +24,7 @@ public class ConnectionApproved implements Message {
 
     @Override
     public boolean read(InputStream input) throws IOException {
-        throw new NotImplementedException();
+        throw new RuntimeException();
     }
 
     @Override

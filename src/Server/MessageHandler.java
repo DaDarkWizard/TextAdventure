@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MessageHandler {
-    private static LinkedList<Message> messages = new LinkedList<>();
+    private static final LinkedList<Message> messages = new LinkedList<>();
 
     public static void addMessage(Message message) {
         messages.add(message);

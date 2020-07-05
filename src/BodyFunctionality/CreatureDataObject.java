@@ -1253,7 +1253,7 @@ public class CreatureDataObject implements CreatureCreationInterface
 
 
         //  update the body
-        newBody.setFirstName( animalName + Integer.toString( newBody.getIdentifier() ) );
+        newBody.setFirstName( animalName + newBody.getIdentifier());
         newBody.setColor( color );
         newBody.setTexture( getBodyTexture() );
         newBody.setAnimalType( getAnimalTypeStyle());

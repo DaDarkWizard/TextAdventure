@@ -6,7 +6,7 @@ import Shared.util.Vector;
 public class Player {
     private Vector location;
     private Vector velocity;
-    private Client client;
+    private final Client client;
 
     public Player(Client client) {
         this.client = client;

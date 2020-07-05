@@ -12,7 +12,7 @@ public enum MessageType {
     UNKNOWN_TYPE((byte)0xFF);
 
 
-    private byte id;
+    private final byte id;
 
     public byte getTypeID() {
         return id;

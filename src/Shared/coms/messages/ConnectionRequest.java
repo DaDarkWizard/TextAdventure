@@ -10,7 +10,7 @@ public class ConnectionRequest implements Message {
     private static final byte id = (byte)0x01;
     private ByteString version;
     private byte[] bytes;
-    private boolean bytesMade = false;
+    private final boolean bytesMade = false;
 
     public ConnectionRequest() {
 

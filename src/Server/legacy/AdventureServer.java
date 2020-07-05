@@ -84,7 +84,7 @@ public final class AdventureServer implements AdventureServerAPI {
     private ConnectionListener listener = null;
     private int port = 2112;
     private boolean isRunning = false;
-    private HashMap<Long, Connection> connectionMap = new HashMap<>();
+    private final HashMap<Long, Connection> connectionMap = new HashMap<>();
     private ServerSocket serverSocket = null;
 
     /*
@@ -150,7 +150,7 @@ public final class AdventureServer implements AdventureServerAPI {
      * return true if a connection exists
      */
     public boolean isConnected(long connectionId) {
-        return (connectionMap.get(connectionId) != null) ? true : false;
+        return connectionMap.get(connectionId) != null;
     }
 
     // Close the connection

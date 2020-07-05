@@ -9,14 +9,14 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class TileChoice extends StackPane {
-    private String id;
+    private final String id;
     private String location = "File:src/Shared/textures";
-    private static ImageView selector = new ImageView(new Image("File:src/Shared/textures/test/select.png",
+    private static final ImageView selector = new ImageView(new Image("File:src/Shared/textures/test/select.png",
             64,
             64,
             true,
             true));
-    private ImageView tile = new ImageView();
+    private final ImageView tile = new ImageView();
     private boolean selected = false;
 
     public TileChoice(String id) {

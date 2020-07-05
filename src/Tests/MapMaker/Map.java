@@ -14,8 +14,8 @@ import javafx.scene.layout.GridPane;
 public class Map {
     public GridPane grid = new GridPane();
     public ScrollPane scroll = new ScrollPane();
-    private EventHandler<MouseEvent> dragBegin;
-    private EventHandler<MouseEvent> dragEnd;
+    private final EventHandler<MouseEvent> dragBegin;
+    private final EventHandler<MouseEvent> dragEnd;
     private double dragBeginX;
     private double dragBeginY;
 

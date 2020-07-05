@@ -1,7 +1,5 @@
 package Tests.MapMaker;
 
-import com.sun.org.apache.xpath.internal.FoundIndex;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;

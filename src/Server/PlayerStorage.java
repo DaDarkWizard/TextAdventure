@@ -7,9 +7,9 @@ import java.util.PriorityQueue;
 
 public class PlayerStorage {
     private static int max;
-    private static PriorityQueue<Integer> unusedSlots = new PriorityQueue<>();
-    private static HashMap<Integer, Client> players = new HashMap<>();
-    private static LinkedList<Client> toRemove = new LinkedList<Client>();
+    private static final PriorityQueue<Integer> unusedSlots = new PriorityQueue<>();
+    private static final HashMap<Integer, Client> players = new HashMap<>();
+    private static final LinkedList<Client> toRemove = new LinkedList<Client>();
 
 
     public static int getMax() {
