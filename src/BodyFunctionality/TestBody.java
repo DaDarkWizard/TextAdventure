@@ -1,5 +1,7 @@
 package BodyFunctionality;
 
+import Transformation.TransformationCompare;
+import Transformation.TransformationDifferences;
 import javafx.scene.paint.Color;
 import BodyFunctionality.CreatureData;
 import java.nio.ByteBuffer;
@@ -15,11 +17,14 @@ public class TestBody
         CreatureDataObject humanObject = creatureData.getCreatureDataObject( BodyPartGenerator.AnimalType.HUMAN );
         CreatureDataObject dragonObject = creatureData.getCreatureDataObject( BodyPartGenerator.AnimalType.DRAGON );
 
-        Body body = dragonObject.generateRandomBody();
-        System.out.println( body.toString() );
-        System.out.println( "Total body parts: " + body.countParts() );
+        Body bodyHuman = humanObject.generateRandomBody();
+        Body bodyHuman1 = humanObject.generateRandomBody();
 
-        ByteBuffer buffer = body.toBuffer();
+        Body bodyDragon = dragonObject.generateRandomBody();
+        System.out.println( bodyDragon.toString() );
+        System.out.println( "Total body parts: " + bodyDragon.countParts() );
+
+        ByteBuffer buffer = bodyDragon.toBuffer();
         buffer.flip();
         // from BodyPart class
 
@@ -29,7 +34,8 @@ public class TestBody
         System.out.println( "Total body parts: " + body1.countParts() );
         System.out.println(  "Attached body parts to body: " + body1);
 
-
+        TransformationDifferences bodyDifferences;
+        bodyDifferences = TransformationCompare.compare(bodyHuman, bodyHuman1);
 
 
     }
