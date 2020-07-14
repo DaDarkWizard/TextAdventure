@@ -16,15 +16,18 @@ public class TestBody
         CreatureData creatureData = new CreatureData();
         CreatureDataObject humanObject = creatureData.getCreatureDataObject( BodyPartGenerator.AnimalType.HUMAN );
         CreatureDataObject dragonObject = creatureData.getCreatureDataObject( BodyPartGenerator.AnimalType.DRAGON );
+        CreatureDataObject guineaPigObject = creatureData.getCreatureDataObject( BodyPartGenerator.AnimalType.GUINEAPIG );
+
 
         Body bodyHuman = humanObject.generateRandomBody();
         Body bodyHuman1 = humanObject.generateRandomBody();
+        Body bodyGuinea = guineaPigObject.generateRandomBody();
 
         Body bodyDragon = dragonObject.generateRandomBody();
-        System.out.println( bodyDragon.toString() );
-        System.out.println( "Total body parts: " + bodyDragon.countParts() );
+        System.out.println( bodyGuinea.toString() );
+        System.out.println( "Total body parts: " + bodyGuinea.countParts() );
 
-        ByteBuffer buffer = bodyDragon.toBuffer();
+        ByteBuffer buffer = bodyGuinea.toBuffer();
         buffer.flip();
         // from BodyPart class
 

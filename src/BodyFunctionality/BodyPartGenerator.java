@@ -8,7 +8,7 @@ public class BodyPartGenerator
 {
 
     enum BodyPartType{ NA, FINGER, HAND, ARM, WING, HEAD, MUZZLE, NAIL, HORN, TAIL, TONGUE, EYE, EAR, NOSE, MOUTH,
-                        NECK, CHEST, BACK, STOMACH, HEART, BRAIN, GLAND, SPECIAL;
+                        NECK, CHEST, BACK, STOMACH, HEART, BRAIN, GLAND, BODY, SPECIAL;
         // enum methods to allow for retreiving type from integers
         private static final BodyPartType[] allValues = values();
         public static BodyPartType fromOrdinal(int n) {return allValues[n];}}

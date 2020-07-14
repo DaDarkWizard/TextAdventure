@@ -643,7 +643,18 @@ public abstract class BodyPart
         {
             part = this;
         }
-        else
+        else if (this.getBodyPartType()== BodyPartGenerator.BodyPartType.BODY)
+        {
+            Body thisBody = (Body) this;
+
+            // search through internal body parts when searching Body
+            for (int i=0; i<thisBody.internalBodyParts.size() && part==null; i++)
+            {
+                part = thisBody.internalBodyParts.get( i ).getBodyPart( partName );
+            }
+        }
+
+        if (part==null)         //continue search in attached body parts if part not yet found
         {
             // search through all attached parts until part found
             for (int i=0; i<attachedBodyParts.size() && part==null; i++)

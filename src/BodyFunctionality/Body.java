@@ -51,6 +51,8 @@ public class Body extends BodyPart
         maxHealth = 0;
         health = 0;
 
+        this.setBodyPartType( BodyPartGenerator.BodyPartType.BODY);
+
     }
 
     /**
@@ -155,6 +157,12 @@ public class Body extends BodyPart
     public String getPlayer()
     {
         return player;
+    }
+
+    @Override
+    public BodyPartGenerator.BodyPartType bodyPartType()
+    {
+        return BodyPartGenerator.BodyPartType.BODY;
     }
 
     public BodyPartGenerator.Gender getGender()
