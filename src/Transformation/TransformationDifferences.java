@@ -2,11 +2,13 @@
  * This class holds data about the differences between two body objects
  *
  * Created by Michael Clinesmith 7/6/2020
+ * Last edited 7/20/2020
  */
 package Transformation;
 
 
 import BodyFunctionality.*;
+import BodyFunctionality.BodyPartGenerator;
 
 import java.util.ArrayList;
 
@@ -37,6 +39,34 @@ public class TransformationDifferences {
      * Method that calculates the differences between two bodies
      * It will compare the differences in values between the two bodies and in all its body parts
      *
+     * Different factors to note due to difference stance types:
+     * Actual Stances: NA, ARMS2LEGS2, LEGS4, ARMS2LEGS2ARMWINGS2, LEGS4ARMWINGS2, LEGS2WINGS2, NOLIMBS, OTHER
+     *
+     * any usage of NA, NOLIMBS and OTHER match straight up
+     * if same stance type, match straight up
+     *
+     * ARMS2LEGS2 TO LEGS4 or LEGS4ARMWINGS2 match arms to front legs and legs to back legs
+     * ARMS2LEGS2 TO ARMS2LEGS2ARMWING2, match straight up
+     * ARMS2LEGS2 TO LEGS2WINGS2, match arms to wings
+     *
+     * LEGS4 TO ARMS2LEGS2 or ARMS2LEGS2ARMWINGS2 match front legs to arms and back legs to legs
+     * LEGS4 TO LEGS4ARMWINGS2 match straight up
+     * LEGS4 TO LEGS2WINGS2 match front legs to wings and back legs to legs
+     *
+     * ARMS2LEGS2ARMWINGS2 TO ARMSLEGS2 or LEGS2WINGS2 match straight up
+     * ARMS2LEGS2ARMWINGS2 TO LEGS4 or LEGS4ARMWINGS2 match arms to front legs and legs to back legs
+     *
+     * LEGS2WINGS2 TO ARMS2LEGS2 match wings to legs
+     * LEGS2WINGS2 TO LEGS4 match wings to front legs and legs to back legs
+     * LEGS2WINGS2 TO ARMS2LEGS2ARMWINGS2 match straight up
+     * LEGS2WINGS2 TO LEGS4ARMWINGS2 match legs to back legs
+     *
+     *
+     * Different factors to not due to opposable fingers/toes
+     * if the same opposability, match straight up
+     * from opposable to nonopposable, match thumb to first finger (toe) and nth finger to (n+1)th finger
+     * from nonopposable to opposable, match first finger to thumb and (n+1)th finger to nth finger (toe)
+     *
      * @param body1 Body: The first Body object
      * @param body2 Body: The second Body object
      */
@@ -61,7 +91,10 @@ public class TransformationDifferences {
         ArrayList<BodyPart> body1AllParts = body1.getAllBodyParts();
         ArrayList<BodyPart> body2AllParts = body2.getAllBodyParts();
         BodyPart currentPart1, currentPart2;
+        String nextPartNameMatch;
         TransformationDifferences differencesBetweenBodyParts;
+        BodyPartGenerator.OpposableChange handChange;
+        BodyPartGenerator.BodyLimbTypeChange  limbChange;
 
 
         if (true) //todo adjust for different limb types body1.getLimbType() == body2.getLimbType())
@@ -69,6 +102,11 @@ public class TransformationDifferences {
             for(int i=0; i<body1AllParts.size(); i++)
             {
                 currentPart1 = body1AllParts.get(i);
+
+                handChange = CheckOpposableChange(body1, body2);
+                limbChange = CheckLimbChange(body1, body2);
+
+                nextPartNameMatch = MatchingName(currentPart1, handChange, limbChange);
                 currentPart2 = body2.getBodyPart(currentPart1.getName());
                 if (currentPart2==null)
                 {
@@ -100,7 +138,6 @@ public class TransformationDifferences {
             }
 
             System.out.println("Total differences between the two bodies\n" + this.toString() + "\n");
-
 
         }
 
@@ -322,6 +359,66 @@ public class TransformationDifferences {
 
     }
 
+    /**
+     * Method to determine the linkage between the hand parts in body1 and body2
+     * @param body1 Body: The first Body object
+     * @param body2 Body: The second Body object
+     * @return OpposableChange: The enum value that maps Body Part objects from body1 to body2
+     */
+    public BodyPartGenerator.OpposableChange CheckOpposableChange(Body body1, Body body2)
+    {
+
+        // Limb types: NA, ARMS2LEGS2, LEGS4, ARMS2LEGS2ARMWINGS2, LEGS4ARMWINGS2, LEGS2WINGS2, NOLIMBS, OTHER
+
+        boolean frontOpposable = false;
+        boolean backOpposable = false;
+        BodyHand body1Hand;
+
+        if (body1.getLimbType() == BodyPartGenerator.LimbType.ARMS2LEGS2
+                || body1.getLimbType() == BodyPartGenerator.LimbType.ARMS2LEGS2ARMWINGS2)
+        {
+            body1Hand = (BodyHand) body1.getBodyPart("right hand");
+            frontOpposable = body1Hand.isOpposable();
+        }
+        else if (body1.getLimbType() == BodyPartGenerator.LimbType.LEGS4
+          ||  body1.getLimbType() == BodyPartGenerator.LimbType.LEGS4ARMWINGS2)
+        {
+            body1Hand = (BodyHand) body1.getBodyPart("front ");
+        }
+
+        return BodyPartGenerator.OpposableChange.NONE;
+    }
+
+    /**
+     * Method to determine the linkage between the limb parts in body1 and body2
+     * @param body1 Body: The first Body object
+     * @param body2 Body: The second Body object
+     * @return BodyLimbTypeChange: The enum value that maps Body Part objects from body1 to body2
+     */
+    public BodyPartGenerator.BodyLimbTypeChange CheckLimbChange(Body body1, Body body2)
+    {
+        return BodyPartGenerator.BodyLimbTypeChange.NONE;
+    }
+
+
+    /**
+     * Method to get the name of the part that should match to the part bodypart
+     * @param bodypart BodyPart:    The BodyPart object used in matching
+     * @param handChange OpposableChange:   The enum value indicating how fingers and toes are mapped
+     * @param limbChange BodyLimbTypeChange:    The enum value indicating how body limbs are mapped
+     * @return String:  The String name that the BodyPart object should map to
+     */
+    public String MatchingName(BodyPart bodypart, BodyPartGenerator.OpposableChange handChange,
+                               BodyPartGenerator.BodyLimbTypeChange limbChange)
+    {
+        return bodypart.getName();
+    }
+
+
+    /**
+     * Method that saves the information regarding the class to a String
+     * @return String: identifiers and field data saved in the class
+     */
     @Override
     public String toString() {
         return "TransformationDifferences{" +

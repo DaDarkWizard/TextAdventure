@@ -175,6 +175,117 @@ public class Body extends BodyPart
         return limbType;
     }
 
+    /**
+     * Method to determine if hands and toes have opposable digits
+     * @return  OpposableType: One of the enum OpposableTypes based on if hands or toes are opposable
+     */
+    public BodyPartGenerator.OpposableType getOpposableType()
+    {
+        boolean handsOpposable = false;
+        boolean backFeetOpposable = false;
+        BodyHand thisHand, thisFoot;
+        BodyPartGenerator.OpposableType opposableType= BodyPartGenerator.OpposableType.NONE;
+
+        // check if hands/front hands/front claws are opposable
+        if (limbType == BodyPartGenerator.LimbType.ARMS2LEGS2
+                || limbType == BodyPartGenerator.LimbType.ARMS2LEGS2ARMWINGS2)
+        {
+            thisHand = (BodyHand) getBodyPart("right hand");
+            if (thisHand!=null)
+            {
+                handsOpposable = thisHand.isOpposable();
+            }
+            else
+            {
+                thisHand = (BodyHand) getBodyPart("right claw");
+                if (thisHand!=null)
+                {
+                    handsOpposable = thisHand.isOpposable();
+                }
+
+            }
+        }
+        else if (limbType == BodyPartGenerator.LimbType.LEGS4
+                ||  limbType == BodyPartGenerator.LimbType.LEGS4ARMWINGS2) {
+            thisHand = (BodyHand) getBodyPart("front right claw");
+            if (thisHand != null) {
+                handsOpposable = thisHand.isOpposable();
+            } else {
+                thisHand = (BodyHand) getBodyPart("front right hand");
+                if (thisHand != null) {
+                    handsOpposable = thisHand.isOpposable();
+                }
+
+            }
+        }
+
+        // check if feet/back claws are opposable
+        if (limbType == BodyPartGenerator.LimbType.ARMS2LEGS2
+                || limbType == BodyPartGenerator.LimbType.ARMS2LEGS2ARMWINGS2)
+        {
+            thisFoot = (BodyHand) getBodyPart("right foot");
+            if (thisFoot!=null)
+            {
+                backFeetOpposable = thisFoot.isOpposable();
+            }
+            else
+            {
+                thisFoot = (BodyHand) getBodyPart("right claw");
+                if (thisFoot!=null)
+                {
+                    backFeetOpposable = thisFoot.isOpposable();
+                }
+
+            }
+        }
+        else if (limbType == BodyPartGenerator.LimbType.LEGS4
+                ||  limbType == BodyPartGenerator.LimbType.LEGS4ARMWINGS2)
+        {
+            thisFoot = (BodyHand) getBodyPart("front right claw");
+            if (thisFoot!=null)
+            {
+                backFeetOpposable = thisFoot.isOpposable();
+            }
+            else
+            {
+                thisFoot = (BodyHand) getBodyPart("front right hand");
+                if (thisFoot!=null)
+                {
+                    backFeetOpposable = thisFoot.isOpposable();
+                }
+
+            }
+
+        }
+        else if(limbType == BodyPartGenerator.LimbType.LEGS2WINGS2)
+        {
+            thisFoot = (BodyHand) getBodyPart("right claw");
+            if (thisFoot!=null)
+            {
+                backFeetOpposable = thisFoot.isOpposable();
+            }
+        }
+
+        if (handsOpposable&&backFeetOpposable)
+        {
+            opposableType = BodyPartGenerator.OpposableType.HANDSFEET;
+        }
+        else if (handsOpposable)
+        {
+            opposableType = BodyPartGenerator.OpposableType.HANDS;
+        }
+        else if (backFeetOpposable)
+        {
+            opposableType = BodyPartGenerator.OpposableType.FEET;
+        }
+        else
+        {
+            opposableType = BodyPartGenerator.OpposableType.NONE;
+        }
+
+        return opposableType;
+    }
+
     public ArrayList<BodyPart> getInternalBodyParts()
     {
         return internalBodyParts;

@@ -38,7 +38,7 @@ public class TestBody
         System.out.println(  "Attached body parts to body: " + body1);
 
         TransformationDifferences bodyDifferences;
-        bodyDifferences = TransformationCompare.compare(bodyHuman, bodyHuman1);
+        bodyDifferences = TransformationCompare.compare(bodyHuman, bodyGuinea);
 
 
     }
