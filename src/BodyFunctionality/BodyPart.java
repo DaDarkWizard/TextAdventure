@@ -1,5 +1,6 @@
 package BodyFunctionality;
 
+import Transformation.TransformationDifferences;
 import javafx.scene.paint.Color;
 
 import java.nio.ByteBuffer;
@@ -642,7 +643,18 @@ public abstract class BodyPart
         {
             part = this;
         }
-        else
+        else if (this.getBodyPartType()== BodyPartGenerator.BodyPartType.BODY)
+        {
+            Body thisBody = (Body) this;
+
+            // search through internal body parts when searching Body
+            for (int i=0; i<thisBody.internalBodyParts.size() && part==null; i++)
+            {
+                part = thisBody.internalBodyParts.get( i ).getBodyPart( partName );
+            }
+        }
+
+        if (part==null)         //continue search in attached body parts if part not yet found
         {
             // search through all attached parts until part found
             for (int i=0; i<attachedBodyParts.size() && part==null; i++)
@@ -738,6 +750,127 @@ public abstract class BodyPart
         noProblems = noProblems && this.bufferExtraFields(buf);
 
         return noProblems;
+    }
+
+    public TransformationDifferences differences(BodyPart part2)
+    {
+        TransformationDifferences differ = new TransformationDifferences();
+
+        //protected String name, description;
+        if (bodyPartType != part2.getBodyPartType())
+        {
+            differ.addBodyPartDifference();
+        }
+        if (!color.equals(part2.getColor()))
+        {
+            differ.addColorDifference();
+        }
+        if (texture != part2.getTexture())
+        {
+            differ.addTextureDifference();
+        }
+        if (animalType != part2.getAnimalType())
+        {
+            differ.addAnimalTypeDifference();
+        }
+
+        // check if features in this part are in part2
+        //todo adjust when features implemented
+        String feature;
+        ArrayList<String> partFeatures = part2.getFeatures();
+        for (int i=0; i<features.size(); i++)
+        {
+            feature = features.get(i);
+            if (!partFeatures.contains(feature))
+            {
+                differ.addFeatureDifferences(1);
+            }
+        }
+
+        // check if features in part2 are in this part
+        for (int i=0; i<partFeatures.size(); i++)
+        {
+            feature = partFeatures.get(i);
+            if (!features.contains(feature))
+            {
+                differ.addFeatureDifferences(1);
+            }
+        }
+
+
+        // check if resistances in this part are in part2
+        //todo adjust when resistances implemented
+        String resistance;
+        ArrayList<String> partResistances = part2.getResistances();
+        for (int i=0; i<resistances.size(); i++)
+        {
+            resistance = resistances.get(i);
+            if (!partResistances.contains(resistance))
+            {
+                differ.addResistanceDifferences(1);
+            }
+        }
+
+        // check if resistances in part2 are in this part
+        for (int i=0; i<partResistances.size(); i++)
+        {
+            resistance = partResistances.get(i);
+            if (!resistances.contains(resistance))
+            {
+                differ.addResistanceDifferences(1);
+            }
+        }
+
+        // check if skills in this part are in part2
+        //todo adjust when skills implemented
+        String skill;
+        ArrayList<String> partSkills = part2.getSkills();
+        for (int i=0; i<skills.size(); i++)
+        {
+            skill = skills.get(i);
+            if (!partSkills.contains(skill))
+            {
+                differ.addSkillsDifferences(1);
+            }
+        }
+
+        // check if skills in part2 are in this part
+        for (int i=0; i<partSkills.size(); i++)
+        {
+            skill = partSkills.get(i);
+            if (!skills.contains(skill))
+            {
+                differ.addSkillsDifferences(1);
+            }
+        }
+
+    // check if injuries in this part are in part2
+        //todo adjust when injuries implemented
+        String injury;
+        ArrayList<String> partInjuries = part2.getInjuries();
+        for (int i=0; i<injuries.size(); i++)
+        {
+            injury = injuries.get(i);
+            if (!partInjuries.contains(injury))
+            {
+                differ.addInjuriesDifferences(1);
+            }
+        }
+
+        // check if skills in part2 are in this part
+        for (int i=0; i<partInjuries.size(); i++)
+        {
+            injury = partInjuries.get(i);
+            if (!injuries.contains(injury))
+            {
+                differ.addInjuriesDifferences(1);
+            }
+        }
+
+        differ.addLengthDifferences( Math.abs(length - part2.getLength()));
+        differ.addValueDifferences( Math.abs(maxHealth - part2.getMaxHealth()));
+
+        return differ;
     }
 
     protected abstract boolean bufferExtraFields(ByteBuffer buffer);

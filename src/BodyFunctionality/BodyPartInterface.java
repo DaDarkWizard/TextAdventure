@@ -1,5 +1,6 @@
 package BodyFunctionality;
 
+import Transformation.TransformationDifferences;
 import javafx.scene.paint.Color;
 
 import java.nio.ByteBuffer;
@@ -16,4 +17,6 @@ public interface BodyPartInterface
     BodyPartGenerator.BodyPartType bodyPartType();
 
     ByteBuffer toBuffer();
+
+    TransformationDifferences differences( BodyPart anotherPart);
 }

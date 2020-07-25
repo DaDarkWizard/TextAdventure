@@ -1,0 +1,118 @@
+GUINEAPIG
+guinea pig
+1.0
+7.5
+1.0
+0.5
+0.2
+0.2
+2.5
+0.0
+0.5
+1.0
+0.1
+0.1
+0.2
+0.0
+0.5
+0.0
+10.0
+false
+false
+true
+false
+false
+HAIRY
+ROUND
+NA
+LEGS4
+SMALL
+NAIL
+ROUND
+NA
+GNAWING
+4
+3
+20
+100
+8
+0xf8f8ffff
+0xcd853fff
+0x8b4513ff
+0xf0e68cff
+0x000000ff
+0xd2691eff
+0xff8c00ff
+0xc0c0c0ff
+3
+0xcd5c5cff
+0x8b4513ff
+0x000000ff
+0
+1
+GrassLeaf
+0
+3
+SpeakGuineaPig
+KnowGuineaPig
+MotionlessHide
+0
+
+
+
+
+
+The values above should follow the following format for the game to understand the data.
+Each line should contain one unit of data:
+
+AnimalTypeEnum		[ALL CAPS]
+Animal general name	[String]
+defaultArmLength	[Doubles]
+defaultBackLength
+defaultEarLength
+defaultEyeLength
+defaultFingerLength
+defaultHandLength
+defaultHeadLength
+defaultHornLength
+defaultMouthLength
+defaultMuzzleLength
+defaultNailLength
+defaultNeckLength
+defaultNoseLength
+defaultTailLength
+defaultTongueLength
+defaultWingLength
+defaultBodyLength
+opposable 		[boolean: true/false]
+horned
+muzzled
+tailed
+winged
+bodyTextureStyle 	[Enums]
+earShape
+hornStyle
+limbStyle
+mouthStyle
+nailStyle		[This is Texture Enum]
+noseShape
+tailType
+teethStyle
+fingerCount		[int]
+toeCount
+teethCount
+defaultMaxHealth
+Number of possibleBodyColors	[Arrays: include int representing the number (may be 0) then that number of elements
+possibleBodyColors elements
+Number of possibleEyeColors
+possibleEyeColors elements
+Number of bodyFeatures
+bodyFeatures elements
+Number of inventory items
+inventory elements
+Number of bodyResistances
+bodyResistances elements
+Number of bodySkills
+bodySkills elements
+Number of killDrops
+killDrops elements
