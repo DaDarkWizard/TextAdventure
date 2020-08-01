@@ -1,5 +1,6 @@
 package BodyFunctionality;
 
+import Items.Item;
 import Transformation.TransformationDifferences;
 import javafx.scene.paint.Color;
 
@@ -17,7 +18,7 @@ public abstract class BodyPart
 
     // todo change some Strings to objects at a later time
     protected ArrayList<BodyFeature> features;
-    protected ArrayList<String> itemsWorn;    // change to item object later
+    protected ArrayList<Item> itemsWorn;    // change to item object later
     protected ArrayList<String> resistances;
     protected ArrayList<String> skills;
     protected ArrayList<String> injuries;
@@ -43,7 +44,7 @@ public abstract class BodyPart
         description="";
         animalType=BodyPartGenerator.AnimalType.NA;
         features = new ArrayList<BodyFeature>(  );
-        itemsWorn = new ArrayList<String>(  );
+        itemsWorn = new ArrayList<Item>(  );
         resistances = new ArrayList<String>();
         skills = new ArrayList<String>();
         injuries = new ArrayList<String>();
@@ -86,13 +87,13 @@ public abstract class BodyPart
         System.out.println( "Setting animalType to " + animalType );
 
         /*
-        todo update to send Feature data to buffer
+        todo update to send ArrayList data to buffer
         features = ByteBufferIO.getFeatures( buffer );
         System.out.println( "Setting features to " + features );
-        */
 
         itemsWorn = ByteBufferIO.getItemsWorn( buffer );
         System.out.println( "Setting itemsWorn to " + itemsWorn );
+
 
         resistances = ByteBufferIO.getResistances( buffer );
         System.out.println( "Setting resistances to " + resistances );
@@ -102,6 +103,7 @@ public abstract class BodyPart
 
         injuries = ByteBufferIO.getInjuries( buffer );
         System.out.println( "Setting injuries to " + injuries );
+        */
 
         length = buffer.getDouble();
         System.out.println( "Setting length to " + length );
@@ -142,7 +144,7 @@ public abstract class BodyPart
         description = oldPart.getDescription();
         animalType = oldPart.getAnimalType();
         features = new ArrayList<BodyFeature>( oldPart.getFeatures() );
-        itemsWorn = new ArrayList<String>( oldPart.getItemsWorn() );
+        itemsWorn = new ArrayList<Item>( oldPart.getItemsWorn() );
         resistances = new ArrayList<String>( oldPart.getResistances() );
         skills = new ArrayList<String>( oldPart.getSkills() );
         injuries = new ArrayList<String>( oldPart.getInjuries() );
@@ -237,8 +239,7 @@ public abstract class BodyPart
     /*-------------------------------------------------------------------------------------
      *  Setter Methods
      *------------------------------------------------------------------------------------*/
-
-
+    //todo check if ArrayList setter methods are to have deep or shallow copy or just reference
 
     public void setBodyPartType( BodyPartGenerator.BodyPartType type )
     {
@@ -275,7 +276,7 @@ public abstract class BodyPart
         this.features = features;
     }
 
-    public void setItemsWorn( ArrayList<String> itemsWorn )
+    public void setItemsWorn( ArrayList<Item> itemsWorn )
     {
         this.itemsWorn = itemsWorn;
     }
@@ -330,6 +331,13 @@ public abstract class BodyPart
         this.health = health;
     }
 
+    /*-------------------------------------------------------------------------------------
+     *  Getter Methods
+     *------------------------------------------------------------------------------------*/
+
+    //todo check if ArrayList getter methods are to have deep or shallow copy or just reference
+
+
     public String getName()
     {
         return name;
@@ -365,7 +373,7 @@ public abstract class BodyPart
         return features;
     }
 
-    public ArrayList<String> getItemsWorn()
+    public ArrayList<Item> getItemsWorn()
     {
         return itemsWorn;
     }
@@ -425,6 +433,9 @@ public abstract class BodyPart
         return attachedBodyParts.size();
     }
 
+    /*-------------------------------------------------------------------------------------
+     *  Set All Methods
+     *------------------------------------------------------------------------------------*/
 
     //todo set up useful setAll methods
 
@@ -742,14 +753,14 @@ public abstract class BodyPart
         buf.putInt(animalType.ordinal());
         System.out.println( "animalType ordinal buffered:" + animalType.ordinal() );
 
-        /* todo update to add Feature data to buffer
+        /* todo update to add ArrayList data to buffer
         noProblems = noProblems && ByteBufferIO.putFeatures(buf, features);
-        */
-
         noProblems = noProblems && ByteBufferIO.putItemsWorn(buf, itemsWorn);
         noProblems = noProblems && ByteBufferIO.putResistances(buf, resistances);
         noProblems = noProblems && ByteBufferIO.putSkills(buf, skills);
         noProblems = noProblems && ByteBufferIO.putInjuries(buf, injuries);
+        */
+
         buf.putDouble( length );
         System.out.println( "double buffered:" + length );
         buf.putDouble( weight );

@@ -8,16 +8,18 @@
  *
  *
  * Created by Michael Clinesmith
- * Last update edit 7/28/2020
+ * Last update edit 8/1/2020
  * -added comment blocks
  * -rearranged order of methods
  * -updated Player methods
  * -added specific body part attachments and associated methods
  * -added field for all attached body parts
+ * -updated ArrayList Classes
  */
 
 package BodyFunctionality;
 
+import Items.Item;
 import Player.Player;
 import javafx.scene.paint.Color;
 import java.nio.ByteBuffer;
@@ -74,7 +76,7 @@ public class Body extends BodyPart
         attachedTail = null;
 
         features = new ArrayList<BodyFeature>();
-        itemsWorn = new ArrayList<String>();
+        itemsWorn = new ArrayList<Item>();
         resistances = new ArrayList<String>();
         skills = new ArrayList<String>();
         injuries = new ArrayList<String>();
@@ -615,7 +617,7 @@ public class Body extends BodyPart
         ByteBufferIO.putString( buf, lastName );
         ByteBufferIO.putString( buf, title );
         buf.putInt( identifier );
-        ByteBufferIO.putString( buf, player.getPlayerName() );
+        // ByteBufferIO.putString( buf, player.getPlayerName() );
         buf.putInt( gender.ordinal());
         buf.putInt( limbType.ordinal() );
         ByteBufferIO.putAttachedBodyParts( buf, internalBodyParts );
