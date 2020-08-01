@@ -21,6 +21,7 @@ package BodyFunctionality;
 
 import Items.Item;
 import Player.Player;
+import Resistances.Resistance;
 import javafx.scene.paint.Color;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -77,7 +78,7 @@ public class Body extends BodyPart
 
         features = new ArrayList<BodyFeature>();
         itemsWorn = new ArrayList<Item>();
-        resistances = new ArrayList<String>();
+        resistances = new ArrayList<Resistance>();
         skills = new ArrayList<String>();
         injuries = new ArrayList<String>();
         length = 0;

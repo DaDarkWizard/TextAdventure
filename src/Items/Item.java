@@ -6,7 +6,6 @@
  * Created by Michael Clinesmith 8/1/2020
  * Last edited 8/1/2020
  */
-
 package Items;
 
 public class Item {
@@ -31,9 +30,10 @@ public class Item {
     }
 
     /**
-     * Constructor with given name and value arguments
-     * @param name String: The name of a Feature object
-     * @param weight int: The value of a Feature object
+     * Constructor with given name, description, and weight arguments
+     * @param name String: The name of an Item object
+     * @param description String: The description of an Item
+     * @param weight int: The value of an Item object
      */
     public Item(String name, String description, double weight)
     {

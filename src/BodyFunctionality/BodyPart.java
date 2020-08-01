@@ -1,6 +1,7 @@
 package BodyFunctionality;
 
 import Items.Item;
+import Resistances.Resistance;
 import Transformation.TransformationDifferences;
 import javafx.scene.paint.Color;
 
@@ -19,7 +20,7 @@ public abstract class BodyPart
     // todo change some Strings to objects at a later time
     protected ArrayList<BodyFeature> features;
     protected ArrayList<Item> itemsWorn;    // change to item object later
-    protected ArrayList<String> resistances;
+    protected ArrayList<Resistance> resistances;
     protected ArrayList<String> skills;
     protected ArrayList<String> injuries;
 
@@ -45,7 +46,7 @@ public abstract class BodyPart
         animalType=BodyPartGenerator.AnimalType.NA;
         features = new ArrayList<BodyFeature>(  );
         itemsWorn = new ArrayList<Item>(  );
-        resistances = new ArrayList<String>();
+        resistances = new ArrayList<Resistance>();
         skills = new ArrayList<String>();
         injuries = new ArrayList<String>();
 
@@ -145,7 +146,7 @@ public abstract class BodyPart
         animalType = oldPart.getAnimalType();
         features = new ArrayList<BodyFeature>( oldPart.getFeatures() );
         itemsWorn = new ArrayList<Item>( oldPart.getItemsWorn() );
-        resistances = new ArrayList<String>( oldPart.getResistances() );
+        resistances = new ArrayList<Resistance>( oldPart.getResistances() );
         skills = new ArrayList<String>( oldPart.getSkills() );
         injuries = new ArrayList<String>( oldPart.getInjuries() );
 
@@ -281,7 +282,7 @@ public abstract class BodyPart
         this.itemsWorn = itemsWorn;
     }
 
-    public void setResistances( ArrayList<String> resistances )
+    public void setResistances( ArrayList<Resistance> resistances )
     {
         this.resistances = resistances;
     }
@@ -378,7 +379,7 @@ public abstract class BodyPart
         return itemsWorn;
     }
 
-    public ArrayList<String> getResistances()
+    public ArrayList<Resistance> getResistances()
     {
         return resistances;
     }
@@ -827,8 +828,8 @@ public abstract class BodyPart
 
         // check if resistances in this part are in part2
         //todo adjust when resistances implemented
-        String resistance;
-        ArrayList<String> partResistances = part2.getResistances();
+        Resistance resistance;
+        ArrayList<Resistance> partResistances = part2.getResistances();
         for (int i=0; i<resistances.size(); i++)
         {
             resistance = resistances.get(i);
