@@ -16,7 +16,7 @@ public abstract class BodyPart
     protected BodyPartGenerator.AnimalType animalType;
 
     // todo change some Strings to objects at a later time
-    protected ArrayList<String> features;
+    protected ArrayList<BodyFeature> features;
     protected ArrayList<String> itemsWorn;    // change to item object later
     protected ArrayList<String> resistances;
     protected ArrayList<String> skills;
@@ -30,6 +30,10 @@ public abstract class BodyPart
 
     protected int maxHealth, health;
 
+    /*-------------------------------------------------------------------------------------
+     *  Constructor Methods
+     *------------------------------------------------------------------------------------*/
+
     public BodyPart()
     {
         name="";
@@ -38,7 +42,7 @@ public abstract class BodyPart
         texture=BodyPartGenerator.Texture.NA;
         description="";
         animalType=BodyPartGenerator.AnimalType.NA;
-        features = new ArrayList<String>(  );
+        features = new ArrayList<BodyFeature>(  );
         itemsWorn = new ArrayList<String>(  );
         resistances = new ArrayList<String>();
         skills = new ArrayList<String>();
@@ -81,8 +85,11 @@ public abstract class BodyPart
         animalType = BodyPartGenerator.AnimalType.fromOrdinal( buffer.getInt());
         System.out.println( "Setting animalType to " + animalType );
 
+        /*
+        todo update to send Feature data to buffer
         features = ByteBufferIO.getFeatures( buffer );
         System.out.println( "Setting features to " + features );
+        */
 
         itemsWorn = ByteBufferIO.getItemsWorn( buffer );
         System.out.println( "Setting itemsWorn to " + itemsWorn );
@@ -134,7 +141,7 @@ public abstract class BodyPart
         texture = oldPart.getTexture();
         description = oldPart.getDescription();
         animalType = oldPart.getAnimalType();
-        features = new ArrayList<String>( oldPart.getFeatures() );
+        features = new ArrayList<BodyFeature>( oldPart.getFeatures() );
         itemsWorn = new ArrayList<String>( oldPart.getItemsWorn() );
         resistances = new ArrayList<String>( oldPart.getResistances() );
         skills = new ArrayList<String>( oldPart.getSkills() );
@@ -227,10 +234,11 @@ public abstract class BodyPart
         return newList;
     }
 
-    public void setName( String name )
-    {
-        this.name = name;
-    }
+    /*-------------------------------------------------------------------------------------
+     *  Setter Methods
+     *------------------------------------------------------------------------------------*/
+
+
 
     public void setBodyPartType( BodyPartGenerator.BodyPartType type )
     {
@@ -240,6 +248,11 @@ public abstract class BodyPart
     public void setColor( Color color )
     {
         this.color = color;
+    }
+
+    public void setName( String name )
+    {
+        this.name = name;
     }
 
     public void setTexture( BodyPartGenerator.Texture texture )
@@ -257,7 +270,7 @@ public abstract class BodyPart
         this.animalType = animalType;
     }
 
-    public void setFeatures( ArrayList<String> features )
+    public void setFeatures( ArrayList<BodyFeature> features )
     {
         this.features = features;
     }
@@ -347,7 +360,7 @@ public abstract class BodyPart
         return animalType;
     }
 
-    public ArrayList<String> getFeatures()
+    public ArrayList<BodyFeature> getFeatures()
     {
         return features;
     }
@@ -522,7 +535,7 @@ public abstract class BodyPart
         }
     }
 
-    public void addFeature(String feature)
+    public void addFeature(BodyFeature feature)
     {
         if ( !features.contains( feature ))
         {
@@ -729,7 +742,10 @@ public abstract class BodyPart
         buf.putInt(animalType.ordinal());
         System.out.println( "animalType ordinal buffered:" + animalType.ordinal() );
 
+        /* todo update to add Feature data to buffer
         noProblems = noProblems && ByteBufferIO.putFeatures(buf, features);
+        */
+
         noProblems = noProblems && ByteBufferIO.putItemsWorn(buf, itemsWorn);
         noProblems = noProblems && ByteBufferIO.putResistances(buf, resistances);
         noProblems = noProblems && ByteBufferIO.putSkills(buf, skills);
@@ -776,8 +792,8 @@ public abstract class BodyPart
 
         // check if features in this part are in part2
         //todo adjust when features implemented
-        String feature;
-        ArrayList<String> partFeatures = part2.getFeatures();
+        BodyFeature feature;
+        ArrayList<BodyFeature> partFeatures = part2.getFeatures();
         for (int i=0; i<features.size(); i++)
         {
             feature = features.get(i);
@@ -872,6 +888,66 @@ public abstract class BodyPart
 
         return differ;
     }
+
+    /**
+     * Method that compares if two BodyPart objects are the same
+     * @param part2: The other BodyPart object to compare
+     * @return boolean: true if the values of this object compared to part2 are the same, false otherwise
+     */
+    public boolean isEqual(BodyPart part2)
+    {
+        boolean isSame = false;
+
+        if( name.equals(part2.getName())
+                && description.equals(part2.getDescription())
+                && bodyPartType==part2.getBodyPartType()
+                && color.equals(part2.getColor())
+                && texture==part2.getTexture()
+                && animalType==part2.getAnimalType()
+                && length==part2.getLength()
+                && weight==part2.getWeight()
+                && health==part2.getHealth()
+                && maxHealth==part2.getMaxHealth())
+        {
+            /*
+             * todo check other fields when implemented:
+             * features
+             * itemsWorn
+             * resistances
+             * skills
+             * injuries
+             * thisBody
+             * aboveBodyPart
+             * attachedBodyParts
+             */
+
+            isSame = true;
+
+        }
+
+        return isSame;
+
+    }
+
+    /**
+     * Method that compares if two BodyPart objects are the same part
+     * @param part2: The other BodyPart object to compare
+     * @return boolean: true if both reference the same Body part, false if otherwise.
+     */
+    public boolean isSamePart(BodyPart part2)
+    {
+        boolean isSame = false;
+
+        if ( this.getBodyPartType()==part2.getBodyPartType()
+                && this.name.equals(part2.getName()))
+        {
+            isSame = true;
+        }
+
+        return isSame;
+    }
+
+
 
     protected abstract boolean bufferExtraFields(ByteBuffer buffer);
 

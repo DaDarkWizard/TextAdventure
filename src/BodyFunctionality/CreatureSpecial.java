@@ -43,7 +43,7 @@ public class CreatureSpecial
 
         Color hairColor = colorList.get( randomNumbers.nextInt( colorList.size() ) );
 
-        body.getBodyPart( "head" ).addFeature( "Hair color: " + hairColor.toString().toLowerCase() );
+        body.getBodyPart( "head" ).addFeature( new BodyFeature("Hair color: " + hairColor.toString().toLowerCase(), 0 ));
 
     }
 
