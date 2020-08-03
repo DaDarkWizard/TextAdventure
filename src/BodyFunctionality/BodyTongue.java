@@ -1,5 +1,6 @@
 package BodyFunctionality;
 
+import Skills.Skill;
 import javafx.scene.paint.Color;
 
 import java.nio.ByteBuffer;
@@ -45,7 +46,7 @@ public class BodyTongue extends BodyPart
     {
         super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
-        this.addSkill( "Basic Taste: 5" );
+        this.addSkill( new Skill("Basic Taste: 5") );
     }
 
     /**

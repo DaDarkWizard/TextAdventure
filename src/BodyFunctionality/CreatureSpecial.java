@@ -1,5 +1,6 @@
 package BodyFunctionality;
 
+import Skills.Skill;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ public class CreatureSpecial
 
         fireGland = new BodyInternalGland(  );
         fireGland.create( "firebreath gland" , "", creatureDataObject, hornColor);
-        fireGland.addSkill( "FireBreath: 10" );
+        fireGland.addSkill( new Skill("FireBreath: 10") );
         fireGland.setAboveBodyPart( body );
         fireGland.setThisBody( body );
         body.internalBodyParts.add(fireGland);

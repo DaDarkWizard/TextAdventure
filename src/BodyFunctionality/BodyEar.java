@@ -1,5 +1,6 @@
 package BodyFunctionality;
 
+import Skills.Skill;
 import javafx.scene.paint.Color;
 
 import java.nio.ByteBuffer;
@@ -65,7 +66,7 @@ public class BodyEar extends BodyPart
         this.bodyPartType = bodyPartType();
         earShape = creatureData.getEarShape();
 
-        this.addSkill( "Hearing: 5" );
+        this.addSkill( new Skill("Hearing: 5") );
 
     }
 

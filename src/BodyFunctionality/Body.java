@@ -8,7 +8,7 @@
  *
  *
  * Created by Michael Clinesmith
- * Last update edit 8/1/2020
+ * Last update edit 8/3/2020
  * -added comment blocks
  * -rearranged order of methods
  * -updated Player methods
@@ -19,9 +19,11 @@
 
 package BodyFunctionality;
 
+import Effects.StatusEffect;
 import Items.Item;
 import Player.Player;
 import Resistances.Resistance;
+import Skills.Skill;
 import javafx.scene.paint.Color;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -79,8 +81,8 @@ public class Body extends BodyPart
         features = new ArrayList<BodyFeature>();
         itemsWorn = new ArrayList<Item>();
         resistances = new ArrayList<Resistance>();
-        skills = new ArrayList<String>();
-        injuries = new ArrayList<String>();
+        skills = new ArrayList<Skill>();
+        effects = new ArrayList<StatusEffect>();
         length = 0;
         aboveBodyPart = null;
         attachedBodyParts = new ArrayList<BodyPart>();
@@ -116,10 +118,13 @@ public class Body extends BodyPart
         System.out.println( "Setting Body Identifier: " + identifier );
 
         //todo update this method to get playerID and associate object with player
-        //when Player class is implemented
+        /*
+        when Player class is implemented
+
         player = new Player();
         player.setPlayerName(ByteBufferIO.getString( buffer ));
-        System.out.println( "Setting Body Player.Player: " + player );
+        System.out.println( "Setting Body Player: " + player );
+        */
 
         gender = BodyPartGenerator.Gender.fromOrdinal( buffer.getInt());
         System.out.println( "Setting Body Gender Type: " + gender);

@@ -1,5 +1,6 @@
 package BodyFunctionality;
 
+import Skills.Skill;
 import javafx.scene.paint.Color;
 
 import java.nio.ByteBuffer;
@@ -82,10 +83,10 @@ public class BodyHand extends BodyPart
             finger.setAboveBodyPart( this );
             this.attachedBodyParts.add( finger );
         }
-        this.addSkill( "Write" );
-        this.addSkill( "Wield" );
-        this.addSkill( "Grasp" );
-        this.addSkill( "Scratch: 1");
+        this.addSkill( new Skill("Write") );
+        this.addSkill( new Skill("Wield") );
+        this.addSkill( new Skill("Grasp") );
+        this.addSkill( new Skill("Scratch: 1") );
     }
 
     public void createHand(String name, String side, CreatureDataObject creatureData, Color color)
@@ -110,7 +111,7 @@ public class BodyHand extends BodyPart
             finger.setAboveBodyPart( this );
             this.attachedBodyParts.add( finger);
         }
-        this.addSkill( "Scratch: 5" );
+        this.addSkill( new Skill("Scratch: 5") );
 
     }
 
@@ -132,9 +133,9 @@ public class BodyHand extends BodyPart
             this.attachedBodyParts.add( finger);
         }
 
-        this.addSkill( "Grasp" );
-        this.addSkill( "Walk: 5" );
-        this.addSkill( "Run: 15" );
+        this.addSkill( new Skill("Grasp") );
+        this.addSkill( new Skill("Walk: 5") );
+        this.addSkill( new Skill("Run: 15") );
 
     }
 
@@ -155,8 +156,8 @@ public class BodyHand extends BodyPart
             this.attachedBodyParts.add( finger );
         }
 
-        this.addSkill( "Walk: 5" );
-        this.addSkill( "Run: 15" );
+        this.addSkill( new Skill("Walk: 5") );
+        this.addSkill( new Skill("Run: 15") );
 
     }
 

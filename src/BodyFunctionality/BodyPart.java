@@ -1,7 +1,9 @@
 package BodyFunctionality;
 
+import Effects.StatusEffect;
 import Items.Item;
 import Resistances.Resistance;
+import Skills.Skill;
 import Transformation.TransformationDifferences;
 import javafx.scene.paint.Color;
 
@@ -21,8 +23,8 @@ public abstract class BodyPart
     protected ArrayList<BodyFeature> features;
     protected ArrayList<Item> itemsWorn;    // change to item object later
     protected ArrayList<Resistance> resistances;
-    protected ArrayList<String> skills;
-    protected ArrayList<String> injuries;
+    protected ArrayList<Skill> skills;
+    protected ArrayList<StatusEffect> effects;
 
     protected double length, weight;
 
@@ -47,8 +49,8 @@ public abstract class BodyPart
         features = new ArrayList<BodyFeature>(  );
         itemsWorn = new ArrayList<Item>(  );
         resistances = new ArrayList<Resistance>();
-        skills = new ArrayList<String>();
-        injuries = new ArrayList<String>();
+        skills = new ArrayList<Skill>();
+        effects = new ArrayList<StatusEffect>();
 
         length = 0.0;
         weight = 0.0;
@@ -147,8 +149,8 @@ public abstract class BodyPart
         features = new ArrayList<BodyFeature>( oldPart.getFeatures() );
         itemsWorn = new ArrayList<Item>( oldPart.getItemsWorn() );
         resistances = new ArrayList<Resistance>( oldPart.getResistances() );
-        skills = new ArrayList<String>( oldPart.getSkills() );
-        injuries = new ArrayList<String>( oldPart.getInjuries() );
+        skills = new ArrayList<Skill>( oldPart.getSkills() );
+        effects = new ArrayList<StatusEffect>( oldPart.getEffects() );
 
         length = oldPart.getLength();
         weight = oldPart.getWeight();
@@ -287,14 +289,14 @@ public abstract class BodyPart
         this.resistances = resistances;
     }
 
-    public void setSkills( ArrayList<String> skills )
+    public void setSkills( ArrayList<Skill> skills )
     {
         this.skills = skills;
     }
 
-    public void setInjuries( ArrayList<String> injuries )
+    public void setEffects( ArrayList<StatusEffect> effects )
     {
-        this.injuries = injuries;
+        this.effects = effects;
     }
 
     public void setLength( double length )
@@ -384,14 +386,14 @@ public abstract class BodyPart
         return resistances;
     }
 
-    public ArrayList<String> getSkills()
+    public ArrayList<Skill> getSkills()
     {
         return skills;
     }
 
-    public ArrayList<String> getInjuries()
+    public ArrayList<StatusEffect> getEffects()
     {
-        return injuries;
+        return effects;
     }
 
     public double getLength()
@@ -539,7 +541,7 @@ public abstract class BodyPart
     }
 
 
-    public void addSkill(String skill) //todo change to skill object
+    public void addSkill(Skill skill) //todo change to skill object
     {
         if ( !skills.contains( skill ))
         {
@@ -851,8 +853,8 @@ public abstract class BodyPart
 
         // check if skills in this part are in part2
         //todo adjust when skills implemented
-        String skill;
-        ArrayList<String> partSkills = part2.getSkills();
+        Skill skill;
+        ArrayList<Skill> partSkills = part2.getSkills();
         for (int i=0; i<skills.size(); i++)
         {
             skill = skills.get(i);
@@ -874,12 +876,12 @@ public abstract class BodyPart
 
     // check if injuries in this part are in part2
         //todo adjust when injuries implemented
-        String injury;
-        ArrayList<String> partInjuries = part2.getInjuries();
-        for (int i=0; i<injuries.size(); i++)
+        StatusEffect effect;
+        ArrayList<StatusEffect> partInjuries = part2.getEffects();
+        for (int i=0; i<effects.size(); i++)
         {
-            injury = injuries.get(i);
-            if (!partInjuries.contains(injury))
+            effect = effects.get(i);
+            if (!partInjuries.contains(effect))
             {
                 differ.addInjuriesDifferences(1);
             }
@@ -888,8 +890,8 @@ public abstract class BodyPart
         // check if skills in part2 are in this part
         for (int i=0; i<partInjuries.size(); i++)
         {
-            injury = partInjuries.get(i);
-            if (!injuries.contains(injury))
+            effect = partInjuries.get(i);
+            if (!effects.contains(effect))
             {
                 differ.addInjuriesDifferences(1);
             }
@@ -927,7 +929,7 @@ public abstract class BodyPart
              * itemsWorn
              * resistances
              * skills
-             * injuries
+             * effects
              * thisBody
              * aboveBodyPart
              * attachedBodyParts

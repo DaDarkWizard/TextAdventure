@@ -1,5 +1,6 @@
 package BodyFunctionality;
 
+import Skills.Skill;
 import javafx.scene.paint.Color;
 
 import java.nio.ByteBuffer;
@@ -98,7 +99,7 @@ public class BodyEye extends BodyPart
         this.texture = BodyPartGenerator.Texture.EYE;
         pupilColor = Color.BLACK;
         scleraColor = Color.WHITE;
-        this.addSkill( "Vision: 5" );
+        this.addSkill( new Skill("Vision: 5") );
 
     }
 
