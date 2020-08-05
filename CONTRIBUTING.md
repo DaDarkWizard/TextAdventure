@@ -1,5 +1,7 @@
 # Guidlines
 
+## Read the wiki!
+
 ## Pull requests must:
 
 1. Close an issue
