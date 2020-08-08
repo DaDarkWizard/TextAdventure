@@ -1,3 +1,18 @@
+/**
+ * This class holds data about a BodyPart of a Body object of a Player/user
+ *
+ * It holds general information connected with body parts, names and identifiers, including
+ * features, resistances, itemsWorn, skills and statusEffects
+ *
+ *
+ * Created by Michael Clinesmith
+ * Last update edit 8/8/2020
+ * -added comment blocks
+ * -rearranged order of methods
+ * -updated ArrayList Classes
+ * -added methods to manipulate ArrayLists
+ * -added some todos
+ */
 package BodyFunctionality;
 
 import Effects.StatusEffect;
@@ -19,9 +34,8 @@ public abstract class BodyPart
     protected BodyPartGenerator.Texture texture;
     protected BodyPartGenerator.AnimalType animalType;
 
-    // todo change some Strings to objects at a later time
     protected ArrayList<BodyFeature> features;
-    protected ArrayList<Item> itemsWorn;    // change to item object later
+    protected ArrayList<Item> itemsWorn;
     protected ArrayList<Resistance> resistances;
     protected ArrayList<Skill> skills;
     protected ArrayList<StatusEffect> effects;
@@ -38,6 +52,9 @@ public abstract class BodyPart
      *  Constructor Methods
      *------------------------------------------------------------------------------------*/
 
+    /**
+     * No argument constructor, sets default values
+     */
     public BodyPart()
     {
         name="";
@@ -130,6 +147,7 @@ public abstract class BodyPart
         System.out.println( "Setting attachedBodyParts for " + name + " to " + attachedBodyParts );
 
     }
+
     /**
      * Copy constructor
      * The copy constructor should make deep copies of most objects with the exception of this and above body part objects
@@ -137,7 +155,6 @@ public abstract class BodyPart
      *
      * @param oldPart: The BodyPart object to make a copy of
      */
-
     public BodyPart(BodyPart oldPart)
     {
         name = oldPart.getName();
@@ -164,11 +181,15 @@ public abstract class BodyPart
     }
 
 
-
+    /**
+     * Constructor assisting method to create an ArrayList of BodyParts
+     * @param bodyPartList ArrayList<BodyPart>: A list of BodyPart objects to copy
+     * @return ArrayList<BodyPart></BodyPart> : A copy of the BodyPart objects
+     */
     private ArrayList<BodyPart> copyArrayBodyPart(ArrayList<BodyPart> bodyPartList)
     {
         BodyPartGenerator.BodyPartType copyType;
-                BodyPart copiedPart;
+        BodyPart copiedPart;
 
         ArrayList<BodyPart> newList = new ArrayList<BodyPart>(  );
         for (int i = 0; i<bodyPartList.size(); i++)
@@ -244,94 +265,167 @@ public abstract class BodyPart
      *------------------------------------------------------------------------------------*/
     //todo check if ArrayList setter methods are to have deep or shallow copy or just reference
 
-    public void setBodyPartType( BodyPartGenerator.BodyPartType type )
-    {
-        this.bodyPartType = type;
-    }
-
-    public void setColor( Color color )
-    {
-        this.color = color;
-    }
-
-    public void setName( String name )
-    {
-        this.name = name;
-    }
-
-    public void setTexture( BodyPartGenerator.Texture texture )
-    {
-        this.texture = texture;
-    }
-
-    public void setDescription( String description )
-    {
-        this.description = description;
-    }
-
-    public void setAnimalType( BodyPartGenerator.AnimalType animalType )
-    {
-        this.animalType = animalType;
-    }
-
-    public void setFeatures( ArrayList<BodyFeature> features )
-    {
-        this.features = features;
-    }
-
-    public void setItemsWorn( ArrayList<Item> itemsWorn )
-    {
-        this.itemsWorn = itemsWorn;
-    }
-
-    public void setResistances( ArrayList<Resistance> resistances )
-    {
-        this.resistances = resistances;
-    }
-
-    public void setSkills( ArrayList<Skill> skills )
-    {
-        this.skills = skills;
-    }
-
-    public void setEffects( ArrayList<StatusEffect> effects )
-    {
-        this.effects = effects;
-    }
-
-    public void setLength( double length )
-    {
-        this.length = length;
-    }
-
-    public void setWeight( double weight )
-    {
-        this.weight = weight;
-    }
-
-    public void setThisBody( Body thisBody )
-    {
-        this.thisBody = thisBody;
-    }
-
+    /**
+     * Mutator method to set a reference to the BodyPart this one is attached to
+     * @param aboveBodyPart BodyPart: A reference to the attached above BodyPart
+     */
     public void setAboveBodyPart( BodyPart aboveBodyPart )
     {
         this.aboveBodyPart = aboveBodyPart;
     }
 
+    /**
+     * Mutator method to set the animalType of the BodyPart
+     * @param animalType AnimalType: The enum value representing the AnimalType
+     */
+    public void setAnimalType( BodyPartGenerator.AnimalType animalType )
+    {
+        this.animalType = animalType;
+    }
+
+    /**
+     * Mutator method to set a reference to the ArrayList containing extra BodyParts attached
+     *  to this one
+     * @param attachedBodyParts ArrayList<BodyPart>: The extra attached BodyParts to this BodyPart
+     */
     public void setAttachedBodyParts( ArrayList<BodyPart> attachedBodyParts )
     {
         this.attachedBodyParts = attachedBodyParts;
     }
 
+    /**
+     * Mutator method to set the BodyPartType of this BodyPart
+     * @param type BodyPartType: The BodyPartType value of this BodyPart
+     */
+    public void setBodyPartType( BodyPartGenerator.BodyPartType type )
+    {
+        this.bodyPartType = type;
+    }
+
+    /**
+     * Mutator method to set the color of this BodyPart
+     * @param color Color: The Color of this BodyPart
+     */
+    public void setColor( Color color )
+    {
+        this.color = color;
+    }
+
+    /**
+     * Mutator method to set the description of this BodyPart
+     * @param description String: The String description of this BodyPart
+     */
+    public void setDescription( String description )
+    {
+        this.description = description;
+    }
+
+    /**
+     * Mutator method to set the ArrayList of StatusEffects to the BodyPart
+     * @param effects ArrayList<StatusEffects>: The list of StatusEffects on the BodyPart
+     */
+    public void setEffects( ArrayList<StatusEffect> effects )
+    {
+        this.effects = effects;
+    }
+
+    /**
+     * Mutator method to set the Feature ArrayList of the BodyPart
+     * @param features ArrayList<BodyFeature>: An ArrayList of BodyFeatures on the BodyPart
+     */
+    public void setFeatures( ArrayList<BodyFeature> features )
+    {
+        this.features = features;
+    }
+
+    /**
+     * Mutator method to set the health of the BodyPart
+     * @param health int: The health value of the BodyPart
+     */
+    public void setHealth( int health )
+    {
+        this.health = health;
+    }
+
+    /**
+     * Mutator method of items equipped on the BodyPart
+     * @param itemsWorn ArrayList<Item>: The list of objects equipped on the BodyPart
+     */
+    public void setItemsWorn( ArrayList<Item> itemsWorn )
+    {
+        this.itemsWorn = itemsWorn;
+    }
+
+    /**
+     * Mutator method to set the length of the BodyPart
+     * @param length double: The length of the BodyPart
+     */
+    public void setLength( double length )
+    {
+        this.length = length;
+    }
+
+    /**
+     * Mutator method to set the maximum health of the BodyPart
+     * @param maxHealth int: The maximum health value of the BodyPart
+     */
     public void setMaxHealth( int maxHealth )
     {
         this.maxHealth = maxHealth;
     }
 
-    public void setHealth( int health )
+    /**
+     * Mutator method to set the name of the BodyPart
+     * @param name String: The name of the BodyPart
+     */
+    public void setName( String name )
     {
-        this.health = health;
+        this.name = name;
+    }
+
+    /**
+     * Mutator method to set the list of Resistances of the BodyPart
+     * @param resistances ArrayList<Resistances>: The list of Resistances of the BodyPart
+     */
+    public void setResistances( ArrayList<Resistance> resistances )
+    {
+        this.resistances = resistances;
+    }
+
+    /**
+     * Mutator method to set the list of Skills of the BodyPart
+     * @param skills ArrayList<Skill>: The list of Skills enabled by the BodyPart
+     */
+    public void setSkills( ArrayList<Skill> skills )
+    {
+        this.skills = skills;
+    }
+
+    /**
+     * Mutator method to set the Texture of the BodyPart
+     * @param texture Texture: The Texture value of the BodyPart
+     */
+    public void setTexture( BodyPartGenerator.Texture texture )
+    {
+        this.texture = texture;
+    }
+
+    /**
+     * Mutator method to return a link to the Body of this BodyPart object
+     * @param thisBody Body: A reference link to the Body of this BodyPart object
+     */
+    public void setThisBody( Body thisBody )
+    {
+        this.thisBody = thisBody;
+    }
+
+    /**
+     * Mutator method to set the weight of this BodyPart object
+     * @param weight double: The weight of this BodyPart object
+     */
+    public void setWeight( double weight )
+    {
+        this.weight = weight;
     }
 
     /*-------------------------------------------------------------------------------------
@@ -340,100 +434,175 @@ public abstract class BodyPart
 
     //todo check if ArrayList getter methods are to have deep or shallow copy or just reference
 
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public BodyPartGenerator.BodyPartType getBodyPartType()
-    {
-        return bodyPartType;
-    }
-
-    public Color getColor()
-    {
-        return color;
-    }
-
-    public BodyPartGenerator.Texture getTexture()
-    {
-        return texture;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public BodyPartGenerator.AnimalType getAnimalType()
-    {
-        return animalType;
-    }
-
-    public ArrayList<BodyFeature> getFeatures()
-    {
-        return features;
-    }
-
-    public ArrayList<Item> getItemsWorn()
-    {
-        return itemsWorn;
-    }
-
-    public ArrayList<Resistance> getResistances()
-    {
-        return resistances;
-    }
-
-    public ArrayList<Skill> getSkills()
-    {
-        return skills;
-    }
-
-    public ArrayList<StatusEffect> getEffects()
-    {
-        return effects;
-    }
-
-    public double getLength()
-    {
-        return length;
-    }
-
-    public double getWeight()
-    {
-        return weight;
-    }
-
-    public Body getThisBody()
-    {
-        return thisBody;
-    }
-
+    /**
+     * Accessor method to get the attached above BodyPart
+     * @return BodyPart:  The attached connected BodyPart
+     */
     public BodyPart getAboveBodyPart()
     {
         return aboveBodyPart;
     }
 
+    /**
+     * Accessor method to get the attached AnimalType
+     * @return AnimalType: The AnimalType of the BodyPart
+     */
+    public BodyPartGenerator.AnimalType getAnimalType()
+    {
+        return animalType;
+    }
+
+    /**
+     * Accessor method to get the ArrayList of extra attached BodyParts
+     * @return ArrayList<BodyPart>: The list of extra attached BodyParts to this BodyPart
+     */
     public ArrayList<BodyPart> getAttachedBodyParts()
     {
         return attachedBodyParts;
     }
 
-    public int getMaxHealth()
+    /**
+     * Accessor method to get the BodyPartType of the BodyPart
+     * @return BodyPartType: The BodyPartType of the BodyPart
+     */
+    public BodyPartGenerator.BodyPartType getBodyPartType()
     {
-        return maxHealth;
+        return bodyPartType;
     }
 
+    /**
+     * Accessor method to get the Color of the BodyPart
+     * @return Color: The Color of the BodyPart
+     */
+    public Color getColor()
+    {
+        return color;
+    }
+
+    /**
+     * Accessor method to get the description of the BodyPart
+     * @return String: The description of the BodyPart
+     */
+    public String getDescription()
+    {
+        return description;
+    }
+
+    /**
+     * Accessor method to get the ArrayList of Effects attached to the BodyPart
+     * @return ArrayList<Effect>: The ArrayList of Effects attached to the BodyPart
+     */
+    public ArrayList<StatusEffect> getEffects()
+    {
+        return effects;
+    }
+
+    /**
+     * Accessor method to get the ArrayList of Features attached to the BodyPart
+     * @return ArrayList<Feature>: The ArrayList of Features attached to the BodyPart
+     */
+    public ArrayList<BodyFeature> getFeatures()
+    {
+        return features;
+    }
+
+    /**
+     * Accessor method to get the health of the BodyPart
+     * @return int: The health value of the BodyPart
+     */
     public int getHealth()
     {
         return health;
     }
 
+    /**
+     * Accessor method to get the list of equipped items on the BodyPart
+     * @return ArrayList<Item>: The list of equipped items on the BodyPart
+     */
+    public ArrayList<Item> getItemsWorn()
+    {
+        return itemsWorn;
+    }
+
+    /**
+     * Accessor method to get the length of the BodyPart
+     * @return double: The length of the BodyPart
+     */
+    public double getLength()
+    {
+        return length;
+    }
+
+    /**
+     * Accessor method to get the maximum health of the BodyPart
+     * @return int: The maximum health value of the BodyPart
+     */
+    public int getMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    /**
+     * Accessor method to get the name of the BodyPart
+     * @return String: The name of the BodyPart
+     */
+    public String getName()
+    {
+        return name;
+    }
+
+    /**
+     * Method to get the number of extra attached BodyParts to this BodyPart
+     * @return int: The number of extra attached BodyParts to this BodyPart
+     */
     public int getNumAttached()
     {
         return attachedBodyParts.size();
+    }
+
+    /**
+     * Accessor method to get the ArrayList of Resistances attached to the BodyPart
+     * @return ArrayList<Resistance>: The ArrayList of Resistances attached to the BodyPart
+     */
+    public ArrayList<Resistance> getResistances()
+    {
+        return resistances;
+    }
+
+    /**
+     * Accessor method to get the ArrayList of Skills attached to the BodyPart
+     * @return ArrayList<Skill>: The ArrayList of Skills attached to the BodyPart
+     */
+    public ArrayList<Skill> getSkills()
+    {
+        return skills;
+    }
+
+    /**
+     * Accessor method to get the Texture of the BodyPart
+     * @return Texture: The Texture of the BodyPart
+     */
+    public BodyPartGenerator.Texture getTexture()
+    {
+        return texture;
+    }
+
+    /**
+     * Accessor method to get the reference to this BodyPart's Body
+     * @return Body: A reference to the Body of this BodyPart
+     */
+    public Body getThisBody()
+    {
+        return thisBody;
+    }
+
+    /**
+     * Accessor method to get the weight of this BodyPart
+     * @return double: The weight value of this BodyPart
+     */
+    public double getWeight()
+    {
+        return weight;
     }
 
     /*-------------------------------------------------------------------------------------
@@ -442,6 +611,23 @@ public abstract class BodyPart
 
     //todo set up useful setAll methods
 
+    /**
+     * Method that sets the body reference of all body objects of the same body to the same body
+     * @param body Body: The Body object reference to set all body objects equal to
+     */
+    public void setAllBody(Body body)
+    {
+        thisBody = body;                                    // sets this object's reference
+        for (int i = 0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
+        {
+            attachedBodyParts.get( i ).setAllBody( body );  // sets all attached object's references
+        }
+    }
+
+    /**
+     * Method to set all of the regular body parts (excepting horns and nails) to a particular color
+     * @param color Color: The color to set the body parts to
+     */
     public void setAllBodyColor(Color color)
     {
         // color is part if it is a colored outer body part
@@ -456,6 +642,10 @@ public abstract class BodyPart
 
     }
 
+    /**
+     * Method to set all of the horns and nails to a particular color
+     * @param color Color: The color to set the horns and nails to
+     */
     public void setAllHornColor(Color color)
     {
         // color is part if it is a horn or nail outer body part
@@ -474,161 +664,26 @@ public abstract class BodyPart
         }
     }
 
-    /**
-     * Method that sets the body reference of all body objects of the same body to the same body
-     * @param body Body: The Body object reference to set all body objects equal to
-     */
-    public void setAllBody(Body body)
-    {
-        thisBody = body;                                    // sets this object's reference
-        for (int i = 0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
-        {
-            attachedBodyParts.get( i ).setAllBody( body );  // sets all attached object's references
-        }
-    }
-
-
-    public ArrayList<BodyPart> getAllBodyPartChildren()
-    {
-        ArrayList<BodyPart> allChildren = new ArrayList<BodyPart>( attachedBodyParts ); // include all attached parts
-        for (int i=0; attachedBodyParts!=null && i < attachedBodyParts.size(); i++)
-        {
-            allChildren.addAll( attachedBodyParts.get(i).getAllBodyPartChildren() );
-        }
-        return allChildren;
-    }
-
+    /*-------------------------------------------------------------------------------------
+     *  Other Methods
+     *------------------------------------------------------------------------------------*/
 
     /**
-     * Private method that returns true if the body part is one that should be the general body color, to allow easier coloring
-     * @return boolean: true if the body part is part of the general body color, false otherwise
+     * Method to add a feature to the Body Part's ArrayList of BodyFeatures
+     * Note: This method makes a deep copy of the BodyFeature
+     * @param feature BodyFeature: BodyFeature to add to the ArrayList
      */
-    private boolean isBodyColorPart()
-    {
-        boolean isBodyColor = false;
-        if ( bodyPartType == BodyPartGenerator.BodyPartType.FINGER
-            || bodyPartType == BodyPartGenerator.BodyPartType.HAND
-            || bodyPartType == BodyPartGenerator.BodyPartType.ARM
-            || bodyPartType == BodyPartGenerator.BodyPartType.WING
-            || bodyPartType == BodyPartGenerator.BodyPartType.HEAD
-            || bodyPartType == BodyPartGenerator.BodyPartType.MUZZLE
-            || bodyPartType == BodyPartGenerator.BodyPartType.TAIL
-            || bodyPartType == BodyPartGenerator.BodyPartType.EAR
-            || bodyPartType == BodyPartGenerator.BodyPartType.NOSE
-            || bodyPartType == BodyPartGenerator.BodyPartType.NECK
-            || bodyPartType == BodyPartGenerator.BodyPartType.CHEST
-            || bodyPartType == BodyPartGenerator.BodyPartType.BACK)
-        {
-            isBodyColor = true;
-        }
-
-        return isBodyColor;
-    }
-
-    /**
-     * Private method that returns true if the body part is a horn or nail, to allow easier coloring
-     * @return boolean: true if the body part is a horn or nail, false otherwise
-     */
-    private boolean isHornColorPart()
-    {
-        boolean isHornColor = false;
-        if (bodyPartType == BodyPartGenerator.BodyPartType.NAIL || bodyPartType == BodyPartGenerator.BodyPartType.HORN)
-        {
-            isHornColor = true;
-        }
-
-        return isHornColor;
-    }
-
-
-    public void addSkill(Skill skill) //todo change to skill object
-    {
-        if ( !skills.contains( skill ))
-        {
-            skills.add(skill);
-        }
-    }
-
     public void addFeature(BodyFeature feature)
     {
         if ( !features.contains( feature ))
         {
-            features.add(feature);
+            features.add(new BodyFeature(feature));
         }
     }
-
-    public void removeSkill(String skill) //todo change to skill object
-    {
-        skills.remove(skill);
-    }
-
-
-    public void removeFeature(String feature)
-    {
-        features.remove(feature);
-    }
-
-    public void clearSkills()
-    {
-        skills.clear();
-    }
-
-    public void clearFeatures()
-    {
-        features.clear();
-    }
-
-    /**
-     * Method that creates updates the BodyPart type with basic information regarding the BodyPart
-     * @param name String: The name of the BodyPart object
-     * @param side String: The side the BodyPart object is on (ie. left or right), becomes part of the name
-     * @param creatureData AnimalType: The type of animal is body part belongs to
-     * @param color Color: The color of the body part
-     */
-    public void create(String name, String side, CreatureDataObject creatureData, Color color)
-    {
-        if (side.isEmpty())
-        {
-            this.name = name;
-        }
-        else
-        {
-            this.name = side + " " + name;
-        }
-        this.animalType = creatureData.getAnimalTypeStyle();
-        this.description = "A " + animalType.toString() + " " + side + " " + name;
-        this.color = color;
-        this.bodyPartType = BodyPartGenerator.BodyPartType.NA;
-        this.texture = creatureData.getBodyTexture();
-
-    }
-
-
-    /**
-     * Method that converts a basic description of the object (and its attachments) to a string
-     * @return String: A String that lists some basic descriptions of the object along with padded descriptions
-     *                  of its attached objects
-     */
-    @Override
-    public String toString()
-    {
-        String str = "A " + String.format( "%.2f", length ) + "in " + color + " " + texture + " " + animalType + " " + name;
-        for (int i=0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
-        {
-            str += "\n" + addPadding(attachedBodyParts.get( i ).toString(), this.treeDepth()*2+ 2);
-        }
-        return str;
-    }
-
-    public BodyPartGenerator.BodyPartType bodyPartType()
-    {
-        return BodyPartGenerator.BodyPartType.NA;
-    }
-
-
 
     /**
      * Method that adds padding to the front of string (like indenting)
+     *  This method assists the toString method
      * @param str String: The string to add padding to the beginning of each line
      * @return String: The str string padded (indented)
      */
@@ -643,95 +698,57 @@ public abstract class BodyPart
     }
 
     /**
-     * Method that creates the padding given the PADDING constant
-     * @return String: A string composed of PADDING spaces
+     * Method to add a Item to the Body Part's ArrayList of Items
+     * Note: This method makes a deep copy of the Item
+     * @param item Item: Item to add to the ArrayList
      */
-    public String strPadding(int padAmount)
+    public void addItem(Item item)
     {
-        String str = "";
-        for (int i = 0; i<padAmount; i++)
+        if ( !itemsWorn.contains( item ))
         {
-            str += "-";
+            itemsWorn.add(new Item(item));
         }
-        return str;
+    }
+
+
+
+    /**
+     * Method to add a Resistance to the Body Part's ArrayList of Resistances
+     * Note: This method makes a deep copy of the Resistance
+     * @param resistance Resistance: Resistance to add to the ArrayList
+     */
+    public void addResistance(Resistance resistance)
+    {
+        if ( !resistances.contains( resistance ))
+        {
+            resistances.add(new Resistance(resistance));
+        }
     }
 
     /**
-     * Method to search for a body part.  If it is not found, return null
-     * Returns a shallow copy of the body part
-     *
-     * @param partName String: The BodyPart to search if it is the part looked for
-     * @return BodyPart: Returns the body part if it is found, otherwise returns null
+     * Method to add a Skill to the skill list
+     * Note, this method makes a deep copy of the skill
+     * @param skill Skill: Skill to be added to the Body Part's ArrayList
      */
-    public BodyPart getBodyPart(String partName)
+    public void addSkill(Skill skill)
     {
-        BodyPart part = null;
-        if (partName.equals( name ))
+        if ( !skills.contains( skill ))
         {
-            part = this;
+            skills.add(new Skill(skill));
         }
-        else if (this.getBodyPartType()== BodyPartGenerator.BodyPartType.BODY)
-        {
-            Body thisBody = (Body) this;
-
-            // search through internal body parts when searching Body
-            for (int i=0; i<thisBody.internalBodyParts.size() && part==null; i++)
-            {
-                part = thisBody.internalBodyParts.get( i ).getBodyPart( partName );
-            }
-        }
-
-        if (part==null)         //continue search in attached body parts if part not yet found
-        {
-            // search through all attached parts until part found
-            for (int i=0; i<attachedBodyParts.size() && part==null; i++)
-            {
-                part = attachedBodyParts.get( i ).getBodyPart( partName );
-            }
-        }
-        return part;
-    }
-
-    public int countParts()
-    {
-        int count = 1;
-        System.out.println( "Part:" + name );
-        for (int i=0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
-        {
-            count += attachedBodyParts.get( i ).countParts();
-        }
-
-        return count;
     }
 
     /**
-     * Method to determine how deep the body part is in the body tree
-     * @return int: The depth of the body part in the tree (or how far the part is from the body object)
+     * Method to add a feature to the Body Part's ArrayList of StatusEffect
+     * Note: This method makes a deep copy of the StatusEffect
+     * @param effect StatusEffect: StatusEffect to add to the ArrayList
      */
-    public int treeDepth()
+    public void addStatusEffect(StatusEffect effect)
     {
-        int depth = 0;
-        BodyPart depthCheck = this;
-        while (depthCheck.aboveBodyPart!=null)
+        if ( !effects.contains( effect ))
         {
-            depthCheck=depthCheck.aboveBodyPart;
-            depth++;
+            effects.add(new StatusEffect(effect));
         }
-        return depth;
-    }
-
-    /**
-     * Method to convert the Body Object data to a ByteBuffer, it calls the addToBuffer method to do this
-     * @return ByteBuffer: The Object's data stored in a ByteBuffer
-     */
-    public ByteBuffer toBuffer()
-    {
-        System.out.println( "In BodyPart toBuffer" );
-
-        ByteBuffer buf = ByteBuffer.allocate(16384);
-        addToBuffer(buf);
-
-        return buf;
     }
 
     /**
@@ -782,6 +799,105 @@ public abstract class BodyPart
         return noProblems;
     }
 
+    /**
+     * Method that returns this Body Part's object type
+     * This returns the NA value, but may be overwritten
+     * @return BodyPartType: returns NA
+     */
+    public BodyPartGenerator.BodyPartType bodyPartType()
+    {
+        return BodyPartGenerator.BodyPartType.NA;
+    }
+
+
+    /**
+     * Method to clear a Body Part's BodyFeature ArrayList
+     */
+    public void clearFeatures()
+    {
+        features.clear();
+    }
+
+    /**
+     * Method to clear a Body Part's itemsWorn ArrayList
+     */
+    public void clearItems()
+    {
+        itemsWorn.clear();
+    }
+
+    /**
+     * Method to clear a Body Part's Resistances ArrayList
+     */
+    public void clearResistances()
+    {
+        resistances.clear();
+    }
+
+    /**
+     * Method to clear a Body Part's Skill ArrayList
+     */
+    public void clearSkills()
+    {
+        skills.clear();
+    }
+
+    /**
+     * Method to clear a Body Part's StatusEffect ArrayList
+     */
+    public void clearStatusEffects()
+    {
+        effects.clear();
+    }
+
+    /**
+     * This method counts the number of body parts attached to this one and returns the
+     *      total number of attached parts [ excluding the above parts ]
+     * todo this method needs to be updated to include parts attached to child objects
+     * @return int: The number of attached parts
+     */
+    public int countParts()
+    {
+        int count = 1;
+        System.out.println( "Part:" + name );
+        for (int i=0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
+        {
+            count += attachedBodyParts.get( i ).countParts();
+        }
+
+        return count;
+    }
+
+    /**
+     * Method that creates updates the BodyPart type with basic information regarding the BodyPart
+     * @param name String: The name of the BodyPart object
+     * @param side String: The side the BodyPart object is on (ie. left or right), becomes part of the name
+     * @param creatureData AnimalType: The type of animal is body part belongs to
+     * @param color Color: The color of the body part
+     */
+    public void create(String name, String side, CreatureDataObject creatureData, Color color)
+    {
+        if (side.isEmpty())
+        {
+            this.name = name;
+        }
+        else
+        {
+            this.name = side + " " + name;
+        }
+        this.animalType = creatureData.getAnimalTypeStyle();
+        this.description = "A " + animalType.toString() + " " + side + " " + name;
+        this.color = color;
+        this.bodyPartType = BodyPartGenerator.BodyPartType.NA;
+        this.texture = creatureData.getBodyTexture();
+
+    }
+
+    /**
+     * Method to determine the number of differences between two body parts
+     * @param part2
+     * @return
+     */
     public TransformationDifferences differences(BodyPart part2)
     {
         TransformationDifferences differ = new TransformationDifferences();
@@ -874,7 +990,7 @@ public abstract class BodyPart
             }
         }
 
-    // check if injuries in this part are in part2
+        // check if injuries in this part are in part2
         //todo adjust when injuries implemented
         StatusEffect effect;
         ArrayList<StatusEffect> partInjuries = part2.getEffects();
@@ -901,6 +1017,84 @@ public abstract class BodyPart
         differ.addValueDifferences( Math.abs(maxHealth - part2.getMaxHealth()));
 
         return differ;
+    }
+
+    /**
+     * Method that returns the list of all Body parts attached to looking at the
+     *  attachedBodyPart arrays
+     *  todo check method if needs to be removed or updated
+     * @return ArrayList<BodyPart> The list of all body parts attached
+     */
+    public ArrayList<BodyPart> getAllBodyPartChildren()
+    {
+        ArrayList<BodyPart> allChildren = new ArrayList<BodyPart>( attachedBodyParts ); // include all attached parts
+        for (int i=0; attachedBodyParts!=null && i < attachedBodyParts.size(); i++)
+        {
+            allChildren.addAll( attachedBodyParts.get(i).getAllBodyPartChildren() );
+        }
+        return allChildren;
+    }
+
+    /**
+     * Method to search for a body part.  If it is not found, return null
+     * Returns a shallow copy of the body part
+     *
+     * @param partName String: The BodyPart to search if it is the part looked for
+     * @return BodyPart: Returns the body part if it is found, otherwise returns null
+     */
+    public BodyPart getBodyPart(String partName)
+    {
+        BodyPart part = null;
+        if (partName.equals( name ))
+        {
+            part = this;
+        }
+        else if (this.getBodyPartType()== BodyPartGenerator.BodyPartType.BODY)
+        {
+            Body thisBody = (Body) this;
+
+            // search through internal body parts when searching Body
+            for (int i=0; i<thisBody.internalBodyParts.size() && part==null; i++)
+            {
+                part = thisBody.internalBodyParts.get( i ).getBodyPart( partName );
+            }
+        }
+
+        if (part==null)         //continue search in attached body parts if part not yet found
+        {
+            // search through all attached parts until part found
+            for (int i=0; i<attachedBodyParts.size() && part==null; i++)
+            {
+                part = attachedBodyParts.get( i ).getBodyPart( partName );
+            }
+        }
+        return part;
+    }
+
+    /**
+     * Private method that returns true if the body part is one that should be the general body color, to allow easier coloring
+     * @return boolean: true if the body part is part of the general body color, false otherwise
+     */
+    private boolean isBodyColorPart()
+    {
+        boolean isBodyColor = false;
+        if ( bodyPartType == BodyPartGenerator.BodyPartType.FINGER
+            || bodyPartType == BodyPartGenerator.BodyPartType.HAND
+            || bodyPartType == BodyPartGenerator.BodyPartType.ARM
+            || bodyPartType == BodyPartGenerator.BodyPartType.WING
+            || bodyPartType == BodyPartGenerator.BodyPartType.HEAD
+            || bodyPartType == BodyPartGenerator.BodyPartType.MUZZLE
+            || bodyPartType == BodyPartGenerator.BodyPartType.TAIL
+            || bodyPartType == BodyPartGenerator.BodyPartType.EAR
+            || bodyPartType == BodyPartGenerator.BodyPartType.NOSE
+            || bodyPartType == BodyPartGenerator.BodyPartType.NECK
+            || bodyPartType == BodyPartGenerator.BodyPartType.CHEST
+            || bodyPartType == BodyPartGenerator.BodyPartType.BACK)
+        {
+            isBodyColor = true;
+        }
+
+        return isBodyColor;
     }
 
     /**
@@ -943,6 +1137,22 @@ public abstract class BodyPart
 
     }
 
+
+    /**
+     * Private method that returns true if the body part is a horn or nail, to allow easier coloring
+     * @return boolean: true if the body part is a horn or nail, false otherwise
+     */
+    private boolean isHornColorPart()
+    {
+        boolean isHornColor = false;
+        if (bodyPartType == BodyPartGenerator.BodyPartType.NAIL || bodyPartType == BodyPartGenerator.BodyPartType.HORN)
+        {
+            isHornColor = true;
+        }
+
+        return isHornColor;
+    }
+
     /**
      * Method that compares if two BodyPart objects are the same part
      * @param part2: The other BodyPart object to compare
@@ -961,10 +1171,120 @@ public abstract class BodyPart
         return isSame;
     }
 
+    /**
+     * Method to remove a BodyFeature from the Body Part's Feature ArrayList
+     * @param feature BodyFeature: The BodyFeature to remove from the Feature ArrayList
+     */
+    public void removeFeature(BodyFeature feature)
+    {
+        features.remove(feature);
+    }
 
+    /**
+     * Method to remove an Item from the Body Part's itemsWorn ArrayList
+     * @param item Item: The Item to remove from the Item ArrayList
+     */
+    public void removeItem(Item item)
+    {
+        itemsWorn.remove(item);
+    }
+
+    /**
+     * Method to remove a Resistance from the Body Part's Resistance ArrayList
+     * @param resistance Resistance: The Resistance to remove from the Resistance ArrayList
+     */
+    public void removeResistance(Resistance resistance)
+    {
+        resistances.remove(resistance);
+    }
+
+    /**
+     * Method to remove a Skill from the Body Part's Skill ArrayList
+     * @param skill Skill: The Skill to remove from the Skill ArrayList
+     */
+    public void removeSkill(Skill skill)
+    {
+        skills.remove(skill);
+    }
+
+    /**
+     * Method to remove a StatusEffect from the Body Part's StatusEffect ArrayList
+     * @param effect StatusEffect: The StatusEffect to remove from the StatusEffect ArrayList
+     */
+    public void removeSkill(StatusEffect effect)
+    {
+        effects.remove(effect);
+    }
+
+    /**
+     * Method that creates the padding given the PADDING constant
+     * This method assists the toString method
+     *
+     * @return String: A string composed of PADDING spaces
+     */
+    public String strPadding(int padAmount)
+    {
+        String str = "";
+        for (int i = 0; i<padAmount; i++)
+        {
+            str += "-";
+        }
+        return str;
+    }
+
+    /**
+     * Method to convert the Body Object data to a ByteBuffer, it calls the addToBuffer method to do this
+     * @return ByteBuffer: The Object's data stored in a ByteBuffer
+     */
+    public ByteBuffer toBuffer()
+    {
+        System.out.println( "In BodyPart toBuffer" );
+
+        ByteBuffer buf = ByteBuffer.allocate(16384);
+        addToBuffer(buf);
+
+        return buf;
+    }
+
+    /**
+     * Method that converts a basic description of the object (and its attachments) to a string
+     * @return String: A String that lists some basic descriptions of the object along with padded descriptions
+     *                  of its attached objects
+     */
+    @Override
+    public String toString()
+    {
+        String str = "A " + String.format( "%.2f", length ) + "in " + color + " " + texture + " " + animalType + " " + name;
+        for (int i=0; attachedBodyParts!=null && i<attachedBodyParts.size(); i++)
+        {
+            str += "\n" + addPadding(attachedBodyParts.get( i ).toString(), this.treeDepth()*2+ 2);
+        }
+        return str;
+    }
+
+
+    /**
+     * Method to determine how deep the body part is in the body tree
+     * todo this method needs to be updated to include child body parts
+     * @return int: The depth of the body part in the tree (or how far the part is from the body object)
+     */
+    public int treeDepth()
+    {
+        int depth = 0;
+        BodyPart depthCheck = this;
+        while (depthCheck.aboveBodyPart!=null)
+        {
+            depthCheck=depthCheck.aboveBodyPart;
+            depth++;
+        }
+        return depth;
+    }
+
+    /*-------------------------------------------------------------------------------------
+     *  Abstract Methods
+     *------------------------------------------------------------------------------------*/
 
     protected abstract boolean bufferExtraFields(ByteBuffer buffer);
-
 
 }
 
