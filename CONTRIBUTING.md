@@ -1,4 +1,4 @@
-# Guidlines
+# Guidelines
 
 ## Read the wiki!
 
