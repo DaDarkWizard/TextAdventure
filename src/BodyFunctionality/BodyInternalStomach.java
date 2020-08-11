@@ -17,8 +17,8 @@ public class BodyInternalStomach extends BodyPart
     public BodyInternalStomach()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.STOMACH );
-        this.setTexture( BodyPartGenerator.Texture.SPECIAL );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.STOMACH );
+        this.setTexture( BodyPartEnums.Texture.SPECIAL );
         food = 0;
         drink = 0;
         maxFood = 1;
@@ -119,9 +119,9 @@ public class BodyInternalStomach extends BodyPart
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.STOMACH;
+        return BodyPartEnums.BodyPartType.STOMACH;
     }
 
     @Override
@@ -129,7 +129,7 @@ public class BodyInternalStomach extends BodyPart
     {
         super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
-        this.setTexture( BodyPartGenerator.Texture.SPECIAL );
+        this.setTexture( BodyPartEnums.Texture.SPECIAL );
 
 
         maxFood = 1000;

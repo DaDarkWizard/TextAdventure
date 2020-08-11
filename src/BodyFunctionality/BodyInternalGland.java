@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 public class BodyInternalGland extends BodyPart
 {
     int maxMaterial, material;
-    BodyPartGenerator.GlandType glandType;      // indicates how substance is spread (i.e. injection, breath stream, air/gas
+    BodyPartEnums.GlandType glandType;      // indicates how substance is spread (i.e. injection, breath stream, air/gas
     //todo field needed for material type?
 
     /**
@@ -16,8 +16,8 @@ public class BodyInternalGland extends BodyPart
     public BodyInternalGland()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.GLAND );
-        this.setTexture( BodyPartGenerator.Texture.SPECIAL );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.GLAND );
+        this.setTexture( BodyPartEnums.Texture.SPECIAL );
 
         maxMaterial = 1;
         material = 0;
@@ -75,9 +75,9 @@ public class BodyInternalGland extends BodyPart
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.GLAND;
+        return BodyPartEnums.BodyPartType.GLAND;
     }
 
     @Override
@@ -85,7 +85,7 @@ public class BodyInternalGland extends BodyPart
     {
         super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
-        this.setTexture( BodyPartGenerator.Texture.SPECIAL );
+        this.setTexture( BodyPartEnums.Texture.SPECIAL );
 
 
         maxMaterial = 100;

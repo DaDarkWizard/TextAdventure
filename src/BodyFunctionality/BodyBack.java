@@ -8,7 +8,7 @@ public class BodyBack extends BodyPart
     public BodyBack()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.BACK );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.BACK );
     }
 
     /**
@@ -32,9 +32,9 @@ public class BodyBack extends BodyPart
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.BACK;
+        return BodyPartEnums.BodyPartType.BACK;
     }
 
 

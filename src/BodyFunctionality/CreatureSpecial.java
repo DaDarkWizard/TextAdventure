@@ -11,7 +11,7 @@ public class CreatureSpecial
 
     static void createBody( CreatureDataObject creatureDataObject, Body body )
     {
-        BodyPartGenerator.AnimalType animalType = body.getAnimalType();
+        BodyPartEnums.AnimalType animalType = body.getAnimalType();
 
         switch (animalType)
         {

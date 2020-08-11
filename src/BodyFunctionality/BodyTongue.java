@@ -10,7 +10,7 @@ public class BodyTongue extends BodyPart
     public BodyTongue()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.TONGUE );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.TONGUE );
     }
 
     /**
@@ -35,9 +35,9 @@ public class BodyTongue extends BodyPart
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.TONGUE;
+        return BodyPartEnums.BodyPartType.TONGUE;
     }
 
 

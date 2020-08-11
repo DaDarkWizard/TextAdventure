@@ -2,11 +2,8 @@ package BodyFunctionality;
 
 import Transformation.TransformationCompare;
 import Transformation.TransformationDifferences;
-import javafx.scene.paint.Color;
-import BodyFunctionality.CreatureData;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
 
+import java.nio.ByteBuffer;
 
 
 public class TestBody
@@ -14,9 +11,9 @@ public class TestBody
     public static void main(String[] args)
     {
         CreatureData creatureData = new CreatureData();
-        CreatureDataObject humanObject = creatureData.getCreatureDataObject( BodyPartGenerator.AnimalType.HUMAN );
-        CreatureDataObject dragonObject = creatureData.getCreatureDataObject( BodyPartGenerator.AnimalType.DRAGON );
-        CreatureDataObject guineaPigObject = creatureData.getCreatureDataObject( BodyPartGenerator.AnimalType.GUINEAPIG );
+        CreatureDataObject humanObject = creatureData.getCreatureDataObject( BodyPartEnums.AnimalType.HUMAN );
+        CreatureDataObject dragonObject = creatureData.getCreatureDataObject( BodyPartEnums.AnimalType.DRAGON );
+        CreatureDataObject guineaPigObject = creatureData.getCreatureDataObject( BodyPartEnums.AnimalType.GUINEAPIG );
 
 
         Body bodyHuman = humanObject.generateRandomBody();

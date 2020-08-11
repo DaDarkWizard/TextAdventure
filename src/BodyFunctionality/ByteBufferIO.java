@@ -397,7 +397,7 @@ public class ByteBufferIO
         int size = buffer.getInt();
         for (int i=0; i<size; i++)
         {
-            BodyPartGenerator.BodyPartType partType = BodyPartGenerator.BodyPartType.fromOrdinal(buffer.getInt());
+            BodyPartEnums.BodyPartType partType = BodyPartEnums.BodyPartType.fromOrdinal(buffer.getInt());
 
             switch(partType)
             {

@@ -6,13 +6,13 @@ import java.nio.ByteBuffer;
 
 public class BodyTail extends BodyPart
 {
-    protected BodyPartGenerator.TailType tailType;
+    protected BodyPartEnums.TailType tailType;
 
     public BodyTail()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.TAIL );
-        tailType = BodyPartGenerator.TailType.SICKLE;
+        this.setBodyPartType( BodyPartEnums.BodyPartType.TAIL );
+        tailType = BodyPartEnums.TailType.SICKLE;
     }
 
 
@@ -26,7 +26,7 @@ public class BodyTail extends BodyPart
         super(buffer);
         System.out.println( "In BodyTail(Buffer) constructor" );
 
-        tailType = BodyPartGenerator.TailType.fromOrdinal( buffer.getInt());
+        tailType = BodyPartEnums.TailType.fromOrdinal( buffer.getInt());
         System.out.println( "Setting tail shape to " + tailType );
 
     }
@@ -42,20 +42,20 @@ public class BodyTail extends BodyPart
     }
 
 
-    public void setTailType( BodyPartGenerator.TailType tailType )
+    public void setTailType( BodyPartEnums.TailType tailType )
     {
         this.tailType = tailType;
     }
 
-    public BodyPartGenerator.TailType getTailType()
+    public BodyPartEnums.TailType getTailType()
     {
         return tailType;
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.TAIL;
+        return BodyPartEnums.BodyPartType.TAIL;
     }
 
 

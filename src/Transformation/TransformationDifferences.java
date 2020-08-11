@@ -8,7 +8,7 @@ package Transformation;
 
 
 import BodyFunctionality.*;
-import BodyFunctionality.BodyPartGenerator;
+import BodyFunctionality.BodyPartEnums;
 
 import java.util.ArrayList;
 
@@ -93,8 +93,8 @@ public class TransformationDifferences {
         BodyPart currentPart1, currentPart2;
         String nextPartNameMatch;
         TransformationDifferences differencesBetweenBodyParts;
-        BodyPartGenerator.OpposableChange handChange;
-        BodyPartGenerator.BodyLimbTypeChange  limbChange;
+        BodyPartEnums.OpposableChange handChange;
+        BodyPartEnums.BodyLimbTypeChange  limbChange;
 
 
         if (true) //todo adjust for different limb types body1.getLimbType() == body2.getLimbType())
@@ -365,7 +365,7 @@ public class TransformationDifferences {
      * @param body2 Body: The second Body object
      * @return OpposableChange: The enum value that maps Body Part objects from body1 to body2
      */
-    public BodyPartGenerator.OpposableChange CheckOpposableChange(Body body1, Body body2)
+    public BodyPartEnums.OpposableChange CheckOpposableChange(Body body1, Body body2)
     {
 
         // Limb types: NA, ARMS2LEGS2, LEGS4, ARMS2LEGS2ARMWINGS2, LEGS4ARMWINGS2, LEGS2WINGS2, NOLIMBS, OTHER
@@ -374,19 +374,19 @@ public class TransformationDifferences {
         boolean backOpposable = false;
         BodyHand body1Hand;
 
-        if (body1.getLimbType() == BodyPartGenerator.LimbType.ARMS2LEGS2
-                || body1.getLimbType() == BodyPartGenerator.LimbType.ARMS2LEGS2ARMWINGS2)
+        if (body1.getLimbType() == BodyPartEnums.LimbType.ARMS2LEGS2
+                || body1.getLimbType() == BodyPartEnums.LimbType.ARMS2LEGS2ARMWINGS2)
         {
             body1Hand = (BodyHand) body1.getBodyPart("right hand");
             frontOpposable = body1Hand.isOpposable();
         }
-        else if (body1.getLimbType() == BodyPartGenerator.LimbType.LEGS4
-          ||  body1.getLimbType() == BodyPartGenerator.LimbType.LEGS4ARMWINGS2)
+        else if (body1.getLimbType() == BodyPartEnums.LimbType.LEGS4
+          ||  body1.getLimbType() == BodyPartEnums.LimbType.LEGS4ARMWINGS2)
         {
             body1Hand = (BodyHand) body1.getBodyPart("front ");
         }
 
-        return BodyPartGenerator.OpposableChange.NONE;
+        return BodyPartEnums.OpposableChange.NONE;
     }
 
     /**
@@ -395,9 +395,9 @@ public class TransformationDifferences {
      * @param body2 Body: The second Body object
      * @return BodyLimbTypeChange: The enum value that maps Body Part objects from body1 to body2
      */
-    public BodyPartGenerator.BodyLimbTypeChange CheckLimbChange(Body body1, Body body2)
+    public BodyPartEnums.BodyLimbTypeChange CheckLimbChange(Body body1, Body body2)
     {
-        return BodyPartGenerator.BodyLimbTypeChange.NONE;
+        return BodyPartEnums.BodyLimbTypeChange.NONE;
     }
 
 
@@ -408,8 +408,8 @@ public class TransformationDifferences {
      * @param limbChange BodyLimbTypeChange:    The enum value indicating how body limbs are mapped
      * @return String:  The String name that the BodyPart object should map to
      */
-    public String MatchingName(BodyPart bodypart, BodyPartGenerator.OpposableChange handChange,
-                               BodyPartGenerator.BodyLimbTypeChange limbChange)
+    public String MatchingName(BodyPart bodypart, BodyPartEnums.OpposableChange handChange,
+                               BodyPartEnums.BodyLimbTypeChange limbChange)
     {
         return bodypart.getName();
     }

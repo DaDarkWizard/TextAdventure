@@ -8,16 +8,16 @@ public class BodyMouth extends BodyPart
 {
 
 
-    protected BodyPartGenerator.TeethStyle teethStyle;
-    protected BodyPartGenerator.MouthStyle mouthStyle;
+    protected BodyPartEnums.TeethStyle teethStyle;
+    protected BodyPartEnums.MouthStyle mouthStyle;
     protected int numOfTeeth;
 
     public BodyMouth()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.MOUTH );
-        teethStyle = BodyPartGenerator.TeethStyle.SHARP;
-        mouthStyle = BodyPartGenerator.MouthStyle.WIDE;
+        this.setBodyPartType( BodyPartEnums.BodyPartType.MOUTH );
+        teethStyle = BodyPartEnums.TeethStyle.SHARP;
+        mouthStyle = BodyPartEnums.MouthStyle.WIDE;
         numOfTeeth = 40;
     }
 
@@ -31,10 +31,10 @@ public class BodyMouth extends BodyPart
         super(buffer);
         System.out.println( "In BodyMouth(Buffer) constructor" );
 
-        teethStyle = BodyPartGenerator.TeethStyle.fromOrdinal( buffer.getInt());
+        teethStyle = BodyPartEnums.TeethStyle.fromOrdinal( buffer.getInt());
         System.out.println( "Setting eye shape to " + teethStyle );
 
-        mouthStyle = BodyPartGenerator.MouthStyle.fromOrdinal( buffer.getInt());
+        mouthStyle = BodyPartEnums.MouthStyle.fromOrdinal( buffer.getInt());
         System.out.println( "Setting eye shape to " + mouthStyle );
 
         numOfTeeth = buffer.getInt();
@@ -55,12 +55,12 @@ public class BodyMouth extends BodyPart
     }
 
 
-    public void setTeethStyle( BodyPartGenerator.TeethStyle teethStyle )
+    public void setTeethStyle( BodyPartEnums.TeethStyle teethStyle )
     {
         this.teethStyle = teethStyle;
     }
 
-    public void setMouthStyle( BodyPartGenerator.MouthStyle mouthStyle )
+    public void setMouthStyle( BodyPartEnums.MouthStyle mouthStyle )
     {
         this.mouthStyle = mouthStyle;
     }
@@ -70,12 +70,12 @@ public class BodyMouth extends BodyPart
         this.numOfTeeth = numOfTeeth;
     }
 
-    public BodyPartGenerator.TeethStyle getTeethStyle()
+    public BodyPartEnums.TeethStyle getTeethStyle()
     {
         return teethStyle;
     }
 
-    public BodyPartGenerator.MouthStyle getMouthStyle()
+    public BodyPartEnums.MouthStyle getMouthStyle()
     {
         return mouthStyle;
     }
@@ -86,9 +86,9 @@ public class BodyMouth extends BodyPart
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.MOUTH;
+        return BodyPartEnums.BodyPartType.MOUTH;
     }
 
 
@@ -107,7 +107,7 @@ public class BodyMouth extends BodyPart
         tongue.setLength( tongueLength );
         tongue.setWeight( tongueWeight );
         tongue.setAboveBodyPart( this );
-        tongue.setTexture( BodyPartGenerator.Texture.MUSCLE );
+        tongue.setTexture( BodyPartEnums.Texture.MUSCLE );
         this.attachedBodyParts.add( tongue );
     }
 

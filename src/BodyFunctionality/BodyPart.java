@@ -29,10 +29,10 @@ public abstract class BodyPart
 {
 
     protected String name, description;
-    protected BodyPartGenerator.BodyPartType bodyPartType;
+    protected BodyPartEnums.BodyPartType bodyPartType;
     protected Color color;
-    protected BodyPartGenerator.Texture texture;
-    protected BodyPartGenerator.AnimalType animalType;
+    protected BodyPartEnums.Texture texture;
+    protected BodyPartEnums.AnimalType animalType;
 
     protected ArrayList<BodyFeature> features;
     protected ArrayList<Item> itemsWorn;
@@ -58,11 +58,11 @@ public abstract class BodyPart
     public BodyPart()
     {
         name="";
-        bodyPartType=BodyPartGenerator.BodyPartType.NA;
+        bodyPartType= BodyPartEnums.BodyPartType.NA;
         color=Color.BLACK;
-        texture=BodyPartGenerator.Texture.NA;
+        texture= BodyPartEnums.Texture.NA;
         description="";
-        animalType=BodyPartGenerator.AnimalType.NA;
+        animalType= BodyPartEnums.AnimalType.NA;
         features = new ArrayList<BodyFeature>(  );
         itemsWorn = new ArrayList<Item>(  );
         resistances = new ArrayList<Resistance>();
@@ -94,16 +94,16 @@ public abstract class BodyPart
         description = ByteBufferIO.getString( buffer );
         System.out.println( "Setting description to " + description );
 
-        bodyPartType = BodyPartGenerator.BodyPartType.fromOrdinal( buffer.getInt());
+        bodyPartType = BodyPartEnums.BodyPartType.fromOrdinal( buffer.getInt());
         System.out.println( "Setting bodyPartType to " + bodyPartType );
 
         color = ByteBufferIO.getColor( buffer );
         System.out.println( "Setting color to " + color );
 
-        texture = BodyPartGenerator.Texture.fromOrdinal( buffer.getInt());
+        texture = BodyPartEnums.Texture.fromOrdinal( buffer.getInt());
         System.out.println( "Setting texture to " + texture );
 
-        animalType = BodyPartGenerator.AnimalType.fromOrdinal( buffer.getInt());
+        animalType = BodyPartEnums.AnimalType.fromOrdinal( buffer.getInt());
         System.out.println( "Setting animalType to " + animalType );
 
         /*
@@ -188,7 +188,7 @@ public abstract class BodyPart
      */
     private ArrayList<BodyPart> copyArrayBodyPart(ArrayList<BodyPart> bodyPartList)
     {
-        BodyPartGenerator.BodyPartType copyType;
+        BodyPartEnums.BodyPartType copyType;
         BodyPart copiedPart;
 
         ArrayList<BodyPart> newList = new ArrayList<BodyPart>(  );
@@ -278,7 +278,7 @@ public abstract class BodyPart
      * Mutator method to set the animalType of the BodyPart
      * @param animalType AnimalType: The enum value representing the AnimalType
      */
-    public void setAnimalType( BodyPartGenerator.AnimalType animalType )
+    public void setAnimalType( BodyPartEnums.AnimalType animalType )
     {
         this.animalType = animalType;
     }
@@ -297,7 +297,7 @@ public abstract class BodyPart
      * Mutator method to set the BodyPartType of this BodyPart
      * @param type BodyPartType: The BodyPartType value of this BodyPart
      */
-    public void setBodyPartType( BodyPartGenerator.BodyPartType type )
+    public void setBodyPartType( BodyPartEnums.BodyPartType type )
     {
         this.bodyPartType = type;
     }
@@ -405,7 +405,7 @@ public abstract class BodyPart
      * Mutator method to set the Texture of the BodyPart
      * @param texture Texture: The Texture value of the BodyPart
      */
-    public void setTexture( BodyPartGenerator.Texture texture )
+    public void setTexture( BodyPartEnums.Texture texture )
     {
         this.texture = texture;
     }
@@ -447,7 +447,7 @@ public abstract class BodyPart
      * Accessor method to get the attached AnimalType
      * @return AnimalType: The AnimalType of the BodyPart
      */
-    public BodyPartGenerator.AnimalType getAnimalType()
+    public BodyPartEnums.AnimalType getAnimalType()
     {
         return animalType;
     }
@@ -465,7 +465,7 @@ public abstract class BodyPart
      * Accessor method to get the BodyPartType of the BodyPart
      * @return BodyPartType: The BodyPartType of the BodyPart
      */
-    public BodyPartGenerator.BodyPartType getBodyPartType()
+    public BodyPartEnums.BodyPartType getBodyPartType()
     {
         return bodyPartType;
     }
@@ -582,7 +582,7 @@ public abstract class BodyPart
      * Accessor method to get the Texture of the BodyPart
      * @return Texture: The Texture of the BodyPart
      */
-    public BodyPartGenerator.Texture getTexture()
+    public BodyPartEnums.Texture getTexture()
     {
         return texture;
     }
@@ -653,7 +653,7 @@ public abstract class BodyPart
         {
             this.color = color;
         }
-        else if(bodyPartType== BodyPartGenerator.BodyPartType.FINGER)
+        else if(bodyPartType== BodyPartEnums.BodyPartType.FINGER)
         {
             BodyFinger finger = (BodyFinger) this;
             finger.setNailColor( color );
@@ -804,9 +804,9 @@ public abstract class BodyPart
      * This returns the NA value, but may be overwritten
      * @return BodyPartType: returns NA
      */
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.NA;
+        return BodyPartEnums.BodyPartType.NA;
     }
 
 
@@ -888,7 +888,7 @@ public abstract class BodyPart
         this.animalType = creatureData.getAnimalTypeStyle();
         this.description = "A " + animalType.toString() + " " + side + " " + name;
         this.color = color;
-        this.bodyPartType = BodyPartGenerator.BodyPartType.NA;
+        this.bodyPartType = BodyPartEnums.BodyPartType.NA;
         this.texture = creatureData.getBodyTexture();
 
     }
@@ -1049,7 +1049,7 @@ public abstract class BodyPart
         {
             part = this;
         }
-        else if (this.getBodyPartType()== BodyPartGenerator.BodyPartType.BODY)
+        else if (this.getBodyPartType()== BodyPartEnums.BodyPartType.BODY)
         {
             Body thisBody = (Body) this;
 
@@ -1078,18 +1078,18 @@ public abstract class BodyPart
     private boolean isBodyColorPart()
     {
         boolean isBodyColor = false;
-        if ( bodyPartType == BodyPartGenerator.BodyPartType.FINGER
-            || bodyPartType == BodyPartGenerator.BodyPartType.HAND
-            || bodyPartType == BodyPartGenerator.BodyPartType.ARM
-            || bodyPartType == BodyPartGenerator.BodyPartType.WING
-            || bodyPartType == BodyPartGenerator.BodyPartType.HEAD
-            || bodyPartType == BodyPartGenerator.BodyPartType.MUZZLE
-            || bodyPartType == BodyPartGenerator.BodyPartType.TAIL
-            || bodyPartType == BodyPartGenerator.BodyPartType.EAR
-            || bodyPartType == BodyPartGenerator.BodyPartType.NOSE
-            || bodyPartType == BodyPartGenerator.BodyPartType.NECK
-            || bodyPartType == BodyPartGenerator.BodyPartType.CHEST
-            || bodyPartType == BodyPartGenerator.BodyPartType.BACK)
+        if ( bodyPartType == BodyPartEnums.BodyPartType.FINGER
+            || bodyPartType == BodyPartEnums.BodyPartType.HAND
+            || bodyPartType == BodyPartEnums.BodyPartType.ARM
+            || bodyPartType == BodyPartEnums.BodyPartType.WING
+            || bodyPartType == BodyPartEnums.BodyPartType.HEAD
+            || bodyPartType == BodyPartEnums.BodyPartType.MUZZLE
+            || bodyPartType == BodyPartEnums.BodyPartType.TAIL
+            || bodyPartType == BodyPartEnums.BodyPartType.EAR
+            || bodyPartType == BodyPartEnums.BodyPartType.NOSE
+            || bodyPartType == BodyPartEnums.BodyPartType.NECK
+            || bodyPartType == BodyPartEnums.BodyPartType.CHEST
+            || bodyPartType == BodyPartEnums.BodyPartType.BACK)
         {
             isBodyColor = true;
         }
@@ -1145,7 +1145,7 @@ public abstract class BodyPart
     private boolean isHornColorPart()
     {
         boolean isHornColor = false;
-        if (bodyPartType == BodyPartGenerator.BodyPartType.NAIL || bodyPartType == BodyPartGenerator.BodyPartType.HORN)
+        if (bodyPartType == BodyPartEnums.BodyPartType.NAIL || bodyPartType == BodyPartEnums.BodyPartType.HORN)
         {
             isHornColor = true;
         }

@@ -16,7 +16,7 @@ public class BodyHand extends BodyPart
     public BodyHand()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.HAND );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.HAND );
         opposable = false;
     }
 
@@ -62,9 +62,9 @@ public class BodyHand extends BodyPart
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.HAND;
+        return BodyPartEnums.BodyPartType.HAND;
     }
 
     @Override

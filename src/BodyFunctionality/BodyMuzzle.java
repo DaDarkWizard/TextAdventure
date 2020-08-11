@@ -10,7 +10,7 @@ public class BodyMuzzle extends BodyPart
     public BodyMuzzle()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.MUZZLE );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.MUZZLE );
     }
 
     /**
@@ -37,9 +37,9 @@ public class BodyMuzzle extends BodyPart
 
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.MUZZLE;
+        return BodyPartEnums.BodyPartType.MUZZLE;
     }
 
     @Override

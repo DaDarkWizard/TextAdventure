@@ -5,12 +5,12 @@ import java.nio.ByteBuffer;
 
 public class BodyChest extends BodyPart
 {
-    protected BodyPartGenerator.LimbType limbType;
+    protected BodyPartEnums.LimbType limbType;
 
     public BodyChest()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.CHEST );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.CHEST );
     }
 
     /**
@@ -34,9 +34,9 @@ public class BodyChest extends BodyPart
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.CHEST;
+        return BodyPartEnums.BodyPartType.CHEST;
     }
 
 

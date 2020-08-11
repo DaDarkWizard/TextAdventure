@@ -8,13 +8,13 @@ public class BodyWing extends BodyPart
 {
 
 
-    protected BodyPartGenerator.WingType wingType;
+    protected BodyPartEnums.WingType wingType;
 
     public BodyWing()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.WING );
-        wingType = BodyPartGenerator.WingType.BIRD;
+        this.setBodyPartType( BodyPartEnums.BodyPartType.WING );
+        wingType = BodyPartEnums.WingType.BIRD;
     }
 
     /**
@@ -27,7 +27,7 @@ public class BodyWing extends BodyPart
         super(buffer);
         System.out.println( "In BodyWing(Buffer) constructor" );
 
-        wingType = BodyPartGenerator.WingType.fromOrdinal( buffer.getInt());
+        wingType = BodyPartEnums.WingType.fromOrdinal( buffer.getInt());
         System.out.println( "Setting wing type to " + wingType );
 
     }
@@ -44,20 +44,20 @@ public class BodyWing extends BodyPart
 
 
 
-    public void setWingType( BodyPartGenerator.WingType wingType )
+    public void setWingType( BodyPartEnums.WingType wingType )
     {
         this.wingType = wingType;
     }
 
-    public BodyPartGenerator.WingType getWingType()
+    public BodyPartEnums.WingType getWingType()
     {
         return wingType;
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.WING;
+        return BodyPartEnums.BodyPartType.WING;
     }
 
 

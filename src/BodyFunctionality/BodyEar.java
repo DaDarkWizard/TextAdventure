@@ -7,13 +7,13 @@ import java.nio.ByteBuffer;
 
 public class BodyEar extends BodyPart
 {
-    protected BodyPartGenerator.EarShape earShape;
+    protected BodyPartEnums.EarShape earShape;
 
     public BodyEar()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.EAR );
-        earShape = BodyPartGenerator.EarShape.POINTED;
+        this.setBodyPartType( BodyPartEnums.BodyPartType.EAR );
+        earShape = BodyPartEnums.EarShape.POINTED;
     }
 
     /**
@@ -26,7 +26,7 @@ public class BodyEar extends BodyPart
         super(buffer);
         System.out.println( "In BodyEar(Buffer) constructor" );
 
-        earShape = BodyPartGenerator.EarShape.fromOrdinal( buffer.getInt());
+        earShape = BodyPartEnums.EarShape.fromOrdinal( buffer.getInt());
         System.out.println( "Setting ear shape to " + earShape );
 
     }
@@ -43,20 +43,20 @@ public class BodyEar extends BodyPart
 
 
 
-    public void setEarShape( BodyPartGenerator.EarShape earShape )
+    public void setEarShape( BodyPartEnums.EarShape earShape )
     {
         this.earShape = earShape;
     }
 
-    public BodyPartGenerator.EarShape getEarShape()
+    public BodyPartEnums.EarShape getEarShape()
     {
         return earShape;
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.EAR;
+        return BodyPartEnums.BodyPartType.EAR;
     }
 
     @Override

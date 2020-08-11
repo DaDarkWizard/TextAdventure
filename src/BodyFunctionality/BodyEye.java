@@ -9,14 +9,14 @@ public class BodyEye extends BodyPart
 {
 
 
-    protected BodyPartGenerator.PupilShape pupilShape;
+    protected BodyPartEnums.PupilShape pupilShape;
     protected Color pupilColor, scleraColor;
 
     public BodyEye()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.EYE );
-        pupilShape = BodyPartGenerator.PupilShape.ROUND;
+        this.setBodyPartType( BodyPartEnums.BodyPartType.EYE );
+        pupilShape = BodyPartEnums.PupilShape.ROUND;
         pupilColor = Color.BLACK;
         scleraColor = Color.WHITE;
     }
@@ -31,7 +31,7 @@ public class BodyEye extends BodyPart
         super(buffer);
         System.out.println( "In BodyEye(Buffer) constructor" );
 
-        pupilShape = BodyPartGenerator.PupilShape.fromOrdinal( buffer.getInt());
+        pupilShape = BodyPartEnums.PupilShape.fromOrdinal( buffer.getInt());
         System.out.println( "Setting eye shape to " + pupilShape );
 
         pupilColor = ByteBufferIO.getColor( buffer );
@@ -55,7 +55,7 @@ public class BodyEye extends BodyPart
     }
 
 
-    public void setPupilShape( BodyPartGenerator.PupilShape pupilShape )
+    public void setPupilShape( BodyPartEnums.PupilShape pupilShape )
     {
         this.pupilShape = pupilShape;
     }
@@ -70,7 +70,7 @@ public class BodyEye extends BodyPart
         this.scleraColor = scleraColor;
     }
 
-    public BodyPartGenerator.PupilShape getPupilShape()
+    public BodyPartEnums.PupilShape getPupilShape()
     {
         return pupilShape;
     }
@@ -86,9 +86,9 @@ public class BodyEye extends BodyPart
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.EYE;
+        return BodyPartEnums.BodyPartType.EYE;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class BodyEye extends BodyPart
     {
         super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
-        this.texture = BodyPartGenerator.Texture.EYE;
+        this.texture = BodyPartEnums.Texture.EYE;
         pupilColor = Color.BLACK;
         scleraColor = Color.WHITE;
         this.addSkill( new Skill("Vision: 5") );

@@ -8,7 +8,7 @@ public class BodyArm extends BodyPart
     public BodyArm()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.ARM );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.ARM );
 
     }
 
@@ -34,9 +34,9 @@ public class BodyArm extends BodyPart
 
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.ARM;
+        return BodyPartEnums.BodyPartType.ARM;
     }
 
     @Override
@@ -91,14 +91,14 @@ public class BodyArm extends BodyPart
         this.bodyPartType = bodyPartType();
 
         BodyHand hand = new BodyHand();
-        BodyPartGenerator.LimbType limbType = creatureData.getLimbStyle();
-        if (creatureData.isOpposable() && limbType == BodyPartGenerator.LimbType.LEGS2WINGS2)
+        BodyPartEnums.LimbType limbType = creatureData.getLimbStyle();
+        if (creatureData.isOpposable() && limbType == BodyPartEnums.LimbType.LEGS2WINGS2)
         {
             hand.createGraspingFoot("grasping foot", side, creatureData, color);
         }
-        else if ( limbType == BodyPartGenerator.LimbType.ARMS2LEGS2
-                || limbType == BodyPartGenerator.LimbType.ARMS2LEGS2ARMWINGS2
-                || limbType == BodyPartGenerator.LimbType.LEGS2WINGS2)
+        else if ( limbType == BodyPartEnums.LimbType.ARMS2LEGS2
+                || limbType == BodyPartEnums.LimbType.ARMS2LEGS2ARMWINGS2
+                || limbType == BodyPartEnums.LimbType.LEGS2WINGS2)
         {
             hand.createFoot("foot", side, creatureData, color);
         }

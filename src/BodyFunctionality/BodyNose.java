@@ -8,13 +8,13 @@ import java.nio.ByteBuffer;
 public class BodyNose extends BodyPart
 {
 
-    protected BodyPartGenerator.NoseShape noseShape;
+    protected BodyPartEnums.NoseShape noseShape;
 
     public BodyNose()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.NOSE );
-        noseShape = BodyPartGenerator.NoseShape.HIDDEN;
+        this.setBodyPartType( BodyPartEnums.BodyPartType.NOSE );
+        noseShape = BodyPartEnums.NoseShape.HIDDEN;
     }
 
     /**
@@ -27,7 +27,7 @@ public class BodyNose extends BodyPart
         super(buffer);
         System.out.println( "In BodyNose(Buffer) constructor" );
 
-        noseShape = BodyPartGenerator.NoseShape.fromOrdinal( buffer.getInt());
+        noseShape = BodyPartEnums.NoseShape.fromOrdinal( buffer.getInt());
         System.out.println( "Setting nose shape to " + noseShape );
 
     }
@@ -42,20 +42,20 @@ public class BodyNose extends BodyPart
         noseShape = oldPart.getNoseShape();
     }
 
-    public void setNoseShape( BodyPartGenerator.NoseShape noseShape )
+    public void setNoseShape( BodyPartEnums.NoseShape noseShape )
     {
         this.noseShape = noseShape;
     }
 
-    public BodyPartGenerator.NoseShape getNoseShape()
+    public BodyPartEnums.NoseShape getNoseShape()
     {
         return noseShape;
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.NOSE;
+        return BodyPartEnums.BodyPartType.NOSE;
     }
 
 

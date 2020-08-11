@@ -9,7 +9,7 @@ public class BodyNeck extends BodyPart
     public BodyNeck()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.NECK );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.NECK );
     }
 
     /**
@@ -34,9 +34,9 @@ public class BodyNeck extends BodyPart
 
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.NECK;
+        return BodyPartEnums.BodyPartType.NECK;
     }
 
 

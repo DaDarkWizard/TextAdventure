@@ -23,11 +23,11 @@ public class CreatureData
     protected void createFilenames()
     {
 
-        int creatureNumber = BodyPartGenerator.AnimalType.values().length;
+        int creatureNumber = BodyPartEnums.AnimalType.values().length;
         filenames = new String[creatureNumber];
         for(int i=0; i<creatureNumber; i++)
         {
-            filenames[i] = BodyPartGenerator.AnimalType.fromOrdinal( i ).toString().toLowerCase() + ".txt";
+            filenames[i] = BodyPartEnums.AnimalType.fromOrdinal( i ).toString().toLowerCase() + ".txt";
         }
 
     }
@@ -38,7 +38,7 @@ public class CreatureData
      */
     protected void loadCreatureData()
     {
-        int creatureNumber = BodyPartGenerator.AnimalType.values().length;
+        int creatureNumber = BodyPartEnums.AnimalType.values().length;
         CreatureDataObject  creature;
 
         for(int i=0; i<filenames.length; i++)
@@ -79,7 +79,7 @@ public class CreatureData
 
     }
 
-    public CreatureDataObject getCreatureDataObject( BodyPartGenerator.AnimalType animalType )
+    public CreatureDataObject getCreatureDataObject( BodyPartEnums.AnimalType animalType )
     {
         int size = size();
         boolean found = false;

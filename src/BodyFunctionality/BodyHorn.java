@@ -7,13 +7,13 @@ import java.nio.ByteBuffer;
 public class BodyHorn extends BodyPart
 {
 
-    protected BodyPartGenerator.HornStyle hornStyle;
+    protected BodyPartEnums.HornStyle hornStyle;
 
     public BodyHorn()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.HORN );
-        hornStyle = BodyPartGenerator.HornStyle.STRAIGHT;
+        this.setBodyPartType( BodyPartEnums.BodyPartType.HORN );
+        hornStyle = BodyPartEnums.HornStyle.STRAIGHT;
 
     }
 
@@ -27,7 +27,7 @@ public class BodyHorn extends BodyPart
         super(buffer);
         System.out.println( "In BodyEar(Buffer) constructor" );
 
-        hornStyle = BodyPartGenerator.HornStyle.fromOrdinal( buffer.getInt());
+        hornStyle = BodyPartEnums.HornStyle.fromOrdinal( buffer.getInt());
         System.out.println( "Setting ear shape to " + hornStyle );
 
     }
@@ -42,20 +42,20 @@ public class BodyHorn extends BodyPart
         hornStyle = oldPart.getHornStyle();
     }
 
-    public void setHornStyle( BodyPartGenerator.HornStyle hornStyle )
+    public void setHornStyle( BodyPartEnums.HornStyle hornStyle )
     {
         this.hornStyle = hornStyle;
     }
 
-    public BodyPartGenerator.HornStyle getHornStyle()
+    public BodyPartEnums.HornStyle getHornStyle()
     {
         return hornStyle;
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.HORN;
+        return BodyPartEnums.BodyPartType.HORN;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class BodyHorn extends BodyPart
     {
         super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
-        this.texture = BodyPartGenerator.Texture.BONE;
+        this.texture = BodyPartEnums.Texture.BONE;
 
     }
 

@@ -6,15 +6,15 @@ import java.nio.ByteBuffer;
 public class BodyFinger extends BodyPart
 {
     double nailLength;
-    BodyPartGenerator.Texture nailTexture;
+    BodyPartEnums.Texture nailTexture;
     Color nailColor;
 
     public BodyFinger()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.FINGER );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.FINGER );
         nailLength = 0.1;
-        nailTexture = BodyPartGenerator.Texture.NAIL;
+        nailTexture = BodyPartEnums.Texture.NAIL;
         nailColor = Color.WHITE;
     }
 
@@ -31,7 +31,7 @@ public class BodyFinger extends BodyPart
         nailLength = buffer.getDouble();
         System.out.println( "Setting fingernail length to " + nailLength );
 
-        nailTexture = BodyPartGenerator.Texture.fromOrdinal( buffer.getInt());
+        nailTexture = BodyPartEnums.Texture.fromOrdinal( buffer.getInt());
         System.out.println( "Setting nail texture to " + nailTexture );
 
         nailColor = ByteBufferIO.getColor( buffer );
@@ -56,7 +56,7 @@ public class BodyFinger extends BodyPart
         this.nailLength = nailLength;
     }
 
-    public void setNailTexture( BodyPartGenerator.Texture nailTexture )
+    public void setNailTexture( BodyPartEnums.Texture nailTexture )
     {
         this.nailTexture = nailTexture;
     }
@@ -71,7 +71,7 @@ public class BodyFinger extends BodyPart
         return nailLength;
     }
 
-    public BodyPartGenerator.Texture getNailTexture()
+    public BodyPartEnums.Texture getNailTexture()
     {
         return nailTexture;
     }
@@ -82,9 +82,9 @@ public class BodyFinger extends BodyPart
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.FINGER;
+        return BodyPartEnums.BodyPartType.FINGER;
     }
 
     @Override

@@ -14,8 +14,8 @@ public class BodyInternalBrain extends BodyPart
     public BodyInternalBrain()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.HEART );
-        this.setTexture( BodyPartGenerator.Texture.SPECIAL );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.HEART );
+        this.setTexture( BodyPartEnums.Texture.SPECIAL );
 
         maxBrainPower = 1;
         brainPower = 0;
@@ -73,9 +73,9 @@ public class BodyInternalBrain extends BodyPart
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.BRAIN;
+        return BodyPartEnums.BodyPartType.BRAIN;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class BodyInternalBrain extends BodyPart
     {
         super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
-        this.setTexture( BodyPartGenerator.Texture.SPECIAL );
+        this.setTexture( BodyPartEnums.Texture.SPECIAL );
 
         maxBrainPower = 1000;
         brainPower = 1000;

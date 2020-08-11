@@ -37,9 +37,9 @@ public class Body extends BodyPart
     protected int identifier;
     protected Player player;       //to do attach to player object if controlled by a player
 
-    protected BodyPartGenerator.Gender gender;
+    protected BodyPartEnums.Gender gender;
 
-    protected BodyPartGenerator.LimbType limbType; // the different kinds of limbs
+    protected BodyPartEnums.LimbType limbType; // the different kinds of limbs
 
     // attached body parts
     protected BodyNeck attachedNeck;
@@ -67,10 +67,10 @@ public class Body extends BodyPart
         identifier=nextIdentifier++;
         player = null;
         color = Color.BLACK;
-        gender = BodyPartGenerator.Gender.NA;
-        texture = BodyPartGenerator.Texture.NA;
-        animalType = BodyPartGenerator.AnimalType.NA;
-        limbType = BodyPartGenerator.LimbType.LEGS4;
+        gender = BodyPartEnums.Gender.NA;
+        texture = BodyPartEnums.Texture.NA;
+        animalType = BodyPartEnums.AnimalType.NA;
+        limbType = BodyPartEnums.LimbType.LEGS4;
 
         attachedNeck = null;
         attachedChest = null;
@@ -92,7 +92,7 @@ public class Body extends BodyPart
         maxHealth = 0;
         health = 0;
 
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.BODY);
+        this.setBodyPartType( BodyPartEnums.BodyPartType.BODY);
 
     }
 
@@ -126,10 +126,10 @@ public class Body extends BodyPart
         System.out.println( "Setting Body Player: " + player );
         */
 
-        gender = BodyPartGenerator.Gender.fromOrdinal( buffer.getInt());
+        gender = BodyPartEnums.Gender.fromOrdinal( buffer.getInt());
         System.out.println( "Setting Body Gender Type: " + gender);
 
-        limbType = BodyPartGenerator.LimbType.fromOrdinal( buffer.getInt());
+        limbType = BodyPartEnums.LimbType.fromOrdinal( buffer.getInt());
         System.out.println( "Setting Body Stance Type: " + limbType);
 
         //todo update get attached body parts
@@ -218,7 +218,7 @@ public class Body extends BodyPart
      * Mutator method to set the gender of a Body object
      * @param gender Gender: A Gender enum value
      */
-    public void setGender( BodyPartGenerator.Gender gender )
+    public void setGender( BodyPartEnums.Gender gender )
     {
         this.gender = gender;
     }
@@ -245,7 +245,7 @@ public class Body extends BodyPart
      * Mutator method to set the LimbType of a Body object
      * @param stance LimbType: A LimbType representing the configuration of Arms and Legs on the object
      */
-    public void setLimbType( BodyPartGenerator.LimbType stance )
+    public void setLimbType( BodyPartEnums.LimbType stance )
     {
         this.limbType = stance;
     }
@@ -319,7 +319,7 @@ public class Body extends BodyPart
      * Accessor method to get the gender associated with this object
      * @return Gender: The gender enum value associated with this Body object
      */
-    public BodyPartGenerator.Gender getGender()
+    public BodyPartEnums.Gender getGender()
     {
         return gender;
     }
@@ -356,7 +356,7 @@ public class Body extends BodyPart
      * Accessor method to get the limbType associated with this Body object
      * @return LimbType: the LimbType enum value associated with the limb types associated with this Body object
      */
-    public BodyPartGenerator.LimbType getLimbType()
+    public BodyPartEnums.LimbType getLimbType()
     {
         return limbType;
     }
@@ -386,16 +386,16 @@ public class Body extends BodyPart
      * Method to determine if hands and toes have opposable digits
      * @return  OpposableType: One of the enum OpposableTypes based on if hands or toes are opposable
      */
-    public BodyPartGenerator.OpposableType getOpposableType()
+    public BodyPartEnums.OpposableType getOpposableType()
     {
         boolean handsOpposable = false;
         boolean backFeetOpposable = false;
         BodyHand thisHand, thisFoot;
-        BodyPartGenerator.OpposableType opposableType= BodyPartGenerator.OpposableType.NONE;
+        BodyPartEnums.OpposableType opposableType= BodyPartEnums.OpposableType.NONE;
 
         // check if hands/front hands/front claws are opposable
-        if (limbType == BodyPartGenerator.LimbType.ARMS2LEGS2
-                || limbType == BodyPartGenerator.LimbType.ARMS2LEGS2ARMWINGS2)
+        if (limbType == BodyPartEnums.LimbType.ARMS2LEGS2
+                || limbType == BodyPartEnums.LimbType.ARMS2LEGS2ARMWINGS2)
         {
             thisHand = (BodyHand) getBodyPart("right hand");
             if (thisHand!=null)
@@ -412,8 +412,8 @@ public class Body extends BodyPart
 
             }
         }
-        else if (limbType == BodyPartGenerator.LimbType.LEGS4
-                ||  limbType == BodyPartGenerator.LimbType.LEGS4ARMWINGS2) {
+        else if (limbType == BodyPartEnums.LimbType.LEGS4
+                ||  limbType == BodyPartEnums.LimbType.LEGS4ARMWINGS2) {
             thisHand = (BodyHand) getBodyPart("front right claw");
             if (thisHand != null) {
                 handsOpposable = thisHand.isOpposable();
@@ -427,8 +427,8 @@ public class Body extends BodyPart
         }
 
         // check if feet/back claws are opposable
-        if (limbType == BodyPartGenerator.LimbType.ARMS2LEGS2
-                || limbType == BodyPartGenerator.LimbType.ARMS2LEGS2ARMWINGS2)
+        if (limbType == BodyPartEnums.LimbType.ARMS2LEGS2
+                || limbType == BodyPartEnums.LimbType.ARMS2LEGS2ARMWINGS2)
         {
             thisFoot = (BodyHand) getBodyPart("right foot");
             if (thisFoot!=null)
@@ -445,8 +445,8 @@ public class Body extends BodyPart
 
             }
         }
-        else if (limbType == BodyPartGenerator.LimbType.LEGS4
-                ||  limbType == BodyPartGenerator.LimbType.LEGS4ARMWINGS2)
+        else if (limbType == BodyPartEnums.LimbType.LEGS4
+                ||  limbType == BodyPartEnums.LimbType.LEGS4ARMWINGS2)
         {
             thisFoot = (BodyHand) getBodyPart("front right claw");
             if (thisFoot!=null)
@@ -464,7 +464,7 @@ public class Body extends BodyPart
             }
 
         }
-        else if(limbType == BodyPartGenerator.LimbType.LEGS2WINGS2)
+        else if(limbType == BodyPartEnums.LimbType.LEGS2WINGS2)
         {
             thisFoot = (BodyHand) getBodyPart("right claw");
             if (thisFoot!=null)
@@ -475,19 +475,19 @@ public class Body extends BodyPart
 
         if (handsOpposable&&backFeetOpposable)
         {
-            opposableType = BodyPartGenerator.OpposableType.HANDSFEET;
+            opposableType = BodyPartEnums.OpposableType.HANDSFEET;
         }
         else if (handsOpposable)
         {
-            opposableType = BodyPartGenerator.OpposableType.HANDS;
+            opposableType = BodyPartEnums.OpposableType.HANDS;
         }
         else if (backFeetOpposable)
         {
-            opposableType = BodyPartGenerator.OpposableType.FEET;
+            opposableType = BodyPartEnums.OpposableType.FEET;
         }
         else
         {
-            opposableType = BodyPartGenerator.OpposableType.NONE;
+            opposableType = BodyPartEnums.OpposableType.NONE;
         }
 
         return opposableType;
@@ -538,9 +538,9 @@ public class Body extends BodyPart
      * @return BodyPartType: BODY
      */
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.BODY;
+        return BodyPartEnums.BodyPartType.BODY;
     }
 
     /**

@@ -12,7 +12,7 @@ public class BodyHead extends BodyPart
     public BodyHead()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.HEAD );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.HEAD );
         muzzled = true;
     }
 
@@ -57,9 +57,9 @@ public class BodyHead extends BodyPart
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.HEAD;
+        return BodyPartEnums.BodyPartType.HEAD;
     }
 
     @Override
@@ -176,7 +176,7 @@ public class BodyHead extends BodyPart
         leftEar.setAboveBodyPart( this );
         leftEar.setLength( earSize );
         leftEar.setWeight( earWeight );
-        leftEar.setEarShape( BodyPartGenerator.EarShape.ROUND );
+        leftEar.setEarShape( BodyPartEnums.EarShape.ROUND );
         this.attachedBodyParts.add( leftEar );
 
         BodyEar rightEar = new BodyEar();
@@ -184,7 +184,7 @@ public class BodyHead extends BodyPart
         rightEar.setLength( earSize );
         rightEar.setWeight( earWeight );
         rightEar.setAboveBodyPart( this );
-        rightEar.setEarShape( BodyPartGenerator.EarShape.ROUND );
+        rightEar.setEarShape( BodyPartEnums.EarShape.ROUND );
 
         this.attachedBodyParts.add( rightEar );
 

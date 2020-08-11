@@ -29,7 +29,7 @@ public interface CreatureCreationInterface
     double getAverageEarLength();
     double getRandomEarLength();
 
-    BodyPartGenerator.EarShape getEarShape();
+    BodyPartEnums.EarShape getEarShape();
 
     double getMinEyeLength();
     double getMaxEyeLength();
@@ -46,7 +46,7 @@ public interface CreatureCreationInterface
     int getToeCount();
     boolean isOpposable();
 
-    BodyPartGenerator.LimbType getLimbStyle();
+    BodyPartEnums.LimbType getLimbStyle();
 
     double getMinHandLength();
     double getMaxHandLength();
@@ -66,15 +66,15 @@ public interface CreatureCreationInterface
     double getRandomHornLength();
 
     boolean isHorned();
-    BodyPartGenerator.HornStyle getHornStyle();
+    BodyPartEnums.HornStyle getHornStyle();
 
     double getMinMouthLength();
     double getMaxMouthLength();
     double getAverageMouthLength();
     double getRandomMouthLength();
 
-    BodyPartGenerator.MouthStyle getMouthStyle();
-    BodyPartGenerator.TeethStyle getTeethStyle();
+    BodyPartEnums.MouthStyle getMouthStyle();
+    BodyPartEnums.TeethStyle getTeethStyle();
     int getTeethCount();
 
     double getMinMuzzleLength();
@@ -99,7 +99,7 @@ public interface CreatureCreationInterface
     double getAverageNoseLength();
     double getRandomNoseLength();
 
-    BodyPartGenerator.NoseShape getNoseShape();
+    BodyPartEnums.NoseShape getNoseShape();
 
     double getMinTailLength();
     double getMaxTailLength();
@@ -108,7 +108,7 @@ public interface CreatureCreationInterface
 
     boolean isTailed();
 
-    BodyPartGenerator.TailType getTailType();
+    BodyPartEnums.TailType getTailType();
 
     double getMinTongueLength();
     double getMaxTongueLength();
@@ -133,9 +133,9 @@ public interface CreatureCreationInterface
     int getAverageMaxHealth();
     int getRandomMaxHealth();
 
-    BodyPartGenerator.Gender getRandomGender();
+    BodyPartEnums.Gender getRandomGender();
 
-    BodyPartGenerator.Texture getBodyTexture();
+    BodyPartEnums.Texture getBodyTexture();
 
     // one of possible colors for the body
     ArrayList<Color> getBodyColors();

@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class CreatureDataObject implements CreatureCreationInterface
 {
 
-    protected BodyPartGenerator.AnimalType animalTypeStyle;
+    protected BodyPartEnums.AnimalType animalTypeStyle;
     protected String animalName;
 
     protected double defaultArmLength, defaultBackLength, defaultEarLength, defaultEyeLength, defaultFingerLength,
@@ -21,15 +21,15 @@ public class CreatureDataObject implements CreatureCreationInterface
 
     protected boolean opposable, horned, muzzled, tailed, winged;
 
-    protected BodyPartGenerator.Texture bodyTextureStyle;
-    protected BodyPartGenerator.EarShape earShape;
-    protected BodyPartGenerator.HornStyle hornStyle;
-    protected BodyPartGenerator.LimbType limbStyle;
-    protected BodyPartGenerator.MouthStyle mouthStyle;
-    protected BodyPartGenerator.Texture nailStyle;
-    protected BodyPartGenerator.NoseShape noseShape;
-    protected BodyPartGenerator.TailType tailType;
-    protected BodyPartGenerator.TeethStyle teethStyle;
+    protected BodyPartEnums.Texture bodyTextureStyle;
+    protected BodyPartEnums.EarShape earShape;
+    protected BodyPartEnums.HornStyle hornStyle;
+    protected BodyPartEnums.LimbType limbStyle;
+    protected BodyPartEnums.MouthStyle mouthStyle;
+    protected BodyPartEnums.Texture nailStyle;
+    protected BodyPartEnums.NoseShape noseShape;
+    protected BodyPartEnums.TailType tailType;
+    protected BodyPartEnums.TeethStyle teethStyle;
 
     protected int fingerCount, toeCount, teethCount;
 
@@ -69,7 +69,7 @@ public class CreatureDataObject implements CreatureCreationInterface
         {
             Scanner data = new Scanner(creatureFile);
 
-            animalTypeStyle = BodyPartGenerator.AnimalType.valueOf( data.nextLine() );
+            animalTypeStyle = BodyPartEnums.AnimalType.valueOf( data.nextLine() );
             animalName = data.nextLine();
             defaultArmLength = data.nextDouble();
             defaultBackLength = data.nextDouble();
@@ -98,15 +98,15 @@ public class CreatureDataObject implements CreatureCreationInterface
 
             data.nextLine();            //needed to eat line feed
 
-            bodyTextureStyle = BodyPartGenerator.Texture.valueOf( data.nextLine() );
-            earShape = BodyPartGenerator.EarShape.valueOf( data.nextLine() );
-            hornStyle = BodyPartGenerator.HornStyle.valueOf( data.nextLine() );
-            limbStyle = BodyPartGenerator.LimbType.valueOf( data.nextLine() );
-            mouthStyle = BodyPartGenerator.MouthStyle.valueOf( data.nextLine() );
-            nailStyle = BodyPartGenerator.Texture.valueOf( data.nextLine() );
-            noseShape = BodyPartGenerator.NoseShape.valueOf( data.nextLine() );
-            tailType = BodyPartGenerator.TailType.valueOf( data.nextLine() );
-            teethStyle = BodyPartGenerator.TeethStyle.valueOf( data.nextLine() );
+            bodyTextureStyle = BodyPartEnums.Texture.valueOf( data.nextLine() );
+            earShape = BodyPartEnums.EarShape.valueOf( data.nextLine() );
+            hornStyle = BodyPartEnums.HornStyle.valueOf( data.nextLine() );
+            limbStyle = BodyPartEnums.LimbType.valueOf( data.nextLine() );
+            mouthStyle = BodyPartEnums.MouthStyle.valueOf( data.nextLine() );
+            nailStyle = BodyPartEnums.Texture.valueOf( data.nextLine() );
+            noseShape = BodyPartEnums.NoseShape.valueOf( data.nextLine() );
+            tailType = BodyPartEnums.TailType.valueOf( data.nextLine() );
+            teethStyle = BodyPartEnums.TeethStyle.valueOf( data.nextLine() );
 
             fingerCount = data.nextInt();
             toeCount = data.nextInt();
@@ -195,7 +195,7 @@ public class CreatureDataObject implements CreatureCreationInterface
 
     protected void setBlankValues()
     {
-        animalTypeStyle = BodyPartGenerator.AnimalType.NA;
+        animalTypeStyle = BodyPartEnums.AnimalType.NA;
         animalName="";
 
         defaultArmLength = 0.0;
@@ -223,15 +223,15 @@ public class CreatureDataObject implements CreatureCreationInterface
         tailed = false;
         winged = false;
 
-        bodyTextureStyle = BodyPartGenerator.Texture.NA;
-        earShape = BodyPartGenerator.EarShape.NA;
-        hornStyle = BodyPartGenerator.HornStyle.NA;
-        limbStyle = BodyPartGenerator.LimbType.NA;
-        mouthStyle = BodyPartGenerator.MouthStyle.NA;
-        nailStyle = BodyPartGenerator.Texture.NA;
-        noseShape = BodyPartGenerator.NoseShape.NA;
-        tailType = BodyPartGenerator.TailType.NA;
-        teethStyle = BodyPartGenerator.TeethStyle.NA;
+        bodyTextureStyle = BodyPartEnums.Texture.NA;
+        earShape = BodyPartEnums.EarShape.NA;
+        hornStyle = BodyPartEnums.HornStyle.NA;
+        limbStyle = BodyPartEnums.LimbType.NA;
+        mouthStyle = BodyPartEnums.MouthStyle.NA;
+        nailStyle = BodyPartEnums.Texture.NA;
+        noseShape = BodyPartEnums.NoseShape.NA;
+        tailType = BodyPartEnums.TailType.NA;
+        teethStyle = BodyPartEnums.TeethStyle.NA;
 
         fingerCount = 0;
         toeCount = 0;
@@ -308,7 +308,7 @@ public class CreatureDataObject implements CreatureCreationInterface
 
 
 
-    public void setAnimalTypeStyle( BodyPartGenerator.AnimalType animalTypeStyle )
+    public void setAnimalTypeStyle( BodyPartEnums.AnimalType animalTypeStyle )
     {
         this.animalTypeStyle = animalTypeStyle;
     }
@@ -424,7 +424,7 @@ public class CreatureDataObject implements CreatureCreationInterface
         this.defaultWingLength = defaultWingLength;
     }
 
-    public void setEarShape( BodyPartGenerator.EarShape earShape )
+    public void setEarShape( BodyPartEnums.EarShape earShape )
     {
         this.earShape = earShape;
     }
@@ -434,7 +434,7 @@ public class CreatureDataObject implements CreatureCreationInterface
         this.inventory = inventory;
     }
 
-    public void setNoseShape( BodyPartGenerator.NoseShape noseShape )
+    public void setNoseShape( BodyPartEnums.NoseShape noseShape )
     {
         this.noseShape = noseShape;
     }
@@ -469,7 +469,7 @@ public class CreatureDataObject implements CreatureCreationInterface
         this.tailed = tailed;
     }
 
-    public void setTailType( BodyPartGenerator.TailType tailType )
+    public void setTailType( BodyPartEnums.TailType tailType )
     {
         this.tailType = tailType;
     }
@@ -479,32 +479,32 @@ public class CreatureDataObject implements CreatureCreationInterface
         this.winged = winged;
     }
 
-    public void setBodyTextureStyle( BodyPartGenerator.Texture bodyTextureStyle )
+    public void setBodyTextureStyle( BodyPartEnums.Texture bodyTextureStyle )
     {
         this.bodyTextureStyle = bodyTextureStyle;
     }
 
-    public void setHornStyle( BodyPartGenerator.HornStyle hornStyle )
+    public void setHornStyle( BodyPartEnums.HornStyle hornStyle )
     {
         this.hornStyle = hornStyle;
     }
 
-    public void setLimbStyle( BodyPartGenerator.LimbType limbStyle )
+    public void setLimbStyle( BodyPartEnums.LimbType limbStyle )
     {
         this.limbStyle = limbStyle;
     }
 
-    public void setMouthStyle( BodyPartGenerator.MouthStyle mouthStyle )
+    public void setMouthStyle( BodyPartEnums.MouthStyle mouthStyle )
     {
         this.mouthStyle = mouthStyle;
     }
 
-    public void setNailStyle( BodyPartGenerator.Texture nailStyle )
+    public void setNailStyle( BodyPartEnums.Texture nailStyle )
     {
         this.nailStyle = nailStyle;
     }
 
-    public void setTeethStyle( BodyPartGenerator.TeethStyle teethStyle )
+    public void setTeethStyle( BodyPartEnums.TeethStyle teethStyle )
     {
         this.teethStyle = teethStyle;
     }
@@ -535,7 +535,7 @@ public class CreatureDataObject implements CreatureCreationInterface
     }
 
 
-    public BodyPartGenerator.AnimalType getAnimalTypeStyle()
+    public BodyPartEnums.AnimalType getAnimalTypeStyle()
     {
         return animalTypeStyle;
     }
@@ -589,7 +589,7 @@ public class CreatureDataObject implements CreatureCreationInterface
     }
 
 
-    public BodyPartGenerator.Texture getBodyTexture()
+    public BodyPartEnums.Texture getBodyTexture()
     {
         return bodyTextureStyle;
     }
@@ -615,7 +615,7 @@ public class CreatureDataObject implements CreatureCreationInterface
         return randomFactor() * defaultEarLength;
     }
 
-    public BodyPartGenerator.EarShape getEarShape()
+    public BodyPartEnums.EarShape getEarShape()
     {
         return earShape;
     }
@@ -742,12 +742,12 @@ public class CreatureDataObject implements CreatureCreationInterface
         return horned;
     }
 
-    public BodyPartGenerator.HornStyle getHornStyle()
+    public BodyPartEnums.HornStyle getHornStyle()
     {
         return hornStyle;
     }
 
-    public BodyPartGenerator.LimbType getLimbStyle()
+    public BodyPartEnums.LimbType getLimbStyle()
     {
         return limbStyle;
     }
@@ -772,12 +772,12 @@ public class CreatureDataObject implements CreatureCreationInterface
         return randomFactor() * defaultMouthLength;
     }
 
-    public BodyPartGenerator.MouthStyle getMouthStyle()
+    public BodyPartEnums.MouthStyle getMouthStyle()
     {
         return mouthStyle;
     }
 
-    public BodyPartGenerator.TeethStyle getTeethStyle()
+    public BodyPartEnums.TeethStyle getTeethStyle()
     {
         return teethStyle;
     }
@@ -792,9 +792,9 @@ public class CreatureDataObject implements CreatureCreationInterface
      * Method to return a random gender (MALE = 1, FEMALE = 2)  todo update if some creatures have no gender
      * @return BodyPartGenerator.Gender: a Gender object
      */
-    public BodyPartGenerator.Gender getRandomGender()
+    public BodyPartEnums.Gender getRandomGender()
     {
-        return BodyPartGenerator.Gender.fromOrdinal( randomNumbers.nextInt(2) + 1 );
+        return BodyPartEnums.Gender.fromOrdinal( randomNumbers.nextInt(2) + 1 );
     }
 
 
@@ -844,7 +844,7 @@ public class CreatureDataObject implements CreatureCreationInterface
         return randomFactor() * defaultNailLength;
     }
 
-    public BodyPartGenerator.Texture getNailStyle()
+    public BodyPartEnums.Texture getNailStyle()
     {
         return nailStyle;
     }
@@ -890,7 +890,7 @@ public class CreatureDataObject implements CreatureCreationInterface
         return randomFactor() * defaultNoseLength;
     }
 
-    public BodyPartGenerator.NoseShape getNoseShape()
+    public BodyPartEnums.NoseShape getNoseShape()
     {
         return noseShape;
     }
@@ -936,7 +936,7 @@ public class CreatureDataObject implements CreatureCreationInterface
         return value;
     }
 
-    public BodyPartGenerator.TailType getTailType()
+    public BodyPartEnums.TailType getTailType()
     {
         return tailType;
     }

@@ -9,12 +9,12 @@ public interface BodyPartInterface
 {
 
     // method that updates a BodyPart object
-    void create( String name, String side, BodyPartGenerator.AnimalType animalType, Color color);
+    void create(String name, String side, BodyPartEnums.AnimalType animalType, Color color);
 
 
     String toString();
 
-    BodyPartGenerator.BodyPartType bodyPartType();
+    BodyPartEnums.BodyPartType bodyPartType();
 
     ByteBuffer toBuffer();
 

@@ -14,8 +14,8 @@ public class BodyInternalHeart extends BodyPart
     public BodyInternalHeart()
     {
         super();
-        this.setBodyPartType( BodyPartGenerator.BodyPartType.HEART );
-        this.setTexture( BodyPartGenerator.Texture.SPECIAL );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.HEART );
+        this.setTexture( BodyPartEnums.Texture.SPECIAL );
 
         maxEnergy = 1;
         energy = 0;
@@ -73,9 +73,9 @@ public class BodyInternalHeart extends BodyPart
     }
 
     @Override
-    public BodyPartGenerator.BodyPartType bodyPartType()
+    public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartGenerator.BodyPartType.HEART;
+        return BodyPartEnums.BodyPartType.HEART;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class BodyInternalHeart extends BodyPart
     {
         super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
-        this.setTexture( BodyPartGenerator.Texture.SPECIAL );
+        this.setTexture( BodyPartEnums.Texture.SPECIAL );
 
 
         maxEnergy = 1000;
