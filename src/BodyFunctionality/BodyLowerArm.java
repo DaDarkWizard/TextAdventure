@@ -1,14 +1,15 @@
 package BodyFunctionality;
 
 import javafx.scene.paint.Color;
+
 import java.nio.ByteBuffer;
 
-public class BodyArm extends BodyPart
+public class BodyLowerArm extends BodyPart
 {
-    public BodyArm()
+    public BodyLowerArm()
     {
         super();
-        this.setBodyPartType( BodyPartEnums.BodyPartType.ARM );
+        this.setBodyPartType( BodyPartEnums.BodyPartType.LOWERARM );
 
     }
 
@@ -18,7 +19,7 @@ public class BodyArm extends BodyPart
      *
      * @param buffer ByteBuffer: The buffer containing the BodyArm data
      */
-    public BodyArm( ByteBuffer buffer)
+    public BodyLowerArm(ByteBuffer buffer)
     {
         super(buffer);
     }
@@ -27,7 +28,7 @@ public class BodyArm extends BodyPart
      * Copy Constructor
      * @param oldPart BodyArm:  The original part to copy
      */
-    public BodyArm(BodyArm oldPart)
+    public BodyLowerArm(BodyLowerArm oldPart)
     {
         super(oldPart);
     }
@@ -36,7 +37,7 @@ public class BodyArm extends BodyPart
     @Override
     public BodyPartEnums.BodyPartType bodyPartType()
     {
-        return BodyPartEnums.BodyPartType.ARM;
+        return BodyPartEnums.BodyPartType.LOWERARM;
     }
 
     @Override
@@ -50,7 +51,7 @@ public class BodyArm extends BodyPart
         super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
 
-        BodyArm lowerArm = new BodyArm();
+        BodyLowerArm lowerArm = new BodyLowerArm();
         lowerArm.createLowerArm("lower arm", side, creatureData, color);
         lowerArm.setAboveBodyPart( this );
         this.attachedBodyParts.add( lowerArm );
@@ -79,7 +80,7 @@ public class BodyArm extends BodyPart
         super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
 
-        BodyArm lowerLeg = new BodyArm();
+        BodyLowerArm lowerLeg = new BodyLowerArm();
         lowerLeg.createLowerLeg("upper leg", side, creatureData, color);
         lowerLeg.setAboveBodyPart( this );
         this.attachedBodyParts.add( lowerLeg );
@@ -117,7 +118,7 @@ public class BodyArm extends BodyPart
         super.create(name, side, creatureData, color);
         this.bodyPartType = bodyPartType();
 
-        BodyArm lowerArm = new BodyArm();
+        BodyLowerArm lowerArm = new BodyLowerArm();
         lowerArm.createLowerArm("lower wing arm", side, creatureData, color);
         lowerArm.setAboveBodyPart( this );
         this.attachedBodyParts.add( lowerArm );

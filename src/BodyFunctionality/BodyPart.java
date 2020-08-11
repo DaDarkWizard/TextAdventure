@@ -183,6 +183,7 @@ public abstract class BodyPart
 
     /**
      * Constructor assisting method to create an ArrayList of BodyParts
+     * todo check if internal body parts needed
      * @param bodyPartList ArrayList<BodyPart>: A list of BodyPart objects to copy
      * @return ArrayList<BodyPart></BodyPart> : A copy of the BodyPart objects
      */
@@ -198,9 +199,6 @@ public abstract class BodyPart
             copyType = bodyPartList.get( i ).bodyPartType;
             switch(copyType)
             {
-                case ARM:
-                    copiedPart = new BodyArm( (BodyArm) bodyPartList.get( i ) );
-                    break;
                 case BACK:
                     copiedPart = new BodyBack( (BodyBack) bodyPartList.get( i ) );
                     break;
@@ -225,6 +223,12 @@ public abstract class BodyPart
                 case HORN:
                     copiedPart = new BodyHorn( (BodyHorn) bodyPartList.get( i ) );
                     break;
+                case LOWERARM:
+                    copiedPart = new BodyLowerArm( (BodyLowerArm) bodyPartList.get( i ) );
+                    break;
+                case LOWERLEG:
+                    copiedPart = new BodyLowerLeg( (BodyLowerLeg) bodyPartList.get( i ) );
+                    break;
                 case MOUTH:
                     copiedPart = new BodyMouth( (BodyMouth) bodyPartList.get( i ) );
                     break;
@@ -242,6 +246,12 @@ public abstract class BodyPart
                     break;
                 case TONGUE:
                     copiedPart = new BodyTongue( (BodyTongue) bodyPartList.get( i ) );
+                    break;
+                case UPPERARM:
+                    copiedPart = new BodyUpperArm( (BodyUpperArm) bodyPartList.get( i ) );
+                    break;
+                case UPPERLEG:
+                    copiedPart = new BodyUpperLeg( (BodyUpperLeg) bodyPartList.get( i ) );
                     break;
                 case WING:
                     copiedPart = new BodyWing( (BodyWing) bodyPartList.get( i ) );
@@ -1080,7 +1090,10 @@ public abstract class BodyPart
         boolean isBodyColor = false;
         if ( bodyPartType == BodyPartEnums.BodyPartType.FINGER
             || bodyPartType == BodyPartEnums.BodyPartType.HAND
-            || bodyPartType == BodyPartEnums.BodyPartType.ARM
+            || bodyPartType == BodyPartEnums.BodyPartType.UPPERARM
+            || bodyPartType == BodyPartEnums.BodyPartType.UPPERLEG
+            || bodyPartType == BodyPartEnums.BodyPartType.LOWERARM
+            || bodyPartType == BodyPartEnums.BodyPartType.LOWERLEG
             || bodyPartType == BodyPartEnums.BodyPartType.WING
             || bodyPartType == BodyPartEnums.BodyPartType.HEAD
             || bodyPartType == BodyPartEnums.BodyPartType.MUZZLE

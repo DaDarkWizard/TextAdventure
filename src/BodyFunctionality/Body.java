@@ -45,7 +45,7 @@ public class Body extends BodyPart
     protected BodyNeck attachedNeck;
     protected BodyChest attachedChest;
     protected BodyBack attachedBack;
-    protected ArrayList<BodyArm> attachedLimbs;
+    protected ArrayList<BodyUpperArm> attachedLimbs;
     protected BodyTail attachedTail;
     protected ArrayList<BodyPart> internalBodyParts;
     protected ArrayList<BodyPart> bodyPartList;
@@ -75,7 +75,7 @@ public class Body extends BodyPart
         attachedNeck = null;
         attachedChest = null;
         attachedBack = null;
-        attachedLimbs = new ArrayList<BodyArm>();
+        attachedLimbs = new ArrayList<BodyUpperArm>();
         attachedTail = null;
 
         features = new ArrayList<BodyFeature>();
@@ -136,7 +136,7 @@ public class Body extends BodyPart
         attachedNeck = null;
         attachedChest = null;
         attachedBack = null;
-        attachedLimbs = new ArrayList<BodyArm>();
+        attachedLimbs = new ArrayList<BodyUpperArm>();
         attachedTail = null;
 
 
@@ -174,8 +174,8 @@ public class Body extends BodyPart
      * This method makes a deep copy of the ArrayList of BodyArm body parts
      * @param attachedLimbs ArrayList<BodyArm>: The ArrayList of BodyArm parts to attach
      */
-    public void setAttachedLimbs(ArrayList<BodyArm> attachedLimbs) {
-        this.attachedLimbs = new ArrayList<BodyArm>(attachedLimbs);
+    public void setAttachedLimbs(ArrayList<BodyUpperArm> attachedLimbs) {
+        this.attachedLimbs = new ArrayList<BodyUpperArm>(attachedLimbs);
     }
 
     /**

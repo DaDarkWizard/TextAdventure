@@ -61,12 +61,12 @@ public class BodyBack extends BodyPart
                 // create dragon like wings with arms
             case LEGS4ARMWINGS2:
             case ARMS2LEGS2ARMWINGS2:
-                BodyArm leftWingArm = new BodyArm();
+                BodyUpperArm leftWingArm = new BodyUpperArm();
                 leftWingArm.createUpperWingArm( "wing arm", "left", creatureData, color );
                 leftWingArm.setAboveBodyPart( this );
                 this.attachedBodyParts.add( leftWingArm );
 
-                BodyArm rightWingArm = new BodyArm();
+                BodyUpperArm rightWingArm = new BodyUpperArm();
                 rightWingArm.createUpperWingArm( "wing arm", "right", creatureData, color );
                 rightWingArm.setAboveBodyPart( this );
                 this.attachedBodyParts.add( rightWingArm );

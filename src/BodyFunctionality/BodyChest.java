@@ -51,22 +51,22 @@ public class BodyChest extends BodyPart
             //create 2 arms and 2 legs
             case ARMS2LEGS2:
             case ARMS2LEGS2ARMWINGS2:
-                BodyArm leftArm = new BodyArm();
+                BodyUpperArm leftArm = new BodyUpperArm();
                 leftArm.createUpperArm( "arm", "left", creatureData, color );
                 leftArm.setAboveBodyPart( this );
                 this.attachedBodyParts.add( leftArm );
 
-                BodyArm rightArm = new BodyArm();
+                BodyUpperArm rightArm = new BodyUpperArm();
                 rightArm.createUpperArm( "arm", "right", creatureData, color );
                 rightArm.setAboveBodyPart( this );
                 this.attachedBodyParts.add( rightArm );
 
-                BodyArm leftLeg = new BodyArm();
+                BodyUpperArm leftLeg = new BodyUpperArm();
                 leftLeg.createUpperLeg( "leg", "left", creatureData, color );
                 leftLeg.setAboveBodyPart( this );
                 this.attachedBodyParts.add( leftLeg );
 
-                BodyArm rightLeg = new BodyArm();
+                BodyUpperArm rightLeg = new BodyUpperArm();
                 rightLeg.createUpperLeg( "leg", "right", creatureData, color );
                 rightLeg.setAboveBodyPart( this );
                 this.attachedBodyParts.add( rightLeg );
@@ -75,22 +75,22 @@ public class BodyChest extends BodyPart
                 //create 4 legs
             case LEGS4:
             case LEGS4ARMWINGS2:
-                BodyArm leftFrontLeg = new BodyArm();
+                BodyUpperArm leftFrontLeg = new BodyUpperArm();
                 leftFrontLeg.createUpperLeg( "leg", "left front", creatureData, color );
                 leftFrontLeg.setAboveBodyPart( this );
                 this.attachedBodyParts.add( leftFrontLeg );
 
-                BodyArm rightFrontLeg = new BodyArm();
+                BodyUpperArm rightFrontLeg = new BodyUpperArm();
                 rightFrontLeg.createUpperLeg( "leg", "right front", creatureData, color );
                 rightFrontLeg.setAboveBodyPart( this );
                 this.attachedBodyParts.add( rightFrontLeg );
 
-                BodyArm leftBackLeg = new BodyArm();
+                BodyUpperArm leftBackLeg = new BodyUpperArm();
                 leftBackLeg.createUpperLeg( "leg", "left back", creatureData, color );
                 leftBackLeg.setAboveBodyPart( this );
                 this.attachedBodyParts.add( leftBackLeg );
 
-                BodyArm rightBackLeg = new BodyArm();
+                BodyUpperArm rightBackLeg = new BodyUpperArm();
                 rightBackLeg.createUpperLeg( "leg", "right back", creatureData, color );
                 rightBackLeg.setAboveBodyPart( this );
                 this.attachedBodyParts.add( rightBackLeg );
@@ -98,12 +98,12 @@ public class BodyChest extends BodyPart
 
                 //create 2 legs
             case LEGS2WINGS2:
-                BodyArm leftLeg1 = new BodyArm();
+                BodyUpperArm leftLeg1 = new BodyUpperArm();
                 leftLeg1.createUpperLeg( "leg", "left", creatureData, color );
                 leftLeg1.setAboveBodyPart( this );
                 this.attachedBodyParts.add( leftLeg1 );
 
-                BodyArm rightLeg1 = new BodyArm();
+                BodyUpperArm rightLeg1 = new BodyUpperArm();
                 rightLeg1.createUpperLeg( "leg", "right", creatureData, color );
                 rightLeg1.setAboveBodyPart( this );
                 this.attachedBodyParts.add( rightLeg1 );

@@ -401,9 +401,6 @@ public class ByteBufferIO
 
             switch(partType)
             {
-                case ARM:
-                    bodyPart = new BodyArm( buffer );
-                    break;
                 case BACK:
                     bodyPart = new BodyBack( buffer );
                     break;
@@ -428,6 +425,12 @@ public class ByteBufferIO
                 case HORN:
                     bodyPart = new BodyHorn( buffer );
                     break;
+                case LOWERARM:
+                    bodyPart = new BodyLowerArm( buffer );
+                    break;
+                case LOWERLEG:
+                    bodyPart = new BodyLowerLeg( buffer );
+                    break;
                 case MOUTH:
                     bodyPart = new BodyMouth( buffer );
                     break;
@@ -445,6 +448,12 @@ public class ByteBufferIO
                     break;
                 case TONGUE:
                     bodyPart = new BodyTongue( buffer );
+                    break;
+                case UPPERARM:
+                    bodyPart = new BodyUpperArm( buffer );
+                    break;
+                case UPPERLEG:
+                    bodyPart = new BodyUpperLeg( buffer );
                     break;
                 case WING:
                     bodyPart = new BodyWing( buffer );

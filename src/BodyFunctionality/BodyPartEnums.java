@@ -35,7 +35,7 @@ public class BodyPartEnums
     /**
      * The enum BodyPartType is used to note the kind of Body Part is being accessed
      */
-    public enum BodyPartType{ NA, FINGER, HAND, ARM, WING, HEAD, MUZZLE, NAIL, HORN, TAIL, TONGUE, EYE, EAR, NOSE, MOUTH,
+    public enum BodyPartType{ NA, FINGER, HAND, UPPERARM, UPPERLEG, LOWERARM, LOWERLEG, WING, HEAD, MUZZLE, NAIL, HORN, TAIL, TONGUE, EYE, EAR, NOSE, MOUTH,
         NECK, CHEST, BACK, STOMACH, HEART, BRAIN, GLAND, BODY, SPECIAL;
         // enum methods to allow for retrieving type from integers
         private static final BodyPartType[] allValues = values();
