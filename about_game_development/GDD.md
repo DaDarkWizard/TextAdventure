@@ -70,7 +70,11 @@ The player and other creatures will have body classes, composed of different bod
 
 ### Client/Server:
 
-The game will be client/server based, with one server responding to many client requests. Packets sent will with a file length and message type.
+The game will be client/server based, with one server responding to many client requests. Packets sent will contain a file length and message type.
+
+### Clothing:
+
+It is suggested that one cosmetic item be allowed to be clothed on each body part, with the option of other players to hide the cosmetic items.
 
 ### Conditions:
 
@@ -79,10 +83,30 @@ Some conditions can be placed on players.
 ### Crafting:
 
 Some items can be crafted from other items. Some NPCS and monsters can craft items.
+_ _ _ _ _ _
+Sword
+
+Iron Bar X2
+Wood Handle X1
+Leather Strips x2
+
+Station: Anvil  
+
+### Creatures:
+
+Different types of creatures may exist in the world, such as cows, chickens and pigs, also humans, dragons, nagas, rats, dryads and many other kinds of creatures.  Also see Monsters.
 
 ### Curses:
 
 Some items may be cursed, that is they may have detrimental effects to statuses, may lower stat values, or may lock onto a player’s body when equipped.
+
+### Economy:
+
+An economy exists with coin and other possible trading money.  The economy is a mixture of player driven and NPC trading.  Players may also be able to trade items with one another.  Guilds may offer tasks for coin.  Items may have varying value based on supply and demand, and items may be harvested from various locations.  Various services may be taxed.
+
+### Entertainment:
+
+Entertainment has been mentioned with various professions of entertainment allowed (dancers, musicians, artists, etc.)  A suggestion of side games (i.e. fishing, opera, races) have been suggested, with unanswered questions allowing movies, animations, arena battles, jousting, and Olympics as implemented forms of entertainment.
 
 ### Equipment:
 
@@ -90,11 +114,7 @@ Equipment exists and can be equipped to various body parts. Equipment may be lim
 
 ### Events:
 
-Periodic events will occur in the world, giving players the chance to complete unique quests and obtain items.
-
-### The Game World:
-
-The world has 2-D maps to explore. There are permanent city areas than can be developed, different levels of maps/mazes can be randomly generated; there will be quests for players to follow and NPCS to interact with
+Periodic events will occur in the world, giving players the chance to complete unique quests and obtain items, also possibly creating history, location landmarks, and opening up new civilizations and cities.
 
 ### Guilds:
 
@@ -143,6 +163,10 @@ A player may be affected by status conditions. Such status conditions may cause 
 ### Transformation:
 
 There are conditions or effects that can cause bodies to transform from one creature to another, this could happen quickly or slowly. A character’s hands could transform into wyvern wings, the skin type could change from skin to hair, A tail could develop, body parts could grow or shrink, color could change, features could be added or lost. It is unknown how much of a role this will be in game play at this time.
+
+### World:
+
+The world has 2-D maps to explore. There are permanent city areas than can be developed, different levels of maps/mazes can be randomly generated; there will be quests for players to follow and NPCS to interact with
 
 ## Key Dates:
 
