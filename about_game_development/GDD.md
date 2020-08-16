@@ -156,6 +156,15 @@ Maps will be randomly generated as mazes in a 2-D environment, with players and 
 
 Medicine used to heal players include potions, surgeries through doctors, herbal remedies, and healing crystals, along with a player healing over time.  Medicine can give buffs, but healing takes time and is not instantaneous.
 
+### Menus:
+
+Clickable menus are planned when it is necessary for a player to choose to activate an active skill.  This will be further developed later.
+![Drawing of example menu](player_menu.png "Drawing of example menu")
+
+### Money:
+
+Money will consist of coins and possibly other material.  Money can be used to purchase and sell items, and may also be taxed.
+
 ### Monsters:
 
 Monsters will be initially generated randomly when a 2-D map is generated. Monsters will be able to use items and craft items and interact with players, sometimes attacking them. Loot drops from monsters are uncertain at this time. Monsters have health and have skills that can create conditions on a player and may cause transformation effects
