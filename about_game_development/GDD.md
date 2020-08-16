@@ -173,21 +173,85 @@ Monsters will be initially generated randomly when a 2-D map is generated. Monst
 
 NPCs exist that can chat with players, craft items, give quests, and buy or sell items. The prices of items can vary by NPC and over time due to supply and demand.
 
+### Professions:
+
+There are many possible professions, with a few restrictions: kings, guild leaders, dancers, farmers, explorers, hunters, salescreatures, cooks, bakers, quest givers, doctors.  None of these professions are prominent.
+
 ### Quests:
 
-Quests have been discussed but none have been developed as of yet.
+Quests have been discussed with the suggestion that a series of quests would have to be accomplished to discover or found cities.  This will later be further developed.
+
+### Resources:
+
+The game has resources which will later be further developed.
+
+### Ruling Class:
+
+A ruling class, or a royal family, consisting of a king or other professions have the ability to create rules and levy taxes.
 
 ### Skills:
 
-There are numerous skills that players have, some by player brain, some by body part. Skills have a level and experience ranking. Level ranges from 0 (unskilled) to 100 (maximum skill). Skills are trained through use. There are super and subskills, such as “Harvest” and “Harvest Corn.” Superskills only gain a percentage of experience through use of a subskill. Skills are all initially locked; skills that can be used need to be unlocked in some way, such as being an ability of body part (e.g. slash with claw), item (e.g. pick-axe unlocks mine ore), or something else. These skills, include speaking and understanding various race languages, writing and wielding objects, hearing and tracking, harvesting and mining and searching.
+There are numerous skills that players have, some by player brain, some by creature type, some by body part.  Each action a player can take will be considered a skill.  Skills have a level and experience ranking.  There are super and subskills, such as “Harvest” and “Harvest Corn.”  Skills are all initially locked; skills that can be used need to be unlocked in some way, such as being an ability of body part (e.g. slash with claw), item (e.g. pick-axe unlocks mine ore), or something else.  Skills may be an abstract class.  Skills include two animations.  One at the start of using the skill and a second near completion.
+Possible skills:
+Punch
+Kick
+Block
+Slash
+Stab
+Slash (2H)
+Bash
+Gather Plant
+Gather Egg
+Gather Corn
+Gather Wheat
+Process Ore
+Process Iron
+Process Copper
+Process Gold
+Running
+Smith Sword
+Iron Working
+Gold Working
+Copper Working
+Bronze Working
+Sharpening
+Search
+Gem Spotting
+Food spotting
+Magic Detection
+Tracking
+Listening
+Player Detection
+Speak [creature] language
+Understand [creature] language
+Writing
+Wielding object
+Mining [ore]
+Persuasion
+“Smell” creature
+“Smell” ore
+“Smell” plant
+Dance fighting
+
+### Skill Levels:
+
+Skills have a level and experience ranking.  Level ranges from 0 (unskilled) to 100 (maximum skill).  Skills are trained through use.  Superskills only gain a percentage of experience through use of a subskill.
+
+### Stats:
+
+Stats (statistics) are planned and will be more fully developed later.
 
 ### Statuses:
 
-A player may be affected by status conditions. Such status conditions may cause transformations or have other effects. This will later be more fully developed.
+A player may be affected by status conditions.  Transformation and drunk statuses have been mentioned.  Status effects are attached to a specific body part and there was mention that they may have a limited duration or be permanent.  This will later be more fully developed. 
 
 ### Transformation:
 
-There are conditions or effects that can cause bodies to transform from one creature to another, this could happen quickly or slowly. A character’s hands could transform into wyvern wings, the skin type could change from skin to hair, A tail could develop, body parts could grow or shrink, color could change, features could be added or lost. It is unknown how much of a role this will be in game play at this time.
+There are conditions or effects that can cause bodies to transform from one creature to another, this could happen quickly or slowly.  A character’s hands could transform into wyvern wings, the skin type could change from skin to hair, A tail could develop, body parts could grow or shrink, color could change, features could be added or lost.  Transformations play an unknown but important role in the game.  Implementation of the Body Part Classes should ease development of the Transformation Classes.  A suggestion was for transformations to have the body part fade to black then unfade as transformed.
+
+### Travel:
+
+Suggested type of travel include walking, flying, mounts, a bullet train, boats and cars.  Consumable crystals were also suggested.  The suggestions indicate that travel should be relatively difficult and require time.
 
 ### World:
 
@@ -199,6 +263,10 @@ December 2019 - January 2020: Initial game development
 
 May 15, 2020: Discord server set up for game development, game overhaul
 
+July 7, 2020: The beginning of weekly meetings
+
+July 23, 2020: The company name of Endtime Entrepreneurs was chosen
+
 ## Credits:
 
 Thank you to the following people for their work:
@@ -208,3 +276,5 @@ Daniel Masker for his client/server work
 Michael Clinesmith for is body part design
 
 Michael Clinesmith for designing this document
+
+Jade Masker for his updating of the GitHub wiki
