@@ -116,13 +116,17 @@ Equipment exists and can be equipped to various body parts. Equipment may be lim
 
 Periodic events will occur in the world, giving players the chance to complete unique quests and obtain items, also possibly creating history, location landmarks, and opening up new civilizations and cities.
 
+### Food:
+
+Numerous food types are being considered, pizza, vegetables, grains, meat, and other drinks.  Food is considered a type of item.  Alcoholic drinks are possible.  An unanswered question is whether different creatures favor different kinds of foods. (This may be affected by skills.)
+
 ### Guilds:
 
-The world will have guilds that are in control of certain areas of a land mass and have various rules in them that are enforced. The may be wars that expand or decrease the size of the guilds.
+The world will have guilds that are in control of certain areas of a land mass and have various rules in them that are enforced.  They can tax their jurisdiction and use that money to pay for tasks.  There may be wars that expand or decrease the size of the guilds.  Guild jurisdictions are separate from each other.
 
 ### History:
 
-There will be a history of various events in the server, and players will have memories of various historical events they are involved in.
+Historical events can be created by events in the game, or certain specific actions, such if a player kills a boss, or creates a special item.  Historical events will be kept in a database, that can be researched by date, region and possibly topic.  The suggestion is to not have player history be attached to a player which could cause data lag.  Players involved in a significant event, and noteworthy historical characters may have books written about them.  Several important historical events may be the “Dawn of Time”, the invention of pizza, the foundation of cities, and the cause of transformations.
 
 ### Inventory:
 
@@ -130,15 +134,27 @@ A player has an inventory. The current suggestion is that inventory is saved as 
 
 ### Items:
 
-There will be many items in the world. Items have name, weight and descriptions/lore. Various subclasses of items have been imagined. Food, having hunger and thirst fields. Equipment containing stat changes, effects/curses, durability and charges, material, legendary items uniquely created, consumable items with Numberofuses, effects, and status fields, potions as a subclass of consumable items, interactables, and holders containing a Maxweight field. Items can be placed in a player’s inventory.
+There will be many items in the world.  Items are considered resources.  Items have name, weight and descriptions/lore.  Various subclasses of items have been imagined.  Food, having hunger and thirst fields.  Equipment containing stat changes, effects/curses, durability and charges, material, legendary items uniquely created, consumable items with Numberofuses, effects, and status fields, potions as a subclass of consumable items, interactables, and holders containing a Maxweight field.  Items can be placed in a player’s inventory.  It has been suggested Items be coded using a markup language rather than being individually hard coded.
+
+### Laws:
+
+Laws may be created by the ruling class or guilds.  Guilds can set up laws in their area of control that have to be followed.  Unanswered questions about laws are on how are how they are created, and how the power structure is set up.
 
 ### Loading/Saving:
 
 A player will be able to save and load their character to control be able to use their character when they choose. A login will be used to connect players to their characters.
 
+### Locations:
+
+The game world will include a main city (or cities), temples and a lot of mazes.  It is suggested the world is a starting civilization, and that some locations may be designed as part of game play.
+
 ### Maps:
 
-Maps will be randomly generated as mazes in a 2-D environment, with players and monsters occupying spaces on the map.
+Maps will be randomly generated as mazes in a 2-D environment, with players and monsters occupying spaces on the map.  There was discussion if one level builds on top of another, if a city was to be surrounded by mazes or something else.  Some maps will be generated once during the game, and other maps randomly generated on demand.
+
+### Medicine:
+
+Medicine used to heal players include potions, surgeries through doctors, herbal remedies, and healing crystals, along with a player healing over time.  Medicine can give buffs, but healing takes time and is not instantaneous.
 
 ### Monsters:
 
@@ -166,7 +182,7 @@ There are conditions or effects that can cause bodies to transform from one crea
 
 ### World:
 
-The world has 2-D maps to explore. There are permanent city areas than can be developed, different levels of maps/mazes can be randomly generated; there will be quests for players to follow and NPCS to interact with
+The world has 2-D maps to explore.  There are permanent city areas than can be developed, different levels of maps/mazes can be randomly generated; there will be quests for players to follow and NPCS to interact with.  The world will have trees and plants, caves, lakes, rural and urban areas, many different types of creatures including domestic and wild animals, metal veins, temples, varying biomes and elevations.  Players can transform, and the world is in the process of being developed.  Unanswered questions include a day/night cycle, a sun or moon existing, whether the world is flat, has multilevel disks, or is round, or includes temperature changes.
 
 ## Key Dates:
 
