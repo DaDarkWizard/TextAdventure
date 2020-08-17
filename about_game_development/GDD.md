@@ -5,9 +5,9 @@
 
 # Development Manual
 
-**Document v.0.0.2**
+**Document v.0.0.3**
 
-Dated 7/17/2020
+Dated 8/14/2020
 
 ## Introduction:
 
