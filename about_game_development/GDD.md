@@ -108,10 +108,6 @@ An economy exists with coin and other possible trading money.  The economy is a 
 
 Entertainment has been mentioned with various professions of entertainment allowed (dancers, musicians, artists, etc.)  A suggestion of side games (i.e. fishing, opera, races) have been suggested, with unanswered questions allowing movies, animations, arena battles, jousting, and Olympics as implemented forms of entertainment.
 
-### Equipment:
-
-Equipment exists and can be equipped to various body parts. Equipment may be limited by creature type, and may generate effects (including slow transformations.) Cursed equipment is possible.
-
 ### Events:
 
 Periodic events will occur in the world, giving players the chance to complete unique quests and obtain items, also possibly creating history, location landmarks, and opening up new civilizations and cities.
